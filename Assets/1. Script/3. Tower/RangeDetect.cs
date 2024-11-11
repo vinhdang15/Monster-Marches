@@ -15,7 +15,6 @@ public class RangeDetect : MonoBehaviour
     public void SetSprtieIndicator(float targetRange)
     {   
         float rangeIndicatorScale = targetRange / spriteBoundInX;
-        Debug.Log($"{targetRange}, {spriteBoundInX}");
         transform.localScale = new Vector3(rangeIndicatorScale, rangeIndicatorScale, 1);
     }
 }

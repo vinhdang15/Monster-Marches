@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 944608653546578891}
   - component: {fileID: 2465193866280544995}
-  - component: {fileID: 5490638758556397994}
+  - component: {fileID: 5570272979463574971}
   m_Layer: 0
-  m_Name: Arrow
+  m_Name: Arrow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5405717181563337596}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.062847, y: -0.71382517, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.48584908, g: 0.985051, b: 1, a: 1}
+  m_Sprite: {fileID: 940448352, guid: 220af499dc74788419be80c3c07dc4e7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5490638758556397994
+--- !u!114 &5570272979463574971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,6 +94,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5405717181563337596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c3e4d5615a27214d9967cf0a7d1fd96, type: 3}
+  m_Script: {fileID: 11500000, guid: 6365583a3bc92184f933aa0768a484c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: Arrow1
+  enemy: {fileID: 0}
+  bulletLastPos: {x: 0, y: 0}

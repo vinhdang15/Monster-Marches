@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5463265225288300117}
   - component: {fileID: 7388202200012856715}
   m_Layer: 8
-  m_Name: MagerTowerPrefab
+  m_Name: MagerTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

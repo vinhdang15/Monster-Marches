@@ -7,7 +7,8 @@ public class TowerView : MonoBehaviour
     [SerializeField] Transform towerRaycastObject;
     [SerializeField] RangeDetect rangeDetection;
     [SerializeField] RangeDetect rangeDetectionUpgrade;
-    private Transform spawnBulletTrans;
+    public List<BulletBase> ArrowBulletList;
+    [SerializeField] Transform spawnBulletTrans;
     private CircleCollider2D rangeDetechCol;
     private CircleCollider2D rangeRaycastCol;
     private Animator towerAnimation;

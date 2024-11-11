@@ -6,8 +6,9 @@ using UnityEngine.Rendering;
 
 public class TowerManager : MonoBehaviour
 {
-    //public BulletManager bulletManager;
+    public BulletManager bulletManager;
     [SerializeField] CSVTowerDataReader towerDataReader;
+    [SerializeField] CSVBulletDataReader bulletDataReader;
     [SerializeField] List<TowerView> towerPrefabList = new List<TowerView>();
     public List<TowerPresenter> towerList = new List<TowerPresenter>();
     public Dictionary<TowerPresenter, PresenterData> towerExtraData = new Dictionary<TowerPresenter, PresenterData>();
@@ -22,23 +23,11 @@ public class TowerManager : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
     void Update()
     {
-        foreach(TowerPresenter i in towerList)
-        {
-            if(true)
-            {
-                //i.towerView.GetEnemy()
-                //i.TowerAttack(enemy);
-            }
-        }
-        if(towerList.Count > 0 && check == false)
-        {
-            check = true;
-            //Debug.Log(towerPresenter[0].towerView.name);
-        }
+
     }
 
     #region INIT TOWER
@@ -57,10 +46,11 @@ public class TowerManager : MonoBehaviour
         
         towerExtraData[towerPresenter].RangeDetectUpgrade = towerDataReader.towerDataList.GetRangeDetect(towerType.ToString(), 2);
         towerExtraData[towerPresenter].GoldUpdrade = towerDataReader.towerDataList.GetGoldRequired(towerType.ToString(), 2);
-        Debug.Log(towerExtraData[towerPresenter].GoldUpdrade);
         towerExtraData[towerPresenter].GoldRefund += towerModel.GoldRequired;
 
         selectedEmptyPlot.HideEmptyPlot();
+
+        StartCoroutine(SpawnBulletCorountine(towerPresenter));
 
         this.towerList.Add(towerPresenter);    
     }
@@ -133,6 +123,24 @@ public class TowerManager : MonoBehaviour
     private void HanldeEnemyEnter(Enemy enemy, TowerPresenter towerPresenter)
     {
         towerExtraData[towerPresenter].enemies.Add(enemy);
+    }
+
+    private IEnumerator SpawnBulletCorountine(TowerPresenter towerPresenter)
+    {
+        Debug.Log("init corountine");
+        List<Enemy> towerPresentEnemiesList = towerExtraData[towerPresenter].enemies;
+        while(true)
+        {
+            if(towerPresentEnemiesList.Count > 0)
+            {
+                BulletBase bullet = Instantiate(towerPresenter.GetBullet(), towerPresenter.towerView.GetSpawnBulletTrans().position,Quaternion.identity, bulletManager.transform);
+                Debug.Log(bullet.type);
+                BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bullet.type);
+                bullet.Init(bulletData, towerPresentEnemiesList[0]);
+                bulletManager.Bullets.Add(bullet);
+            }
+            yield return new WaitForSeconds(towerPresenter.towerModel.FireRate);
+        }
     }
     #endregion
 
