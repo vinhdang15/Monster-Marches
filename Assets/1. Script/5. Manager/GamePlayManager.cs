@@ -6,46 +6,47 @@ using UnityEngine;
 
 public class GamePlayManager : MonoBehaviour
 {
-    public int Gold { get; private set; } = 200;
+    public int gold = 200;
     [HideInInspector] public int archerTOwerInitGold;
     [HideInInspector] public int mageTowerInitGold;
     [HideInInspector] public int barrackTowerInitGold;
     [HideInInspector] public int cannonTowerInitGold;
     [HideInInspector] public int towerUpgradeGold;
     [HideInInspector] public int towerSellGold;
-    [SerializeField] CSVTowerDataReader TowerDataReader;
+    [SerializeField] CSVTowerDataReader towerDataReader;
     [SerializeField] EmptyPlotManager   emptyPlotManager;
     [SerializeField] TowerManager       towerManager;
     [SerializeField] InputManager       inputManager;
     private Vector2                     SelectedEmptyPlotPos;
     private TowerPresenter selectedTower;
     public delegate void TowerManagerHandler();
-    public delegate void GoldChangeHandler();
-    public delegate void SelectedTowerHandler();
-    public event SelectedTowerHandler OnSelectedTower;
-    public event GoldChangeHandler OnGoldChange;
+    public event Action OnSelectedTower;
+    public event Action OnGoldChange;
     public bool IsDataLoaded { get; private set; }
+
+    public SpawnEnemyManager spawnEnemyManager;
 
     private void Start()
     {
         RegisterButtonEvent();
         RegisterTowerSelectionEvent();
-        StartCoroutine(WaitForDataLoadAnhProcess());
+        RegisterCautionClickEvent();
+        StartCoroutine(WaitForDataLoadAndProcess());
     }
 
     private void GetInitGold()
     {
-        archerTOwerInitGold = TowerDataReader.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString());
-        mageTowerInitGold = TowerDataReader.towerDataList.GetGoldInit(TowerType.MageTower.ToString());
-        barrackTowerInitGold = TowerDataReader.towerDataList.GetGoldInit(TowerType.BarrackTower.ToString());
-        cannonTowerInitGold = TowerDataReader.towerDataList.GetGoldInit(TowerType.CannonTower.ToString());
+        archerTOwerInitGold = towerDataReader.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString());
+        mageTowerInitGold = towerDataReader.towerDataList.GetGoldInit(TowerType.MageTower.ToString());
+        barrackTowerInitGold = towerDataReader.towerDataList.GetGoldInit(TowerType.BarrackTower.ToString());
+        cannonTowerInitGold = towerDataReader.towerDataList.GetGoldInit(TowerType.CannonTower.ToString());
     }
 
     #region REGISTER EMPTYPLOT CLICK EVENT, TOWER BUTTON CLICK EVENT, SELECTED TOWER EVENT
     // EMPTYPLOT CLICK EVENT
-    private IEnumerator WaitForDataLoadAnhProcess()
+    private IEnumerator WaitForDataLoadAndProcess()
     {
-        yield return new WaitUntil(() => TowerDataReader.IsDataLoaded && emptyPlotManager.isInitEmptyPlot);
+        yield return new WaitUntil(() => towerDataReader.IsDataLoaded && emptyPlotManager.isInitEmptyPlot);
         IsDataLoaded = true;
         RegisterSelectedEmptyPlotEvent();
         GetInitGold();
@@ -79,13 +80,27 @@ public class GamePlayManager : MonoBehaviour
     }
     #endregion
 
+    // caution click event
+    private void RegisterCautionClickEvent()
+    {
+        spawnEnemyManager.OnCautionClick += HandleCautionClick;
+    }
+
+    private void HandleCautionClick(float time)
+    {
+        gold += (int)time;
+        OnGoldChange?.Invoke();
+        Debug.Log(time);
+    }
+
     #region INIT TOWER
     private void OnInitTower(int goldRequired, TowerManagerHandler towerManagerAction)
     {
-        if(Gold < goldRequired) return;
+        if(gold < goldRequired) return;
         towerManagerAction();
-        Gold -= goldRequired;
+        gold -= goldRequired;
         OnGoldChange?.Invoke();
+        //towerManager.towerExtraData[selectedTower].GoldRefund += goldRequired;
         inputManager.HideInitPanel();
     }
     
@@ -146,27 +161,13 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleUpgradeSelectedTower()
     {
-        if(Gold < towerManager.towerExtraData[selectedTower].GoldUpdrade) return;
-
-        int goldUpdrade = towerManager.towerExtraData[selectedTower].GoldUpdrade;
+        if(gold < towerManager.towerExtraData[selectedTower].GoldUpdrade) return;
         // process gold
-        Gold -= goldUpdrade;
-        towerManager.towerExtraData[selectedTower].GoldRefund += goldUpdrade;
+        int goldUpdrade = towerManager.towerExtraData[selectedTower].GoldUpdrade;
+        gold -= goldUpdrade;
         OnGoldChange?.Invoke();
-        
-        // Update tower model
-        string towerType = selectedTower.towerModel.TowerType;
-        int towerLevel = selectedTower.towerModel.Level;
-        TowerData towerData = TowerDataReader.towerDataList.GetTowerData(towerType, towerLevel + 1);
-        selectedTower.towerModel.UpgradeTowerModel(towerData);
-
-        // Update next upgrade gold, next range detection data
-        towerManager.UpdateTowerExtraData(selectedTower);
-
-        // Update range detection, range detection upgrade
-        towerManager.UpdateRangeDetection(selectedTower);
-        towerManager.UpdateRangeDetectionUpgrade(selectedTower);
-
+        towerManager.UpgradeTower(selectedTower);
+        towerManager.towerExtraData[selectedTower].GoldRefund += goldUpdrade;
         // Hide range detection and upgrade panel
         HandleRaycatHitNull();
         inputManager.HideUpgradePanel();
@@ -175,7 +176,7 @@ public class GamePlayManager : MonoBehaviour
     // Sell selected tower
     private void HandleSellSelectedTower()
     {
-        Gold += towerManager.towerExtraData[selectedTower].GoldRefund;
+        gold += towerManager.towerExtraData[selectedTower].GoldRefund;
         towerManager.towerExtraData[selectedTower].emptyPlot.ShowEmptyPlot();
         Destroy(selectedTower.gameObject);
         OnGoldChange?.Invoke();

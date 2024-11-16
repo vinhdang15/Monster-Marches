@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -15,19 +17,44 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI cannonTowerInitGoldText;
     [SerializeField] TextMeshProUGUI upgradeTowerGoldText;
     [SerializeField] TextMeshProUGUI sellTowerGoldText;
+    [Header("Wave")]
+    [SerializeField] TextMeshProUGUI totalWaveText;
+    [SerializeField] TextMeshProUGUI currentWaveText;
 
     private void Start()
     {
         gamePlayManager = GetComponent<GamePlayManager>();
+        RegistereGamePlayManagerEvent();
         StartCoroutine(WaitForDataLoadAnhProcess());
+        GetTotalWave();
+        GetCurrentWaveBeign();
+        HandleGoldChange();
+    }
+
+    private void  RegistereGamePlayManagerEvent()
+    {
         gamePlayManager.OnSelectedTower += HandeSelectedTower;
         gamePlayManager.OnGoldChange += HandleGoldChange;
-        HandleGoldChange();
+        gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave += HandleUpdateCurrentWave;
+    }
+    private void GetTotalWave()
+    {
+        totalWaveText.text = "OF " + gamePlayManager.spawnEnemyManager.TotalWave.ToString();
+    }
+
+    private void GetCurrentWaveBeign()
+    {
+        currentWaveText.text = "0";
+    }
+
+    private void HandleUpdateCurrentWave(int currentWave)
+    {
+        currentWaveText.text = currentWave.ToString();
     }
 
     private void HandleGoldChange()
     {
-        goldText.text = gamePlayManager.Gold.ToString();
+        goldText.text = gamePlayManager.gold.ToString();
     }
     private IEnumerator WaitForDataLoadAnhProcess()
     {

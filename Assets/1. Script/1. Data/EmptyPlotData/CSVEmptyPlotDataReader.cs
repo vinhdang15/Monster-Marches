@@ -6,7 +6,7 @@ using UnityEngine;
 public class CSVEmptyPlotDataReader : MonoBehaviour
 {
     [SerializeField] TextAsset emptyPlotCSV;
-    public EmptyPlotDataList emptyPlotDataList;
+    public EmptyPlotDataListSO emptyPlotDataList;
     public bool IsDataLoaded { get; private set; } = false;
 
     private void Start()

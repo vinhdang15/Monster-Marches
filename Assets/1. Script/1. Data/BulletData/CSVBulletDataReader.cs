@@ -3,7 +3,7 @@ using UnityEngine;
 public class CSVBulletDataReader : MonoBehaviour
 {
     [SerializeField] TextAsset        bulletDataCSV;
-    public           BulletDataList    bulletDataList;
+    public           BulletDataListSO    bulletDataList;
     public bool IsDataLoaded { get; private set; }
 
     private void Start()

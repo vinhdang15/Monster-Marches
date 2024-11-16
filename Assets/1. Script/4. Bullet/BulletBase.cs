@@ -11,10 +11,14 @@ public class BulletBase : MonoBehaviour
     protected string   DamageTarget             { get; set; }
     protected float    DamageRange              { get; set; }
     protected string   DamageEffect             { get; set; }
+    public bool        isReachEnemyPos          = false;
     //[SerializeField] Animator animator;
-    [HideInInspector] public Enemy       enemy;
-    protected Vector2 enemyPos;
+    [HideInInspector] public UnitBase       targetEnemy;
+    protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
+
+    public delegate void BulletReachEnemyPosHandler(BulletBase bulletBase);
+    public BulletReachEnemyPosHandler OnReachEnemyPos;
     
     protected virtual void Awake()
     {
@@ -25,7 +29,7 @@ public class BulletBase : MonoBehaviour
         
     }
 
-    public void Init(BulletData _bulletData, Enemy _enemy)
+    public void InitBullet(BulletData _bulletData, UnitBase _enemy)
     {
         Speed                   = _bulletData.speed;
         Damage                  = _bulletData.damage;
@@ -33,7 +37,7 @@ public class BulletBase : MonoBehaviour
         DamageTarget            = _bulletData.damageTarget;
         DamageRange             = _bulletData.damageRange;
         DamageEffect            = _bulletData.damageEffect;
-        enemy                   = _enemy;
+        targetEnemy             = _enemy;
     }
 
     public void UpdateBulletDirection()
@@ -57,11 +61,22 @@ public class BulletBase : MonoBehaviour
 
     public void MoveToTarget()
     {
-        if(enemy != null)
+        if(targetEnemy != null)
         {
-            enemyPos = enemy.transform.position;
+            enemyPos = targetEnemy.transform.position;
         }
-        transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
+        if(!isReachEnemyPos) transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
+
+        if((Vector2)transform.position == enemyPos)
+        {
+            OnReachEnemyPos?.Invoke(this);
+            isReachEnemyPos = true;
+        }
+    }
+
+    public void DamageCount(int damageOverTimeCount)
+    {
+        
     }
 }
 

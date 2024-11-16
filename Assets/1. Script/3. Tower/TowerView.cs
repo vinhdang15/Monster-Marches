@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class TowerView : MonoBehaviour
 {
-    [SerializeField] Transform towerRaycastObject;
-    [SerializeField] RangeDetect rangeDetection;
-    [SerializeField] RangeDetect rangeDetectionUpgrade;
-    public List<BulletBase> ArrowBulletList;
-    [SerializeField] Transform spawnBulletTrans;
-    private CircleCollider2D rangeDetechCol;
-    private CircleCollider2D rangeRaycastCol;
-    private Animator towerAnimation;
-    public List<Enemy> enemies = new List<Enemy>();
-
-    public delegate void EnemyEnterHanlder(Enemy enemy, TowerView view);
+    [SerializeField] Transform      towerRaycastObject;
+    [SerializeField] RangeDetect    rangeDetection;
+    [SerializeField] RangeDetect    rangeDetectionUpgrade;
+    [SerializeField] Transform      spawnBulletTrans;
+    public List<BulletBase>         ArrowBulletList;
+    public List<UnitBase>              enemies = new List<UnitBase>();
+    private CircleCollider2D        rangeDetechCol;
+    private CircleCollider2D        rangeRaycastCol;
+    private Animator                towerAnimation;
+    
+    public delegate void EnemyEnterHanlder(UnitBase enemy, TowerView view);
     public event EnemyEnterHanlder OnEnemyEnter;
-
+    public delegate void EnemyExitHanlder(UnitBase enemy, TowerView view);
+    public event EnemyEnterHanlder OnEnemyExit;
     public delegate void SelectedTowerViewHanlder(TowerView towerView);
     public event SelectedTowerViewHanlder OnSelectedTowerView;
 
@@ -70,7 +71,7 @@ public class TowerView : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Enemy enemyScript = other.GetComponent<Enemy>();
+            UnitBase enemyScript = other.GetComponent<UnitBase>();
             OnEnemyEnter?.Invoke(enemyScript, this);
         }
     }
@@ -79,7 +80,8 @@ public class TowerView : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-
+            UnitBase enemyScript = other.GetComponent<UnitBase>();
+            OnEnemyExit?.Invoke(enemyScript, this);
         }
     }
 

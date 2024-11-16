@@ -3,7 +3,7 @@ using UnityEngine;
 public class CSVTowerDataReader : MonoBehaviour
 {
     [SerializeField] TextAsset        towerDataCSV;
-    public           TowerDataList    towerDataList;
+    public           TowerDataListSO    towerDataList;
     public bool IsDataLoaded { get; private set; }
 
     private void Start()
