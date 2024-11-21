@@ -1,24 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class BulletBase : MonoBehaviour
 {
-    public string      type;//                        { get; set; }
-    protected float    Speed                    { get; set; }
-    protected int      Damage                   { get; set; }
-    protected int      DamageOverTimeCount      { get; set; }
-    protected string   DamageTarget             { get; set; }
-    protected float    DamageRange              { get; set; }
-    protected string   DamageEffect             { get; set; }
-    public bool        isReachEnemyPos          = false;
-    //[SerializeField] Animator animator;
-    [HideInInspector] public UnitBase       targetEnemy;
+    public string   type;//                  { get; set; }
+    public int      Damage                   { get; set; }
+    public float    Speed                    { get; set; }
+    public string   EffectType               { get; set; }
+    public bool     isReachEnemyPos          = false;
+    public IEffect effect;
+    [SerializeField] UnitBase            targetEnemy;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
-
-    public delegate void BulletReachEnemyPosHandler(BulletBase bulletBase);
-    public BulletReachEnemyPosHandler OnReachEnemyPos;
+    public event Action<BulletBase, UnitBase> OnReachEnemyPos;
     
     protected virtual void Awake()
     {
@@ -29,15 +23,32 @@ public class BulletBase : MonoBehaviour
         
     }
 
-    public void InitBullet(BulletData _bulletData, UnitBase _enemy)
+    public void InitBullet(BulletData _bulletData, CSVEffectDataReader effectDataReader, UnitBase _enemy)
+    {
+        InitBulletData(_bulletData, _enemy);
+        InitBulletEffect(_bulletData, effectDataReader);
+    }
+
+    private void InitBulletData(BulletData _bulletData, UnitBase _enemy)
     {
         Speed                   = _bulletData.speed;
         Damage                  = _bulletData.damage;
-        DamageOverTimeCount     = _bulletData.damageOverTimeCount;
-        DamageTarget            = _bulletData.damageTarget;
-        DamageRange             = _bulletData.damageRange;
-        DamageEffect            = _bulletData.damageEffect;
+        EffectType              = _bulletData.effectTyes;
         targetEnemy             = _enemy;
+    }
+
+    private void InitBulletEffect(BulletData _bulletData, CSVEffectDataReader effectDataReader)
+    {
+        EffectData effectData = effectDataReader.effectDataList.GetEffectData(_bulletData.effectTyes);
+        if(effectData != null)
+        {
+            effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, effectData.effectOccursTime, effectData.effectRange);
+        }
+        else
+        {
+            Debug.Log($"{type} bullet have no effect");
+        }
+        
     }
 
     public void UpdateBulletDirection()
@@ -69,14 +80,9 @@ public class BulletBase : MonoBehaviour
 
         if((Vector2)transform.position == enemyPos)
         {
-            OnReachEnemyPos?.Invoke(this);
             isReachEnemyPos = true;
+            OnReachEnemyPos?.Invoke(this, targetEnemy);
         }
-    }
-
-    public void DamageCount(int damageOverTimeCount)
-    {
-        
-    }
+    }   
 }
 

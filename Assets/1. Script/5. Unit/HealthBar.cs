@@ -11,14 +11,14 @@ public class HealthBar : MonoBehaviour
         //bar = transform.Find("Bar");
     }
 
-    public void Resize(float MaxHp, float damage)
+    public void ResizeOnDamage(float MaxHp, float damage)
     {
         sizeNormalized -= (float)damage / MaxHp;
         if (sizeNormalized <= 0) sizeNormalized = 0;
         bar.localScale = new Vector3(sizeNormalized, 1f);
     }
 
-    public void ResizeType2(float MaxHp, float currentHp)
+    public void ResizeOnCurrentHp(float MaxHp, float currentHp)
     {
         sizeNormalized = currentHp/MaxHp;
         bar.localScale = new Vector3(sizeNormalized, 1f);

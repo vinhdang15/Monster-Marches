@@ -1,6 +1,7 @@
-BulletType,Speed,Damage,DamageOverTimeCount,DamageTarget,DamageRange,DamageEffect
-Arrow1,5,5,1,FristEnemy,0,none
-Arrow2,5,7,1,FristEnemy,0,none
-MagicBall1,3.5,3,3,FristEnemy,0,Slow
-MagicBall2,3.5,3,3,SreachUnEffectEnemy,0,Slow
-Bomb1,2,10,1,MultiEnemies,1.5,none
+BulletType,Damage,Speed,EffectType
+Arrow1,10,6,dot
+Arrow2,20,7,dot
+MagicBall1,30,4,slow
+MagicBall2,20,5,slow
+Bomb1,20,4,aoe20
+Bomb2,30,4,aoe30

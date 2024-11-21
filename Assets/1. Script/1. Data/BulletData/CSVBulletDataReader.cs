@@ -1,9 +1,10 @@
+using System.Linq;
 using UnityEngine;
 
 public class CSVBulletDataReader : MonoBehaviour
 {
-    [SerializeField] TextAsset        bulletDataCSV;
-    public           BulletDataListSO    bulletDataList;
+    [SerializeField] TextAsset              bulletDataCSV;
+    public           BulletDataListSO       bulletDataList;
     public bool IsDataLoaded { get; private set; }
 
     private void Start()
@@ -25,16 +26,13 @@ public class CSVBulletDataReader : MonoBehaviour
             string[] values = Lines[i].Split(',');
             // make sure to only add rows that contain enough information (8 columns of information)
             // if it not, move to the next line
-            if(values.Length < 7) continue;
+            if(values.Length < 4) continue;
             BulletData bulletData = new BulletData
             {
                 type                    = values[0],
-                speed                   = float.Parse(values[1]),
-                damage                  = int.Parse(values[2]),
-                damageOverTimeCount     = int.Parse(values[3]),
-                damageTarget            = values[4],
-                damageRange             = float.Parse(values[5]),
-                damageEffect            = values[6],
+                damage                  = int.Parse(values[1]),
+                speed                   = float.Parse(values[2]),
+                effectTyes              = values[3].Trim().ToLower(),
             };
             bulletDataList.bulletDataList.Add(bulletData);
         }

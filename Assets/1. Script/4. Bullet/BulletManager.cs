@@ -15,8 +15,18 @@ public class BulletManager : MonoBehaviour
             bullet.UpdateBulletDirection();
         }
     }
-    // public BulletBase GetBullet(string bulleType)
-    // {
-    //     return Bullets.Find(bullet => bullet.BulletType == bulleType);
-    // }
+
+    public void AddBullet(BulletBase bulletBase)
+    {
+        Bullets.Add(bulletBase);
+        bulletBase.OnReachEnemyPos += HandleReachingEnemyPos;
+    }
+    
+    private void HandleReachingEnemyPos(BulletBase bullet, UnitBase enemy)
+    {
+        float damage = bullet.Damage;
+        if (enemy.CurrentHp == 0) return;
+        enemy.TakeDamage(damage);
+        bullet.effect?.Apply(enemy);
+    }
 }

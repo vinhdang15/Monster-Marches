@@ -29,7 +29,7 @@ public class CSVEmptyPlotDataReader : MonoBehaviour
             EmptyPlotData emptyPlotData = new EmptyPlotData
             {
                 x = float.Parse(values[0]),
-                y = float.Parse(values[1])
+                y = float.Parse(values[1]),
             };
             emptyPlotDataList.emptyPlotDataList.Add(emptyPlotData);
         }

@@ -60,6 +60,8 @@ public class SpawnEnemyManager : MonoBehaviour
         yield return new WaitForSeconds(timeWaitForNextWave);
         waitCautionStartTime = 0;
         HideAllCautionSlider();
+        OnCallNextWave?.Invoke();
+        UpdateCurrentWaveIndex();
         
     }
 
@@ -109,9 +111,7 @@ public class SpawnEnemyManager : MonoBehaviour
             // update gold when call next wave early
 
             HankdleCautionClick();
-            // update UI curent wave
-            CurrentWaveIndex++;
-            OnUpdateCurrentWave?.Invoke(CurrentWave);
+            UpdateCurrentWaveIndex();
         }
     }
 
@@ -127,6 +127,13 @@ public class SpawnEnemyManager : MonoBehaviour
                 OnCautionClick?.Invoke(timeCallEarly);
             }
         }
+    }
+
+    private void UpdateCurrentWaveIndex()
+    {
+        CurrentWaveIndex++;
+        // update UI curent wave
+        OnUpdateCurrentWave?.Invoke(CurrentWave);
     }
 
     public float GetTimeBetweenEnemy()

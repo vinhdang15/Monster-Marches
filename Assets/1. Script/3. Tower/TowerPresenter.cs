@@ -31,6 +31,6 @@ public class TowerPresenter : MonoBehaviour
 
     public BulletBase GetBullet()
     {
-        return towerView.ArrowBulletList.Find(bullet => bullet.type == towerModel.BulletType);
+        return towerView.BulletList.Find(bullet => bullet.type == towerModel.BulletType);
     }
 }

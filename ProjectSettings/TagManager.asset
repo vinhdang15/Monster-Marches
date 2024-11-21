@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - BuildingSpot
+  - EmptyPlot
   - TowerRaycast
   - Tower
-  - 
+  - TowerRangeDetect
   - Enemy
   - Button
   - 

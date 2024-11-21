@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,19 @@ public class EnemyManager : MonoBehaviour
     {
         foreach(var enemy in enemies)
         {
-            enemy.SetDefaultSpeed();
             enemy.Move();
             enemy.SetMovingDirection();
         }
+    }
+
+    public void AddEnemy(Enemy enemy)
+    {
+        enemy.OnEnemyDeath += HandleEnemyDeath;
+        enemies.Add(enemy);
+    }
+
+    private void HandleEnemyDeath(Enemy enemy)
+    {
+        enemies.Remove(enemy);
     }
 }

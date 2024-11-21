@@ -10,6 +10,7 @@ public class TowerManager : MonoBehaviour
     public BulletManager bulletManager;
     [SerializeField] CSVTowerDataReader towerDataReader;
     [SerializeField] CSVBulletDataReader bulletDataReader;
+    [SerializeField] CSVEffectDataReader effectDataReader;
     [SerializeField] List<TowerView> towerPrefabList = new List<TowerView>();
     public List<TowerPresenter> towerList = new List<TowerPresenter>();
     public Dictionary<TowerPresenter, PresenterData> towerExtraData = new Dictionary<TowerPresenter, PresenterData>();
@@ -132,10 +133,6 @@ public class TowerManager : MonoBehaviour
         return towerDataReader.towerDataList.GetRangeDetect(towerType, TowerLevel + 1);
     }
 
-    
-
-    
-
     public void AddGoldRefund(TowerPresenter towerPresenter, int gold)
     {
         towerExtraData[towerPresenter].GoldRefund += gold;
@@ -163,8 +160,8 @@ public class TowerManager : MonoBehaviour
                 Vector2 initPos = towerPresenter.towerView.GetSpawnBulletTrans().position;
                 BulletBase bulletObject = Instantiate(bullet, initPos, Quaternion.identity, bulletManager.transform);
                 BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletObject.type);
-                bulletObject.InitBullet(bulletData, towerPresentEnemiesList[0]);
-                bulletManager.Bullets.Add(bulletObject);
+                bulletObject.InitBullet(bulletData, effectDataReader, towerPresentEnemiesList[0]);
+                bulletManager.AddBullet(bulletObject);
             }
             yield return new WaitForSeconds(towerPresenter.towerModel.FireRate);
         }

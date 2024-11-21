@@ -1,0 +1,5 @@
+EffectType,EffectValue,EffectDuration,EffectOccursTime,EffectRange
+Slow,50,2,0,0
+DoT,15,3,3,0
+AoE20,20,0,0,3
+AoE30,30,0,0,3

@@ -90,7 +90,6 @@ public class GamePlayManager : MonoBehaviour
     {
         gold += (int)time;
         OnGoldChange?.Invoke();
-        Debug.Log(time);
     }
 
     #region INIT TOWER
@@ -100,7 +99,6 @@ public class GamePlayManager : MonoBehaviour
         towerManagerAction();
         gold -= goldRequired;
         OnGoldChange?.Invoke();
-        //towerManager.towerExtraData[selectedTower].GoldRefund += goldRequired;
         inputManager.HideInitPanel();
     }
     

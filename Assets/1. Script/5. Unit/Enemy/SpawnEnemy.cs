@@ -89,6 +89,7 @@ public class SpawnEnemy : MonoBehaviour
         UnitData enemyData = unitDataReader.unitDataList.GetEnemyData(enemy.enemyName);
         Enemy enemyIns = Instantiate(enemy, enemyManager.transform);
         enemyIns.InitUnit(enemyData);
+        enemyIns.InitState();
         // add path to enemy pathway
         enemyIns.GetPathConfigSO(pathConfigSO);
         enemyIns.SetPosInPathWave(lineInPathIndex % 3);

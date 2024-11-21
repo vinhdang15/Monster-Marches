@@ -294,8 +294,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733765386}
-        m_TargetAssemblyTypeName: InputFromUser, Assembly-CSharp
+      - m_Target: {fileID: 653646661}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: InitCannonTowerBtn
         m_Mode: 2
         m_Arguments:
@@ -421,9 +421,12 @@ MonoBehaviour:
   bulletManager: {fileID: 1341667496}
   towerDataReader: {fileID: 1961100159}
   bulletDataReader: {fileID: 1863566788}
+  effectDataReader: {fileID: 1679984239}
   towerPrefabList:
   - {fileID: 6789151250249618790, guid: 3ae4144d04db5cb489f2c406d208017b, type: 3}
   - {fileID: 6789151250249618790, guid: c57e8f0281ab6e74089100a646807cbf, type: 3}
+  - {fileID: 0}
+  - {fileID: 6789151250249618790, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
   towerList: []
   selectedEmptyPlot: {fileID: 0}
   selectedTower: {fileID: 0}
@@ -436,7 +439,7 @@ Transform:
   m_GameObject: {fileID: 117138092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -72.88085, y: -155.38614, z: 2.6020913}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -499,7 +502,11 @@ MonoBehaviour:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 7
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 2
+    numberEnemyInWave: 10
+  - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
+    numberEnemyInWave: 10
+  - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
+    numberEnemyInWave: 10
   btnCautionSlider: {fileID: 0}
 --- !u!1 &324395679
 GameObject:
@@ -684,7 +691,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 8be9c5d661a196444ba58b7f7f31ed5a, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 5
+    numberEnemyInWave: 10
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -692,7 +699,11 @@ MonoBehaviour:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 4
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 5
+    numberEnemyInWave: 10
+  - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
+    numberEnemyInWave: 10
+  - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
+    numberEnemyInWave: 10
   btnCautionSlider: {fileID: 0}
 --- !u!1 &433124228
 GameObject:
@@ -1037,6 +1048,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 962262787}
+  - {fileID: 1679984238}
   - {fileID: 1961100160}
   - {fileID: 1863566787}
   - {fileID: 988850513}
@@ -1293,11 +1305,11 @@ Transform:
   m_GameObject: {fileID: 588932109}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 74.18034, y: 155.22769, z: -2.5436919}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 733765387}
+  - {fileID: 653646660}
   - {fileID: 1927368039}
   - {fileID: 2121268489}
   - {fileID: 117138094}
@@ -1308,7 +1320,7 @@ Transform:
   - {fileID: 445818475}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &733765385
+--- !u!1 &653646659
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1316,22 +1328,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 733765387}
-  - component: {fileID: 733765386}
-  m_Layer: 5
+  - component: {fileID: 653646660}
+  - component: {fileID: 653646661}
+  m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &733765386
+--- !u!4 &653646660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653646659}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 588932110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &653646661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733765385}
+  m_GameObject: {fileID: 653646659}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85b552d174de1204688fbbc13a7c1c64, type: 3}
@@ -1340,25 +1367,6 @@ MonoBehaviour:
   initPanel: {fileID: 48142380}
   upgradePanel: {fileID: 1051768911}
   checkSmybol: {fileID: 1120628039}
---- !u!224 &733765387
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733765385}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5436919}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 588932110}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 885.81964, y: 384.7723}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &915826542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,7 +1564,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733765386}
+      - m_Target: {fileID: 653646661}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: UpgradeTower
         m_Mode: 2
@@ -1827,7 +1835,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733765386}
+      - m_Target: {fileID: 653646661}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: SellTower
         m_Mode: 2
@@ -2153,7 +2161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenEnemy: 1
-  timeWaitForNextWave: 10
+  timeWaitForNextWave: 5
 --- !u!1 &1291901375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2283,9 +2291,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733765386}
+      - m_Target: {fileID: 653646659}
         m_TargetAssemblyTypeName: InputFromUser, Assembly-CSharp
-        m_MethodName: InitBarrackTowerBtn
+        m_MethodName: 
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1291901378}
@@ -2447,7 +2455,7 @@ Transform:
   m_GameObject: {fileID: 1341667495}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76.24319, y: -155.94151, z: 2.5620117}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2775,8 +2783,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733765386}
-        m_TargetAssemblyTypeName: InputFromUser, Assembly-CSharp
+      - m_Target: {fileID: 653646661}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: InitMageTowerBtn
         m_Mode: 2
         m_Arguments:
@@ -3088,6 +3096,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657854714}
   m_CullTransparentMesh: 1
+--- !u!1 &1679984237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1679984238}
+  - component: {fileID: 1679984239}
+  m_Layer: 0
+  m_Name: CSVEffectDataReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1679984238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679984237}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -77.53238, y: -156.1203, z: 2.4941504}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 506960115}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1679984239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679984237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d88d9692a82f044979a9308e0702dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectDataCSV: {fileID: 4900000, guid: 354a3aa724d702f49afc61905cb44718, type: 3}
+  effectDataList: {fileID: 11400000, guid: d95083739ef0fe048b384c389aa1c8b1, type: 2}
 --- !u!1 &1863566786
 GameObject:
   m_ObjectHideFlags: 0
@@ -3323,7 +3377,7 @@ MonoBehaviour:
   towerDataReader: {fileID: 1961100159}
   emptyPlotManager: {fileID: 2121268488}
   towerManager: {fileID: 117138093}
-  inputManager: {fileID: 733765386}
+  inputManager: {fileID: 653646661}
   spawnEnemyManager: {fileID: 1229339120}
 --- !u!114 &1927368041
 MonoBehaviour:
@@ -3430,8 +3484,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733765386}
-        m_TargetAssemblyTypeName: InputFromUser, Assembly-CSharp
+      - m_Target: {fileID: 653646661}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: InitBarrackTowerBtn
         m_Mode: 2
         m_Arguments:
@@ -3833,8 +3887,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 733765386}
-        m_TargetAssemblyTypeName: InputFromUser, Assembly-CSharp
+      - m_Target: {fileID: 653646661}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: InitArcherTowerBtn
         m_Mode: 2
         m_Arguments:
@@ -3985,7 +4039,11 @@ MonoBehaviour:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 2
+    numberEnemyInWave: 10
+  - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
+    numberEnemyInWave: 10
+  - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
+    numberEnemyInWave: 10
   btnCautionSlider: {fileID: 0}
 --- !u!1 &2121268487
 GameObject:
@@ -4028,7 +4086,7 @@ Transform:
   m_GameObject: {fileID: 2121268487}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76.24319, y: -155.94151, z: 2.5620117}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
