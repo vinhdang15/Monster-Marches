@@ -195,7 +195,6 @@ public class GamePlayManager : MonoBehaviour
     {
         if(selectedTower != null)
         {
-            Debug.Log(selectedTower.name);
             selectedTower.towerView.ShowRangeDetection(false);
             selectedTower.towerView.ShowRangeDetectionUpgrade(false);
         }

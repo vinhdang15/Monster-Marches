@@ -1,7 +1,8 @@
 TowerType,Level,BullletType,FireRate,RangeDetect,RangeRaycast,GoldRequired,Descriptions
-ArcherTower,1,Arrow1,1.5,5,0.7,50,"This is Archer Tower, hight fire rate"
-ArcherTower,2,Arrow2,0.7,3,0.7,70,"The arrow come with effect, deal more dame"
-MageTower,1,MagicBall1,2,5,0.7,70,"This is mage tower, deal dame mutil time"
-MageTower,2,MagicBall2,1,2,0.7,100,"Add more damages, slow down enemy"
+ArcherTower,1,Arrow1,1,4,0.7,50,"This is Archer Tower, hight fire rate"
+ArcherTower,2,Arrow2,0.7,5,0.7,70,"The arrow come with effect, deal more dame"
+MageTower,1,MagicBall1,2,4,0.7,70,"This is mage tower, deal dame mutil time"
+MageTower,2,MagicBall2,1,5,0.7,100,"Add more damages, slow down enemy"
+CannonTower,1,Bomb1,1,4,0.7,80,"This is Cannon Tower, spawn Bomb"
+CannonTower,2,Bomb2,1,5,0.7,120,Add more damage effect
 BarrackTower,1,Soldier1,1,1.5,0.7,70,"This is Barrack, spawn three soldier"
-CannonTower,1,Bomb1,1,5,0.7,70,"This is Cannon Tower, spawn Bomb"

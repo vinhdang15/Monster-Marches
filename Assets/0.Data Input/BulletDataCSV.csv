@@ -1,7 +1,7 @@
 BulletType,Damage,Speed,EffectType
-Arrow1,10,6,dot
-Arrow2,20,7,dot
-MagicBall1,30,4,slow
-MagicBall2,20,5,slow
-Bomb1,20,4,aoe20
-Bomb2,30,4,aoe30
+Arrow1,10,10,none
+Arrow2,20,10,Fire_DoT
+MagicBall1,30,7,Slow
+MagicBall2,20,8,Magic_DoT
+Bomb1,20,4,Bomb1_AoE20
+Bomb2,30,4,Bomb2_AoE30

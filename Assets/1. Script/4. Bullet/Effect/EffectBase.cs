@@ -19,8 +19,8 @@ public abstract class EffectBase : IEffect
         this.range          = range;
     }
 
-    public virtual void Apply(UnitBase enemy)
+    public virtual IEnumerator ApplyEffect(UnitBase enemy)
     {
-
+        yield return null;
     }
 }

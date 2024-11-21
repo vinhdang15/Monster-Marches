@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SlowEffect : EffectBase
@@ -9,8 +8,14 @@ public class SlowEffect : EffectBase
         base.Init(type, value, duration, occursTime,range);
     }
 
-    public override void Apply(UnitBase enemy)
+    public override IEnumerator ApplyEffect(UnitBase enemy)
     {
-        enemy.ApplySlow(this, type, value, duration, occursTime, range);
+        //enemy.ApplySlow(this, type, value, duration, occursTime, range);
+        if(enemy.activeEffect.ContainsKey(type)) yield break;
+        enemy.activeEffect.Add(type, this);
+        enemy.CurrentSpeed = enemy.Speed*(1-value/100);
+        yield return new WaitForSeconds(duration);
+        enemy.activeEffect.Remove(type);
     }
+    
 }

@@ -13,12 +13,12 @@ public class TowerView : MonoBehaviour
     private CircleCollider2D        rangeRaycastCol;
     private Animator                towerAnimation;
     
-    public delegate void EnemyEnterHanlder(UnitBase enemy, TowerView view);
-    public event EnemyEnterHanlder OnEnemyEnter;
-    public delegate void EnemyExitHanlder(UnitBase enemy, TowerView view);
-    public event EnemyEnterHanlder OnEnemyExit;
-    public delegate void SelectedTowerViewHanlder(TowerView towerView);
-    public event SelectedTowerViewHanlder OnSelectedTowerView;
+    public delegate void    EnemyEnterHanlder(UnitBase enemy, TowerView view);
+    public event            EnemyEnterHanlder OnEnemyEnter;
+    public delegate void    EnemyExitHanlder(UnitBase enemy, TowerView view);
+    public event            EnemyEnterHanlder OnEnemyExit;
+    public delegate void    SelectedTowerViewHanlder(TowerView towerView);
+    public event            SelectedTowerViewHanlder OnSelectedTowerView;
 
     private void Awake()
     { 

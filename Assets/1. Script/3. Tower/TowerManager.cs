@@ -51,7 +51,7 @@ public class TowerManager : MonoBehaviour
         towerExtraData[towerPresenter].GoldUpdrade          = towerDataReader.towerDataList.GetGoldRequired(towerType.ToString(), 2);
         towerExtraData[towerPresenter].GoldRefund            += towerData.goldRequired;
         // start shooting corountine
-        StartCoroutine(SpawnBulletCorountine(towerPresenter));
+        //StartCoroutine(SpawnBulletCorountine(towerPresenter));
         // no use at the moment
         towerList.Add(towerPresenter);    
     }
@@ -138,15 +138,26 @@ public class TowerManager : MonoBehaviour
         towerExtraData[towerPresenter].GoldRefund += gold;
     }
 
-    #region PROCESS ENEMY
+    #region PROCESS DETECT ENEMY AND SPAWN BULLET
     private void HanldeEnemyEnter(UnitBase enemy, TowerPresenter towerPresenter)
     {
         towerExtraData[towerPresenter].enemies.Add(enemy);
+
+        if(towerExtraData[towerPresenter].enemies.Count == 1)
+        {
+            towerExtraData[towerPresenter].spawnCoroutine = StartCoroutine(SpawnBulletCorountine(towerPresenter));
+        }
     }
 
     private void HanldeEnemyExit(UnitBase enemy, TowerPresenter towerPresenter)
     {
         towerExtraData[towerPresenter].enemies.Remove(enemy);
+
+        if(towerExtraData[towerPresenter].enemies.Count == 0)
+        {
+            if(towerExtraData[towerPresenter].spawnCoroutine == null) return;
+            StopCoroutine(towerExtraData[towerPresenter].spawnCoroutine);
+        }
     }
 
     private IEnumerator SpawnBulletCorountine(TowerPresenter towerPresenter)
@@ -182,6 +193,7 @@ public enum TowerType
 public class PresenterData 
 {
     public List<UnitBase>  enemies = new List<UnitBase>();
+    public Coroutine    spawnCoroutine;
     public EmptyPlot    emptyPlot;
     public float        RangeDetectUpgrade { set ; get ; }
     public int          GoldUpdrade { set ; get ; }

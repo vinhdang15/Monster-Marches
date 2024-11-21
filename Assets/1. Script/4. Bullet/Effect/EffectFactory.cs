@@ -8,13 +8,11 @@ public class EffectFactory : MonoBehaviour
     {
         switch (type)
         {
-            case "slow":
+            case string t when t.Contains("slow"):
                 return new SlowEffect(type, value, duration, occursTime, range);
-            case "dot":
+            case string t when t.Contains ("dot"):
                 return new DamageOverTimeEffect(type, value, duration, occursTime, range);
-            case "aoe20":
-                return new AreaOfEffect(type, value, duration, occursTime, range);
-            case "aoe30":
+            case string t when t.Contains ("aoe"):
                 return new AreaOfEffect(type, value, duration, occursTime, range);
             default :
                 return null;

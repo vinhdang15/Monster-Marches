@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5570272979463574971}
   - component: {fileID: -671848291016982879}
   m_Layer: 0
-  m_Name: MagicBall
+  m_Name: MagicBall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6365583a3bc92184f933aa0768a484c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: MagicBall1
+  type: MagicBall2
   isReachEnemyPos: 0
   targetEnemy: {fileID: 0}
   bulletLastPos: {x: 0, y: 0}

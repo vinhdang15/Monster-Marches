@@ -260,6 +260,7 @@ MonoBehaviour:
   spawnBulletTrans: {fileID: 542164255102359296}
   BulletList:
   - {fileID: 5570272979463574971, guid: 258baf98c5f95604fa76a68574bfba84, type: 3}
+  - {fileID: 5570272979463574971, guid: a17ca15fc63d1884a97a5d8f0b4cbe48, type: 3}
 --- !u!1 &7204663080290148549
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,11 +22,8 @@ public class BulletManager : MonoBehaviour
         bulletBase.OnReachEnemyPos += HandleReachingEnemyPos;
     }
     
-    private void HandleReachingEnemyPos(BulletBase bullet, UnitBase enemy)
+    private void HandleReachingEnemyPos(BulletBase bullet)
     {
-        float damage = bullet.Damage;
-        if (enemy.CurrentHp == 0) return;
-        enemy.TakeDamage(damage);
-        bullet.effect?.Apply(enemy);
+        bullet.ReachingEnemyPos();
     }
 }

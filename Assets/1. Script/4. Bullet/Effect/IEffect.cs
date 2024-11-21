@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IEffect
 {
-    void Apply(UnitBase enemy);
+    IEnumerator ApplyEffect(UnitBase enemy);
 }

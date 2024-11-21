@@ -1,4 +1,6 @@
 using System;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class BulletBase : MonoBehaviour
@@ -12,7 +14,7 @@ public class BulletBase : MonoBehaviour
     [SerializeField] UnitBase            targetEnemy;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
-    public event Action<BulletBase, UnitBase> OnReachEnemyPos;
+    public event Action<BulletBase> OnReachEnemyPos;
     
     protected virtual void Awake()
     {
@@ -42,13 +44,13 @@ public class BulletBase : MonoBehaviour
         EffectData effectData = effectDataReader.effectDataList.GetEffectData(_bulletData.effectTyes);
         if(effectData != null)
         {
-            effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, effectData.effectOccursTime, effectData.effectRange);
+            effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, 
+                                                effectData.effectOccursTime, effectData.effectRange);         
         }
         else
         {
             Debug.Log($"{type} bullet have no effect");
         }
-        
     }
 
     public void UpdateBulletDirection()
@@ -81,8 +83,21 @@ public class BulletBase : MonoBehaviour
         if((Vector2)transform.position == enemyPos)
         {
             isReachEnemyPos = true;
-            OnReachEnemyPos?.Invoke(this, targetEnemy);
+            OnReachEnemyPos?.Invoke(this);
         }
-    }   
+    }
+
+    public void ReachingEnemyPos()
+    {
+        // deal Damage
+        if (targetEnemy.CurrentHp == 0) return;
+        targetEnemy.TakeDamage(Damage);
+        
+        // Cause effect
+        if(effect != null)
+        {
+            StartCoroutine(effect.ApplyEffect(targetEnemy));
+        }
+    }
 }
 

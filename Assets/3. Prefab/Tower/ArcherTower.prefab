@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 4724620619919927980}
   - component: {fileID: 5564489927388406859}
   - component: {fileID: 5693245808658361739}
-  - component: {fileID: 21524507911851260}
+  - component: {fileID: 5887333464888582801}
   - component: {fileID: 6789151250249618790}
   m_Layer: 8
   m_Name: ArcherTower
@@ -246,7 +246,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!50 &21524507911851260
+--- !u!50 &5887333464888582801
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6502725005150269322}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -291,6 +291,7 @@ MonoBehaviour:
   spawnBulletTrans: {fileID: 2458036946698627629}
   BulletList:
   - {fileID: 5570272979463574971, guid: 1e025b77692fdfc4b83340d8d0d96678, type: 3}
+  - {fileID: 5570272979463574971, guid: 36274655fdf604a42bcdac817432937f, type: 3}
 --- !u!1001 &4159507873142818788
 PrefabInstance:
   m_ObjectHideFlags: 0

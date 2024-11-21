@@ -1,5 +1,6 @@
 EffectType,EffectValue,EffectDuration,EffectOccursTime,EffectRange
 Slow,50,2,0,0
-DoT,15,3,3,0
-AoE20,20,0,0,3
-AoE30,30,0,0,3
+Magic_DoT,15,3,3,0
+Fire_DoT,5,4,8,0
+Bomb1_AoE20,20,0,0,3
+Bomb2_AoE30,30,0,0,3
