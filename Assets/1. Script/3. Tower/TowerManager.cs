@@ -16,20 +16,6 @@ public class TowerManager : MonoBehaviour
     public Dictionary<TowerPresenter, PresenterData> towerExtraData = new Dictionary<TowerPresenter, PresenterData>();
     public EmptyPlot       selectedEmptyPlot;
     public TowerPresenter selectedTower;
-    public event Action<TowerPresenter> OnSelectedTowerPersenter;
-    bool check;
-    private void Awake()
-    {
-        
-    }
-    void Start()
-    {
-
-    }
-    void Update()
-    {
-
-    }
 
     #region INIT TOWER
     public void InitTower(Vector3 pos, TowerType towerType)
@@ -39,8 +25,8 @@ public class TowerManager : MonoBehaviour
         TowerView towerView             = Instantiate(towerPrefabList[(int)towerType], pos, Quaternion.identity, transform);
         TowerModel towerModel           = TowerModel.Craete(towerView,towerData);
         TowerPresenter towerPresenter   = TowerPresenter.Create(towerModel, towerView);
-        // Register seleted TowerView, enemy in range, enemy out range
-        towerPresenter.towerView.OnSelectedTowerView    += (TowerView) => HandleSelectedTowerView(towerPresenter);
+        // Register selected TowerView, or selected TowerView null enemy in range, enemy out range
+
         towerPresenter.towerView.OnEnemyEnter           += (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
         towerPresenter.towerView.OnEnemyExit            += (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
         // init tower towerExtraData
@@ -50,9 +36,8 @@ public class TowerManager : MonoBehaviour
         towerExtraData[towerPresenter].RangeDetectUpgrade   = towerDataReader.towerDataList.GetRangeDetect(towerType.ToString(), 2);
         towerExtraData[towerPresenter].GoldUpdrade          = towerDataReader.towerDataList.GetGoldRequired(towerType.ToString(), 2);
         towerExtraData[towerPresenter].GoldRefund            += towerData.goldRequired;
-        // start shooting corountine
-        //StartCoroutine(SpawnBulletCorountine(towerPresenter));
-        // no use at the moment
+
+        // towerList is no use at the moment
         towerList.Add(towerPresenter);    
     }
 
@@ -107,11 +92,15 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
-    #region SENT SELECTED TOWER TO GAMEPLAY MANAGER
-    private void HandleSelectedTowerView(TowerPresenter towerPresenter)
-    {
-        OnSelectedTowerPersenter?.Invoke(towerPresenter);
-    }
+    #region SENT SELECTED TOWER (OR CLICK NULL WHEN TOWER PANEL ACTIVE) TO GAMEPLAY MANAGER
+    // private void HandleSelectedTowerView(TowerPresenter towerPresenter)
+    // {
+    //     OnSelectedTowerPersenter?.Invoke(towerPresenter);
+    // }
+    // private void HandleSelectedTowerNull()
+    // {
+    //     OnSelectedTowerPersenterNull?.Invoke();
+    // }
     #endregion
 
     public void UpdateTowerExtraData(TowerPresenter towerPresenter)
@@ -167,14 +156,17 @@ public class TowerManager : MonoBehaviour
         {
             if(towerPresentEnemiesList.Count > 0)
             {
+                towerPresenter.towerView.FireBulletAnimation();
+                yield return new WaitForSeconds(0.5f);
                 BulletBase bullet = towerPresenter.GetBullet();
                 Vector2 initPos = towerPresenter.towerView.GetSpawnBulletTrans().position;
                 BulletBase bulletObject = Instantiate(bullet, initPos, Quaternion.identity, bulletManager.transform);
                 BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletObject.type);
                 bulletObject.InitBullet(bulletData, effectDataReader, towerPresentEnemiesList[0]);
                 bulletManager.AddBullet(bulletObject);
+                yield return new WaitForSeconds(0.5f);
             }
-            yield return new WaitForSeconds(towerPresenter.towerModel.FireRate);
+            yield return new WaitForSeconds(towerPresenter.towerModel.FireRate - 1);
         }
     }
     #endregion

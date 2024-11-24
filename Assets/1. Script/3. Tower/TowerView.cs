@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerView : MonoBehaviour
 {
-    [SerializeField] Transform      towerRaycastObject;
+    [SerializeField] Transform      towerObject;
     [SerializeField] RangeDetect    rangeDetection;
     [SerializeField] RangeDetect    rangeDetectionUpgrade;
     [SerializeField] Transform      spawnBulletTrans;
@@ -12,18 +13,14 @@ public class TowerView : MonoBehaviour
     private CircleCollider2D        rangeDetechCol;
     private CircleCollider2D        rangeRaycastCol;
     private Animator                towerAnimation;
-    
-    public delegate void    EnemyEnterHanlder(UnitBase enemy, TowerView view);
-    public event            EnemyEnterHanlder OnEnemyEnter;
-    public delegate void    EnemyExitHanlder(UnitBase enemy, TowerView view);
-    public event            EnemyEnterHanlder OnEnemyExit;
-    public delegate void    SelectedTowerViewHanlder(TowerView towerView);
-    public event            SelectedTowerViewHanlder OnSelectedTowerView;
+    public event            Action<UnitBase, TowerView> OnEnemyEnter;
+    public event            Action<UnitBase, TowerView> OnEnemyExit;
 
     private void Awake()
     { 
-        rangeDetechCol = GetComponent<CircleCollider2D>();
-        rangeRaycastCol = towerRaycastObject.GetComponent<CircleCollider2D>();
+        rangeDetechCol = towerObject.GetComponent<CircleCollider2D>();
+        rangeRaycastCol = GetComponent<CircleCollider2D>();
+        towerAnimation = towerObject.GetComponent<Animator>();
     }
     
     public void SetRangeRaycat(float rangeDetect)
@@ -59,13 +56,6 @@ public class TowerView : MonoBehaviour
         return transform.position;
     }
 
-    private void OnMouseDown()
-    {
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("TowerRaycast"));
-        if(hit.collider != null ) OnSelectedTowerView?.Invoke(this);
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -89,20 +79,14 @@ public class TowerView : MonoBehaviour
         return spawnBulletTrans;
     }
 
-    // public Transform GetFristEnemy()
-    // {
-    //     if(enemies.Count == 0) return null;
-    //     return enemies[0].transform;
-    // }
-
     #region ANIMATION
     public void InitTowerAnimation()
     {
-        towerAnimation.SetTrigger("init");
+        // towerAnimation.SetTrigger("init");
     }
-    public void AttackEnemyAnimation()
+    public void FireBulletAnimation()
     {
-        towerAnimation.SetTrigger("attack");
+        // towerAnimation.SetTrigger("FireBullet");
     }
     #endregion
 }

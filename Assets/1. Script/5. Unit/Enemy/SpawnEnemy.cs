@@ -48,6 +48,7 @@ public class SpawnEnemy : MonoBehaviour
             for(int i = 0; i < enemyEntries[y].numberEnemyInWave; i++)
             {
                 InstantiateEnemy(enemyEntries[y].enemy, i);
+                
                 // wait time among instantiate each enemy
                 yield return new WaitForSeconds(SetTimeBetweenEnemy());
             }
@@ -93,7 +94,7 @@ public class SpawnEnemy : MonoBehaviour
         // add path to enemy pathway
         enemyIns.GetPathConfigSO(pathConfigSO);
         enemyIns.SetPosInPathWave(lineInPathIndex % 3);
-        enemyManager.enemies.Add(enemyIns);
+        enemyManager.AddEnemy(enemyIns);
 
     }
     private float SetTimeBetweenEnemy()

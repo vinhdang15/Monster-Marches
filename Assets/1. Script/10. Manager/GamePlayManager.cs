@@ -14,8 +14,8 @@ public class GamePlayManager : MonoBehaviour
     [HideInInspector] public int towerUpgradeGold;
     [HideInInspector] public int towerSellGold;
     [SerializeField] CSVTowerDataReader towerDataReader;
-    [SerializeField] EmptyPlotManager   emptyPlotManager;
     [SerializeField] TowerManager       towerManager;
+    [SerializeField] EnemyManager       enemyManager;
     [SerializeField] InputManager       inputManager;
     private Vector2                     SelectedEmptyPlotPos;
     private TowerPresenter selectedTower;
@@ -31,6 +31,7 @@ public class GamePlayManager : MonoBehaviour
         RegisterButtonEvent();
         RegisterTowerSelectionEvent();
         RegisterCautionClickEvent();
+        RegisterEnemyEvent();
         StartCoroutine(WaitForDataLoadAndProcess());
     }
 
@@ -46,18 +47,9 @@ public class GamePlayManager : MonoBehaviour
     // EMPTYPLOT CLICK EVENT
     private IEnumerator WaitForDataLoadAndProcess()
     {
-        yield return new WaitUntil(() => towerDataReader.IsDataLoaded && emptyPlotManager.isInitEmptyPlot);
+        yield return new WaitUntil(() => towerDataReader.IsDataLoaded);
         IsDataLoaded = true;
-        RegisterSelectedEmptyPlotEvent();
         GetInitGold();
-    }
-
-    private void RegisterSelectedEmptyPlotEvent()
-    {
-        foreach( var emptyPlot in emptyPlotManager.emptyPlotList)
-        {
-            emptyPlot.OnSelectedEmptyPlot += HandleSelectedEmptyPlot;
-        }
     }
 
     // BUTTON CLICK EVENT
@@ -70,13 +62,27 @@ public class GamePlayManager : MonoBehaviour
         inputManager.OnTryToUpgradeTower   += HandleTryToUpgradeSelectedTower;
         inputManager.OnUpgradeTower        += HandleUpgradeSelectedTower;
         inputManager.OnSellTower           += HandleSellSelectedTower;
+        inputManager.OnSelectedTowerView   += HandleOnSelectedTower;
         inputManager.OnRaycastHitNull      += HandleRaycatHitNull;
+        inputManager.OnSelectedEmptyPlot   += HandleSelectedEmptyPlot;
+    }
+
+    private void RegisterEnemyEvent()
+    {
+        enemyManager.EnemyDieHandler += HandleEnemyDie;
+    }
+
+    private void HandleEnemyDie(UnitBase enemy)
+    {
+        gold += enemy.Gold;
+        OnGoldChange?.Invoke();
     }
 
     // Tower Selection Event
     private void RegisterTowerSelectionEvent()
     {
-        towerManager.OnSelectedTowerPersenter += HandleSelectedTowerPersenter;
+        //towerManager.OnSelectedTowerPersenter       += HandleSelectedTowerPersenter;
+        //towerManager.OnSelectedTowerPersenterNull   += HandleRaycatHitNull;
     }
     #endregion
 
@@ -139,8 +145,9 @@ public class GamePlayManager : MonoBehaviour
         inputManager.ShowInitPanel(SelectedEmptyPlotPos);
     }
 
-    private void HandleSelectedTowerPersenter(TowerPresenter selectedTowerPresenter)
-    {   
+    private void HandleOnSelectedTower(TowerPresenter selectedTowerPresenter)
+    {  
+        Debug.Log($"GamePlay: {selectedTowerPresenter.name}");
         HideCurrentTowerRangeDetect();
         selectedTower = selectedTowerPresenter;
         OnSelectedTower?.Invoke();
@@ -155,6 +162,7 @@ public class GamePlayManager : MonoBehaviour
         selectedTower.towerView.ShowRangeDetection(false);
         selectedTower.towerView.ShowRangeDetectionUpgrade(false);
         selectedTower = null;
+        inputManager.HidePanel();
     }
 
     private void HandleUpgradeSelectedTower()

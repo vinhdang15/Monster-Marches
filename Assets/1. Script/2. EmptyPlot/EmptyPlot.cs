@@ -19,10 +19,10 @@ public class EmptyPlot : MonoBehaviour
         Y = Y;
     }
 
-    private void OnMouseDown()
-    {
-        OnSelectedEmptyPlot?.Invoke(this);
-    }
+    // private void OnMouseDown()
+    // {
+    //     OnSelectedEmptyPlot?.Invoke(this);
+    // }
 
     public Vector2 GetPos()
     {

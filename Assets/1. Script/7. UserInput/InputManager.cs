@@ -23,6 +23,8 @@ public class InputManager : MonoBehaviour
 
     public delegate void RaycastInputClickHandler();
     public event RaycastInputClickHandler OnRaycastHitNull;
+    public event Action<TowerPresenter> OnSelectedTowerView;
+    public event Action<EmptyPlot>OnSelectedEmptyPlot;
 
     // RaycastHit2D
     private Vector2 mousePos;
@@ -41,13 +43,30 @@ public class InputManager : MonoBehaviour
         {
             mousePos = Input.GetMouseButtonUp(0) ? Input.mousePosition : Input.GetTouch(0).position;
             worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-            hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity);
+
+            int layerMask = LayerMask.GetMask("TowerRaycast", "BarrackRange", "Button", "EmptyPlot");
+            hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, layerMask);
 
             if(hit.collider == null)
             {
                 OnRaycastHitNull?.Invoke();
                 HideInitPanel();
                 HideUpgradePanel();
+            }
+            else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("EmptyPlot"))
+            {
+                ResetPanelState();
+                EmptyPlot emptyPlot = hit.collider.gameObject.GetComponent<EmptyPlot>();
+                OnSelectedEmptyPlot?.Invoke(emptyPlot);
+            }
+            else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("TowerRaycast"))
+            {
+                TowerPresenter selectedTower = hit.collider.gameObject.GetComponent<TowerPresenter>();
+                OnSelectedTowerView?.Invoke(selectedTower);
+            }
+            else
+            {
+                Debug.Log(hit.collider.gameObject.name);
             }
         }
     }
@@ -69,14 +88,26 @@ public class InputManager : MonoBehaviour
 
     public void HideInitPanel()
     {
-        ResetPanelState();
-        initPanel.SetActive(false);
+        if(initPanel.activeSelf)
+        {
+            ResetPanelState();
+            initPanel.SetActive(false);
+        }
     }
 
     public void HideUpgradePanel()
     {
-        ResetPanelState();
-        upgradePanel.SetActive(false);
+        if(upgradePanel.activeSelf)
+        {
+            ResetPanelState();
+            upgradePanel.SetActive(false);
+        }
+    }
+
+    public void HidePanel()
+    {
+        HideInitPanel();
+        HideUpgradePanel();
     }
 
     private void ShowCheckSymbol(Button clickedButton)

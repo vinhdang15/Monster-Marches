@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class BulletBase : MonoBehaviour
     public float    Speed                    { get; set; }
     public string   EffectType               { get; set; }
     public bool     isReachEnemyPos          = false;
-    public IEffect effect;
+    public List<IEffect> effects = new List<IEffect>();
     [SerializeField] UnitBase            targetEnemy;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
@@ -41,15 +42,23 @@ public class BulletBase : MonoBehaviour
 
     private void InitBulletEffect(BulletData _bulletData, CSVEffectDataReader effectDataReader)
     {
-        EffectData effectData = effectDataReader.effectDataList.GetEffectData(_bulletData.effectTyes);
-        if(effectData != null)
+        string[] effectTypes = _bulletData.effectTyes.Split(";");
+        foreach(string effecType in effectTypes)
         {
-            effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, 
-                                                effectData.effectOccursTime, effectData.effectRange);         
-        }
-        else
-        {
-            Debug.Log($"{type} bullet have no effect");
+            EffectData effectData = effectDataReader.effectDataList.GetEffectData(effecType);
+            if(effectData == null)
+            {
+                Debug.Log($"{effectData} not in the data");
+                continue;
+            }
+            IEffect effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, 
+                                                        effectData.effectOccursTime, effectData.effectRange);
+            if(effect == null)
+            {
+                Debug.Log($"{this} bullet not have {effect}");
+                continue;
+            }
+            effects.Add(effect);
         }
     }
 
@@ -94,9 +103,13 @@ public class BulletBase : MonoBehaviour
         targetEnemy.TakeDamage(Damage);
         
         // Cause effect
-        if(effect != null)
+        if(effects.Count != 0)
         {
-            StartCoroutine(effect.ApplyEffect(targetEnemy));
+            foreach(var effect in effects)
+            {
+                StartCoroutine(effect.ApplyEffect(targetEnemy));
+            }
+            
         }
     }
 }

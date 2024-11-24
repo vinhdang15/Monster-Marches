@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6275247613871315491}
   - component: {fileID: 5244750542181624621}
-  m_Layer: 7
-  m_Name: TowerRaycast
+  - component: {fileID: 535164387141078952}
+  m_Layer: 8
+  m_Name: MageTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,6 +68,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &535164387141078952
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321543026276958215}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6502725005150269322
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,8 +103,8 @@ GameObject:
   - component: {fileID: 5693245808658361739}
   - component: {fileID: 21524507911851260}
   - component: {fileID: 6789151250249618790}
-  m_Layer: 8
-  m_Name: CannonTower
+  m_Layer: 7
+  m_Name: MageTowerView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +171,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
-  m_Color: {r: 0.2921858, g: 0.44804302, b: 0.9245283, a: 1}
+  m_Color: {r: 0, g: 0.8584906, b: 0.21742104, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -254,13 +276,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf43bc6f0d7e5fc40a145a8c08d37c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerRaycastObject: {fileID: 6275247613871315491}
+  towerObject: {fileID: 6275247613871315491}
   rangeDetection: {fileID: 7053275665512798148}
   rangeDetectionUpgrade: {fileID: 6683848471035377270}
   spawnBulletTrans: {fileID: 542164255102359296}
   BulletList:
-  - {fileID: 5570272979463574971, guid: 5d5aee667d2d56241b7f95426351f033, type: 3}
-  - {fileID: 5570272979463574971, guid: 305f2c2b7e8e3e042aa684277c7e3500, type: 3}
+  - {fileID: 5570272979463574971, guid: 258baf98c5f95604fa76a68574bfba84, type: 3}
+  - {fileID: 5570272979463574971, guid: a17ca15fc63d1884a97a5d8f0b4cbe48, type: 3}
 --- !u!1 &7204663080290148549
 GameObject:
   m_ObjectHideFlags: 0

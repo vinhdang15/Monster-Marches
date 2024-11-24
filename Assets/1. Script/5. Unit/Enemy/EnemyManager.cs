@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public List<Enemy> enemies = new List<Enemy>();
+    public event Action<UnitBase> EnemyDieHandler;
     
     private void Update()
     {
@@ -24,6 +25,7 @@ public class EnemyManager : MonoBehaviour
 
     private void HandleEnemyDeath(Enemy enemy)
     {
+        EnemyDieHandler?.Invoke(enemy);
         enemies.Remove(enemy);
     }
 }

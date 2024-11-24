@@ -210,6 +210,67 @@ RectTransform:
   m_AnchoredPosition: {x: -963.39, y: -539.99}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &52578728
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090162326235010171, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502725005150269322, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_Name
+      value: CannonTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502725005150269322, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
 --- !u!1 &57439514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3367,7 +3428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff92b87373c1b6b4b8f970edb23712e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 200
+  gold: 2000
   archerTOwerInitGold: 0
   mageTowerInitGold: 0
   barrackTowerInitGold: 0
@@ -3375,8 +3436,8 @@ MonoBehaviour:
   towerUpgradeGold: 0
   towerSellGold: 0
   towerDataReader: {fileID: 1961100159}
-  emptyPlotManager: {fileID: 2121268488}
   towerManager: {fileID: 117138093}
+  enemyManager: {fileID: 1006963317}
   inputManager: {fileID: 653646661}
   spawnEnemyManager: {fileID: 1229339120}
 --- !u!114 &1927368041
@@ -4483,3 +4544,4 @@ SceneRoots:
   - {fileID: 1642584650}
   - {fileID: 506960115}
   - {fileID: 588932110}
+  - {fileID: 52578728}
