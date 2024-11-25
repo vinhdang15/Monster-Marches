@@ -147,7 +147,6 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleOnSelectedTower(TowerPresenter selectedTowerPresenter)
     {  
-        Debug.Log($"GamePlay: {selectedTowerPresenter.name}");
         HideCurrentTowerRangeDetect();
         selectedTower = selectedTowerPresenter;
         OnSelectedTower?.Invoke();

@@ -3,5 +3,5 @@ Arrow1,10,10,none
 Arrow2,20,10,Fire_DoT
 MagicBall1,30,7,Magic_DoT
 MagicBall2,20,8,Slow;Magic_DoT
-Bomb1,20,4,Bomb1_AoE20
-Bomb2,30,4,Bomb2_AoE30
+Bomb1,20,7,Bomb1_AoE20
+Bomb2,30,7,Bomb2_AoE30

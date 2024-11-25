@@ -1,7 +1,6 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class BulletBase : MonoBehaviour
@@ -12,7 +11,7 @@ public class BulletBase : MonoBehaviour
     public string   EffectType               { get; set; }
     public bool     isReachEnemyPos          = false;
     public List<IEffect> effects = new List<IEffect>();
-    [SerializeField] UnitBase            targetEnemy;
+    protected UnitBase            targetEnemy;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
     public event Action<BulletBase> OnReachEnemyPos;
@@ -48,7 +47,7 @@ public class BulletBase : MonoBehaviour
             EffectData effectData = effectDataReader.effectDataList.GetEffectData(effecType);
             if(effectData == null)
             {
-                Debug.Log($"{effectData} not in the data");
+                Debug.Log($"{this.name} have no effect");
                 continue;
             }
             IEffect effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, 
@@ -62,18 +61,6 @@ public class BulletBase : MonoBehaviour
         }
     }
 
-    public void UpdateBulletDirection()
-    {
-        if(bulletLastPos != null)
-        {
-            if(bulletLastPos != (Vector2)transform.position)
-            {
-                CalBulletRotation();
-            } 
-        }
-        bulletLastPos = transform.position;
-    }
-
     protected virtual void CalBulletRotation()
     {
         Vector2 moveDir = bulletLastPos - (Vector2)transform.position;
@@ -81,19 +68,70 @@ public class BulletBase : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0, tangentAngle + 180), 1f);
     }
 
-    public void MoveToTarget()
+    protected virtual void AdjustBulletSpeed()
     {
-        if(targetEnemy != null)
-        {
-            enemyPos = targetEnemy.transform.position;
-        }
-        if(!isReachEnemyPos) transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
+        return;
+    }
 
-        if((Vector2)transform.position == enemyPos)
+    // public virtual void MoveToTarget()
+    // {
+    //     if(targetEnemy != null)
+    //     {
+    //         enemyPos = targetEnemy.transform.position;
+    //     }
+    //     if(!isReachEnemyPos) transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
+
+    //     if((Vector2)transform.position == enemyPos)
+    //     {
+    //         isReachEnemyPos = true;
+    //         InvokeOnReachEnemyPos();
+    //     }
+    // }
+
+    public virtual IEnumerator MoveToTargetCoroutine()
+    {
+        while(!isReachEnemyPos)
         {
-            isReachEnemyPos = true;
-            OnReachEnemyPos?.Invoke(this);
+            UpdateEnemyPos();
+            MoveTowards();
+            UpdateBulletSpeedAndDirection();
+
+            if((Vector2)transform.position == enemyPos)
+            {
+                isReachEnemyPos = true;
+                InvokeOnReachEnemyPos();
+                yield break;
+            }
+            yield return null;
         }
+    }
+
+    protected void UpdateEnemyPos()
+    {
+        if(targetEnemy == null) return;
+        enemyPos = targetEnemy.transform.position;
+    }
+    protected void UpdateBulletSpeedAndDirection()
+    {
+        if(bulletLastPos != null)
+        {
+            if(bulletLastPos != (Vector2)transform.position)
+            {
+                CalBulletRotation();
+                AdjustBulletSpeed();
+            } 
+        }
+        bulletLastPos = transform.position;
+    }
+
+    protected virtual void MoveTowards()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
+    }
+
+    protected void InvokeOnReachEnemyPos()
+    {
+        OnReachEnemyPos?.Invoke(this);
     }
 
     public void ReachingEnemyPos()
@@ -109,7 +147,6 @@ public class BulletBase : MonoBehaviour
             {
                 StartCoroutine(effect.ApplyEffect(targetEnemy));
             }
-            
         }
     }
 }

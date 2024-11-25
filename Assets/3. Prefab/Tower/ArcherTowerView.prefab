@@ -312,8 +312,8 @@ MonoBehaviour:
   rangeDetectionUpgrade: {fileID: 4470925009231148897}
   spawnBulletTrans: {fileID: 2458036946698627629}
   BulletList:
-  - {fileID: 5570272979463574971, guid: 1e025b77692fdfc4b83340d8d0d96678, type: 3}
-  - {fileID: 5570272979463574971, guid: 36274655fdf604a42bcdac817432937f, type: 3}
+  - {fileID: 559437072603961109, guid: 1e025b77692fdfc4b83340d8d0d96678, type: 3}
+  - {fileID: -603087750388858199, guid: 36274655fdf604a42bcdac817432937f, type: 3}
 --- !u!1001 &4159507873142818788
 PrefabInstance:
   m_ObjectHideFlags: 0

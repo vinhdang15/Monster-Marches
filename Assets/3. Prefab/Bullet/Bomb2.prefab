@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 944608653546578891}
   - component: {fileID: 2465193866280544995}
-  - component: {fileID: 5570272979463574971}
   - component: {fileID: -671848291016982879}
+  - component: {fileID: -2552696894742912667}
   m_Layer: 0
   m_Name: Bomb2
   m_TagString: Untagged
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5570272979463574971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5405717181563337596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6365583a3bc92184f933aa0768a484c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: Bomb2
-  isReachEnemyPos: 0
-  targetEnemy: {fileID: 0}
-  bulletLastPos: {x: 0, y: 0}
 --- !u!95 &-671848291016982879
 Animator:
   serializedVersion: 5
@@ -123,3 +107,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2552696894742912667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352b57a6123d817459dc116603a2739a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: Bomb2
+  isReachEnemyPos: 0
+  bulletLastPos: {x: 0, y: 0}
+  instantiatePoint: {x: 0, y: 0}
+  Trajectory_num: 50

@@ -64,10 +64,6 @@ public class InputManager : MonoBehaviour
                 TowerPresenter selectedTower = hit.collider.gameObject.GetComponent<TowerPresenter>();
                 OnSelectedTowerView?.Invoke(selectedTower);
             }
-            else
-            {
-                Debug.Log(hit.collider.gameObject.name);
-            }
         }
     }
 
