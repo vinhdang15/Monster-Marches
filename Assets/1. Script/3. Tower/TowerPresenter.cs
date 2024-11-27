@@ -6,7 +6,6 @@ public class TowerPresenter : MonoBehaviour
 {
     public TowerModel           towerModel;
     public TowerView            towerView;
-    private Transform           spawnBulletTrans;
 
     public static TowerPresenter Create(TowerModel towerModel, TowerView towerView)
     {
@@ -19,7 +18,6 @@ public class TowerPresenter : MonoBehaviour
     {
         this.towerModel = towerModel;
         this.towerView  = towerView;
-        spawnBulletTrans = towerView.GetSpawnBulletTrans();
         InitTowerRange();
     }
 
@@ -27,10 +25,5 @@ public class TowerPresenter : MonoBehaviour
     {
         towerView.SetRangeDetect(towerModel.RangeDetect);
         towerView.SetRangeRaycat(towerModel.RangeRaycast);
-    }
-
-    public BulletBase GetBullet()
-    {
-        return towerView.BulletList.Find(bullet => bullet.type == towerModel.BulletType);
     }
 }

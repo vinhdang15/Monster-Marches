@@ -9,12 +9,13 @@ public class BulletBase : MonoBehaviour
     public int      Damage                   { get; set; }
     public float    Speed                    { get; set; }
     public string   EffectType               { get; set; }
+    public string   AnimationDamageType       { get; set; }
     public bool     isReachEnemyPos          = false;
     public List<IEffect> effects = new List<IEffect>();
-    protected UnitBase            targetEnemy;
+    protected UnitBase                   targetEnemy;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
-    public event Action<BulletBase> OnReachEnemyPos;
+    public event Action<BulletBase>      OnReachEnemyPos;
     
     protected virtual void Awake()
     {
@@ -25,18 +26,18 @@ public class BulletBase : MonoBehaviour
         
     }
 
-    public void InitBullet(BulletData _bulletData, CSVEffectDataReader effectDataReader, UnitBase _enemy)
+    public void InitBullet(BulletData _bulletData, CSVEffectDataReader effectDataReader)
     {
-        InitBulletData(_bulletData, _enemy);
+        InitBulletData(_bulletData);
         InitBulletEffect(_bulletData, effectDataReader);
     }
 
-    private void InitBulletData(BulletData _bulletData, UnitBase _enemy)
+    private void InitBulletData(BulletData _bulletData)
     {
         Speed                   = _bulletData.speed;
         Damage                  = _bulletData.damage;
         EffectType              = _bulletData.effectTyes;
-        targetEnemy             = _enemy;
+        AnimationDamageType     = _bulletData.animationDamageType;
     }
 
     private void InitBulletEffect(BulletData _bulletData, CSVEffectDataReader effectDataReader)
@@ -47,7 +48,7 @@ public class BulletBase : MonoBehaviour
             EffectData effectData = effectDataReader.effectDataList.GetEffectData(effecType);
             if(effectData == null)
             {
-                Debug.Log($"{this.name} have no effect");
+                // Debug.Log($"{this.name} have no effect");
                 continue;
             }
             IEffect effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, 
@@ -59,6 +60,11 @@ public class BulletBase : MonoBehaviour
             }
             effects.Add(effect);
         }
+    }
+
+    public void InitBulletTarget(UnitBase _enemy)
+    {
+        targetEnemy             = _enemy;
     }
 
     protected virtual void CalBulletRotation()
@@ -101,6 +107,7 @@ public class BulletBase : MonoBehaviour
                 isReachEnemyPos = true;
                 InvokeOnReachEnemyPos();
                 yield break;
+                
             }
             yield return null;
         }
@@ -108,9 +115,14 @@ public class BulletBase : MonoBehaviour
 
     protected void UpdateEnemyPos()
     {
-        if(targetEnemy == null) return;
+        if(targetEnemy == null)
+        {
+            Debug.Log("enemy is null");
+            return;
+        }
         enemyPos = targetEnemy.transform.position;
     }
+
     protected void UpdateBulletSpeedAndDirection()
     {
         if(bulletLastPos != null)
@@ -141,13 +153,17 @@ public class BulletBase : MonoBehaviour
         targetEnemy.TakeDamage(Damage);
         
         // Cause effect
-        if(effects.Count != 0)
+        if(effects.Count > 0)
         {
-            foreach(var effect in effects)
-            {
-                StartCoroutine(effect.ApplyEffect(targetEnemy));
-            }
+            targetEnemy.ApplyEffect(effects);
         }
+    }
+
+    // Reset bullet state before return to pool
+    public void ResetBullet()
+    {
+        isReachEnemyPos = false;
+        targetEnemy = null;
     }
 }
 

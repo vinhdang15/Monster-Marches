@@ -9,7 +9,6 @@ public class TowerView : MonoBehaviour
     [SerializeField] RangeDetect    rangeDetection;
     [SerializeField] RangeDetect    rangeDetectionUpgrade;
     [SerializeField] Transform      spawnBulletTrans;
-    public List<BulletBase>         BulletList;
     private CircleCollider2D        rangeDetechCol;
     private CircleCollider2D        rangeRaycastCol;
     private Animator                towerAnimation;
@@ -74,9 +73,9 @@ public class TowerView : MonoBehaviour
         }
     }
 
-    public Transform GetSpawnBulletTrans()
+    public Vector2 GetSpawnBulletPos()
     {
-        return spawnBulletTrans;
+        return spawnBulletTrans.position;
     }
 
     #region ANIMATION

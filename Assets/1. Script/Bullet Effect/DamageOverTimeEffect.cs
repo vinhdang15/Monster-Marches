@@ -9,10 +9,6 @@ public class DamageOverTimeEffect : EffectBase
 
     public override IEnumerator ApplyEffect(UnitBase enemy)
     {
-        //enemy.ApplyDamageOverTimeCoroutine(this, type, value, duration, occursTime, range);
-        if(enemy.activeEffect.ContainsKey(type)) yield break;
-        enemy.activeEffect.Add(type, this);
-
         float timeAmong = duration / occursTime;
         while(occursTime - 1 > 0)
         {   

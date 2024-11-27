@@ -33,6 +33,7 @@ public class CSVBulletDataReader : MonoBehaviour
                 damage                  = int.Parse(values[1]),
                 speed                   = float.Parse(values[2]),
                 effectTyes              = values[3].Trim().ToLower(),
+                animationDamageType     = values[4].Trim().ToLower()
             };
             bulletDataList.bulletDataList.Add(bulletData);
         }

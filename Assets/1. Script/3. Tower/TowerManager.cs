@@ -9,13 +9,10 @@ public class TowerManager : MonoBehaviour
 {
     public BulletManager bulletManager;
     [SerializeField] CSVTowerDataReader towerDataReader;
-    [SerializeField] CSVBulletDataReader bulletDataReader;
-    [SerializeField] CSVEffectDataReader effectDataReader;
     [SerializeField] List<TowerView> towerPrefabList = new List<TowerView>();
     public List<TowerPresenter> towerList = new List<TowerPresenter>();
     public Dictionary<TowerPresenter, PresenterData> towerExtraData = new Dictionary<TowerPresenter, PresenterData>();
-    public EmptyPlot       selectedEmptyPlot;
-    public TowerPresenter selectedTower;
+    public EmptyPlot        selectedEmptyPlot;
 
     #region INIT TOWER
     public void InitTower(Vector3 pos, TowerType towerType)
@@ -25,13 +22,14 @@ public class TowerManager : MonoBehaviour
         TowerView towerView             = Instantiate(towerPrefabList[(int)towerType], pos, Quaternion.identity, transform);
         TowerModel towerModel           = TowerModel.Craete(towerView,towerData);
         TowerPresenter towerPresenter   = TowerPresenter.Create(towerModel, towerView);
-        // Register selected TowerView, or selected TowerView null enemy in range, enemy out range
 
+        // Register selected TowerView, or selected TowerView null enemy in range, enemy out range
         towerPresenter.towerView.OnEnemyEnter           += (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
         towerPresenter.towerView.OnEnemyExit            += (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
+
         // init tower towerExtraData
-        towerExtraData[towerPresenter]                  = new PresenterData();
-        towerExtraData[towerPresenter].emptyPlot        = selectedEmptyPlot;
+        towerExtraData[towerPresenter]                      = new PresenterData();
+        towerExtraData[towerPresenter].emptyPlot            = selectedEmptyPlot;
         towerExtraData[towerPresenter].emptyPlot.HideEmptyPlot();
         towerExtraData[towerPresenter].RangeDetectUpgrade   = towerDataReader.towerDataList.GetRangeDetect(towerType.ToString(), 2);
         towerExtraData[towerPresenter].GoldUpdrade          = towerDataReader.towerDataList.GetGoldRequired(towerType.ToString(), 2);
@@ -92,17 +90,6 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
-    #region SENT SELECTED TOWER (OR CLICK NULL WHEN TOWER PANEL ACTIVE) TO GAMEPLAY MANAGER
-    // private void HandleSelectedTowerView(TowerPresenter towerPresenter)
-    // {
-    //     OnSelectedTowerPersenter?.Invoke(towerPresenter);
-    // }
-    // private void HandleSelectedTowerNull()
-    // {
-    //     OnSelectedTowerPersenterNull?.Invoke();
-    // }
-    #endregion
-
     public void UpdateTowerExtraData(TowerPresenter towerPresenter)
     {
         towerExtraData[towerPresenter].GoldUpdrade = UpdateGoldUpgrade(towerPresenter);
@@ -152,20 +139,23 @@ public class TowerManager : MonoBehaviour
     private IEnumerator SpawnBulletCorountine(TowerPresenter towerPresenter)
     {
         List<UnitBase> towerPresentEnemiesList = towerExtraData[towerPresenter].enemies;
-        while(true)
+        TowerModel towerModel = towerPresenter.towerModel;
+        TowerView towerView = towerPresenter.towerView;
+
+        while(towerPresentEnemiesList.Count > 0)
         {
-            if(towerPresentEnemiesList.Count > 0)
+            towerView.FireBulletAnimation();
+            yield return new WaitForSeconds(0.5f);
+
+            string bulletType = towerModel.BulletType;
+            Vector2 spawnPos = towerView.GetSpawnBulletPos();
+
+            if(towerPresentEnemiesList[0] != null)
             {
-                towerPresenter.towerView.FireBulletAnimation();
-                yield return new WaitForSeconds(0.5f);
-                BulletBase bullet = towerPresenter.GetBullet();
-                Vector2 initPos = towerPresenter.towerView.GetSpawnBulletTrans().position;
-                BulletBase bulletObject = Instantiate(bullet, initPos, Quaternion.identity, bulletManager.transform);
-                BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletObject.type);
-                bulletObject.InitBullet(bulletData, effectDataReader, towerPresentEnemiesList[0]);
-                bulletManager.AddBullet(bulletObject);
-                yield return new WaitForSeconds(0.5f);
+                bulletManager.AddBullet(bulletType,spawnPos,towerPresentEnemiesList[0]);
             }
+            
+            yield return new WaitForSeconds(0.5f);
             yield return new WaitForSeconds(towerPresenter.towerModel.FireRate - 1);
         }
     }

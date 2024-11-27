@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,4 +71,15 @@ public abstract class UnitBase : MonoBehaviour
     }
 
     public abstract void Die();
+
+    public void ApplyEffect(List<IEffect> effects)
+    {
+        foreach(IEffect effect in effects)
+        {
+            EffectBase effectBase = effect as EffectBase;
+            if(activeEffect.ContainsKey(effectBase.type)) continue;
+            StartCoroutine(effect.ApplyEffect(this));
+            activeEffect.Add(effectBase.type, effect);
+        }
+    }
 }

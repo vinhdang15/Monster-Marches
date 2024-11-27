@@ -155,15 +155,6 @@ public class GamePlayManager : MonoBehaviour
         inputManager.ShowUpgradePanel(SelectedTowerPos);
     }
 
-    private void HandleRaycatHitNull()
-    {
-        if(selectedTower == null) return;
-        selectedTower.towerView.ShowRangeDetection(false);
-        selectedTower.towerView.ShowRangeDetectionUpgrade(false);
-        selectedTower = null;
-        inputManager.HidePanel();
-    }
-
     private void HandleUpgradeSelectedTower()
     {
         if(gold < towerManager.towerExtraData[selectedTower].GoldUpdrade) return;
@@ -176,6 +167,15 @@ public class GamePlayManager : MonoBehaviour
         // Hide range detection and upgrade panel
         HandleRaycatHitNull();
         inputManager.HideUpgradePanel();
+    }
+
+    private void HandleRaycatHitNull()
+    {
+        if(selectedTower == null) return;
+        selectedTower.towerView.ShowRangeDetection(false);
+        selectedTower.towerView.ShowRangeDetectionUpgrade(false);
+        selectedTower = null;
+        inputManager.HidePanel();
     }
 
     // Sell selected tower

@@ -4,4 +4,5 @@ public class BulletData
         public int      damage;
         public float    speed;
         public string   effectTyes;
+        public string   animationDamageType;
 }

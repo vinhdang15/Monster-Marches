@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class EffectBase : IEffect
 {
-    protected string  type;
-    protected float   value;
-    protected float   duration;
-    protected int     occursTime;
-    protected float   range;
+    public string       type;
+    protected float     value;
+    protected float     duration;
+    protected int       occursTime;
+    protected float     range;
 
     public void Init(string type, float value, float duration, int occursTime, float range)
     {

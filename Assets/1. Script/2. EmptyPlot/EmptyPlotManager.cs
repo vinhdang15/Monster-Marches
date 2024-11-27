@@ -9,7 +9,6 @@ public class EmptyPlotManager : MonoBehaviour
     [SerializeField] CSVEmptyPlotDataReader emptyPlotDataReader;
     [SerializeField] EmptyPlot emptyPlot;
     public List<EmptyPlot> emptyPlotList = new List<EmptyPlot>();
-    public bool isInitEmptyPlot { get; private set; }
 
     private void Start()
     {
@@ -20,7 +19,6 @@ public class EmptyPlotManager : MonoBehaviour
     {
         yield return new WaitUntil(() => emptyPlotDataReader.IsDataLoaded);
         InitEmptyPlot();
-        isInitEmptyPlot = true;
     }
 
     private void InitEmptyPlot()

@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
     public event HandelTowerClick OnTryToUpgradeTower;
     public event HandelTowerClick OnUpgradeTower;
     public event HandelTowerClick OnSellTower;
-    private Button currentButton;
+    private Button currentButton = null;
 
     public delegate void RaycastInputClickHandler();
     public event RaycastInputClickHandler OnRaycastHitNull;
@@ -136,6 +136,7 @@ public class InputManager : MonoBehaviour
             eventAction?.Invoke();
         }
         currentButton = clickedButton;
+        
     }
 
     // Init tower
@@ -170,6 +171,8 @@ public class InputManager : MonoBehaviour
         else
         {
             OnUpgradeTower?.Invoke();
+            // return here to prevent setting currentButton = clickedButton after set it to null from OnUpgradeTower
+            return;
         }
         currentButton = clickedButton;
     }
