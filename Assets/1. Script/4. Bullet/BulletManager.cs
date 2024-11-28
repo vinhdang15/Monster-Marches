@@ -12,14 +12,13 @@ public class BulletManager : MonoBehaviour
     {
         BulletBase bullet = bulletPool.GetBullet(bulletType, initPos);
         bullet.InitBulletTarget(_enemy);
-        bullet.OnReachEnemyPos += HandleReachingEnemyPos;
+        bullet.OnFinishBulletAnimation += HandleFinishBulletAnimation;
         StartCoroutine(bullet.MoveToTargetCoroutine());
     }
     
-    private void HandleReachingEnemyPos(BulletBase bullet)
+    private void HandleFinishBulletAnimation(BulletBase bullet)
     {
-        bullet.ReachingEnemyPos();
-        bullet.OnReachEnemyPos -= HandleReachingEnemyPos;
+        bullet.OnFinishBulletAnimation -= HandleFinishBulletAnimation;
         activeBullets.Remove(bullet);
         bulletPool.ReturnBullet(bullet);
     }

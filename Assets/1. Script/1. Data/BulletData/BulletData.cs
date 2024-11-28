@@ -5,4 +5,5 @@ public class BulletData
         public float    speed;
         public string   effectTyes;
         public string   animationDamageType;
+        public float    dealDamageDelay;
 }

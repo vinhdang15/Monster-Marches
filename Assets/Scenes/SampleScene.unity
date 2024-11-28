@@ -491,7 +491,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 46cdcbed204cedc4486b3753d4fb3122, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 0
+    numberEnemyInWave: 10
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 3
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -4095,7 +4095,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 9adb4e4feb65fcb49bd99cac03da36ff, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 0
+    numberEnemyInWave: 10
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}

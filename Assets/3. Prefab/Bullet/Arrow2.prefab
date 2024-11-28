@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -199388255
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 940448352, guid: 220af499dc74788419be80c3c07dc4e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -100,5 +100,5 @@ MonoBehaviour:
   type: Arrow2
   isReachEnemyPos: 0
   bulletLastPos: {x: 0, y: 0}
-  instantiatePoint: {x: 0, y: 0}
+  instantiatePos: {x: 0, y: 0}
   Trajectory_num: 50

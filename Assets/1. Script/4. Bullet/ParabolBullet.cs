@@ -112,7 +112,7 @@ public class ParabolBullet : BulletBase
                 if(Vector2.Distance(transform.position, enemyPos) <= 0.2f)
                 {
                     isReachEnemyPos = true;
-                    InvokeOnReachEnemyPos();
+                    StartCoroutine(DealDamageToEnemy());
                     yield break;
                 }
                 yield return null;

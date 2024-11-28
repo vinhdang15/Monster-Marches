@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IBulletAnimationHandler
+public interface IBulletAnimation
 {
-    void PlayMoveAnimation();
-    void PlayDealDamageAnimation();
+    //void PlayMoveAnimation();
+    IEnumerator PlayDealDamageAnimation();
     float GetCurrentAnimationLength();
 }

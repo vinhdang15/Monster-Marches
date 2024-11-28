@@ -9,13 +9,16 @@ public class BulletBase : MonoBehaviour
     public int      Damage                   { get; set; }
     public float    Speed                    { get; set; }
     public string   EffectType               { get; set; }
-    public string   AnimationDamageType       { get; set; }
+    public string   AnimationDamageType      { get; set; }
+    public float    DealDamageDelay          { get; set; }
     public bool     isReachEnemyPos          = false;
     public List<IEffect> effects = new List<IEffect>();
     protected UnitBase                   targetEnemy;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
-    public event Action<BulletBase>      OnReachEnemyPos;
+    public event Action<BulletBase>      OnFinishBulletAnimation;
+    protected IBulletAnimation bulletAnimation;
+    protected Animator animator;
     
     protected virtual void Awake()
     {
@@ -30,6 +33,7 @@ public class BulletBase : MonoBehaviour
     {
         InitBulletData(_bulletData);
         InitBulletEffect(_bulletData, effectDataReader);
+        InitBulletAnimation(_bulletData);
     }
 
     private void InitBulletData(BulletData _bulletData)
@@ -38,6 +42,7 @@ public class BulletBase : MonoBehaviour
         Damage                  = _bulletData.damage;
         EffectType              = _bulletData.effectTyes;
         AnimationDamageType     = _bulletData.animationDamageType;
+        DealDamageDelay         = _bulletData.dealDamageDelay;
     }
 
     private void InitBulletEffect(BulletData _bulletData, CSVEffectDataReader effectDataReader)
@@ -62,9 +67,16 @@ public class BulletBase : MonoBehaviour
         }
     }
 
+    private void InitBulletAnimation(BulletData _bulletData)
+    {
+        animator = GetComponent<Animator>();
+        string animationDamageType = _bulletData.animationDamageType;
+        bulletAnimation = BulletAnimationFactory.CreateBulletAnimationHandler(animationDamageType,animator);
+    }
+
     public void InitBulletTarget(UnitBase _enemy)
     {
-        targetEnemy             = _enemy;
+        targetEnemy = _enemy;
     }
 
     protected virtual void CalBulletRotation()
@@ -105,7 +117,7 @@ public class BulletBase : MonoBehaviour
             if((Vector2)transform.position == enemyPos)
             {
                 isReachEnemyPos = true;
-                InvokeOnReachEnemyPos();
+                StartCoroutine(DealDamageToEnemy());
                 yield break;
                 
             }
@@ -141,15 +153,19 @@ public class BulletBase : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
     }
 
-    protected void InvokeOnReachEnemyPos()
+    protected void InvokeOnFinishBulletAnimation()
     {
-        OnReachEnemyPos?.Invoke(this);
+        OnFinishBulletAnimation?.Invoke(this);
     }
 
-    public void ReachingEnemyPos()
+    protected IEnumerator DealDamageToEnemy()
     {
-        // deal Damage
-        if (targetEnemy.CurrentHp == 0) return;
+        // Start change animation state
+        StartCoroutine(bulletAnimation.PlayDealDamageAnimation());
+        Debug.Log(bulletAnimation.GetCurrentAnimationLength());
+        yield return new WaitForSeconds(DealDamageDelay*bulletAnimation.GetCurrentAnimationLength());
+        // Deal Damage
+        if (targetEnemy.CurrentHp == 0) yield break;
         targetEnemy.TakeDamage(Damage);
         
         // Cause effect
@@ -157,6 +173,11 @@ public class BulletBase : MonoBehaviour
         {
             targetEnemy.ApplyEffect(effects);
         }
+        
+        // Wait until animation state finish
+        yield return new WaitForSeconds(bulletAnimation.GetCurrentAnimationLength());  
+        InvokeOnFinishBulletAnimation();
+        yield break;
     }
 
     // Reset bullet state before return to pool

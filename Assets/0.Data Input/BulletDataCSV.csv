@@ -1,7 +1,7 @@
-BulletType,Damage,Speed,EffectType,AnimationDamageType
-Arrow1,10,15,none,Immediate
-Arrow2,20,18,Fire_DoT,Immediate
-MagicBall1,30,7,Magic_DoT,Immediate
-MagicBall2,30,8,Slow;Magic_DoT,Immediate
-Bomb1,20,7,Bomb1_AoE20,Explosive
-Bomb2,30,7,Bomb2_AoE30,Explosive
+BulletType,Damage,Speed,EffectType,AnimationDamageType,DealDamageDelay
+Arrow1,10,15,none,Immediate,0
+Arrow2,20,18,Fire_DoT,Immediate,0
+MagicBall1,30,7,Magic_DoT,Immediate,0.3
+MagicBall2,30,8,Slow;Magic_DoT,Immediate,0.3
+Bomb1,20,10,Bomb1_AoE20,Explosive,1
+Bomb2,30,10,Bomb2_AoE30,Explosive,1
