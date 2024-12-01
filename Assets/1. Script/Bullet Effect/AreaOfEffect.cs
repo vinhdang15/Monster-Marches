@@ -18,7 +18,7 @@ public class AreaOfEffect : EffectBase
             Enemy enemyNearBy = enemyColl.GetComponent<Enemy>();
             if(enemyNearBy != enemy) enemyNearBy.TakeDamage(value);
         }
-        enemy.activeEffect.Remove(type);
+        enemy.underEffect.Remove(type);
         yield break;
     }
 }

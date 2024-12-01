@@ -23,6 +23,6 @@ public class DamageOverTimeEffect : EffectBase
                 occursTime = 0;
             }
         }
-        enemy.activeEffect.Remove(type);
+        enemy.underEffect.Remove(type);
     }
 }

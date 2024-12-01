@@ -12,7 +12,7 @@ public class SlowEffect : EffectBase
     {
         enemy.CurrentSpeed = enemy.Speed*(1-value/100);
         yield return new WaitForSeconds(duration);
-        enemy.activeEffect.Remove(type);
+        enemy.underEffect.Remove(type);
     }
     
 }

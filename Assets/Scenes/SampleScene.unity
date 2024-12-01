@@ -326,7 +326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2dda1ed034a0d26448f4bb5f97db2799, type: 3}
+  m_Sprite: {fileID: 21300000, guid: edf6b6e0fbacd5b4badd53ac1e570ccf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -491,7 +491,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 46cdcbed204cedc4486b3753d4fb3122, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 10
+    numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 3
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -688,7 +688,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 8be9c5d661a196444ba58b7f7f31ed5a, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 10
+    numberEnemyInWave: 1
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -1659,7 +1659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 39bb98aeb274af247af64e17459b4142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be153800723998a45a089ce52403368f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1930,7 +1930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e85aec9f83325ab459b4f60c2f8d7ea7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be153800723998a45a089ce52403368f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2126,7 +2126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609a857ec5dccd749b444523d8c1b128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
+  Totalenemies: []
 --- !u!1 &1051768911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,7 +2386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 28c75064997cc374aa05a7814a92c9bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be153800723998a45a089ce52403368f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2461,7 +2461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8a93ed9bb6d77442a0db643f85c1593, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7557f4fee83957548bc8e8562c59f791, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2879,7 +2879,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e85aec9f83325ab459b4f60c2f8d7ea7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9131e18f942c80d42a6ec167a1006e8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3580,7 +3580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 28c75064997cc374aa05a7814a92c9bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a44575b8abc1ab04a80786425bb9c0c1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3746,7 +3746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8a93ed9bb6d77442a0db643f85c1593, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7557f4fee83957548bc8e8562c59f791, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3983,7 +3983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 39bb98aeb274af247af64e17459b4142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 128148f680665cd4ba0087d4fb2d22a9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4095,7 +4095,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 9adb4e4feb65fcb49bd99cac03da36ff, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 10
+    numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -4164,6 +4164,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1520757905}
     m_Modifications:
+    - target: {fileID: 4527496588113119595, guid: 6d4780091d267d54c8e4b8a685becfea, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 582351fe9b6150143b6547ca81af0b8f, type: 3}
     - target: {fileID: 8168844599387416026, guid: 6d4780091d267d54c8e4b8a685becfea, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4261,6 +4265,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2056015400}
     m_Modifications:
+    - target: {fileID: 1460730880352589185, guid: 30ce070307a47fb449431209162f9943, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c7537cbb44cfd334fb01aa679bf2de9e, type: 3}
     - target: {fileID: 2094903614620917281, guid: 30ce070307a47fb449431209162f9943, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4277,6 +4285,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3222400139563288634, guid: 30ce070307a47fb449431209162f9943, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4ea776e71e578e84786ac7e5f79d5b5b, type: 3}
     - target: {fileID: 4468913103648090238, guid: 30ce070307a47fb449431209162f9943, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4301,6 +4313,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4683784459514140042, guid: 30ce070307a47fb449431209162f9943, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6f6b86535b7bd044682ce21372b3538b, type: 3}
     - target: {fileID: 4789540338677941505, guid: 30ce070307a47fb449431209162f9943, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

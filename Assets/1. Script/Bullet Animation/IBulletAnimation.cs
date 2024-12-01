@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IBulletAnimation
 {
-    //void PlayMoveAnimation();
-    IEnumerator PlayDealDamageAnimation();
+    IEnumerator PlayHitNullAnimation();
+    void PlayDealDamageAnimation();
     float GetCurrentAnimationLength();
 }

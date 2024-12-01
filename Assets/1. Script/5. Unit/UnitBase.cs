@@ -17,7 +17,12 @@ public abstract class UnitBase : MonoBehaviour
     public bool     IsUnderEffect   { get; set;}
     protected Vector2 CurrentPos    { get; set;}
     [SerializeField] HealthBar healthBar;
-    public Dictionary<string, IEffect> activeEffect = new Dictionary<string, IEffect>();
+    public Dictionary<string, IEffect> underEffect = new Dictionary<string, IEffect>();
+
+    // Animation
+    public UnitAnimation unitAnatation;
+    public event Action<UnitBase> OnDie;
+
 
     public virtual void InitUnit(UnitData _enemyData)
     {
@@ -72,18 +77,26 @@ public abstract class UnitBase : MonoBehaviour
 
     public abstract void Die();
 
-    public void ApplyEffect(List<IEffect> effects)
+    public void ApplyBulletEffect(List<IEffect> effects)
     {
         foreach(IEffect effect in effects)
         {
             EffectBase effectBase = effect as EffectBase;
-            if(activeEffect.ContainsKey(effectBase.type))
+            if(underEffect.ContainsKey(effectBase.type))
             {
-                Debug.Log(activeEffect.ContainsKey(effectBase.type).ToString());
+                Debug.Log(underEffect.ContainsKey(effectBase.type).ToString());
                 continue;
             }
-            activeEffect.Add(effectBase.type, effect);
+            underEffect.Add(effectBase.type, effect);
             StartCoroutine(effect.ApplyEffect(this));
         }
     }
+
+    #region ANIMATION
+    public void GetAnimation()
+    {
+        unitAnatation = GetComponent<UnitAnimation>();
+        unitAnatation.GetAnimation();
+    }
+    #endregion
 }

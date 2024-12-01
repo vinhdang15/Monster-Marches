@@ -17,13 +17,6 @@ public class ParabolBullet : BulletBase
     private float speedY = 0f;
     // LineRenderer lineRenderer;
 
-    protected override void Awake()
-    {
-        base.Start();
-        // lineRenderer = GetComponent<LineRenderer>();
-        // lineRenderer.positionCount = Trajectory_num;
-    }
-
     protected virtual void CalTrajectory()
     {
         if(targetEnemy == null) return;

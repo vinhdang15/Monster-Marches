@@ -5,12 +5,20 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> Totalenemies = new List<Enemy>();
     public event Action<UnitBase> EnemyDieHandler;
     
+    private void Start()
+    {
+        foreach(var enemy in Totalenemies)
+        {
+            enemy.GetAnimation();
+            enemy.unitAnatation.UnitPlayWalk();
+        }
+    }
     private void Update()
     {
-        foreach(var enemy in enemies)
+        foreach(var enemy in Totalenemies)
         {
             enemy.Move();
             enemy.SetMovingDirection();
@@ -20,12 +28,13 @@ public class EnemyManager : MonoBehaviour
     public void AddEnemy(Enemy enemy)
     {
         enemy.OnEnemyDeath += HandleEnemyDeath;
-        enemies.Add(enemy);
+        Totalenemies.Add(enemy);
     }
 
     private void HandleEnemyDeath(Enemy enemy)
     {
         EnemyDieHandler?.Invoke(enemy);
-        enemies.Remove(enemy);
+        enemy.unitAnatation.UnitPlayDie();
+        Totalenemies.Remove(enemy);
     }
 }

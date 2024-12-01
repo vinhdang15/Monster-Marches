@@ -52,6 +52,12 @@ public class Enemy : UnitBase
     public override void Die()
     {
         OnEnemyDeath?.Invoke(this);
+        StartCoroutine(DestroyAfterPlayAnimation());
+    }
+
+    public IEnumerator DestroyAfterPlayAnimation()
+    {
+        yield return new WaitForSeconds(unitAnatation.GetCurrentAnimationLength());
         Destroy(this.gameObject);
     }
 }

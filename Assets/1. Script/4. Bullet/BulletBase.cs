@@ -19,16 +19,8 @@ public class BulletBase : MonoBehaviour
     public event Action<BulletBase>      OnFinishBulletAnimation;
     protected IBulletAnimation bulletAnimation;
     protected Animator animator;
-    
-    protected virtual void Awake()
-    {
-        //animator = GetComponent<Animator>();
-    }
-    protected virtual void Start()
-    {
-        
-    }
 
+    #region INIT BULLET
     public void InitBullet(BulletData _bulletData, CSVEffectDataReader effectDataReader)
     {
         InitBulletData(_bulletData);
@@ -78,19 +70,9 @@ public class BulletBase : MonoBehaviour
     {
         targetEnemy = _enemy;
     }
+    #endregion
 
-    protected virtual void CalBulletRotation()
-    {
-        Vector2 moveDir = bulletLastPos - (Vector2)transform.position;
-        float tangentAngle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0, tangentAngle + 180), 1f);
-    }
-
-    protected virtual void AdjustBulletSpeed()
-    {
-        return;
-    }
-
+    #region BULLET MOVING AND ROTATION
     // public virtual void MoveToTarget()
     // {
     //     if(targetEnemy != null)
@@ -129,7 +111,6 @@ public class BulletBase : MonoBehaviour
     {
         if(targetEnemy == null)
         {
-            Debug.Log("enemy is null");
             return;
         }
         enemyPos = targetEnemy.transform.position;
@@ -141,43 +122,80 @@ public class BulletBase : MonoBehaviour
         {
             if(bulletLastPos != (Vector2)transform.position)
             {
-                CalBulletRotation();
                 AdjustBulletSpeed();
+                CalBulletRotation(); 
             } 
         }
         bulletLastPos = transform.position;
+    }
+
+    protected virtual void AdjustBulletSpeed()
+    {
+        return;
+    }
+
+    protected virtual void CalBulletRotation()
+    {
+        if(!this.type.Contains("Bomb")) RotateInMovingDirection();
+        else RotateInCircle();
+    }
+
+    private void RotateInCircle()
+    {
+        float RotateSpeed = 180f;
+        transform.Rotate(Vector3.forward,RotateSpeed*Time.deltaTime, Space.Self);
+    }
+
+    protected virtual void RotateInMovingDirection()
+    {
+        Vector2 moveDir = bulletLastPos - (Vector2)transform.position;
+        float tangentAngle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0, tangentAngle + 180), 1f);
     }
 
     protected virtual void MoveTowards()
     {
         transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
     }
+    #endregion
+
+    #region BuLLET REACHING ENEMY POS, DEAL DAMAGE AND ANOTATION 
+    protected IEnumerator DealDamageToEnemy()
+    {
+        if (targetEnemy.CurrentHp != 0)
+        {
+            // Start PlayDealDamageAnimation state
+            bulletAnimation.PlayDealDamageAnimation();
+            yield return new WaitForSeconds(DealDamageDelay*bulletAnimation.GetCurrentAnimationLength());
+            // Deal Damage
+            targetEnemy.TakeDamage(Damage);
+        
+            // Cause effect
+            if(effects.Count > 0)
+            {
+                targetEnemy.ApplyBulletEffect(effects);
+            }
+            
+            // Wait until animation state finish
+            yield return new WaitForSeconds(bulletAnimation.GetCurrentAnimationLength());  
+            InvokeOnFinishBulletAnimation();
+            yield break;
+        } 
+        else
+        {
+            
+            // Wait until animation state finish
+            yield return StartCoroutine(bulletAnimation.PlayHitNullAnimation());
+
+            InvokeOnFinishBulletAnimation();
+            Debug.Log( this.name + ": enemy already die, bullet return to pool");
+            yield break;
+        }
+    }
 
     protected void InvokeOnFinishBulletAnimation()
     {
         OnFinishBulletAnimation?.Invoke(this);
-    }
-
-    protected IEnumerator DealDamageToEnemy()
-    {
-        // Start change animation state
-        StartCoroutine(bulletAnimation.PlayDealDamageAnimation());
-        Debug.Log(bulletAnimation.GetCurrentAnimationLength());
-        yield return new WaitForSeconds(DealDamageDelay*bulletAnimation.GetCurrentAnimationLength());
-        // Deal Damage
-        if (targetEnemy.CurrentHp == 0) yield break;
-        targetEnemy.TakeDamage(Damage);
-        
-        // Cause effect
-        if(effects.Count > 0)
-        {
-            targetEnemy.ApplyEffect(effects);
-        }
-        
-        // Wait until animation state finish
-        yield return new WaitForSeconds(bulletAnimation.GetCurrentAnimationLength());  
-        InvokeOnFinishBulletAnimation();
-        yield break;
     }
 
     // Reset bullet state before return to pool
@@ -186,5 +204,6 @@ public class BulletBase : MonoBehaviour
         isReachEnemyPos = false;
         targetEnemy = null;
     }
+    #endregion
 }
 

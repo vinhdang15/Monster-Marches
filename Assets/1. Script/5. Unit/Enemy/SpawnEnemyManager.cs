@@ -62,7 +62,6 @@ public class SpawnEnemyManager : MonoBehaviour
         HideAllCautionSlider();
         OnCallNextWave?.Invoke();
         UpdateCurrentWaveIndex();
-        
     }
 
     private void CheckToShowCautionSliderInWhichSpawnEnemy()

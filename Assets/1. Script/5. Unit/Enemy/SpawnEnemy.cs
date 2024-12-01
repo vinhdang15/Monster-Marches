@@ -94,6 +94,8 @@ public class SpawnEnemy : MonoBehaviour
         // add path to enemy pathway
         enemyIns.GetPathConfigSO(pathConfigSO);
         enemyIns.SetPosInPathWave(lineInPathIndex % 3);
+        // add animation
+        enemy.GetAnimation();
         enemyManager.AddEnemy(enemyIns);
 
     }

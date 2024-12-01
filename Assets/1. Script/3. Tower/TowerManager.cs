@@ -145,18 +145,21 @@ public class TowerManager : MonoBehaviour
         while(towerPresentEnemiesList.Count > 0)
         {
             towerView.FireBulletAnimation();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
 
             string bulletType = towerModel.BulletType;
             Vector2 spawnPos = towerView.GetSpawnBulletPos();
 
-            if(towerPresentEnemiesList[0] != null)
+            for (int i = 0; i < towerPresentEnemiesList.Count; i++)
             {
-                bulletManager.AddBullet(bulletType,spawnPos,towerPresentEnemiesList[0]);
+                if(towerPresentEnemiesList[i].CurrentHp > 0)
+                {
+                    bulletManager.AddBullet(bulletType,spawnPos,towerPresentEnemiesList[i]);
+                    break;
+                }
+                else i++;          
             }
-            
-            yield return new WaitForSeconds(0.5f);
-            yield return new WaitForSeconds(towerPresenter.towerModel.FireRate - 1);
+            yield return new WaitForSeconds(towerPresenter.towerModel.FireRate - 0.2f);
         }
     }
     #endregion

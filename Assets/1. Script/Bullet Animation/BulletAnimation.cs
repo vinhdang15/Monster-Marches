@@ -10,11 +10,18 @@ public class BulletAnimation : IBulletAnimation
     {
         this.animator = animator;
     }
-    public virtual IEnumerator PlayDealDamageAnimation()
+
+    public virtual IEnumerator PlayHitNullAnimation()
+    {
+        animator.SetTrigger("HitNull");
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("HitNull"));
+        yield return new WaitForSeconds(GetCurrentAnimationLength());
+        yield break;
+    }
+
+    public virtual void PlayDealDamageAnimation()
     {
         animator.SetTrigger("DealDamage");
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        yield break;
     }
 
     public virtual float GetCurrentAnimationLength()
