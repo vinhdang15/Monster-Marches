@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class SpawnEnemy : MonoBehaviour
 {
+    private UnitPool unitPool;
     [SerializeField] private CSVUnitDataReader unitDataReader;
     [SerializeField] private EnemyManager enemyManager;
     [Header("Pathway to Spawn Enemy")]
@@ -22,6 +24,10 @@ public class SpawnEnemy : MonoBehaviour
     // public numberEnemyInWaveHandler OnNumberEnemyInWaveIsNull;
     // public numberEnemyInWaveHandler OnNumberEnemyInWave;
     
+    private void Awake()
+    {
+        GetUnitPool();
+    }
 
     private void Start()
     {
@@ -30,12 +36,37 @@ public class SpawnEnemy : MonoBehaviour
         CheckShowFristWaveCaution();
     }
 
+    private void GetUnitPool()
+    {
+        unitPool = enemyManager.unitPool;
+    }
+
     private void GetTimeBetweenEnemy()
     {
         timeBetweenEnemy = spawnEnemyManager.GetTimeBetweenEnemy();
     }
-
     
+    // private IEnumerator SpawnEnemyCoroutine()
+    // {
+    //     yield return new WaitUntil(() => unitDataReader.IsDataLoaded);
+    //     // Check number enemy in the current way, if none hide the caution button else show the caution button
+
+    //     // for loop to spwan enemies in all wave
+    //     for(int y = 0; y < enemyEntries.Count; y++)
+    //     {
+    //         // for loop to spawn enemies in one wave
+    //         for(int i = 0; i < enemyEntries[y].numberEnemyInWave; i++)
+    //         {
+    //             InstantiateEnemy(enemyEntries[y].enemy, i);
+                
+    //             // wait time among instantiate each enemy
+    //             yield return new WaitForSeconds(SetTimeBetweenEnemy());
+    //         }
+    //         isStartNextWave = false;
+    //         OnFinishCurrentWave?.Invoke();
+    //         yield return new WaitUntil(() => isStartNextWave); 
+    //     }
+    // }
     private IEnumerator SpawnEnemyCoroutine()
     {
         yield return new WaitUntil(() => unitDataReader.IsDataLoaded);
@@ -47,8 +78,7 @@ public class SpawnEnemy : MonoBehaviour
             // for loop to spawn enemies in one wave
             for(int i = 0; i < enemyEntries[y].numberEnemyInWave; i++)
             {
-                InstantiateEnemy(enemyEntries[y].enemy, i);
-                
+                GetUnitBase(enemyEntries[y].enemy, i);
                 // wait time among instantiate each enemy
                 yield return new WaitForSeconds(SetTimeBetweenEnemy());
             }
@@ -65,14 +95,6 @@ public class SpawnEnemy : MonoBehaviour
 
     public int GetNumberEnemyInNWave(int waveIndex)
     {
-        // if(waveIndex < enemyEntries.Count)
-        // {
-        //     return enemyEntries[waveIndex].numberEnemyInWave;
-        // }
-        // else
-        // {
-        //     return 0;
-        // }
         return waveIndex < enemyEntries.Count ? enemyEntries[waveIndex].numberEnemyInWave : 0;
     }
 
@@ -85,20 +107,15 @@ public class SpawnEnemy : MonoBehaviour
         else btnCautionSlider.gameObject.SetActive(false);
     }
 
-    private void InstantiateEnemy(Enemy enemy, int lineInPathIndex)
+    private void GetUnitBase(Enemy _enemy, int lineInPathIndex)
     {
-        UnitData enemyData = unitDataReader.unitDataList.GetEnemyData(enemy.enemyName);
-        Enemy enemyIns = Instantiate(enemy, enemyManager.transform);
-        enemyIns.InitUnit(enemyData);
-        enemyIns.InitState();
+        Enemy enemy = unitPool.GetEnemy(_enemy.unitName);
         // add path to enemy pathway
-        enemyIns.GetPathConfigSO(pathConfigSO);
-        enemyIns.SetPosInPathWave(lineInPathIndex % 3);
-        // add animation
-        enemy.GetAnimation();
-        enemyManager.AddEnemy(enemyIns);
-
+        enemy.GetPathConfigSO(pathConfigSO);
+        enemy.SetPosInPathWave(lineInPathIndex % 3);
+        enemyManager.AddEnemy(enemy);
     }
+    
     private float SetTimeBetweenEnemy()
     {
         return Random.Range(timeBetweenEnemy * 0.5f, timeBetweenEnemy * 2f);

@@ -6,6 +6,7 @@ public class BulletPool : MonoBehaviour
 {
     [SerializeField] CSVBulletDataReader bulletDataReader;
     [SerializeField] CSVEffectDataReader effectDataReader;
+    
     [System.Serializable]
     public class BulletPoolInfo
     {
@@ -45,7 +46,7 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    // Get bullet by bulletType
+    // Get bullet from pool
     public BulletBase GetBullet(string bulletType, Vector2 initPos)
     {
         if(!bulletPools.ContainsKey(bulletType))
@@ -62,11 +63,10 @@ public class BulletPool : MonoBehaviour
         }
         else // Init bullet if out of bullet in pool
         {
-            BulletBase bulletPoolInfoPrefab = GetBulletPrefab(bulletType);
-            BulletBase bullet = Instantiate(bulletPoolInfoPrefab, transform);
-            BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPoolInfoPrefab.type);
+            BulletBase bulletPrefab = GetBulletPrefab(bulletType);
+            BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
+            BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPrefab.type);
             bullet.InitBullet(bulletData, effectDataReader);
-            bullet.transform.position = initPos;
             return bullet;
         }
     }

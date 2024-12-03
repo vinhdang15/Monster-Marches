@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
-    // On a path there will be three rows of moves represented by each WaveConfigSO in waveConfigList
+    // In each path (PathConfigSO), there is three Moving row
     public PathConfigSO PathConfigSO { get; set; }
     [SerializeField] List<Transform> waypoints;
     int wayPointIndex = 0;
@@ -15,6 +15,9 @@ public class PathFinder : MonoBehaviour
         PathConfigSO.index = _pathWayIndex;
 
         transform.position = PathConfigSO.GetStartingWaypoint().position;
+        // rest waypoints, wayPointIndex
+        waypoints.Clear();
+        wayPointIndex = 0;
         waypoints =  PathConfigSO.GetWayPoints();
     }
 

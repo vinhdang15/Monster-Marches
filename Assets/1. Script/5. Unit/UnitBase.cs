@@ -1,12 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class UnitBase : MonoBehaviour
 {
-    public string   Type            { get; set;}
-    public string   enemyName;            
+    public string   UnitType        { get; set;}
+    public string   unitName;            
     public int      MaxHP           { get; set;}
     public float    Speed           { get; set;}
     public int      Damage          { get; set;}
@@ -21,38 +20,38 @@ public abstract class UnitBase : MonoBehaviour
 
     // Animation
     public UnitAnimation unitAnatation;
-    public event Action<UnitBase> OnDie;
 
-
-    public virtual void InitUnit(UnitData _enemyData)
+    #region INIT UNIT
+    public virtual void InItUnit(UnitData _enemyData)
     {
-        Type            = _enemyData.type;
+        InitUnitData(_enemyData);
+        SetupCurrentHp();
+        SetDefaultSpeed();
+    }
+    public virtual void InitUnitData(UnitData _enemyData)
+    {
+        UnitType            = _enemyData.unitType;
         MaxHP           = _enemyData.maxHP;
         Speed           = _enemyData.speed;
         Damage          = _enemyData.damage;
         Gold            = _enemyData.gold;
         SpecialAbility  = _enemyData.specialAbility;
     }
-
+    
     public virtual void InitState()
     {
         SetupCurrentHp();
         SetDefaultSpeed();
     }
 
-    public void SetupCurrentHp()
+    private void SetupCurrentHp()
     {
         CurrentHp = MaxHP;
     }
 
-    public void SetDefaultSpeed()
+    private void SetDefaultSpeed()
     {
         CurrentSpeed = Speed;
-    }
-
-    public void UpdateHealthBar()
-    {
-        healthBar.ResizeOnCurrentHp(MaxHP, CurrentHp);
     }
 
     public void ResetHpBar()
@@ -64,7 +63,9 @@ public abstract class UnitBase : MonoBehaviour
     {
         CurrentSpeed = Speed;
     }
+    #endregion
 
+    #region UNIT ACTION STATE
     public abstract void Move();
 
     public abstract void SetMovingDirection();
@@ -75,7 +76,12 @@ public abstract class UnitBase : MonoBehaviour
         UpdateHealthBar();
     }
 
-    public abstract void Die();
+    private void UpdateHealthBar()
+    {
+        healthBar.ResizeOnCurrentHp(MaxHP, CurrentHp);
+    }
+
+    //public abstract void Die();
 
     public void ApplyBulletEffect(List<IEffect> effects)
     {
@@ -91,12 +97,20 @@ public abstract class UnitBase : MonoBehaviour
             StartCoroutine(effect.ApplyEffect(this));
         }
     }
+    #endregion
 
-    #region ANIMATION
+    #region GET ANIMATION
     public void GetAnimation()
     {
         unitAnatation = GetComponent<UnitAnimation>();
         unitAnatation.GetAnimation();
     }
     #endregion
+
+    public virtual void ResetUnit()
+    {
+        SetupCurrentHp();
+        ResetHpBar();
+        SetDefaultSpeed();
+    }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : UnitBase
@@ -9,11 +10,16 @@ public class Enemy : UnitBase
     private List<Enemy> surroundingEnemies = new List<Enemy>();
     public event Action<Enemy> OnEnemyDeath;
 
-    // Get Pathway
-    public void GetPathConfigSO(PathConfigSO _pathFinder)
+    private void Awake()
     {
         pathFinder = GetComponent<PathFinder>();
-        pathFinder.PathConfigSO = _pathFinder;
+    }
+
+    // Get Pathway
+    public void GetPathConfigSO(PathConfigSO pathConfigSO)
+    {
+        Debug.Log(pathConfigSO);
+        pathFinder.PathConfigSO = pathConfigSO;
     }
 
     public void SetPosInPathWave(int _pathWaveIndex)
@@ -45,19 +51,21 @@ public class Enemy : UnitBase
 
         if(CurrentHp == 0)
         {
-            Die();
+            Debug.Log("sent dead event");
+            OnEnemyDeath?.Invoke(this);
         }
     }
 
-    public override void Die()
-    {
-        OnEnemyDeath?.Invoke(this);
-        StartCoroutine(DestroyAfterPlayAnimation());
-    }
-
-    public IEnumerator DestroyAfterPlayAnimation()
+    public IEnumerator ReturnPoolAfterPlayAnimation(UnitPool unitPool)
     {
         yield return new WaitForSeconds(unitAnatation.GetCurrentAnimationLength());
-        Destroy(this.gameObject);
+        Debug.Log("Call ReturnUnit");
+        unitPool.ReturnUnit(this);
+        yield break;
+    }
+
+    public override void ResetUnit()
+    {
+        base.ResetUnit();
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    public UnitPool unitPool;
     public List<Enemy> Totalenemies = new List<Enemy>();
     public event Action<UnitBase> EnemyDieHandler;
     
@@ -27,14 +28,21 @@ public class EnemyManager : MonoBehaviour
 
     public void AddEnemy(Enemy enemy)
     {
+        Debug.Log("add enemy");
         enemy.OnEnemyDeath += HandleEnemyDeath;
         Totalenemies.Add(enemy);
     }
 
     private void HandleEnemyDeath(Enemy enemy)
     {
-        EnemyDieHandler?.Invoke(enemy);
-        enemy.unitAnatation.UnitPlayDie();
+        enemy.OnEnemyDeath -= HandleEnemyDeath;
         Totalenemies.Remove(enemy);
+        // notifi for GamePlayManaer
+        EnemyDieHandler?.Invoke(enemy);
+        //Play die animation
+        enemy.unitAnatation.UnitPlayDie();
+        // wait to finish die animation then return unit pool
+        Debug.Log("Call coroutine");
+        StartCoroutine(enemy.ReturnPoolAfterPlayAnimation(unitPool));
     }
 }

@@ -7,9 +7,9 @@ public class UnitDataListSO : ScriptableObject
 {
     public List<UnitData> enemyDataList = new List<UnitData>();
 
-    public UnitData GetEnemyData(string enemyName)
+    public UnitData GetUnitData(string enemyName)
     {
         
-        return enemyDataList.Find(data => data.enemyName == enemyName);
+        return enemyDataList.Find(data => data.unitName == enemyName);
     }
 }

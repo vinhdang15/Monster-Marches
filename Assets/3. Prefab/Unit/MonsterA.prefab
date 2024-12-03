@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c768eb2714f59f543b82b7838a9ac9ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyName: MonsterA
+  unitName: MonsterA
   healthBar: {fileID: 7428338480812606183}
   unitAnatation: {fileID: -7850191307575187939}
   pathFinder: {fileID: 0}

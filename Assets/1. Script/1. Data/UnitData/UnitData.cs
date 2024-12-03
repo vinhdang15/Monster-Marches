@@ -1,7 +1,7 @@
 public class UnitData
 {
-    public string   type;
-    public string   enemyName;
+    public string   unitType;
+    public string   unitName;
     public int      maxHP;
     public float    speed;
     public int      damage;

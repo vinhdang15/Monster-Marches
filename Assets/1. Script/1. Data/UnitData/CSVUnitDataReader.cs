@@ -28,8 +28,8 @@ public class CSVUnitDataReader : MonoBehaviour
             if(values.Length < 7) continue;
             UnitData unitData = new UnitData
             {
-                type                    = values[0],
-                enemyName               = values[1],
+                unitType                    = values[0],
+                unitName               = values[1],
                 maxHP                   = int.Parse(values[2]),
                 speed                   = float.Parse(values[3]),
                 damage                  = int.Parse(values[4]),
