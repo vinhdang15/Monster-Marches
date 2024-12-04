@@ -5,27 +5,23 @@ using UnityEngine;
 
 public class CautionManager : MonoBehaviour
 {
-    [SerializeField] SpawnEnemyManager spawnEnemyManager;
     [SerializeField] BtnCautionSlider cautionSlider;
     [SerializeField] Transform cautionParent;
     private List<BtnCautionSlider> btnCautionSliders = new List<BtnCautionSlider>();
 
-    private void Start()
-    {
-        InitCaution();
-        // RegisterNumberEnemyInWaveHandler();
-    }
-
-    public void InitCaution()
+    public void InitCaution(SpawnEnemyManager spawnEnemyManager)
     {
         foreach(var spawnEnemy in spawnEnemyManager.SpawnEnemies)
         {
+            // init and set po btnCautionSlider
             Vector2 pos = spawnEnemy.GetCautionPos();
             BtnCautionSlider btnCautionSlider = Instantiate(cautionSlider, pos, Quaternion.identity,cautionParent);
             btnCautionSlider.gameObject.SetActive(false);
             spawnEnemy.btnCautionSlider = btnCautionSlider;
+
+            // adsigne click event for btnCautionSlider
             btnCautionSlider.GetSpawnEnemyManager(spawnEnemyManager);
-            btnCautionSlider.OnCautionClick += HideAllCautionSlider;
+            btnCautionSlider.OnCautionClick += HandleHideAllCautionSlider;
             btnCautionSliders.Add(btnCautionSlider);
         }
     }
@@ -49,7 +45,7 @@ public class CautionManager : MonoBehaviour
         btnCautionSlider.gameObject.SetActive(false);
     }
 
-    private void HideAllCautionSlider()
+    private void HandleHideAllCautionSlider()
     {
         foreach( var btnCautionSlider in btnCautionSliders)
         {

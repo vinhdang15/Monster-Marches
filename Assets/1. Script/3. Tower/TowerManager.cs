@@ -154,7 +154,7 @@ public class TowerManager : MonoBehaviour
             {
                 if(towerPresentEnemiesList[i].CurrentHp > 0)
                 {
-                    bulletManager.AddBullet(bulletType,spawnPos,towerPresentEnemiesList[i]);
+                    bulletManager.SpawnBullet(bulletType,spawnPos,towerPresentEnemiesList[i]);
                     break;
                 }
                 else i++;          

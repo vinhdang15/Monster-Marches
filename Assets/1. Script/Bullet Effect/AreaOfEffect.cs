@@ -16,7 +16,7 @@ public class AreaOfEffect : EffectBase
         foreach(var enemyColl in hitColliders)
         {
             Enemy enemyNearBy = enemyColl.GetComponent<Enemy>();
-            if(enemyNearBy != enemy) enemyNearBy.TakeDamage(value);
+            if(enemyNearBy != enemy && enemyNearBy.CurrentHp > 0) enemyNearBy.TakeDamage(value);
         }
         enemy.underEffect.Remove(type);
         yield break;

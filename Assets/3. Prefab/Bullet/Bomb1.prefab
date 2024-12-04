@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 944608653546578891}
   - component: {fileID: 2465193866280544995}
   - component: {fileID: -671848291016982879}
+  - component: {fileID: -770597186814560954}
   - component: {fileID: 1859538256131655347}
   m_Layer: 0
   m_Name: Bomb1
@@ -96,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 5405717181563337596}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2a6a099ead3c7e44a9c9339322729e83, type: 2}
+  m_Controller: {fileID: 22100000, guid: 749007d88e0eaf44faba9868e25d9f39, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -107,6 +108,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-770597186814560954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9fcdde7badd9b468e9d1802330a897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1859538256131655347
 MonoBehaviour:
   m_ObjectHideFlags: 0

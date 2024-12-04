@@ -14,6 +14,7 @@ public class SlowEffect : EffectBase
         yield return new WaitForSeconds(duration);
         enemy.ResetCurrentSpeed();
         enemy.underEffect.Remove(type);
+        yield break;
     }
     
 }

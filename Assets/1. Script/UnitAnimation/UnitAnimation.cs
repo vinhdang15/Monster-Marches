@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UnitAnimation : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
 
     public void GetAnimation()
     {

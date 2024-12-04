@@ -30,7 +30,7 @@ public abstract class UnitBase : MonoBehaviour
     }
     public virtual void InitUnitData(UnitData _enemyData)
     {
-        UnitType            = _enemyData.unitType;
+        UnitType        = _enemyData.unitType;
         MaxHP           = _enemyData.maxHP;
         Speed           = _enemyData.speed;
         Damage          = _enemyData.damage;
@@ -90,7 +90,6 @@ public abstract class UnitBase : MonoBehaviour
             EffectBase effectBase = effect as EffectBase;
             if(underEffect.ContainsKey(effectBase.type))
             {
-                Debug.Log(underEffect.ContainsKey(effectBase.type).ToString());
                 continue;
             }
             underEffect.Add(effectBase.type, effect);
@@ -112,5 +111,6 @@ public abstract class UnitBase : MonoBehaviour
         SetupCurrentHp();
         ResetHpBar();
         SetDefaultSpeed();
+        underEffect.Clear();
     }
 }

@@ -10,19 +10,21 @@ public class DamageOverTimeEffect : EffectBase
     public override IEnumerator ApplyEffect(UnitBase enemy)
     {
         float timeAmong = duration / occursTime;
-        while(occursTime - 1 > 0)
+        int efectOccursTime = occursTime;
+        while(efectOccursTime - 1 > 0)
         {   
             yield return new WaitForSeconds(timeAmong);
             if(enemy.CurrentHp > 0)
             {
                 enemy.TakeDamage(value);
-                occursTime --;
+                efectOccursTime --;
             }
             else
             {
-                occursTime = 0;
+                efectOccursTime = 0;
             }
         }
         enemy.underEffect.Remove(type);
+        yield break;
     }
 }

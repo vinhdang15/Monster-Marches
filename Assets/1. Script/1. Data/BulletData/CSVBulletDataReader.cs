@@ -26,15 +26,14 @@ public class CSVBulletDataReader : MonoBehaviour
             string[] values = Lines[i].Split(',');
             // make sure to only add rows that contain enough information (8 columns of information)
             // if it not, move to the next line
-            if(values.Length < 6) continue;
+            if(values.Length < 5) continue;
             BulletData bulletData = new BulletData
             {
-                type                    = values[0],
+                type                    = values[0].Trim().ToLower(),
                 damage                  = int.Parse(values[1]),
                 speed                   = float.Parse(values[2]),
                 effectTyes              = values[3].Trim().ToLower(),
-                animationDamageType     = values[4].Trim().ToLower(),
-                dealDamageDelay         = float.Parse(values[5])
+                dealDamageDelay         = float.Parse(values[4])
             };
             bulletDataList.bulletDataList.Add(bulletData);
         }

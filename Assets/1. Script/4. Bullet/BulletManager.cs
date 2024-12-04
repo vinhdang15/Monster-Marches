@@ -8,12 +8,21 @@ public class BulletManager : MonoBehaviour
     [SerializeField] BulletPool bulletPool;
     public List<BulletBase> activeBullets = new List<BulletBase>();
 
-    public void AddBullet(string bulletType, Vector2 initPos, UnitBase _enemy)
+    private void Update()
+    {
+        if(activeBullets.Count == 0) return;
+        foreach(var bullet in activeBullets)
+        {
+            bullet.MoveToTarget();
+        }
+    }
+
+    public void SpawnBullet(string bulletType, Vector2 initPos, UnitBase _enemy)
     {
         BulletBase bullet = bulletPool.GetBullet(bulletType, initPos);
         bullet.InitBulletTarget(_enemy);
         bullet.OnFinishBulletAnimation += HandleFinishBulletAnimation;
-        StartCoroutine(bullet.MoveToTargetCoroutine());
+        activeBullets.Add(bullet);
     }
     
     private void HandleFinishBulletAnimation(BulletBase bullet)

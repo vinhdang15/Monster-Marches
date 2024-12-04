@@ -29,7 +29,6 @@ public class GamePlayManager : MonoBehaviour
     private void Start()
     {
         RegisterButtonEvent();
-        RegisterTowerSelectionEvent();
         RegisterCautionClickEvent();
         RegisterEnemyEvent();
         StartCoroutine(WaitForDataLoadAndProcess());
@@ -78,12 +77,6 @@ public class GamePlayManager : MonoBehaviour
         OnGoldChange?.Invoke();
     }
 
-    // Tower Selection Event
-    private void RegisterTowerSelectionEvent()
-    {
-        //towerManager.OnSelectedTowerPersenter       += HandleSelectedTowerPersenter;
-        //towerManager.OnSelectedTowerPersenterNull   += HandleRaycatHitNull;
-    }
     #endregion
 
     // caution click event

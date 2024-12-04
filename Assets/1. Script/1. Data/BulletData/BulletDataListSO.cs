@@ -8,6 +8,7 @@ public class BulletDataListSO : ScriptableObject
 
     public BulletData GetBulletData(string type)
     {
+        type = type.Trim().ToLower();
         return bulletDataList.Find(data => data.type == type);
     }
 }

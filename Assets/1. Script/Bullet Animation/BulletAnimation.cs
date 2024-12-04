@@ -2,29 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletAnimation : IBulletAnimation
+public class BulletAnimation : MonoBehaviour
 {
-    protected Animator animator;
+    private Animator animator;
 
-    public BulletAnimation(Animator animator)
+    private void Awake()
     {
-        this.animator = animator;
+        animator = GetComponent<Animator>();
     }
 
-    public virtual IEnumerator PlayHitNullAnimation()
+    public void PlayHitNullAnimation()
     {
         animator.SetTrigger("HitNull");
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("HitNull"));
-        yield return new WaitForSeconds(GetCurrentAnimationLength());
-        yield break;
     }
 
-    public virtual void PlayDealDamageAnimation()
+    public void PlayDealDamageAnimation()
     {
         animator.SetTrigger("DealDamage");
     }
 
-    public virtual float GetCurrentAnimationLength()
+    public float GetCurrentAnimationLength()
     {
         return animator.GetCurrentAnimatorStateInfo(0).length;
     }

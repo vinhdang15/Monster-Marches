@@ -18,7 +18,6 @@ public class Enemy : UnitBase
     // Get Pathway
     public void GetPathConfigSO(PathConfigSO pathConfigSO)
     {
-        Debug.Log(pathConfigSO);
         pathFinder.PathConfigSO = pathConfigSO;
     }
 
@@ -51,7 +50,6 @@ public class Enemy : UnitBase
 
         if(CurrentHp == 0)
         {
-            Debug.Log("sent dead event");
             OnEnemyDeath?.Invoke(this);
         }
     }
@@ -59,7 +57,6 @@ public class Enemy : UnitBase
     public IEnumerator ReturnPoolAfterPlayAnimation(UnitPool unitPool)
     {
         yield return new WaitForSeconds(unitAnatation.GetCurrentAnimationLength());
-        Debug.Log("Call ReturnUnit");
         unitPool.ReturnUnit(this);
         yield break;
     }

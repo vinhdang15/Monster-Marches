@@ -5,111 +5,58 @@ using UnityEngine;
 
 public class ParabolBullet : BulletBase
 {
-    [HideInInspector] public Vector2 instantiatePos;
-    [HideInInspector] public int Trajectory_num = 50;
-    private float initialAngleDeg;
-    private float initialAngleRad;
-    private float config = 0.1f;
-    private float V;
-    private float gravity = 9.8f;
+    private float height = 2f;
+    private float elapedtime = 0f;
+    
+    public override void MoveToTarget()
+    {   
+        if(isSetUpStartPos == false) return;
+        if(isReachEnemyPos == true) return;
 
-    private List<Vector2> trajectoryPoints = new List<Vector2>();
-    private float speedY = 0f;
-    // LineRenderer lineRenderer;
+        elapedtime += Time.deltaTime;
 
-    protected virtual void CalTrajectory()
-    {
-        if(targetEnemy == null) return;
-        CalInitialAngle();
-        calV();
-        trajectoryPoints.Clear();
-        for(int i = 0; i < Trajectory_num; i++)
-        {
-            float time = i * config;
-            float X = V * Mathf.Cos(initialAngleRad) * time;
-            float Y = V * Mathf.Sin(initialAngleRad) * time - 0.5f * gravity * time * time;
-            Vector2 pos = instantiatePos + new Vector2(X, Y);
-            // lineRenderer.SetPosition(i, pos);
-            if(trajectoryPoints.Count <= i)
-            {
-                trajectoryPoints.Add(pos);
-            }
-            else
-            {
-                trajectoryPoints[i] = pos;
-            }      
-        }
-    }
+        // percent complete
+        float t = Mathf.Clamp01(elapedtime / Speed);
 
-    private void CalInitialAngle()
-    {
-        float X = targetEnemy.transform.position.x - instantiatePos.x;
-        float Y = targetEnemy.transform.position.y - instantiatePos.y;
-        Vector2 dir = new Vector2(X, Y).normalized;
-        float dotProduct = Vector2.Dot(dir, Vector2.up);
-
-        float angleRad = Mathf.Acos(dotProduct);
-        initialAngleDeg = 90 - angleRad * Mathf.Rad2Deg/2;
-        initialAngleDeg = Mathf.Clamp(90 - angleRad * Mathf.Rad2Deg / 2, 60, 90);
-        initialAngleRad = initialAngleDeg * Mathf.Deg2Rad;
-    }
-
-    private void calV()
-    {
-        float X = targetEnemy.transform.position.x - instantiatePos.x;
-        float Y = targetEnemy.transform.position.y - instantiatePos.y;
+        // update targer pos
+        UpdateEnemyPos();
         
-        if(X < 0)
-        {
-            initialAngleRad = -Mathf.Abs(initialAngleRad);
-            config = -Mathf.Abs(config);
-        }
-        else
-        {
-            initialAngleRad = Mathf.Abs(initialAngleRad);
-            config = Mathf.Abs(config);
-        }
+        // Update X coordinates
+        float x = Mathf.Lerp(startPos.x, enemyPos.x, t);
 
-        float v2 = gravity * X * X / ((Mathf.Tan(initialAngleRad) * X - Y) * 2 * Mathf.Cos(initialAngleRad) * Mathf.Cos(initialAngleRad));
-        v2 = Mathf.Abs(v2);
-        V = Mathf.Sqrt(v2);
-    }
+        // Update Y coordinates
+        // áp gia tốc khi để mũi tên bay chậm hơn bay lao lên, và nhanh hơn khi lao xuống 
+        float adjustedT = EaseInOut(t);
+        float y = Mathf.Lerp(startPos.y, enemyPos.y, adjustedT) + height * (1 - 4 * (adjustedT - 0.5f) * (adjustedT - 0.5f));
 
-    protected override void AdjustBulletSpeed()
-    {
-        if(bulletLastPos.y > transform.position.y)
+        transform.position = new Vector2(x,y);
+        UpdateBulletDirection();
+
+        if((Vector2)transform.position == enemyPos)
         {
-            speedY = Speed * 1.2f; 
-        }
-        else
-        {
-            speedY = Speed * 0.7f;
+            isReachEnemyPos = true;
+            PlayAnimationWhenReachEnemyPos();
+            ApplyBulletEffect();         
         }
     }
 
-    public override IEnumerator MoveToTargetCoroutine()
+    private float EaseInOut(float t)
+{
+    if (t < 0.5f)
     {
-        // only init instantiatePoint when start coroutine
-        instantiatePos = transform.position;
-        
-        CalTrajectory();
-        for (int i = 0; i < trajectoryPoints.Count; i++)
-        {  
-            Vector2 position = trajectoryPoints[i];
-            while ((Vector2)transform.position != position)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, position, speedY * Time.deltaTime);
-                UpdateBulletSpeedAndDirection();
-                CalTrajectory();
-                UpdateEnemyPos();
-                if(Vector2.Distance(transform.position, enemyPos) <= 0.2f)
-                {
-                    isReachEnemyPos = true;
-                    StartCoroutine(DealDamageToEnemy());
-                    yield break;
-                }
-                yield return null;
-            } 
-        }  
+        // return 2 * t * t; // Ease-In
+        return t * 0.7f; // Ease-In
+    }
+    else
+    {
+        // return 1 - Mathf.Pow(-2 * t + 2, 2) / 2; // Ease-Out
+        return t * t;
+    }
+}
+
+    public override void ResetBullet()
+    {
+        base.ResetBullet();
+        elapedtime = 0f;
     }
 }

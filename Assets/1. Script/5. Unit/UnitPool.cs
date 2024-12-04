@@ -65,7 +65,6 @@ public class UnitPool : MonoBehaviour
         }
         else // Init unit if out of unit in pool
         {
-            Debug.Log("init new enemy");
             Enemy unitPrefab = GetUnitPrefab(unitName) as Enemy;
             Enemy enemy = Instantiate(unitPrefab, transform);
             UnitData unitData = unitDataReader.unitDataList.GetUnitData(unitPrefab.unitName);

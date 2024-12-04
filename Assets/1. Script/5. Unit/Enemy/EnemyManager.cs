@@ -28,7 +28,6 @@ public class EnemyManager : MonoBehaviour
 
     public void AddEnemy(Enemy enemy)
     {
-        Debug.Log("add enemy");
         enemy.OnEnemyDeath += HandleEnemyDeath;
         Totalenemies.Add(enemy);
     }
@@ -42,7 +41,6 @@ public class EnemyManager : MonoBehaviour
         //Play die animation
         enemy.unitAnatation.UnitPlayDie();
         // wait to finish die animation then return unit pool
-        Debug.Log("Call coroutine");
         StartCoroutine(enemy.ReturnPoolAfterPlayAnimation(unitPool));
     }
 }

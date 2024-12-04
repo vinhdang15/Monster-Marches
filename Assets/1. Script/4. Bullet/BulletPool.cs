@@ -10,7 +10,7 @@ public class BulletPool : MonoBehaviour
     [System.Serializable]
     public class BulletPoolInfo
     {
-        public string       bulletType;
+        public string       BulletType => bulletPrefab.type;
         public BulletBase   bulletPrefab;
         public int          poolSize;
     }
@@ -36,13 +36,13 @@ public class BulletPool : MonoBehaviour
             for(int i = 0; i < bulletPoolInfo.poolSize; i++)
             {
                 BulletBase bullet = Instantiate(bulletPoolInfo.bulletPrefab, transform);
-                BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPoolInfo.bulletType);
+                BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPoolInfo.BulletType);
                 bullet.InitBullet(bulletData, effectDataReader);
 
                 bullet.gameObject.SetActive(false);
                 bulletQueue.Enqueue(bullet);
             }
-            bulletPools.Add(bulletPoolInfo.bulletType,bulletQueue);
+            bulletPools.Add(bulletPoolInfo.BulletType,bulletQueue);
         }
     }
 
@@ -58,6 +58,8 @@ public class BulletPool : MonoBehaviour
         {
             BulletBase bullet = bulletPools[bulletType].Dequeue();
             bullet.transform.position = initPos;
+            bullet.startPos = initPos;
+            bullet.isSetUpStartPos = true;
             bullet.gameObject.SetActive(true);
             return bullet;
         }
@@ -67,6 +69,9 @@ public class BulletPool : MonoBehaviour
             BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
             BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPrefab.type);
             bullet.InitBullet(bulletData, effectDataReader);
+            bullet.transform.position = initPos;
+            bullet.startPos = initPos;
+            bullet.isSetUpStartPos = true;
             return bullet;
         }
     }
@@ -86,7 +91,7 @@ public class BulletPool : MonoBehaviour
     {
         foreach(BulletPoolInfo bulletPoolInfo in bulletPoolInfos)
         {
-            if(bulletPoolInfo.bulletType == bulletType)
+            if(bulletPoolInfo.BulletType == bulletType)
             {
                 return bulletPoolInfo.bulletPrefab;
             }
