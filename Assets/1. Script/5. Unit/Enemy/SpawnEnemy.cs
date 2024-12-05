@@ -109,7 +109,7 @@ public class SpawnEnemy : MonoBehaviour
 
     private void GetUnitBase(Enemy _enemy, int lineInPathIndex)
     {
-        Enemy enemy = unitPool.GetEnemy(_enemy.unitName);
+        Enemy enemy = unitPool.GetEnemy(_enemy.UnitName);
         // add path to enemy pathway
         enemy.GetPathConfigSO(pathConfigSO);
         enemy.SetPosInPathWave(lineInPathIndex % 3);

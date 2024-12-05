@@ -5,11 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UnitDataList", menuName = "Data Config/UnitDataList", order = 4)]
 public class UnitDataListSO : ScriptableObject
 {
-    public List<UnitData> enemyDataList = new List<UnitData>();
+    public List<UnitData> unitDataList = new List<UnitData>();
 
-    public UnitData GetUnitData(string enemyName)
+    public UnitData GetUnitData(string unitName)
     {
-        
-        return enemyDataList.Find(data => data.unitName == enemyName);
+        return unitDataList.Find(data => data.unitName == unitName);
+    }
+
+    public string GetUnitType(string unitName)
+    {
+        UnitData unitData = unitDataList.Find(data => data.unitName == unitName);
+        return unitData.unitType;
     }
 }

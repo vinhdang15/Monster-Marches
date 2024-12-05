@@ -417,12 +417,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e67f019793bee4b8ec9fe6696ffe40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletManager: {fileID: 1341667496}
   towerDataReader: {fileID: 1961100159}
+  bulletManager: {fileID: 1341667496}
+  soldierManager: {fileID: 2120819265}
   towerPrefabList:
   - {fileID: 6789151250249618790, guid: 3ae4144d04db5cb489f2c406d208017b, type: 3}
   - {fileID: 6789151250249618790, guid: c57e8f0281ab6e74089100a646807cbf, type: 3}
-  - {fileID: 0}
+  - {fileID: 6789151250249618790, guid: 3057643476135ad45a27836b4571286c, type: 3}
   - {fileID: 6789151250249618790, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
   towerList: []
   selectedEmptyPlot: {fileID: 0}
@@ -764,6 +765,10 @@ MonoBehaviour:
   unitDataReader: {fileID: 988850514}
   unitPoolInfors:
   - unitPrefab: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
+    unitType: 
+    poolSize: 20
+  - unitPrefab: {fileID: 454278597149469648, guid: 52577287aa1c88b4cb16964be4f5479a, type: 3}
+    unitType: 
     poolSize: 20
 --- !u!1 &433124228
 GameObject:
@@ -1373,6 +1378,7 @@ Transform:
   - {fileID: 1927368039}
   - {fileID: 2121268489}
   - {fileID: 117138094}
+  - {fileID: 2120819264}
   - {fileID: 1341667497}
   - {fileID: 1006963316}
   - {fileID: 1229339119}
@@ -1475,7 +1481,7 @@ MonoBehaviour:
   effectDataReader: {fileID: 1679984239}
   bulletPoolInfos:
   - bulletPrefab: {fileID: 559437072603961109, guid: 1e025b77692fdfc4b83340d8d0d96678, type: 3}
-    poolSize: 3
+    poolSize: 20
   - bulletPrefab: {fileID: 559437072603961109, guid: 94d2d36b0996c374d91c0d74ffc7f478, type: 3}
     poolSize: 20
   - bulletPrefab: {fileID: 8197316751108301056, guid: 258baf98c5f95604fa76a68574bfba84, type: 3}
@@ -4209,6 +4215,51 @@ MonoBehaviour:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   btnCautionSlider: {fileID: 0}
+--- !u!1 &2120819263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2120819264}
+  - component: {fileID: 2120819265}
+  m_Layer: 0
+  m_Name: SoldierManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2120819264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120819263}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 588932110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120819265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120819263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68143f47187b254a820472ddd40885a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitPool: {fileID: 397007803}
 --- !u!1 &2121268487
 GameObject:
   m_ObjectHideFlags: 0

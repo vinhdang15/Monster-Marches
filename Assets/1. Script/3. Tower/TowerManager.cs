@@ -7,25 +7,27 @@ using UnityEngine.Rendering;
 
 public class TowerManager : MonoBehaviour
 {
-    public BulletManager bulletManager;
-    [SerializeField] CSVTowerDataReader towerDataReader;
-    [SerializeField] List<TowerView> towerPrefabList = new List<TowerView>();
-    public List<TowerPresenter> towerList = new List<TowerPresenter>();
+    [SerializeField] CSVTowerDataReader     towerDataReader;
+    [SerializeField] BulletManager          bulletManager;
+    [SerializeField] SoldierManager         soldierManager;
+    [SerializeField] List<TowerView>        towerPrefabList = new List<TowerView>();
+    public List<TowerPresenter>             towerList = new List<TowerPresenter>();
     public Dictionary<TowerPresenter, PresenterData> towerExtraData = new Dictionary<TowerPresenter, PresenterData>();
     public EmptyPlot        selectedEmptyPlot;
 
     #region INIT TOWER
     public void InitTower(Vector3 pos, TowerType towerType)
     {
+        // TowerData towerData = towerDataReader.towerDataList.GetTowerData(towerType.ToString(), 1);
+        // TowerPresenter towerPresenter = InitTowerPresenter(towerData, pos, towerType);
+        // RegisterTowerPresenterEvent(towerPresenter);
+        // InitTowerExtraData(towerData, towerType, towerPresenter);
+
         // init tower presenter
-        TowerData towerData             = towerDataReader.towerDataList.GetTowerData(towerType.ToString(), 1);
+        TowerData towerData             = towerDataReader.towerDataList.GetTowerData(towerType.ToString().Trim().ToLower(), 1);
         TowerView towerView             = Instantiate(towerPrefabList[(int)towerType], pos, Quaternion.identity, transform);
         TowerModel towerModel           = TowerModel.Craete(towerView,towerData);
         TowerPresenter towerPresenter   = TowerPresenter.Create(towerModel, towerView);
-
-        // Register selected TowerView, or selected TowerView null enemy in range, enemy out range
-        towerPresenter.towerView.OnEnemyEnter           += (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
-        towerPresenter.towerView.OnEnemyExit            += (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
 
         // init tower towerExtraData
         towerExtraData[towerPresenter]                      = new PresenterData();
@@ -33,10 +35,47 @@ public class TowerManager : MonoBehaviour
         towerExtraData[towerPresenter].emptyPlot.HideEmptyPlot();
         towerExtraData[towerPresenter].RangeDetectUpgrade   = towerDataReader.towerDataList.GetRangeDetect(towerType.ToString(), 2);
         towerExtraData[towerPresenter].GoldUpdrade          = towerDataReader.towerDataList.GetGoldRequired(towerType.ToString(), 2);
-        towerExtraData[towerPresenter].GoldRefund            += towerData.goldRequired;
+        towerExtraData[towerPresenter].GoldRefund           += towerData.goldRequired;
 
+        // Register Tower Presenter Event
+        RegisterTowerPresenterEvent(towerPresenter);
+
+        GetBarrackGuradPoint(towerPresenter);
+        SpawnBarackSoldier(towerPresenter);
+        
         // towerList is no use at the moment
-        towerList.Add(towerPresenter);    
+        towerList.Add(towerPresenter);
+    }
+
+    private TowerPresenter InitTowerPresenter(TowerData towerData, Vector3 pos, TowerType towerType)
+    {
+        TowerView towerView             = Instantiate(towerPrefabList[(int)towerType], pos, Quaternion.identity, transform);
+        TowerModel towerModel           = TowerModel.Craete(towerView,towerData);
+        TowerPresenter towerPresenter   = TowerPresenter.Create(towerModel, towerView);
+        return towerPresenter;
+    }
+
+    private void InitTowerExtraData(TowerData towerData, TowerType towerType, TowerPresenter towerPresenter)
+    {
+        towerExtraData[towerPresenter]                      = new PresenterData();
+        towerExtraData[towerPresenter].emptyPlot            = selectedEmptyPlot;
+        towerExtraData[towerPresenter].emptyPlot.HideEmptyPlot();
+        towerExtraData[towerPresenter].RangeDetectUpgrade   = towerDataReader.towerDataList.GetRangeDetect(towerType.ToString(), 2);
+        towerExtraData[towerPresenter].GoldUpdrade          = towerDataReader.towerDataList.GetGoldRequired(towerType.ToString(), 2);
+        towerExtraData[towerPresenter].GoldRefund           += towerData.goldRequired;
+    }
+
+    private void RegisterTowerPresenterEvent(TowerPresenter towerPresenter)
+    {
+        if(towerPresenter.towerModel.TowerType == TowerType.Barrack.ToString().Trim().ToLower()) return;
+        towerPresenter.towerView.OnEnemyEnter   += (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
+        towerPresenter.towerView.OnEnemyExit    += (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
+    }
+
+    private void GetBarrackGuradPoint(TowerPresenter towerPresenter)
+    {
+        if(towerPresenter.towerModel.TowerType != TowerType.Barrack.ToString().Trim().ToLower()) return;
+        towerExtraData[towerPresenter].guardPoint = towerPresenter.transform.GetChild(0).GetComponent<GuardPoint>();
     }
 
     public void InitArcherTower(Vector3 pos)
@@ -51,7 +90,7 @@ public class TowerManager : MonoBehaviour
 
     public void InitBarackTower(Vector3 pos)
     {
-        InitTower(pos,TowerType.BarrackTower);
+        InitTower(pos,TowerType.Barrack);
     }
 
     public void InitCannonTower(Vector3 pos)
@@ -115,7 +154,7 @@ public class TowerManager : MonoBehaviour
     }
 
     #region PROCESS DETECT ENEMY AND SPAWN BULLET
-    private void HanldeEnemyEnter(UnitBase enemy, TowerPresenter towerPresenter)
+    private void HanldeEnemyEnter(Enemy enemy, TowerPresenter towerPresenter)
     {
         towerExtraData[towerPresenter].enemies.Add(enemy);
 
@@ -125,7 +164,7 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    private void HanldeEnemyExit(UnitBase enemy, TowerPresenter towerPresenter)
+    private void HanldeEnemyExit(Enemy enemy, TowerPresenter towerPresenter)
     {
         towerExtraData[towerPresenter].enemies.Remove(enemy);
 
@@ -138,7 +177,7 @@ public class TowerManager : MonoBehaviour
 
     private IEnumerator SpawnBulletCorountine(TowerPresenter towerPresenter)
     {
-        List<UnitBase> towerPresentEnemiesList = towerExtraData[towerPresenter].enemies;
+        List<Enemy> towerPresentEnemiesList = towerExtraData[towerPresenter].enemies;
         TowerModel towerModel = towerPresenter.towerModel;
         TowerView towerView = towerPresenter.towerView;
 
@@ -150,37 +189,43 @@ public class TowerManager : MonoBehaviour
             string bulletType = towerModel.BulletType;
             Vector2 spawnPos = towerView.GetSpawnBulletPos();
 
-            for (int i = 0; i < towerPresentEnemiesList.Count; i++)
+            if(towerPresentEnemiesList.Count > 0 && towerPresentEnemiesList[0].CurrentHp > 0)
             {
-                if(towerPresentEnemiesList[i].CurrentHp > 0)
-                {
-                    bulletManager.SpawnBullet(bulletType,spawnPos,towerPresentEnemiesList[i]);
-                    break;
-                }
-                else i++;          
+                bulletManager.SpawnBullet(bulletType,spawnPos,towerPresentEnemiesList[0]);
             }
             yield return new WaitForSeconds(towerPresenter.towerModel.FireRate - 0.2f);
         }
     }
     #endregion
 
+    #region PROCESS SPAWN SOLDIER
+    private void SpawnBarackSoldier(TowerPresenter towerPresenter)
+    {
+        if(towerPresenter.towerModel.TowerType != TowerType.Barrack.ToString().Trim().ToLower()) return;
+        string soldierName = towerPresenter.towerModel.BulletType;
+        Vector2 initPos = towerPresenter.towerView.GetSpawnBulletPos();
+        GuardPoint guardPoint =  towerExtraData[towerPresenter].guardPoint;
+        soldierManager.BarrackSpawnSoldier(soldierName, initPos, guardPoint);
+    }
+    #endregion
 }
 
 public enum TowerType
 {
     ArcherTower = 0,
     MageTower = 1,
-    BarrackTower = 2,
+    Barrack = 2,
     CannonTower = 3
 }
 
 [System.Serializable]
 public class PresenterData 
 {
-    public List<UnitBase>  enemies = new List<UnitBase>();
-    public Coroutine    spawnCoroutine;
-    public EmptyPlot    emptyPlot;
-    public float        RangeDetectUpgrade { set ; get ; }
-    public int          GoldUpdrade { set ; get ; }
-    public int          GoldRefund { set ; get ; } = 0;
+    public List<Enemy>      enemies = new List<Enemy>();
+    public GuardPoint       guardPoint;
+    public Coroutine        spawnCoroutine;
+    public EmptyPlot        emptyPlot;
+    public float            RangeDetectUpgrade { set ; get ; }
+    public int              GoldUpdrade { set ; get ; }
+    public int              GoldRefund { set ; get ; } = 0;
 }

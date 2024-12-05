@@ -15,6 +15,11 @@ public class Enemy : UnitBase
         pathFinder = GetComponent<PathFinder>();
     }
 
+    private void OnDisable()
+    {
+        OnEnemyDeath = null;
+    }
+
     // Get Pathway
     public void GetPathConfigSO(PathConfigSO pathConfigSO)
     {
@@ -27,7 +32,7 @@ public class Enemy : UnitBase
     }
 
     // Move
-    public override void Move()
+    public void Move()
     {
         if(CurrentHp == 0) return;
         pathFinder.FollowPath(CurrentSpeed);
@@ -57,7 +62,7 @@ public class Enemy : UnitBase
     public IEnumerator ReturnPoolAfterPlayAnimation(UnitPool unitPool)
     {
         yield return new WaitForSeconds(unitAnatation.GetCurrentAnimationLength());
-        unitPool.ReturnUnit(this);
+        unitPool.ReturnEnemy(this);
         yield break;
     }
 

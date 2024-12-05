@@ -27,7 +27,6 @@ public class BulletManager : MonoBehaviour
     
     private void HandleFinishBulletAnimation(BulletBase bullet)
     {
-        bullet.OnFinishBulletAnimation -= HandleFinishBulletAnimation;
         activeBullets.Remove(bullet);
         bulletPool.ReturnBullet(bullet);
     }

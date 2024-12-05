@@ -28,9 +28,9 @@ public class CSVTowerDataReader : MonoBehaviour
             if(values.Length < 8) continue;
             TowerData towerData = new TowerData
             {
-                towerType       = values[0],
+                towerType       = values[0].Trim().ToLower(),
                 level           = int.Parse(values[1]),
-                BulletType      = values[2],
+                BulletType      = values[2].Trim().ToLower(),
                 fireRate        = float.Parse(values[3]),
                 rangeDetect     = float.Parse(values[4]),
                 rangeRaycast    = float.Parse(values[5]),

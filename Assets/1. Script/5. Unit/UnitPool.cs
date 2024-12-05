@@ -10,11 +10,13 @@ public class UnitPool : MonoBehaviour
     public class UnitPoolInfor
     {
         public UnitBase unitPrefab;
-        public string unitName => unitPrefab.unitName;
+        public string unitType;
+        public string UnitName => unitPrefab.UnitName.Trim().ToLower();
         public int poolSize; 
     }
     public List<UnitPoolInfor> unitPoolInfors = new List<UnitPoolInfor>();
-    public Dictionary<string, Queue<UnitBase>> unitPool = new Dictionary<string, Queue<UnitBase>>();
+    public Dictionary<string, Queue<Enemy>> enemyPool = new Dictionary<string, Queue<Enemy>>();
+    public Dictionary<string, Queue<Soldier>> soldierPool = new Dictionary<string, Queue<Soldier>>();
     
 
     private void Awake()
@@ -22,100 +24,128 @@ public class UnitPool : MonoBehaviour
         StartCoroutine(InitializePoolsCoroutine());
     }
 
+    private void unitType()
+    {
+        foreach(var unitpoolInfor in unitPoolInfors)
+        {
+            unitpoolInfor.unitType = unitDataReader.unitDataList.GetUnitType(unitpoolInfor.UnitName);
+        }
+    }
+
     private IEnumerator InitializePoolsCoroutine()
     {
         yield return new WaitUntil(() => unitDataReader.IsDataLoaded);
-        InitializePools();
+        unitType();
+        InitializeEnemyPools();
+        InitializeSoldierPools();
     }
 
-    private void InitializePools()
+    private void InitializeEnemyPools()
     {
         foreach(var unitPoolInfor in unitPoolInfors)
         {
-            Queue<UnitBase> units = new Queue<UnitBase>();
+            if(unitPoolInfor.unitType != "enemy") continue;
+            Queue<Enemy> enemyQueue = new Queue<Enemy>();
             for( int i = 0; i < unitPoolInfor.poolSize; i++)
             {
-                UnitBase unit = Instantiate(unitPoolInfor.unitPrefab, transform);
-                UnitData unitData = unitDataReader.unitDataList.GetUnitData(unitPoolInfor.unitName);
-                unit.InItUnit(unitData);
-                unit.GetAnimation();
-                unit.gameObject.SetActive(false);
-                units.Enqueue(unit);
+                Enemy enemy = (Enemy)Instantiate(unitPoolInfor.unitPrefab, transform);
+                UnitData unitData = unitDataReader.unitDataList.GetUnitData(unitPoolInfor.UnitName);
+                enemy.InItUnit(unitData);
+                enemy.GetAnimation();
+                enemy.gameObject.SetActive(false);
+                enemyQueue.Enqueue(enemy);
             }
-            unitPool.Add(unitPoolInfor.unitName, units);
+            enemyPool.Add(unitPoolInfor.UnitName, enemyQueue);
         }
     }
 
-    // get unit from pool
-    public Enemy GetEnemy(string unitName)
+    private void InitializeSoldierPools()
     {
-        if(!unitPool.ContainsKey(unitName))
+        foreach(var unitPoolInfor in unitPoolInfors)
         {
-            Debug.Log("there is no " + unitName);
+            if(unitPoolInfor.unitType != "soldier") continue;
+            Queue<Soldier> soldierQueue = new Queue<Soldier>();
+            for( int i = 0; i < unitPoolInfor.poolSize; i++)
+            {
+                Soldier soldier = (Soldier)Instantiate(unitPoolInfor.unitPrefab, transform);
+                UnitData soldierData = unitDataReader.unitDataList.GetUnitData(unitPoolInfor.UnitName);
+                soldier.InItUnit(soldierData);
+                soldier.index = i % 3;
+                soldier.GetAnimation();
+                soldier.gameObject.SetActive(false);
+                soldierQueue.Enqueue(soldier);
+            }
+            soldierPool.Add(unitPoolInfor.UnitName, soldierQueue);
+        }
+    }
+
+    // get enemy from pool
+    public Enemy GetEnemy(string EnemyName)
+    {
+        if(!enemyPool.ContainsKey(EnemyName))
+        {
+            Debug.Log("there is no " + EnemyName);
             return null;
         }
-        if(unitPool[unitName].Count > 0)
+        if(enemyPool[EnemyName].Count > 0)
         {
-            // Debug.Log("DEQUEUE STATE: enemy in pool count: " + unitPool[unitName].Count + " READY TO pooling enemy");
-            Enemy enemy = unitPool[unitName].Dequeue() as Enemy;
+            Enemy enemy = enemyPool[EnemyName].Dequeue() as Enemy;
             enemy.GetAnimation();
-            // Debug.Log("DEQUEUE STATE: enemy in pool count: " + unitPool[unitName].Count + " POOLED enemy");
             enemy.gameObject.SetActive(true);
             return enemy;
         }
         else // Init unit if out of unit in pool
         {
-            Enemy unitPrefab = GetUnitPrefab(unitName) as Enemy;
+            Enemy unitPrefab = GetUnitPrefab(EnemyName) as Enemy;
             Enemy enemy = Instantiate(unitPrefab, transform);
-            UnitData unitData = unitDataReader.unitDataList.GetUnitData(unitPrefab.unitName);
+            UnitData unitData = unitDataReader.unitDataList.GetUnitData(unitPrefab.UnitName);
             enemy.InItUnit(unitData);
             enemy.GetAnimation();
            return enemy;
         }
     }
 
-    public UnitBase GetSoldier(string unitName, Vector2 initPos)
+    // get soldier from pool
+    public Soldier GetSoldier(string unitName, Vector2 initPos)
     {
-        if(!unitPool.ContainsKey(unitName))
+        if(!soldierPool.ContainsKey(unitName))
         {
             Debug.Log("there is no " + unitName);
             return null;
         }
-        if(unitPool[unitName].Count > 0)
+        if(soldierPool[unitName].Count > 0)
         {
-            UnitBase unit = unitPool[unitName].Dequeue();
+            Soldier unit = soldierPool[unitName].Dequeue();
             unit.transform.position = initPos;
             unit.gameObject.SetActive(true);
             return unit;
         }
         else // Init unit if out of unit in pool
         {
-            UnitBase unitPrefab = GetUnitPrefab(unitName);
-            UnitBase unit = Instantiate(unitPrefab, initPos, Quaternion.identity, transform);
-            UnitData unitData = unitDataReader.unitDataList.GetUnitData(unitPrefab.unitName);
-            unit.InItUnit(unitData);
-            unit.GetAnimation();
-           return unit;
+            Soldier unitPrefab = (Soldier)GetUnitPrefab(unitName);
+            Soldier soldier = Instantiate(unitPrefab, initPos, Quaternion.identity, transform);
+            UnitData unitData = unitDataReader.unitDataList.GetUnitData(unitPrefab.UnitName);
+            soldier.InItUnit(unitData);
+            soldier.GetAnimation();
+           return soldier;
         }
     }
 
-    public void ReturnUnit(UnitBase unitBase)
+    public void ReturnEnemy(Enemy enemy)
     {
-        unitBase.gameObject.SetActive(false);
-        if(unitPool.ContainsKey(unitBase.unitName))
+        enemy.gameObject.SetActive(false);
+        if(enemyPool.ContainsKey(enemy.UnitName))
         {
-            // Debug.Log("RELOAD STATE: enemy in pool count: " + unitPool[unitBase.unitName].Count + " READY TO reload");
-            unitPool[unitBase.unitName].Enqueue(unitBase);
-            // Debug.Log("RELOAD STATE: enemy in pool count: " + unitPool[unitBase.unitName].Count + " RELOADED");
+            enemyPool[enemy.UnitName].Enqueue(enemy);
         }
-        unitBase.ResetUnit();
+        enemy.ResetUnit();
     }
 
     private UnitBase GetUnitPrefab(string unitName)
     {
         foreach(UnitPoolInfor unitPoolInfo in unitPoolInfors)
         {
-            if(unitPoolInfo.unitName == unitName)
+            if(unitPoolInfo.UnitName == unitName)
             {
                 return unitPoolInfo.unitPrefab;
             }

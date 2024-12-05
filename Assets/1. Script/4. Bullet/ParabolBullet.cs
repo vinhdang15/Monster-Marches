@@ -45,7 +45,7 @@ public class ParabolBullet : BulletBase
     if (t < 0.5f)
     {
         // return 2 * t * t; // Ease-In
-        return t * 0.7f; // Ease-In
+        return t * 0.85f; // Ease-In
     }
     else
     {

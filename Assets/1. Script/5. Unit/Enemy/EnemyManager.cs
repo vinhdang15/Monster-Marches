@@ -34,7 +34,6 @@ public class EnemyManager : MonoBehaviour
 
     private void HandleEnemyDeath(Enemy enemy)
     {
-        enemy.OnEnemyDeath -= HandleEnemyDeath;
         Totalenemies.Remove(enemy);
         // notifi for GamePlayManaer
         EnemyDieHandler?.Invoke(enemy);

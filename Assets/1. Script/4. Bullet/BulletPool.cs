@@ -10,7 +10,7 @@ public class BulletPool : MonoBehaviour
     [System.Serializable]
     public class BulletPoolInfo
     {
-        public string       BulletType => bulletPrefab.type;
+        public string       BulletType => bulletPrefab.Type.Trim().ToLower();
         public BulletBase   bulletPrefab;
         public int          poolSize;
     }
@@ -67,7 +67,7 @@ public class BulletPool : MonoBehaviour
         {
             BulletBase bulletPrefab = GetBulletPrefab(bulletType);
             BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
-            BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPrefab.type);
+            BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPrefab.Type);
             bullet.InitBullet(bulletData, effectDataReader);
             bullet.transform.position = initPos;
             bullet.startPos = initPos;
@@ -81,9 +81,9 @@ public class BulletPool : MonoBehaviour
     {
         bullet.ResetBullet();
         bullet.gameObject.SetActive(false);
-        if(bulletPools.ContainsKey(bullet.type))
+        if(bulletPools.ContainsKey(bullet.Type))
         {
-            bulletPools[bullet.type].Enqueue(bullet);
+            bulletPools[bullet.Type].Enqueue(bullet);
         }
     }
 

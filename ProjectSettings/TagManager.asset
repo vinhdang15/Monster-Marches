@@ -17,7 +17,7 @@ TagManager:
   - TowerRangeDetect
   - Enemy
   - Button
-  - 
+  - Soldier
   - 
   - 
   - 
@@ -44,11 +44,14 @@ TagManager:
   - name: BuildingSpot
     uniqueID: 154557991
     locked: 0
-  - name: Tower
-    uniqueID: 1589449537
+  - name: Soldier
+    uniqueID: 351156673
     locked: 0
   - name: Enemy
     uniqueID: 2467983883
+    locked: 0
+  - name: Tower
+    uniqueID: 1589449537
     locked: 0
   - name: Bullet
     uniqueID: 4095579041

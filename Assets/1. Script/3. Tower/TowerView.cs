@@ -12,8 +12,8 @@ public class TowerView : MonoBehaviour
     private CircleCollider2D        rangeDetechCol;
     private CircleCollider2D        rangeRaycastCol;
     private Animator                towerAnimation;
-    public event            Action<UnitBase, TowerView> OnEnemyEnter;
-    public event            Action<UnitBase, TowerView> OnEnemyExit;
+    public event            Action<Enemy, TowerView> OnEnemyEnter;
+    public event            Action<Enemy, TowerView> OnEnemyExit;
 
     private void Awake()
     { 
@@ -22,6 +22,11 @@ public class TowerView : MonoBehaviour
         towerAnimation = towerObject.GetComponent<Animator>();
     }
     
+    private void OnDisable()
+    {
+        OnEnemyEnter = null;
+        OnEnemyExit = null;
+    }
     public void SetRangeRaycat(float rangeDetect)
     {
         rangeRaycastCol.radius = rangeDetect;
@@ -59,7 +64,7 @@ public class TowerView : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            UnitBase enemyScript = other.GetComponent<UnitBase>();
+            Enemy enemyScript = other.GetComponent<Enemy>();
             OnEnemyEnter?.Invoke(enemyScript, this);
         }
     }
@@ -68,7 +73,7 @@ public class TowerView : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            UnitBase enemyScript = other.GetComponent<UnitBase>();
+            Enemy enemyScript = other.GetComponent<Enemy>();
             OnEnemyExit?.Invoke(enemyScript, this);
         }
     }

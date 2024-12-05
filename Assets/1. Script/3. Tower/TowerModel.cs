@@ -24,7 +24,7 @@ public class TowerModel : TowerBase
     }
 
     private void TowerModeInit(TowerData _data)
-    {
+    { 
         TowerType           = _data.towerType;
         Level               = _data.level;
         BulletType          = _data.BulletType;

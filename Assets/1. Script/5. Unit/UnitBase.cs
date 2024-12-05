@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class UnitBase : MonoBehaviour
 {
     public string   UnitType        { get; set;}
-    public string   unitName;            
+    public string   UnitName => gameObject.name.Trim().ToLower();        
     public int      MaxHP           { get; set;}
     public float    Speed           { get; set;}
     public int      Damage          { get; set;}
@@ -22,20 +22,20 @@ public abstract class UnitBase : MonoBehaviour
     public UnitAnimation unitAnatation;
 
     #region INIT UNIT
-    public virtual void InItUnit(UnitData _enemyData)
+    public virtual void InItUnit(UnitData _unitData)
     {
-        InitUnitData(_enemyData);
+        InitUnitData(_unitData);
         SetupCurrentHp();
         SetDefaultSpeed();
     }
-    public virtual void InitUnitData(UnitData _enemyData)
+    public virtual void InitUnitData(UnitData _unitData)
     {
-        UnitType        = _enemyData.unitType;
-        MaxHP           = _enemyData.maxHP;
-        Speed           = _enemyData.speed;
-        Damage          = _enemyData.damage;
-        Gold            = _enemyData.gold;
-        SpecialAbility  = _enemyData.specialAbility;
+        UnitType        = _unitData.unitType;
+        MaxHP           = _unitData.maxHP;
+        Speed           = _unitData.speed;
+        Damage          = _unitData.damage;
+        Gold            = _unitData.gold;
+        SpecialAbility  = _unitData.specialAbility;
     }
     
     public virtual void InitState()
@@ -66,7 +66,7 @@ public abstract class UnitBase : MonoBehaviour
     #endregion
 
     #region UNIT ACTION STATE
-    public abstract void Move();
+    // public abstract void Move();
 
     public abstract void SetMovingDirection();
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletBase : MonoBehaviour
 {
-    public string   type;//                  { get; set; }
+    public string   Type => gameObject.name.Trim().ToLower();
     public int      Damage                   { get; set; }
     public float    Speed                    { get; set; }
     public string   EffectType               { get; set; }
@@ -20,6 +20,11 @@ public class BulletBase : MonoBehaviour
     protected BulletAnimation            bulletAnimation;
     public event Action<BulletBase>      OnFinishBulletAnimation;
     
+    private void OnDisable()
+    {
+        OnFinishBulletAnimation = null;
+    }
+
     #region INIT BULLET
     public void InitBullet(BulletData _bulletData, CSVEffectDataReader effectDataReader)
     {
@@ -110,7 +115,7 @@ public class BulletBase : MonoBehaviour
 
     protected virtual void SetBulletDirection()
     {
-        if(!this.type.Contains("Bomb")) RotateInMovingDirection();
+        if(!this.Type.Contains("Bomb")) RotateInMovingDirection();
         else RotateInCircle();
     }
 
