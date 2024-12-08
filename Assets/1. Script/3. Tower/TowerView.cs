@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerView : MonoBehaviour
 {
-    [SerializeField] Transform      towerObject;
     [SerializeField] RangeDetect    rangeDetection;
     [SerializeField] RangeDetect    rangeDetectionUpgrade;
     [SerializeField] Transform      spawnBulletTrans;
@@ -17,9 +14,9 @@ public class TowerView : MonoBehaviour
 
     private void Awake()
     { 
-        rangeDetechCol = towerObject.GetComponent<CircleCollider2D>();
+        rangeDetechCol = GetComponent<CircleCollider2D>();
         rangeRaycastCol = GetComponent<CircleCollider2D>();
-        towerAnimation = towerObject.GetComponent<Animator>();
+        towerAnimation = GetComponent<Animator>();
     }
     
     private void OnDisable()

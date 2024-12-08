@@ -33,8 +33,8 @@ public class UIManager : MonoBehaviour
 
     private void  RegistereGamePlayManagerEvent()
     {
-        gamePlayManager.OnSelectedTower += HandeSelectedTower;
-        gamePlayManager.OnGoldChange += HandleGoldChange;
+        gamePlayManager.OnSelectedTowerForUI += HandeSelectedTower;
+        gamePlayManager.OnGoldChangeForUI += HandleGoldChange;
         gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave += HandleUpdateCurrentWave;
     }
     private void GetTotalWave()

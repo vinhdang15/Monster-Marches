@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5248891281608216279}
   - component: {fileID: 559437072603961109}
   - component: {fileID: 6617199214612759801}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Arrow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -199388255
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 940448352, guid: 220af499dc74788419be80c3c07dc4e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -226,11 +226,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352b57a6123d817459dc116603a2739a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: Arrow2
   isReachEnemyPos: 0
+  isSetUpStartPos: 0
+  startPos: {x: 0, y: 0}
   bulletLastPos: {x: 0, y: 0}
-  instantiatePos: {x: 0, y: 0}
-  Trajectory_num: 50
 --- !u!114 &6617199214612759801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4915878040177419480}
   - component: {fileID: 4516369981301804658}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

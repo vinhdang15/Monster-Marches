@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6275247613871315491}
   - component: {fileID: 5244750542181624621}
   - component: {fileID: 9034229372672545899}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: CannonTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5693245808658361739}
   - component: {fileID: 21524507911851260}
   - component: {fileID: 6789151250249618790}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: CannonTowerView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1589449537
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
   m_Color: {r: 0.2921858, g: 0.44804302, b: 0.9245283, a: 1}
@@ -276,13 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf43bc6f0d7e5fc40a145a8c08d37c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerObject: {fileID: 6275247613871315491}
-  rangeDetection: {fileID: 7053275665512798148}
-  rangeDetectionUpgrade: {fileID: 6683848471035377270}
+  rangeDetection: {fileID: 4131628879619917290}
+  rangeDetectionUpgrade: {fileID: 304926669198020314}
   spawnBulletTrans: {fileID: 542164255102359296}
-  BulletList:
-  - {fileID: 1859538256131655347, guid: 5d5aee667d2d56241b7f95426351f033, type: 3}
-  - {fileID: -2552696894742912667, guid: 305f2c2b7e8e3e042aa684277c7e3500, type: 3}
 --- !u!1 &7204663080290148549
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,21 +318,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3090162326235010171}
     m_Modifications:
-    - target: {fileID: 2407111949070316060, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
-      propertyPath: m_Color.g
-      value: 0.6423671
-      objectReference: {fileID: 0}
     - target: {fileID: 3966209511941433882, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
       propertyPath: m_Name
       value: RangeDetect
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966209511941433882, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966209511941433882, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6160765386132830080, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -381,28 +365,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3966209511941433882, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7053275665512798148}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
 --- !u!4 &597684343180653687 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6160765386132830080, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
   m_PrefabInstance: {fileID: 6716003682067956727}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7655775552718711277 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3966209511941433882, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
+--- !u!114 &4131628879619917290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7233475168979240477, guid: a9363e07b4bcf9f44a0484677440084b, type: 3}
   m_PrefabInstance: {fileID: 6716003682067956727}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7053275665512798148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7655775552718711277}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e62bad5b83f8e8a4282089f2b011b539, type: 3}
@@ -420,14 +395,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeDetectUpgrade
       objectReference: {fileID: 0}
-    - target: {fileID: 3966209511941433882, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966209511941433882, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6160765386132830080, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -471,30 +438,21 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3966209511941433882, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6683848471035377270}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
---- !u!4 &3659522888431064585 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6160765386132830080, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
-  m_PrefabInstance: {fileID: 7473252818118271369}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5817697847263038355 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3966209511941433882, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
-  m_PrefabInstance: {fileID: 7473252818118271369}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6683848471035377270
+--- !u!114 &304926669198020314 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7173392974724149075, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
+  m_PrefabInstance: {fileID: 7473252818118271369}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5817697847263038355}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e62bad5b83f8e8a4282089f2b011b539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3659522888431064585 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6160765386132830080, guid: df0a8563c0f79904b925cd4f9380c505, type: 3}
+  m_PrefabInstance: {fileID: 7473252818118271369}
+  m_PrefabAsset: {fileID: 0}

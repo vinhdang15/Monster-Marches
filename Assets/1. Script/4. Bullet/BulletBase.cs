@@ -115,7 +115,7 @@ public class BulletBase : MonoBehaviour
 
     protected virtual void SetBulletDirection()
     {
-        if(!this.Type.Contains("Bomb")) RotateInMovingDirection();
+        if(!this.Type.Contains("bomb")) RotateInMovingDirection();
         else RotateInCircle();
     }
 

@@ -26,8 +26,8 @@ public class ParabolBullet : BulletBase
 
         // Update Y coordinates
         // áp gia tốc khi để mũi tên bay chậm hơn bay lao lên, và nhanh hơn khi lao xuống 
-        float adjustedT = EaseInOut(t);
-        float y = Mathf.Lerp(startPos.y, enemyPos.y, adjustedT) + height * (1 - 4 * (adjustedT - 0.5f) * (adjustedT - 0.5f));
+        // float adjustedT = EaseInOut(t);
+        float y = Mathf.Lerp(startPos.y, enemyPos.y, t) + height * (1 - 4 * (t - 0.5f) * (t - 0.5f));
 
         transform.position = new Vector2(x,y);
         UpdateBulletDirection();

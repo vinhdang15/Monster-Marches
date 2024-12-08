@@ -118,7 +118,7 @@ public class SpawnEnemy : MonoBehaviour
     
     private float SetTimeBetweenEnemy()
     {
-        return Random.Range(timeBetweenEnemy * 0.5f, timeBetweenEnemy * 2f);
+        return Random.Range(timeBetweenEnemy * 0.3f, timeBetweenEnemy * 2.5f);
     }
 
     public void RegisterStartNextWaveEvent()

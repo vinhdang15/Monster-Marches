@@ -178,7 +178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 48142381}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: InitPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,60 +388,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!1 &117138092
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 117138094}
-  - component: {fileID: 117138093}
-  m_Layer: 0
-  m_Name: TowerManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &117138093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117138092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2e67f019793bee4b8ec9fe6696ffe40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerDataReader: {fileID: 1961100159}
-  bulletManager: {fileID: 1341667496}
-  soldierManager: {fileID: 2120819265}
-  towerPrefabList:
-  - {fileID: 6789151250249618790, guid: 3ae4144d04db5cb489f2c406d208017b, type: 3}
-  - {fileID: 6789151250249618790, guid: c57e8f0281ab6e74089100a646807cbf, type: 3}
-  - {fileID: 6789151250249618790, guid: 3057643476135ad45a27836b4571286c, type: 3}
-  - {fileID: 6789151250249618790, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
-  towerList: []
-  selectedEmptyPlot: {fileID: 0}
---- !u!4 &117138094
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117138092}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 588932110}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &279684341
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +439,7 @@ MonoBehaviour:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 10
+    numberEnemyInWave: 5
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -696,7 +642,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 8be9c5d661a196444ba58b7f7f31ed5a, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 10
+    numberEnemyInWave: 5
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -770,6 +716,54 @@ MonoBehaviour:
   - unitPrefab: {fileID: 454278597149469648, guid: 52577287aa1c88b4cb16964be4f5479a, type: 3}
     unitType: 
     poolSize: 20
+--- !u!1 &400268508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 400268509}
+  - component: {fileID: 400268510}
+  m_Layer: 0
+  m_Name: BarrackTowerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400268509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400268508}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 588932110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &400268510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400268508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ef6ced3ed18574e958923ac9939d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerDataReader: {fileID: 1961100159}
+  soldierManager: {fileID: 2120819265}
+  barrackPerfab: {fileID: 6789151250249618790, guid: 3057643476135ad45a27836b4571286c, type: 3}
+  guardPoint: {fileID: 0}
 --- !u!1 &433124228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,9 +1371,10 @@ Transform:
   - {fileID: 653646660}
   - {fileID: 1927368039}
   - {fileID: 2121268489}
-  - {fileID: 117138094}
-  - {fileID: 2120819264}
+  - {fileID: 1243844918}
+  - {fileID: 400268509}
   - {fileID: 1341667497}
+  - {fileID: 2120819264}
   - {fileID: 1006963316}
   - {fileID: 1229339119}
   - {fileID: 445818475}
@@ -1432,7 +1427,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initPanel: {fileID: 48142380}
   upgradePanel: {fileID: 1051768911}
+  guardPointBtn: {fileID: 1291901375}
   checkSmybol: {fileID: 1120628039}
+  isGuardPointSelected: 0
 --- !u!1 &802412358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,7 +2196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1051768912}
-  m_Layer: 11
+  m_Layer: 2
   m_Name: UpgradePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2321,8 +2318,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenEnemy: 0.75
-  timeWaitForNextWave: 2
+  timeWaitForNextWave: 5
   cautionManager: {fileID: 15523341}
+--- !u!1 &1243844917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243844918}
+  - component: {fileID: 1243844919}
+  m_Layer: 0
+  m_Name: BulletTowerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1243844918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243844917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 588932110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1243844919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243844917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851a9a0b050f8a14bbef839de7316559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerDataReader: {fileID: 1961100159}
+  bulletManager: {fileID: 1341667496}
+  towerPrefabList:
+  - {fileID: 6789151250249618790, guid: 3ae4144d04db5cb489f2c406d208017b, type: 3}
+  - {fileID: 6789151250249618790, guid: c57e8f0281ab6e74089100a646807cbf, type: 3}
+  - {fileID: 6789151250249618790, guid: 74ec9002f5ecc7c438ada9785e4dacb5, type: 3}
 --- !u!1 &1291901375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,7 +2384,7 @@ GameObject:
   - component: {fileID: 1291901378}
   - component: {fileID: 1291901377}
   m_Layer: 11
-  m_Name: Barrack
+  m_Name: GuardPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2452,13 +2499,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 653646659}
-        m_TargetAssemblyTypeName: InputFromUser, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 2
+      - m_Target: {fileID: 653646661}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: GuardPointBtn
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1291901378}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2513,7 +2560,7 @@ GameObject:
   - component: {fileID: 1334176447}
   - component: {fileID: 1334176449}
   - component: {fileID: 1334176448}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3050,7 +3097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1642584650}
   - component: {fileID: 1642584649}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Level 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3537,10 +3584,12 @@ MonoBehaviour:
   towerUpgradeGold: 0
   towerSellGold: 0
   towerDataReader: {fileID: 1961100159}
-  towerManager: {fileID: 117138093}
+  bulletTowerManager: {fileID: 1243844919}
+  barrackTowerManager: {fileID: 400268510}
   enemyManager: {fileID: 1006963317}
   inputManager: {fileID: 653646661}
   spawnEnemyManager: {fileID: 1229339120}
+  currentEmptyPlot: {fileID: 0}
 --- !u!114 &1927368041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3798,7 +3847,7 @@ GameObject:
   - component: {fileID: 2028013485}
   - component: {fileID: 2028013487}
   - component: {fileID: 2028013486}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4197,7 +4246,7 @@ MonoBehaviour:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 10
+    numberEnemyInWave: 5
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 5
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -4315,10 +4364,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1520757905}
     m_Modifications:
-    - target: {fileID: 4527496588113119595, guid: 6d4780091d267d54c8e4b8a685becfea, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 582351fe9b6150143b6547ca81af0b8f, type: 3}
     - target: {fileID: 8168844599387416026, guid: 6d4780091d267d54c8e4b8a685becfea, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4402,6 +4447,10 @@ PrefabInstance:
     - target: {fileID: 8511555825784246895, guid: 6d4780091d267d54c8e4b8a685becfea, type: 3}
       propertyPath: m_Name
       value: CheckSymbol
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511555825784246895, guid: 6d4780091d267d54c8e4b8a685becfea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

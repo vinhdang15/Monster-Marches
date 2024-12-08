@@ -15,12 +15,12 @@ TagManager:
   - TowerRaycast
   - Tower
   - TowerRangeDetect
-  - Enemy
+  - BarrackRangeDetect
   - Button
+  - Bullet
   - Soldier
-  - 
-  - 
-  - 
+  - Enemy
+  - BarrackRaycast
   - 
   - 
   - 

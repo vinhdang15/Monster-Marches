@@ -1,4 +1,4 @@
 type,name,max_hp,speed,damage,gold,special_ability
-enemy,MonsterA,100,1,7,5,None
-enemy,MonsterB,150,1.3,5,10,Ignore_Effect
+enemy,MonsterA,100,1.3,7,5,None
+enemy,MonsterB,150,1.5,5,10,Ignore_Effect
 soldier,Swordsman,200,1.2,10,0,Auto_Healing

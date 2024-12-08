@@ -2,8 +2,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TowerModel : TowerBase
+public class TowerModel : MonoBehaviour
 {
+    public string  TowerType { get ; set ; }
+    public int     Level { get ; set ; }
+    public string  BulletType { get ; set ; }
+    public float   FireRate { get ; set ; }
+    public float   RangeDetect { get ; set ; }
+    public float   RangeRaycast { get ; set ; }
+    public int     GoldRequired { get ; set ; }
+    public string  Descriptions { get ; set ; }
     public TowerModel(TowerData _data)
     {
         TowerType           = _data.towerType;
@@ -16,15 +24,15 @@ public class TowerModel : TowerBase
         Descriptions        = _data.descriptions;
     }
     
-    public static TowerModel Craete(TowerView towerView, TowerData _data)
+    public static TowerModel Craete(TowerView TowerView, TowerData _data)
     {
-        TowerModel towerMode = towerView.gameObject.AddComponent<TowerModel>();
-        towerMode.TowerModeInit(_data);
-        return towerMode;
+        TowerModel TowerMode = TowerView.gameObject.AddComponent<TowerModel>();
+        TowerMode.BuildingModeInit(_data);
+        return TowerMode;
     }
 
-    private void TowerModeInit(TowerData _data)
-    { 
+    private void BuildingModeInit(TowerData _data)
+    {
         TowerType           = _data.towerType;
         Level               = _data.level;
         BulletType          = _data.BulletType;
@@ -34,9 +42,9 @@ public class TowerModel : TowerBase
         GoldRequired        = _data.goldRequired;
         Descriptions        = _data.descriptions;
     }
-    public override void UpgradeTowerModel(TowerData _data)
+    public void UpgradeTowerModel(TowerData _data)
     {
-        TowerType           = _data.towerType;
+        TowerType        = _data.towerType;
         Level               = _data.level;
         BulletType          = _data.BulletType;
         FireRate            = _data.fireRate;

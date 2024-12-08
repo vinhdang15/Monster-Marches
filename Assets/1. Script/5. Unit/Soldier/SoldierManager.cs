@@ -9,7 +9,7 @@ public class SoldierManager : MonoBehaviour
 
     private void Update()
     {
-        MoveSoldierToGuardPointa();
+        updateAllSoldierToGuardPoint();
     }
 
     public void BarrackSpawnSoldier(string unitName, Vector2 initPos, GuardPoint guardPoint)
@@ -22,11 +22,11 @@ public class SoldierManager : MonoBehaviour
         }
         guardPoints.Add(guardPoint);
     }
-    public void MoveSoldierToGuardPointa()
+    public void updateAllSoldierToGuardPoint()
     {
         foreach(var guardPoint in guardPoints)
         {
-            guardPoint.MoveToGuardPoint();
+            guardPoint.MoveSoldierToGuardPoint();
         }
     }
 }
