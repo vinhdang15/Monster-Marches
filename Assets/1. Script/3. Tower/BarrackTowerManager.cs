@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +19,7 @@ public class BarrackTowerManager : TowerBaseManager
         SpawnBarackSoldier(barrackPresenter);
     }
 
+    // assign barack guardPoint reference to barackTowerInfor
     private void GetBarrackGuradPoint(TowerPresenter barrackPresenter)
     {
         barackTowerInfor[barrackPresenter].barackGuardPoint = barrackPresenter.transform.GetChild(0).GetComponent<GuardPoint>();
@@ -30,10 +30,10 @@ public class BarrackTowerManager : TowerBaseManager
         Init(pos,BarrackType.Barrack, emptyPlot);
     }
 
+    // call from GameplayManager
     public void SetNewGuardPointPos(TowerPresenter barrackPresenter, Vector2 pos)
     {
-        barackTowerInfor[barrackPresenter].barackGuardPoint.transform.position = pos;
-        barackTowerInfor[barrackPresenter].barackGuardPoint.StartMoveSoldierToGuardPoint();
+        barackTowerInfor[barrackPresenter].barackGuardPoint.SetNewGuardPointPos(pos);
     }
 
     #region PROCESS SPAWN SOLDIER

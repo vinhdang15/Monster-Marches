@@ -642,7 +642,7 @@ MonoBehaviour:
   pathConfigSO: {fileID: 11400000, guid: 8be9c5d661a196444ba58b7f7f31ed5a, type: 2}
   enemyEntries:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 5
+    numberEnemyInWave: 2
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
@@ -763,7 +763,6 @@ MonoBehaviour:
   towerDataReader: {fileID: 1961100159}
   soldierManager: {fileID: 2120819265}
   barrackPerfab: {fileID: 6789151250249618790, guid: 3057643476135ad45a27836b4571286c, type: 3}
-  guardPoint: {fileID: 0}
 --- !u!1 &433124228
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,7 +2185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPool: {fileID: 397007803}
-  Totalenemies: []
+  totalenemies: []
 --- !u!1 &1051768911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,7 +2317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenEnemy: 0.75
-  timeWaitForNextWave: 5
+  timeWaitForNextWave: 1000
   cautionManager: {fileID: 15523341}
 --- !u!1 &1243844917
 GameObject:

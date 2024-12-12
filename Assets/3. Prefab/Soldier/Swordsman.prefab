@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2877537180883680264}
   - component: {fileID: 8346571433946300162}
   - component: {fileID: 2016564603227575577}
+  - component: {fileID: 1953639432263118125}
   m_Layer: 13
   m_Name: Sprite
   m_TagString: Untagged
@@ -116,7 +117,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &8346571433946300162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +155,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1953639432263118125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601297757477907070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dcb189e220d11940bca464861866a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6291696574594048983
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,8 +295,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 750128741178617059}
-  unitAnatation: {fileID: 3602700437888783339}
+  unitAnimation: {fileID: 0}
   index: 0
+  enemiesInRange: []
+  hadTarget: 0
+  targetEnemy: {fileID: 0}
+  guardPos: {x: 0, y: 0}
+  targetEnemyFontPos: {x: 0, y: 0}
+  isReachGuardPos: 0
+  isReachTargetEnemyFontPos: 0
+  currentState: 0
 --- !u!114 &3602700437888783339
 MonoBehaviour:
   m_ObjectHideFlags: 0

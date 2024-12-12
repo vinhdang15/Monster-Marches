@@ -4,22 +4,23 @@ using UnityEngine;
 
 public abstract class UnitBase : MonoBehaviour
 {
-    public string   UnitType        { get; set;}
+    public string   UnitType        { get; set; }
     public string   UnitName => gameObject.name.Trim().ToLower();        
-    public int      MaxHP           { get; set;}
-    public float    Speed           { get; set;}
-    public int      Damage          { get; set;}
-    public int      Gold            { get; set;}
-    public string   SpecialAbility  { get; set;}
-    public float    CurrentHp       { get; set;}
-    public float    CurrentSpeed    { get; set;}
-    public bool     IsUnderEffect   { get; set;}
-    protected Vector2 CurrentPos    { get; set;}
+    public int      MaxHP           { get; set; }
+    public float    MoveSpeed       { get; set; }
+    public float    AttackSpeed     { get; set; }
+    public int      Damage          { get; set; }
+    public int      Gold            { get; set; }
+    public string   SpecialAbility  { get; set; }
+    public float    CurrentHp       { get; set; }
+    public float    CurrentSpeed    { get; set; }
+    public bool     IsUnderEffect   { get; set; }
+    protected Vector2 CurrentPos    { get; set; }
     [SerializeField] HealthBar healthBar;
     public Dictionary<string, IEffect> underEffect = new Dictionary<string, IEffect>();
 
     // Animation
-    public UnitAnimation unitAnatation;
+    public UnitAnimation unitAnimation;
 
     #region INIT UNIT
     public virtual void InItUnit(UnitData _unitData)
@@ -32,7 +33,7 @@ public abstract class UnitBase : MonoBehaviour
     {
         UnitType        = _unitData.unitType;
         MaxHP           = _unitData.maxHP;
-        Speed           = _unitData.speed;
+        MoveSpeed           = _unitData.moveSpeed;
         Damage          = _unitData.damage;
         Gold            = _unitData.gold;
         SpecialAbility  = _unitData.specialAbility;
@@ -51,7 +52,7 @@ public abstract class UnitBase : MonoBehaviour
 
     private void SetDefaultSpeed()
     {
-        CurrentSpeed = Speed;
+        CurrentSpeed = MoveSpeed;
     }
 
     public void ResetHpBar()
@@ -61,20 +62,18 @@ public abstract class UnitBase : MonoBehaviour
 
     public void ResetCurrentSpeed()
     {
-        CurrentSpeed = Speed;
+        CurrentSpeed = MoveSpeed;
     }
     #endregion
 
     #region UNIT ACTION STATE
-    // public abstract void Move();
-
-    public abstract void SetMovingDirection();
-
     public virtual void TakeDamage(float damage)
     {
         CurrentHp = Mathf.Max(CurrentHp - damage, 0);
         UpdateHealthBar();
     }
+
+    public abstract void DealDamage();
 
     private void UpdateHealthBar()
     {
@@ -101,8 +100,8 @@ public abstract class UnitBase : MonoBehaviour
     #region GET ANIMATION
     public void GetAnimation()
     {
-        unitAnatation = GetComponent<UnitAnimation>();
-        unitAnatation.GetAnimation();
+        unitAnimation = GetComponent<UnitAnimation>();
+        unitAnimation.GetAnimation();
     }
     #endregion
 

@@ -6,22 +6,22 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public UnitPool unitPool;
-    public List<Enemy> Totalenemies = new List<Enemy>();
+    public List<Enemy> totalenemies = new List<Enemy>();
     public event Action<UnitBase> EnemyDieHandler;
     
     private void Start()
     {
-        foreach(var enemy in Totalenemies)
+        foreach(var enemy in totalenemies)
         {
             enemy.GetAnimation();
-            enemy.unitAnatation.UnitPlayWalk();
+            enemy.unitAnimation.UnitPlayWalk();
         }
     }
     private void Update()
     {
-        foreach(var enemy in Totalenemies)
+        foreach(var enemy in totalenemies)
         {
-            enemy.Move();
+            enemy.EnemyAction();
             enemy.SetMovingDirection();
         }
     }
@@ -29,16 +29,16 @@ public class EnemyManager : MonoBehaviour
     public void AddEnemy(Enemy enemy)
     {
         enemy.OnEnemyDeath += HandleEnemyDeath;
-        Totalenemies.Add(enemy);
+        totalenemies.Add(enemy);
     }
 
     private void HandleEnemyDeath(Enemy enemy)
     {
-        Totalenemies.Remove(enemy);
+        totalenemies.Remove(enemy);
         // notifi for GamePlayManaer
         EnemyDieHandler?.Invoke(enemy);
         //Play die animation
-        enemy.unitAnatation.UnitPlayDie();
+        enemy.unitAnimation.UnitPlayDie();
         // wait to finish die animation then return unit pool
         StartCoroutine(enemy.ReturnPoolAfterPlayAnimation(unitPool));
     }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +5,14 @@ public class SoldierManager : MonoBehaviour
 {
     [SerializeField] UnitPool unitPool;
     private List<GuardPoint> guardPoints = new List<GuardPoint>();
+    private List<Soldier> totalsoldiers = new List<Soldier>();
 
     private void Update()
     {
-        updateAllSoldierToGuardPoint();
+        foreach(var soldier in totalsoldiers)
+        {
+            soldier.SoldierAction();
+        }
     }
 
     public void BarrackSpawnSoldier(string unitName, Vector2 initPos, GuardPoint guardPoint)
@@ -18,15 +21,21 @@ public class SoldierManager : MonoBehaviour
         {
             Soldier soldier = unitPool.GetSoldier(unitName, initPos);
             soldier.index = i;
-            guardPoint.soldiers.Add(soldier);
+            soldier.GetAnimation();
+            soldier.GetOffsetPos();
+            soldier.OnSoldierDeath += HandleSoldierDie;
+            guardPoint.AddSoldier(soldier);
+            totalsoldiers.Add(soldier);
         }
         guardPoints.Add(guardPoint);
     }
-    public void updateAllSoldierToGuardPoint()
+
+    private void HandleSoldierDie(Soldier soldier)
     {
-        foreach(var guardPoint in guardPoints)
-        {
-            guardPoint.MoveSoldierToGuardPoint();
-        }
+        totalsoldiers.Remove(soldier);
+        //Play die animation
+        soldier.unitAnimation.UnitPlayDie();
+        // wait to finish die animation then return unit pool
+        StartCoroutine(soldier.ReturnPoolAfterPlayAnimation(unitPool));
     }
 }

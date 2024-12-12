@@ -25,16 +25,17 @@ public class CSVUnitDataReader : MonoBehaviour
             string[] values = Lines[i].Split(',');
             // make sure to only add rows that contain enough information (8 columns of information)
             // if it not, move to the next line
-            if(values.Length < 7) continue;
+            if(values.Length < 8) continue;
             UnitData unitData = new UnitData
             {
                 unitType                = values[0].Trim().ToLower(),
                 unitName                = values[1].Trim().ToLower(),
                 maxHP                   = int.Parse(values[2]),
-                speed                   = float.Parse(values[3]),
-                damage                  = int.Parse(values[4]),
-                gold                    = int.Parse(values[5]),
-                specialAbility          = values[6].Trim().ToLower(),
+                moveSpeed               = float.Parse(values[3]),
+                attackSpeed             = float.Parse(values[4]),
+                damage                  = int.Parse(values[5]),
+                gold                    = int.Parse(values[6]),
+                specialAbility          = values[7].Trim().ToLower(),
             };
             unitDataList.unitDataList.Add(unitData);
         }

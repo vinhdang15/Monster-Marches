@@ -141,6 +141,16 @@ public class UnitPool : MonoBehaviour
         enemy.ResetUnit();
     }
 
+    public void ReturnSoldier(Soldier soldier)
+    {
+        soldier.gameObject.SetActive(false);
+        if(soldierPool.ContainsKey(soldier.UnitName))
+        {
+            soldierPool[soldier.UnitName].Enqueue(soldier);
+        }
+        soldier.ResetUnit();
+    }
+
     private UnitBase GetUnitPrefab(string unitName)
     {
         foreach(UnitPoolInfor unitPoolInfo in unitPoolInfors)

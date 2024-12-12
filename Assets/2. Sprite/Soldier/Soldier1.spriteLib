@@ -88,12 +88,12 @@ MonoBehaviour:
       m_Hash: 259326342
       m_Sprite: {fileID: 1254871221, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -1950375937, guid: 027bab5bce8164348866baebde2a35cd, type: 3}
+      m_SpriteOverride: {fileID: 131351505, guid: 027bab5bce8164348866baebde2a35cd, type: 3}
     - m_Name: New Label_0
       m_Hash: 16589798
       m_Sprite: {fileID: 2144045597, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 131351505, guid: 027bab5bce8164348866baebde2a35cd, type: 3}
+      m_SpriteOverride: {fileID: 1651991974, guid: 027bab5bce8164348866baebde2a35cd, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 2
   - m_Name: Effect
@@ -144,5 +144,5 @@ MonoBehaviour:
     m_FromMain: 1
     m_EntryOverrideCount: 5
   m_PrimaryLibraryGUID: cdcf9cf2ab01d37439fdbff16fd16269
-  m_ModificationHash: 638689906785417804
+  m_ModificationHash: 638693780508613950
   m_Version: 1

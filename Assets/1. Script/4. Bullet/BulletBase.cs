@@ -121,7 +121,7 @@ public class BulletBase : MonoBehaviour
 
     private void RotateInCircle()
     {
-        float RotateSpeed = 180f;
+        float RotateSpeed = 270f;
         transform.Rotate(Vector3.forward,RotateSpeed*Time.deltaTime, Space.Self);
     }
 

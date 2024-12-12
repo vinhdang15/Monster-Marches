@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4946107877555539866}
   - component: {fileID: 8932996223517485639}
   - component: {fileID: 8119671611435937968}
+  - component: {fileID: 3637588164144379226}
   m_Layer: 14
   m_Name: Sprite
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2933516972389134024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -123,6 +124,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3637588164144379226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933516972389134024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dcb189e220d11940bca464861866a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3917556311844125479
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +167,7 @@ Transform:
   m_GameObject: {fileID: 3917556311844125479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.96, y: -3.53, z: -0.009676529}
+  m_LocalPosition: {x: -0.9, y: 0, z: -0.009676529}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -252,8 +265,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7428338480812606183}
-  unitAnatation: {fileID: -7850191307575187939}
+  unitAnimation: {fileID: 0}
   pathFinder: {fileID: 0}
+  fontPoint: {fileID: 6829943804757150613}
+  targetSoldier: {fileID: 0}
+  islockByEnemy: 0
 --- !u!114 &8614532849165435590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +321,7 @@ Transform:
   m_GameObject: {fileID: 4262306445737163482}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0, z: 0}
+  m_LocalPosition: {x: 0.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -333,7 +349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7953788290702452431, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 7953788290702452431, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_LocalPosition.z

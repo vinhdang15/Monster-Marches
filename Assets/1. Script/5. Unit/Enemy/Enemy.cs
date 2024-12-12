@@ -8,6 +8,9 @@ public class Enemy : UnitBase
 {
     [SerializeField] PathFinder pathFinder;
     private List<Enemy> surroundingEnemies = new List<Enemy>();
+    public Transform fontPoint;
+    public Soldier targetSoldier;
+    public bool islockByEnemy;
     public event Action<Enemy> OnEnemyDeath;
 
     private void Awake()
@@ -32,19 +35,31 @@ public class Enemy : UnitBase
     }
 
     // Move
-    public void Move()
+    public void EnemyAction()
     {
         if(CurrentHp == 0) return;
-        pathFinder.FollowPath(CurrentSpeed);
+        // else if (targetSoldier != null && !targetSoldier.isReachTargetEnemyFontPos && targetSoldier.isReachGuardPos)
+        else if (targetSoldier != null && targetSoldier.currentState == Soldier.SoldierState.MovingToEnemy)
+        {
+            unitAnimation.UnitPlayIdle();
+        }
+        else if (targetSoldier != null && targetSoldier.isReachTargetEnemyFontPos)
+        {
+            unitAnimation.UnitPlayAttack();
+        }
+        else
+        {
+            unitAnimation.UnitPlayWalk();
+            pathFinder.FollowPath(CurrentSpeed);
+        }
     }
 
-    // Pos and Moving direction
-    public override void SetMovingDirection()
+    public void SetMovingDirection()
     {
         if(CurrentPos == null || CurrentHp == 0) return;
         float x = transform.position.x - CurrentPos.x;
-        if(x < 0) transform.localScale = new(-1,1);
-        else if(x < 0) transform.localScale = new(1,1);
+        if(x < 0) transform.localScale = new Vector2(-1,1);
+        else if(x < 0) transform.localScale = new Vector2(1,1);
         CurrentPos = transform.position;
     }
 
@@ -59,15 +74,34 @@ public class Enemy : UnitBase
         }
     }
 
+    public override void DealDamage()
+    {
+        if(targetSoldier != null && targetSoldier.CurrentHp > 0)
+        {
+            targetSoldier.TakeDamage(Damage);
+        }
+    }
+
     public IEnumerator ReturnPoolAfterPlayAnimation(UnitPool unitPool)
     {
-        yield return new WaitForSeconds(unitAnatation.GetCurrentAnimationLength());
+        yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
         unitPool.ReturnEnemy(this);
         yield break;
     }
 
+    // use ResetEnemyState when soldier untarget this enemy
+    public void ResetEnemyState()
+    {
+        targetSoldier = null;
+        islockByEnemy = false;
+    }
+
+    // use ResetUnit when return to pool
     public override void ResetUnit()
     {
+        targetSoldier = null;
+        islockByEnemy = false;
         base.ResetUnit();
     }
+
 }
