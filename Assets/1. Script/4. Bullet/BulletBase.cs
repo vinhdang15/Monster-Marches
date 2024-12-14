@@ -26,10 +26,10 @@ public class BulletBase : MonoBehaviour
     }
 
     #region INIT BULLET
-    public void InitBullet(BulletData _bulletData, CSVEffectDataReader effectDataReader)
+    public void InitBullet(BulletData _bulletData)
     {
         InitBulletData(_bulletData);
-        InitBulletEffect(_bulletData, effectDataReader);
+        InitBulletEffect(_bulletData);
         InitBulletAnimation();
     }
 
@@ -41,12 +41,12 @@ public class BulletBase : MonoBehaviour
         DealDamageDelay         = _bulletData.dealDamageDelay;
     }
 
-    private void InitBulletEffect(BulletData _bulletData, CSVEffectDataReader effectDataReader)
+    private void InitBulletEffect(BulletData _bulletData)
     {
         string[] effectTypes = _bulletData.effectTyes.Split(";");
         foreach(string effecType in effectTypes)
         {
-            EffectData effectData = effectDataReader.effectDataList.GetEffectData(effecType);
+            EffectData effectData = CSVEffectDataReader.Instance.effectDataList.GetEffectData(effecType);
             if(effectData == null)
             {
                 // Debug.Log($"{this.name} have no effect");

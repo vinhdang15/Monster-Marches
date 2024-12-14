@@ -9,7 +9,7 @@ public class BarrackTowerManager : TowerBaseManager
 
     public  void Init(Vector3 pos, BarrackType barrackType, EmptyPlot emptyPlot)
     {
-        TowerData towerData = towerDataReader.towerDataList.GetTowerData(barrackType.ToString().Trim().ToLower(), 1);
+        TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(barrackType.ToString().Trim().ToLower(), 1);
         
         TowerPresenter barrackPresenter = InitBuildingPresenter(barrackPerfab, towerData, pos);
         base.AddTowerPersenterEmptyPlot(barrackPresenter, emptyPlot);

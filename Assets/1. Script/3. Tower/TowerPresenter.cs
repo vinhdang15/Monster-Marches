@@ -6,7 +6,6 @@ public class TowerPresenter : MonoBehaviour
 {
     public TowerModel        towerModel;
     public TowerView         towerView;
-    public CSVTowerDataReader   towerDataReader;
     public EmptyPlot            emptyPlot;
     public float                RangeDetectUpgrade { set ; get ; }
     public int                  GoldUpdrade { set ; get ; }
@@ -38,14 +37,14 @@ public class TowerPresenter : MonoBehaviour
     {
         string towerType = towerModel.TowerType;
         int towerLevel = towerModel.Level;
-        GoldUpdrade = towerDataReader.towerDataList.GetGoldRequired(towerType, towerLevel + 1);
+        GoldUpdrade = CSVTowerDataReader.Instance.towerDataList.GetGoldRequired(towerType, towerLevel + 1);
     }
 
     public void UpdateRangeDetectUpgradeData()
     {
         string towerType = towerModel.TowerType;
         int towerLevel = towerModel.Level;
-        RangeDetectUpgrade = towerDataReader.towerDataList.GetRangeDetect(towerType, towerLevel + 1);
+        RangeDetectUpgrade = CSVTowerDataReader.Instance.towerDataList.GetRangeDetect(towerType, towerLevel + 1);
     }
 
     public void UpdateBuildingData()

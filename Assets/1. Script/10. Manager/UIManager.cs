@@ -7,9 +7,14 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    private GamePlayManager gamePlayManager;
-    [Header("For UI")]
+    public static UIManager Instance;
+    [SerializeField] GamePlayManager gamePlayManager;
+    [Header("Game Status")]
+    [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] TextMeshProUGUI goldText;
+    [SerializeField] TextMeshProUGUI totalWaveText;
+    [SerializeField] TextMeshProUGUI currentWaveText;
+    
     [Header("Panel Gold Text")]
     [SerializeField] TextMeshProUGUI ArcherTowerInitGoldText;
     [SerializeField] TextMeshProUGUI mageTowerInitGoldText;
@@ -17,25 +22,46 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI cannonTowerInitGoldText;
     [SerializeField] TextMeshProUGUI upgradeTowerGoldText;
     [SerializeField] TextMeshProUGUI sellTowerGoldText;
-    [Header("Wave")]
-    [SerializeField] TextMeshProUGUI totalWaveText;
-    [SerializeField] TextMeshProUGUI currentWaveText;
+
+    [Header("Game menu")]
+    [SerializeField] GameObject gameOverMenu;
+    [SerializeField] GameObject victoryMenu;
+    [SerializeField] GameObject pauseMenu;
+    
+    private void Awake()
+    {
+        Time.timeScale = 1;
+    }
 
     private void Start()
     {
-        gamePlayManager = GetComponent<GamePlayManager>();
-        RegistereGamePlayManagerEvent();
         StartCoroutine(WaitForDataLoadAnhProcess());
         GetTotalWave();
         GetCurrentWaveBeign();
         HandleGoldChange();
     }
-
-    private void  RegistereGamePlayManagerEvent()
+    private void OnEnable()
     {
-        gamePlayManager.OnSelectedTowerForUI += HandeSelectedTower;
+        RegisterGamePlayManagerEvent();
+        Instance = this;
+    }
+    private void OnDisable()
+    {
+        UnregisterGamePlayManagerEvent();
+        Instance = null;
+    }
+    private void RegisterGamePlayManagerEvent()
+    {
         gamePlayManager.OnGoldChangeForUI += HandleGoldChange;
+        gamePlayManager.OnSelectedTowerForUI += HandleSelectedTower;
         gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave += HandleUpdateCurrentWave;
+    }
+
+    private void UnregisterGamePlayManagerEvent()
+    {
+        gamePlayManager.OnGoldChangeForUI -= HandleGoldChange;
+        gamePlayManager.OnSelectedTowerForUI -= HandleSelectedTower;
+        gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave -= HandleUpdateCurrentWave;
     }
     private void GetTotalWave()
     {
@@ -69,9 +95,47 @@ public class UIManager : MonoBehaviour
         cannonTowerInitGoldText.text = gamePlayManager.cannonTowerInitGold.ToString();
     }
 
-    private void HandeSelectedTower()
+    private void HandleSelectedTower()
     {
         upgradeTowerGoldText.text = gamePlayManager.GetTowerGoldUpgrade().ToString();
         sellTowerGoldText.text = gamePlayManager.GetTowerGoldRefund().ToString();
+    }
+
+    #region GAME MENU
+    void ShowGameOverMenu()
+    {
+        gameOverMenu.SetActive(true);
+    }
+
+    public void ShowVictoryMenu()
+    {
+        victoryMenu.SetActive(true);
+    }
+
+    public void ShowPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+    }
+
+    public void HidePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+    }
+
+    void HideAllPanel()
+    {
+        gameOverMenu.SetActive(false);
+        victoryMenu.SetActive(false);
+    }
+    #endregion
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumingGame()
+    {
+        Time.timeScale = 1;
     }
 }

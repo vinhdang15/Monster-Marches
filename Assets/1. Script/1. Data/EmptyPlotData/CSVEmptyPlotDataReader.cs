@@ -5,18 +5,23 @@ using UnityEngine;
 
 public class CSVEmptyPlotDataReader : MonoBehaviour
 {
+    public static CSVEmptyPlotDataReader Instance { get; private set; }
     [SerializeField] TextAsset emptyPlotCSV;
     public EmptyPlotDataListSO emptyPlotDataList;
     public bool IsDataLoaded { get; private set; } = false;
 
-    private void Start()
+    private void Awake()
     {
-        if(emptyPlotCSV == null)
+        if (Instance == null)
         {
-            Debug.LogError("emptyPlotCSV is not assigned.");
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadEmptyPlotData();
         }
-        LoadEmptyPlotData();
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void LoadEmptyPlotData()

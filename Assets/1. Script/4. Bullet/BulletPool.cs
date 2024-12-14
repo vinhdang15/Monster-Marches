@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
-    [SerializeField] CSVBulletDataReader bulletDataReader;
-    [SerializeField] CSVEffectDataReader effectDataReader;
-    
     [System.Serializable]
     public class BulletPoolInfo
     {
@@ -18,16 +15,18 @@ public class BulletPool : MonoBehaviour
     public List<BulletPoolInfo> bulletPoolInfos;
     Dictionary<string, Queue<BulletBase>> bulletPools = new Dictionary<string, Queue<BulletBase>>();
 
-    private void Awake()
-    {
+    private void Start()
+    {   
+        // wait bullet data && bullet effect data been readed atfer that init bullet
         StartCoroutine(InitializePoolsCoroutine());
     }
 
     private IEnumerator InitializePoolsCoroutine()
     {
-        yield return new WaitUntil(() => bulletDataReader.IsDataLoaded && effectDataReader.IsDataLoaded);
+        yield return new WaitUntil(() => CSVBulletDataReader.Instance.IsDataLoaded && CSVEffectDataReader.Instance.IsDataLoaded);
         InitializePools();
     }
+
     private void InitializePools()
     {
         foreach(var bulletPoolInfo in bulletPoolInfos)
@@ -36,8 +35,8 @@ public class BulletPool : MonoBehaviour
             for(int i = 0; i < bulletPoolInfo.poolSize; i++)
             {
                 BulletBase bullet = Instantiate(bulletPoolInfo.bulletPrefab, transform);
-                BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPoolInfo.BulletType);
-                bullet.InitBullet(bulletData, effectDataReader);
+                BulletData bulletData = CSVBulletDataReader.Instance.bulletDataList.GetBulletData(bulletPoolInfo.BulletType);
+                bullet.InitBullet(bulletData);
 
                 bullet.gameObject.SetActive(false);
                 bulletQueue.Enqueue(bullet);
@@ -67,8 +66,8 @@ public class BulletPool : MonoBehaviour
         {
             BulletBase bulletPrefab = GetBulletPrefab(bulletType);
             BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
-            BulletData bulletData = bulletDataReader.bulletDataList.GetBulletData(bulletPrefab.Type);
-            bullet.InitBullet(bulletData, effectDataReader);
+            BulletData bulletData = CSVBulletDataReader.Instance.bulletDataList.GetBulletData(bulletPrefab.Type);
+            bullet.InitBullet(bulletData);
             bullet.transform.position = initPos;
             bullet.startPos = initPos;
             bullet.isSetUpStartPos = true;

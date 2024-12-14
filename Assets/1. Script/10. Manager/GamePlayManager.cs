@@ -13,7 +13,6 @@ public class GamePlayManager : MonoBehaviour
     [HideInInspector] public int cannonTowerInitGold;
     [HideInInspector] public int towerUpgradeGold;
     [HideInInspector] public int towerSellGold;
-    [SerializeField] CSVTowerDataReader towerDataReader;
     [SerializeField] BulletTowerManager       bulletTowerManager;
     [SerializeField] BarrackTowerManager     barrackTowerManager;
     [SerializeField] EnemyManager       enemyManager;
@@ -30,25 +29,32 @@ public class GamePlayManager : MonoBehaviour
 
     private void Start()
     {
+        RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
-        RegisterEnemyEvent();
         StartCoroutine(WaitForDataLoadAndProcess());
+    }
+
+    private void OnDisable()
+    {
+        UnregisterEnemyEvent();
+        UnregisterButtonEvent();
+        UnregisterCautionClickEvent();
     }
 
     private void GetInitGold()
     {
-        archerTOwerInitGold = towerDataReader.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString().Trim().ToLower());
-        mageTowerInitGold = towerDataReader.towerDataList.GetGoldInit(TowerType.MageTower.ToString().Trim().ToLower());
-        barrackTowerInitGold = towerDataReader.towerDataList.GetGoldInit(BarrackType.Barrack.ToString().Trim().ToLower());
-        cannonTowerInitGold = towerDataReader.towerDataList.GetGoldInit(TowerType.CannonTower.ToString().Trim().ToLower());
+        archerTOwerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString().Trim().ToLower());
+        mageTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.MageTower.ToString().Trim().ToLower());
+        barrackTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(BarrackType.Barrack.ToString().Trim().ToLower());
+        cannonTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.CannonTower.ToString().Trim().ToLower());
     }
 
     #region REGISTER EMPTYPLOT CLICK EVENT, TOWER BUTTON CLICK EVENT, SELECTED TOWER EVENT
     // EMPTYPLOT CLICK EVENT
     private IEnumerator WaitForDataLoadAndProcess()
     {
-        yield return new WaitUntil(() => towerDataReader.IsDataLoaded);
+        yield return new WaitUntil(() => CSVTowerDataReader.Instance.IsDataLoaded);
         IsDataLoaded = true;
         GetInitGold();
     }
@@ -56,20 +62,36 @@ public class GamePlayManager : MonoBehaviour
     // BUTTON CLICK EVENT
     private void RegisterButtonEvent()
     {
-        inputManager.OnInitArcherTower          += HandleInitArcherTower;
-        inputManager.OnInitMageTower            += HandleInitMageTower;
-        inputManager.OnInitBarrackTower         += HandleInitBarrackTower;
-        inputManager.OnInitCannonTower          += HandleInitCannonTower;
-        inputManager.OnTryToUpgradeTower        += HandleTryToUpgradeSelectedTower;
-        inputManager.OnUpgradeTower             += HandleUpgradeSelectedTower;
-        inputManager.OnSellTower                += HandleSellSelectedTower;
-        inputManager.OnSelectedEmptyPlot        += HandleSelectedEmptyPlot;
-        inputManager.OnSelectedBulletTower      += HandleOnSelectedBulletTower;
-        inputManager.OnSelectedBarrackTower     += HandleOnSelectedBarrackTower;
-        inputManager.OnSelectedGuardPointBtnClick += HandleOnSelectedGuardPointBtnClick;
-        inputManager.OnSelectedNewGuardPointPos    += HandleOnSelectedNewGuardPoint;
-        inputManager.OnRaycastHitNull           += HandleRaycatHitNull;
-        
+        inputManager.OnInitArcherTower              += HandleInitArcherTower;
+        inputManager.OnInitMageTower                += HandleInitMageTower;
+        inputManager.OnInitBarrackTower             += HandleInitBarrackTower;
+        inputManager.OnInitCannonTower              += HandleInitCannonTower;
+        inputManager.OnTryToUpgradeTower            += HandleTryToUpgradeSelectedTower;
+        inputManager.OnUpgradeTower                 += HandleUpgradeSelectedTower;
+        inputManager.OnSellTower                    += HandleSellSelectedTower;
+        inputManager.OnSelectedEmptyPlot            += HandleSelectedEmptyPlot;
+        inputManager.OnSelectedBulletTower          += HandleOnSelectedBulletTower;
+        inputManager.OnSelectedBarrackTower         += HandleOnSelectedBarrackTower;
+        inputManager.OnSelectedGuardPointBtnClick   += HandleOnSelectedGuardPointBtnClick;
+        inputManager.OnSelectedNewGuardPointPos     += HandleOnSelectedNewGuardPoint;
+        inputManager.OnRaycastHitNull               += HandleRaycatHitNull;
+    }
+
+    private void UnregisterButtonEvent()
+    {
+        inputManager.OnInitArcherTower              -= HandleInitArcherTower;
+        inputManager.OnInitMageTower                -= HandleInitMageTower;
+        inputManager.OnInitBarrackTower             -= HandleInitBarrackTower;
+        inputManager.OnInitCannonTower              -= HandleInitCannonTower;
+        inputManager.OnTryToUpgradeTower            -= HandleTryToUpgradeSelectedTower;
+        inputManager.OnUpgradeTower                 -= HandleUpgradeSelectedTower;
+        inputManager.OnSellTower                    -= HandleSellSelectedTower;
+        inputManager.OnSelectedEmptyPlot            -= HandleSelectedEmptyPlot;
+        inputManager.OnSelectedBulletTower          -= HandleOnSelectedBulletTower;
+        inputManager.OnSelectedBarrackTower         -= HandleOnSelectedBarrackTower;
+        inputManager.OnSelectedGuardPointBtnClick   -= HandleOnSelectedGuardPointBtnClick;
+        inputManager.OnSelectedNewGuardPointPos     -= HandleOnSelectedNewGuardPoint;
+        inputManager.OnRaycastHitNull               -= HandleRaycatHitNull;
     }
 
     private void RegisterEnemyEvent()
@@ -77,18 +99,27 @@ public class GamePlayManager : MonoBehaviour
         enemyManager.EnemyDieHandler += HandleEnemyDie;
     }
 
+    private void UnregisterEnemyEvent()
+    {
+        enemyManager.EnemyDieHandler -= HandleEnemyDie;
+    }
+
     private void HandleEnemyDie(UnitBase enemy)
     {
         gold += enemy.Gold;
         OnGoldChangeForUI?.Invoke();
     }
-
     #endregion
 
     // caution click event
     private void RegisterCautionClickEvent()
     {
         spawnEnemyManager.OnCautionClick += HandleCautionClick;
+    }
+
+    private void UnregisterCautionClickEvent()
+    {
+        spawnEnemyManager.OnCautionClick -= HandleCautionClick;
     }
 
     private void HandleCautionClick(float time)
@@ -149,7 +180,6 @@ public class GamePlayManager : MonoBehaviour
         HideCurrentTowerRangeDetect();
         selectedBuilding = selectedTowerPresenter;
         OnSelectedTowerForUI?.Invoke();
-        Debug.Log("check");
         selectedBuilding.towerView.ShowRangeDetection(true);
         // Vector2 SelectedTowerPos = selectedTowerPresenter.towerView.GetPos();
         // inputManager.ShowUpgradePanel(SelectedTowerPos);
@@ -189,7 +219,6 @@ public class GamePlayManager : MonoBehaviour
         bulletTowerManager.UpgradeBuilding(selectedBuilding);
         selectedBuilding.GoldRefund += goldUpdrade;
         // Hide range detection and upgrade panel
-        Debug.Log("xxx raycastHItnull");
         HandleRaycatHitNull();
         inputManager.HideUpgradePanel();
     }

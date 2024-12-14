@@ -3,18 +3,23 @@ using UnityEngine;
 
 public class CSVTowerDataReader : MonoBehaviour
 {
-    [SerializeField] TextAsset        towerDataCSV;
-    public           TowerDataListSO    towerDataList;
+    public static CSVTowerDataReader    Instance { get; private set; }
+    [SerializeField] TextAsset          towerDataCSV;
+    public TowerDataListSO              towerDataList;
     public bool IsDataLoaded { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
-        if (towerDataCSV == null)
+        if(Instance == null)
         {
-            Debug.LogError("towerDataCSV is not assigned.");
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadTowerData();
         }
-        LoadTowerData();
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void LoadTowerData()

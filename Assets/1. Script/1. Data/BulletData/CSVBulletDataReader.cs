@@ -3,18 +3,23 @@ using UnityEngine;
 
 public class CSVBulletDataReader : MonoBehaviour
 {
-    [SerializeField] TextAsset              bulletDataCSV;
-    public           BulletDataListSO       bulletDataList;
+    public static CSVBulletDataReader   Instance { get; private set; }
+    [SerializeField] TextAsset          bulletDataCSV;
+    public BulletDataListSO             bulletDataList;
     public bool IsDataLoaded { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
-        if (bulletDataList == null)
+        if (Instance == null)
         {
-            Debug.LogError("BulletDataCSV is not assigned.");
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadTowerData();
         }
-        LoadTowerData();
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void LoadTowerData()

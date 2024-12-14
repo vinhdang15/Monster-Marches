@@ -7,20 +7,21 @@ public class PathFinder : MonoBehaviour
     public PathConfigSO PathConfigSO { get; set; }
     [SerializeField] List<Transform> waypoints;
     int wayPointIndex = 0;
-    
-    public int waveConfigIndex;
 
+    private void Start()
+    {
+        wayPointIndex = 0;
+    }
     public void OnSetPosInPathWay(int _pathWayIndex)
     {
         PathConfigSO.index = _pathWayIndex;
 
         transform.position = PathConfigSO.GetStartingWaypoint().position;
         // rest waypoints, wayPointIndex
-        waypoints.Clear();
         wayPointIndex = 0;
         waypoints =  PathConfigSO.GetWayPoints();
     }
-
+    
     public void FollowPath(float speed)
     {
         if (wayPointIndex < waypoints.Count)

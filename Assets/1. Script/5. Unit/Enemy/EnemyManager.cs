@@ -17,6 +17,12 @@ public class EnemyManager : MonoBehaviour
             enemy.unitAnimation.UnitPlayWalk();
         }
     }
+
+    private void OnDisable()
+    {
+        EnemyDieHandler = null;
+    }
+
     private void Update()
     {
         foreach(var enemy in totalenemies)

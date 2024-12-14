@@ -6,7 +6,7 @@ public class TowerView : MonoBehaviour
     [SerializeField] RangeDetect    rangeDetection;
     [SerializeField] RangeDetect    rangeDetectionUpgrade;
     [SerializeField] Transform      spawnBulletTrans;
-    private CircleCollider2D        rangeDetechCol;
+    private CircleCollider2D        rangeDetectCol;
     private CircleCollider2D        rangeRaycastCol;
     private Animator                towerAnimation;
     public event            Action<Enemy, TowerView> OnEnemyEnter;
@@ -14,16 +14,11 @@ public class TowerView : MonoBehaviour
 
     private void Awake()
     { 
-        rangeDetechCol = GetComponent<CircleCollider2D>();
+        rangeDetectCol = GetComponent<CircleCollider2D>();
         rangeRaycastCol = GetComponent<CircleCollider2D>();
         towerAnimation = GetComponent<Animator>();
     }
     
-    private void OnDisable()
-    {
-        OnEnemyEnter = null;
-        OnEnemyExit = null;
-    }
     public void SetRangeRaycat(float rangeDetect)
     {
         rangeRaycastCol.radius = rangeDetect;
@@ -31,7 +26,7 @@ public class TowerView : MonoBehaviour
     
     public void SetRangeDetect(float rangeDetect)
     {
-        rangeDetechCol.radius = rangeDetect;
+        rangeDetectCol.radius = rangeDetect;
         rangeDetection.SetSprtieIndicator(rangeDetect);
     }
     

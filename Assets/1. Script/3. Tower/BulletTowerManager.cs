@@ -7,9 +7,18 @@ public class BulletTowerManager : TowerBaseManager
     [SerializeField] BulletManager          bulletManager;
     [SerializeField] List<TowerView>        towerPrefabList = new List<TowerView>();
     public Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
+    
+    private void OnDisable()
+    {
+        foreach(var towerPresenter in bulletTowerInfor.Keys)
+        {
+            UrRegisterTowerEvent(towerPresenter);
+        }
+    }
+    
     public void InitTower(Vector3 pos, TowerType towerType, EmptyPlot emptyPlot)
     {
-        TowerData towerData = towerDataReader.towerDataList.GetTowerData(towerType.ToString().Trim().ToLower(), 1);
+        TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(towerType.ToString().Trim().ToLower(), 1);
 
         TowerView towerPrefab = towerPrefabList[(int)towerType];
         TowerPresenter towerPresenter = base.InitBuildingPresenter(towerPrefab, towerData, pos);
@@ -23,6 +32,12 @@ public class BulletTowerManager : TowerBaseManager
     {
         towerPresenter.towerView.OnEnemyEnter   += (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
         towerPresenter.towerView.OnEnemyExit    += (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
+    }
+
+    private void UrRegisterTowerEvent(TowerPresenter towerPresenter)
+    {
+        towerPresenter.towerView.OnEnemyEnter   -= (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
+        towerPresenter.towerView.OnEnemyExit    -= (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
     }
 
     public void InitArcherTower(Vector3 pos, EmptyPlot emptyPlot)

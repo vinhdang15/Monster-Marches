@@ -9,6 +9,14 @@ public class CautionManager : MonoBehaviour
     [SerializeField] Transform cautionParent;
     private List<BtnCautionSlider> btnCautionSliders = new List<BtnCautionSlider>();
 
+    private void OnDisable()
+    {
+        foreach(var btnCautionSlider in btnCautionSliders)
+        {
+            UnregisterBtnCautionSliderEvent(btnCautionSlider);
+        }
+    }
+
     public void InitCaution(SpawnEnemyManager spawnEnemyManager)
     {
         foreach(var spawnEnemy in spawnEnemyManager.SpawnEnemies)
@@ -21,19 +29,20 @@ public class CautionManager : MonoBehaviour
 
             // adsigne click event for btnCautionSlider
             btnCautionSlider.GetSpawnEnemyManager(spawnEnemyManager);
-            btnCautionSlider.OnCautionClick += HandleHideAllCautionSlider;
+            RegisterBtnCautionSliderEvent(btnCautionSlider);
             btnCautionSliders.Add(btnCautionSlider);
         }
     }
 
-    // private void RegisterNumberEnemyInWaveHandler()
-    // {
-    //     foreach(var spawnEnemy in spawnEnemyManager.SpawnEnemies)
-    //     {
-    //         spawnEnemy.OnNumberEnemyInWaveIsNull += HideCautionSlider;
-    //         spawnEnemy.OnNumberEnemyInWave += ShowCautionSlider;
-    //     }
-    // }
+    private void RegisterBtnCautionSliderEvent(BtnCautionSlider btnCautionSlider)
+    {
+        btnCautionSlider.OnCautionClick += HandleHideAllCautionSlider;
+    }
+
+    private void UnregisterBtnCautionSliderEvent(BtnCautionSlider btnCautionSlider)
+    {
+        btnCautionSlider.OnCautionClick -= HandleHideAllCautionSlider;
+    }
 
     private void ShowCautionSlider(BtnCautionSlider btnCautionSlider)
     {

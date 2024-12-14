@@ -18,6 +18,8 @@ public class Enemy : UnitBase
         pathFinder = GetComponent<PathFinder>();
     }
 
+    // bullet instantitate in pool and bullet event register every time tower GetBullet,
+    // so needed to OnEnemyDeath = null; every time it OnDisable()
     private void OnDisable()
     {
         OnEnemyDeath = null;

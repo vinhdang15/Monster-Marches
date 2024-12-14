@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class TowerBaseManager : MonoBehaviour
 {
-    [SerializeField] protected CSVTowerDataReader     towerDataReader;
-
     #region INIT BUILDING
     protected TowerPresenter InitBuildingPresenter(TowerView towerPrefab, TowerData towerData, Vector3 pos)
     {
         TowerView buildingView             = Instantiate(towerPrefab, pos, Quaternion.identity, transform);
         TowerModel buildingModel           = TowerModel.Craete(buildingView,towerData);
         TowerPresenter buildingPresenter   = TowerPresenter.Create(buildingModel, buildingView);
-        buildingPresenter.towerDataReader = towerDataReader;
         buildingPresenter.UpdateRangeDetectUpgradeData();
         return buildingPresenter;
     }
@@ -30,7 +27,7 @@ public class TowerBaseManager : MonoBehaviour
         // upgrade tower mode
         string buildingType = buildingPresenter.towerModel.TowerType;
         int buildingLevel = buildingPresenter.towerModel.Level;
-        TowerData towerData = towerDataReader.towerDataList.GetTowerData(buildingType, buildingLevel + 1);
+        TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(buildingType, buildingLevel + 1);
         buildingPresenter.towerModel.UpgradeTowerModel(towerData);
 
         // upgrade range, range upgrade

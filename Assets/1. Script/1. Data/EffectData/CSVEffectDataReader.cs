@@ -3,9 +3,24 @@ using UnityEngine;
 
 public class CSVEffectDataReader : MonoBehaviour
 {
-    [SerializeField] TextAsset              effectDataCSV;
-    public           EffectDataListSO       effectDataList;
+    public static CSVEffectDataReader   Instance { get; private set; }
+    [SerializeField] TextAsset          effectDataCSV;
+    public EffectDataListSO             effectDataList;
     public bool IsDataLoaded { get; private set; }
+
+    private void Awake()
+    {
+        if( Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadTowerData();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {

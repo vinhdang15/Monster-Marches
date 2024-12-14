@@ -43,6 +43,11 @@ public class SpawnEnemyManager : MonoBehaviour
         RegisterFinishCurrentWaveEvent();
     }
 
+    private void OnDisable()
+    {
+        UnregisterFinishCurrentWaveEvent();
+    }
+
     #region SPAWN ENEMY
     private void GetSpawnEnemies()
     {
@@ -57,6 +62,14 @@ public class SpawnEnemyManager : MonoBehaviour
             spawnEnemy.OnFinishCurrentWave += HandleFinishCurrentWave;
         }
     } 
+
+    private void UnregisterFinishCurrentWaveEvent()
+    {
+        foreach(var spawnEnemy in SpawnEnemies)
+        {
+            spawnEnemy.OnFinishCurrentWave -= HandleFinishCurrentWave;
+        }
+    }
 
     private void HandleFinishCurrentWave()
     {

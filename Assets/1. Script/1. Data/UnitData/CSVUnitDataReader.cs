@@ -2,9 +2,23 @@ using UnityEngine;
 
 public class CSVUnitDataReader : MonoBehaviour
 {
+    public static CSVUnitDataReader     Instance { get; private set; }
     [SerializeField] TextAsset          unitDataCSV;
-    public           UnitDataListSO     unitDataList;
+    public UnitDataListSO               unitDataList;
     public bool IsDataLoaded { get; private set; }
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {

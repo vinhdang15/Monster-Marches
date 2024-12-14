@@ -20,9 +20,6 @@ public class SpawnEnemy : MonoBehaviour
     private bool isStartNextWave = false;
 
     public event Action OnFinishCurrentWave;
-    // public delegate void numberEnemyInWaveHandler(BtnCautionSlider btnCautionSlider);
-    // public numberEnemyInWaveHandler OnNumberEnemyInWaveIsNull;
-    // public numberEnemyInWaveHandler OnNumberEnemyInWave;
     
     private void Awake()
     {
@@ -31,9 +28,18 @@ public class SpawnEnemy : MonoBehaviour
 
     private void Start()
     {
-        RegisterStartNextWaveEvent();
         GetTimeBetweenEnemy();
         CheckShowFristWaveCaution();
+    }
+
+    private void OnEnable()
+    {
+        RegisterStartNextWaveEvent();
+    }
+
+    private void OnDisable()
+    {
+        UnregisterStartNextWaveEvent();
     }
 
     private void GetUnitPool()
@@ -46,27 +52,6 @@ public class SpawnEnemy : MonoBehaviour
         timeBetweenEnemy = spawnEnemyManager.GetTimeBetweenEnemy();
     }
     
-    // private IEnumerator SpawnEnemyCoroutine()
-    // {
-    //     yield return new WaitUntil(() => unitDataReader.IsDataLoaded);
-    //     // Check number enemy in the current way, if none hide the caution button else show the caution button
-
-    //     // for loop to spwan enemies in all wave
-    //     for(int y = 0; y < enemyEntries.Count; y++)
-    //     {
-    //         // for loop to spawn enemies in one wave
-    //         for(int i = 0; i < enemyEntries[y].numberEnemyInWave; i++)
-    //         {
-    //             InstantiateEnemy(enemyEntries[y].enemy, i);
-                
-    //             // wait time among instantiate each enemy
-    //             yield return new WaitForSeconds(SetTimeBetweenEnemy());
-    //         }
-    //         isStartNextWave = false;
-    //         OnFinishCurrentWave?.Invoke();
-    //         yield return new WaitUntil(() => isStartNextWave); 
-    //     }
-    // }
     private IEnumerator SpawnEnemyCoroutine()
     {
         yield return new WaitUntil(() => unitDataReader.IsDataLoaded);
@@ -125,7 +110,11 @@ public class SpawnEnemy : MonoBehaviour
     {
         spawnEnemyManager = GetComponentInParent<SpawnEnemyManager>();
         spawnEnemyManager.OnCallNextWave += StartNextWave;
+    }
 
+    public void UnregisterStartNextWaveEvent()
+    {
+        spawnEnemyManager.OnCallNextWave -= StartNextWave;
     }
 
     private void StartNextWave()

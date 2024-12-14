@@ -134,7 +134,6 @@ public class Soldier : UnitBase
             if (hadTarget == false && enemiesInRange[i].targetSoldier == null)
             {
                 enemiesInRange[i].targetSoldier = this;
-                Debug.Log("add soldier to ENEMY");
                 targetEnemy = enemiesInRange[i];
                 hadTarget = true;
                 break;
