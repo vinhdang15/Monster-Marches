@@ -1,4 +1,4 @@
-TowerType,Level,BullletType,FireRate,RangeDetect,RangeRaycast,GoldRequired,Descriptions
+TowerType,Level,SpawnObject,SpawnRate,RangeDetect,RangeRaycast,GoldRequired,Descriptions
 ArcherTower,1,Arrow1,0.6,4,0.7,50,"This is Archer Tower, hight fire rate"
 ArcherTower,2,Arrow2,0.6,5,0.7,70,"The arrow come with effect, deal more dame"
 MageTower,1,MagicBall1,2,4,0.7,70,"This is mage tower, deal dame mutil time"

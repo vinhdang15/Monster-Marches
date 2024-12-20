@@ -8,6 +8,13 @@ public class GuardPoint : MonoBehaviour
     public List<Transform> guardpoint = new List<Transform>();
     public List<Soldier> soldiers = new List<Soldier>();
     public List<Enemy> enemiesInRange = new List<Enemy>();
+    public float barackRateSpawn;
+    public event Action<GuardPoint> OnBarrackDestroy;
+
+    private void OnDisable()
+    {
+        OnBarrackDestroy?.Invoke(this);
+    }
 
     public void AddSoldier(Soldier soldier)
     {

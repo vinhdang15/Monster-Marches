@@ -7,7 +7,7 @@ public class BulletPool : MonoBehaviour
     [System.Serializable]
     public class BulletPoolInfo
     {
-        public string       BulletType => bulletPrefab.Type.Trim().ToLower();
+        public string       BulletType => bulletPrefab.name.Trim().ToLower();
         public BulletBase   bulletPrefab;
         public int          poolSize;
     }
@@ -60,13 +60,14 @@ public class BulletPool : MonoBehaviour
             bullet.startPos = initPos;
             bullet.isSetUpStartPos = true;
             bullet.gameObject.SetActive(true);
+            bullet.BulletWhistleSound();
             return bullet;
         }
         else // Init bullet if out of bullet in pool
         {
             BulletBase bulletPrefab = GetBulletPrefab(bulletType);
             BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
-            BulletData bulletData = CSVBulletDataReader.Instance.bulletDataList.GetBulletData(bulletPrefab.Type);
+            BulletData bulletData = CSVBulletDataReader.Instance.bulletDataList.GetBulletData(bulletPrefab.BulletType);
             bullet.InitBullet(bulletData);
             bullet.transform.position = initPos;
             bullet.startPos = initPos;
@@ -80,9 +81,9 @@ public class BulletPool : MonoBehaviour
     {
         bullet.ResetBullet();
         bullet.gameObject.SetActive(false);
-        if(bulletPools.ContainsKey(bullet.Type))
+        if(bulletPools.ContainsKey(bullet.BulletType))
         {
-            bulletPools[bullet.Type].Enqueue(bullet);
+            bulletPools[bullet.BulletType].Enqueue(bullet);
         }
     }
 

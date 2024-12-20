@@ -7,26 +7,30 @@ using UnityEngine;
 public class GamePlayManager : MonoBehaviour
 {
     public int gold = 200;
+    public int live = 20;
     [HideInInspector] public int archerTOwerInitGold;
     [HideInInspector] public int mageTowerInitGold;
     [HideInInspector] public int barrackTowerInitGold;
     [HideInInspector] public int cannonTowerInitGold;
     [HideInInspector] public int towerUpgradeGold;
     [HideInInspector] public int towerSellGold;
-    [SerializeField] BulletTowerManager       bulletTowerManager;
-    [SerializeField] BarrackTowerManager     barrackTowerManager;
-    [SerializeField] EnemyManager       enemyManager;
-    [SerializeField] InputManager       inputManager;
-    private Vector2                     initPanelPos;
-    private TowerPresenter selectedBuilding;
-    public delegate void TowerManagerHandler();
+    [SerializeField] BulletTowerManager         bulletTowerManager;
+    [SerializeField] BarrackTowerManager        barrackTowerManager;
+    [SerializeField] EnemyManager               enemyManager;
+    [SerializeField] InputController               inputManager;
+    private Vector2                             initPanelPos;
+    private TowerPresenter                      selectedBuilding;
     public event Action OnSelectedTowerForUI;
     public event Action OnGoldChangeForUI;
+    public event Action OnLiveChangeForUI;
     public bool IsDataLoaded { get; private set; }
 
     public SpawnEnemyManager spawnEnemyManager;
     public EmptyPlot currentEmptyPlot;
 
+    [Header("Audio")]
+    [SerializeField] SoundEffectSO soundEffectSO;
+    
     private void Start()
     {
         RegisterEnemyEvent();
@@ -46,7 +50,7 @@ public class GamePlayManager : MonoBehaviour
     {
         archerTOwerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString().Trim().ToLower());
         mageTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.MageTower.ToString().Trim().ToLower());
-        barrackTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(BarrackType.Barrack.ToString().Trim().ToLower());
+        barrackTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.Barrack.ToString().Trim().ToLower());
         cannonTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.CannonTower.ToString().Trim().ToLower());
     }
 
@@ -96,18 +100,26 @@ public class GamePlayManager : MonoBehaviour
 
     private void RegisterEnemyEvent()
     {
-        enemyManager.EnemyDieHandler += HandleEnemyDie;
+        enemyManager.OnEnemyDeath += HandleEnemyDeath;
+        enemyManager.OnEnemyReachEndPoint += HandleEnemyReachEndPoint;
     }
 
     private void UnregisterEnemyEvent()
     {
-        enemyManager.EnemyDieHandler -= HandleEnemyDie;
+        enemyManager.OnEnemyDeath -= HandleEnemyDeath;
+        enemyManager.OnEnemyReachEndPoint -= HandleEnemyReachEndPoint;
     }
 
-    private void HandleEnemyDie(UnitBase enemy)
+    private void HandleEnemyDeath(UnitBase enemy)
     {
         gold += enemy.Gold;
         OnGoldChangeForUI?.Invoke();
+    }
+
+    private void HandleEnemyReachEndPoint()
+    {
+        live --;
+        OnLiveChangeForUI?.Invoke();
     }
     #endregion
 
@@ -129,10 +141,11 @@ public class GamePlayManager : MonoBehaviour
     }
 
     #region INIT TOWER
-    private void OnInitTower(int goldRequired, TowerManagerHandler towerManagerAction)
+    private void OnInitTower(int goldRequired, Action action)
     {
+        AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         if(gold < goldRequired) return;
-        towerManagerAction();
+        action?.Invoke();
         gold -= goldRequired;
         OnGoldChangeForUI?.Invoke();
         inputManager.HideInitPanel();
@@ -162,6 +175,7 @@ public class GamePlayManager : MonoBehaviour
     // Upgrade selected tower
     private void HandleTryToUpgradeSelectedTower()
     {
+        AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         bulletTowerManager.UpdateRangeDetectionUpgrade(selectedBuilding);
         selectedBuilding.towerView.ShowRangeDetectionUpgrade(true);
     }  
@@ -169,33 +183,31 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleSelectedEmptyPlot(EmptyPlot emptyPlot)
     {
+        AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
         currentEmptyPlot = emptyPlot;
         initPanelPos = emptyPlot.GetPos();
-        // inputManager.ShowInitPanel(initPanelPos);
     }
 
     private void HandleOnSelectedBulletTower(TowerPresenter selectedTowerPresenter)
     {  
+        AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
         selectedBuilding = selectedTowerPresenter;
         OnSelectedTowerForUI?.Invoke();
-        selectedBuilding.towerView.ShowRangeDetection(true);
-        // Vector2 SelectedTowerPos = selectedTowerPresenter.towerView.GetPos();
-        // inputManager.ShowUpgradePanel(SelectedTowerPos);
+        selectedBuilding.towerView.ShowRangeDetection(true);;
     }
     private void HandleOnSelectedBarrackTower(TowerPresenter selectedTowerPresenter)
     {  
+        AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
         selectedBuilding = selectedTowerPresenter;
         OnSelectedTowerForUI?.Invoke();
-        // selectedBuilding.towerView.ShowRangeDetection(true);
-        // Vector2 SelectedTowerPos = selectedTowerPresenter.towerView.GetPos();
-        // inputManager.ShowUpgradePanel(SelectedTowerPos);
     }
 
     private void HandleOnSelectedGuardPointBtnClick()
     {
+        AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         if(selectedBuilding != null)
         {
             selectedBuilding.towerView.ShowRangeDetection(true);
@@ -205,12 +217,14 @@ public class GamePlayManager : MonoBehaviour
     // selected new guard point
     private void HandleOnSelectedNewGuardPoint(Vector2 newGuardPointPos)
     {
+        AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         selectedBuilding.towerView.ShowRangeDetection(false);
         barrackTowerManager.SetNewGuardPointPos(selectedBuilding, newGuardPointPos);
     }
 
     private void HandleUpgradeSelectedTower()
     {
+        AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         if(gold < selectedBuilding.GoldUpdrade) return;
         // process gold
         int goldUpdrade = selectedBuilding.GoldUpdrade;
@@ -236,6 +250,7 @@ public class GamePlayManager : MonoBehaviour
     // Sell selected tower
     private void HandleSellSelectedTower()
     {
+        AudioManager.Instance.PlaySound(soundEffectSO.AddGoldSound);
         gold += selectedBuilding.GoldRefund;
         selectedBuilding.emptyPlot.ShowEmptyPlot();
         Destroy(selectedBuilding.gameObject);

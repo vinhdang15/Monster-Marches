@@ -6,12 +6,13 @@ using UnityEngine;
 using UnityEngine.U2D.IK;
 using UnityEngine.UI;
 
-public class InputManager : MonoBehaviour
+public class InputController : MonoBehaviour
 {
     // Detect button click, sent button click information to GamePlayManager to proccess
-    // Set up for initPanel, upgradePanel, checkSymbol visible
+    [Header("TowerBuildingStatus")]
     [SerializeField] GameObject initPanel;
     [SerializeField] GameObject upgradePanel;
+    [Header("TowerInitStatus")]
     [SerializeField] GameObject guardPointBtn;
     [SerializeField] GameObject checkSmybol;
     private Button currentButton = null;
@@ -36,6 +37,15 @@ public class InputManager : MonoBehaviour
     private Vector2 mousePos;
     private Vector2 worldPos;
     private RaycastHit2D hit;
+
+    [Header("Audio")]
+    private AudioSource audioSource;
+    [SerializeField] SoundEffectSO soundEffectSO;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -64,7 +74,7 @@ public class InputManager : MonoBehaviour
             }
         }
     }
-
+    
     private void IgnoreBarrackRangeDetect()
     {
         GetWorldPos();
@@ -108,7 +118,7 @@ public class InputManager : MonoBehaviour
     private void TakeBarrackRangeDetect()
     {
         GetWorldPos();
-
+        
         int layerMask = LayerMask.GetMask("Button", "BarrackRangeDetect");
         hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, layerMask);
 
@@ -170,13 +180,6 @@ public class InputManager : MonoBehaviour
         initPanel.SetActive(true);
     }
 
-    public void ShowUpgradePanel(Vector2 pos)
-    {
-        HideInitPanel();
-        upgradePanel.transform.position = pos;
-        upgradePanel.SetActive(true);
-    }
-
     public void HideInitPanel()
     {
         if(initPanel.activeSelf)
@@ -184,6 +187,13 @@ public class InputManager : MonoBehaviour
             ResetPanelState();
             initPanel.SetActive(false);
         }
+    }
+
+    public void ShowUpgradePanel(Vector2 pos)
+    {
+        HideInitPanel();
+        upgradePanel.transform.position = pos;
+        upgradePanel.SetActive(true);
     }
 
     public void HideUpgradePanel()
@@ -224,13 +234,12 @@ public class InputManager : MonoBehaviour
     {
         if(currentButton != clickedButton)
         {
+            AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
             ShowCheckSymbol(clickedButton);
         }
         else
         {
             eventAction?.Invoke();
-            // call HideInitPanel from GamePlayManager
-            // HideInitPanel();
         }
         currentButton = clickedButton;
     }
@@ -261,15 +270,13 @@ public class InputManager : MonoBehaviour
     {
         if(currentButton != clickedButton)
         {
+            AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
             ShowCheckSymbol(clickedButton);
             OnTryToUpgradeTower?.Invoke();
         }
         else
         {
             OnUpgradeTower?.Invoke();
-            // call HideUpgradePanel from GamePlayManager
-            // HideUpgradePanel();
-            // return here to prevent setting currentButton = clickedButton after set it to null from OnUpgradeTower
             return;
         }
         currentButton = clickedButton;

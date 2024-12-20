@@ -5,12 +5,14 @@ using Random = UnityEngine.Random;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+    private AudioSource audioSource;
     void Awake()
     {
         if(Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            audioSource = GetComponent<AudioSource>();
         }
         else
         {
@@ -18,12 +20,19 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(AudioSource audioSource, AudioClip audioClip)
+    public void PlaySound(AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);
     }
 
-    public void PlayLoopingSound(AudioSource audioSource, AudioClip audioClip)
+    public void PlaySoundTurnPitch(AudioSource audioSource ,AudioClip audioClip)
+    {
+        audioSource.pitch = Random.Range(0.95f,1.05f);
+        audioSource.volume = Random.Range(0.8f,1.0f);
+        audioSource.PlayOneShot(audioClip);
+    }
+
+    public void PlayBackgroundMusic(AudioClip audioClip)
     {
         audioSource.clip = audioClip;
         audioSource.loop = true;

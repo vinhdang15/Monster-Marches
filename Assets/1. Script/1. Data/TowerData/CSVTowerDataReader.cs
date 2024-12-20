@@ -36,7 +36,7 @@ public class CSVTowerDataReader : MonoBehaviour
             {
                 towerType       = values[0].Trim().ToLower(),
                 level           = int.Parse(values[1]),
-                BulletType      = values[2].Trim().ToLower(),
+                SpawnObject      = values[2].Trim().ToLower(),
                 fireRate        = float.Parse(values[3]),
                 rangeDetect     = float.Parse(values[4]),
                 rangeRaycast    = float.Parse(values[5]),

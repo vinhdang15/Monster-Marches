@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : UnitBase
+public class Enemy : UnitBase, IEnemy
 {
     [SerializeField] PathFinder pathFinder;
     private List<Enemy> surroundingEnemies = new List<Enemy>();
@@ -12,9 +12,11 @@ public class Enemy : UnitBase
     public Soldier targetSoldier;
     public bool islockByEnemy;
     public event Action<Enemy> OnEnemyDeath;
+    public event Action<Enemy> OnEnemyReachEndPoint;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         pathFinder = GetComponent<PathFinder>();
     }
 
@@ -23,6 +25,7 @@ public class Enemy : UnitBase
     private void OnDisable()
     {
         OnEnemyDeath = null;
+        OnEnemyReachEndPoint = null;
     }
 
     // Get Pathway
@@ -47,7 +50,10 @@ public class Enemy : UnitBase
         }
         else if (targetSoldier != null && targetSoldier.isReachTargetEnemyFontPos)
         {
+            timeDelay -= Time.deltaTime;
+            if(timeDelay > 0) return;
             unitAnimation.UnitPlayAttack();
+            ResetTimeDelay(AttackSpeed);
         }
         else
         {
@@ -72,6 +78,7 @@ public class Enemy : UnitBase
 
         if(CurrentHp == 0)
         {
+            AudioManager.Instance.PlaySound(soundEffectSO.GetRandomMonsterDie());
             OnEnemyDeath?.Invoke(this);
         }
     }
@@ -80,12 +87,14 @@ public class Enemy : UnitBase
     {
         if(targetSoldier != null && targetSoldier.CurrentHp > 0)
         {
+            AudioManager.Instance.PlaySoundTurnPitch(audioSource, soundEffectSO.GetRandomSwordSound());
             targetSoldier.TakeDamage(Damage);
         }
     }
 
     public IEnumerator ReturnPoolAfterPlayAnimation(UnitPool unitPool)
     {
+        yield return null;
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
         unitPool.ReturnEnemy(this);
         yield break;
@@ -106,4 +115,9 @@ public class Enemy : UnitBase
         base.ResetUnit();
     }
 
+    public void OnReachEndPoint()
+    {
+        base.ResetUnit();
+        OnEnemyReachEndPoint?.Invoke(this);
+    }
 }

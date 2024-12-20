@@ -27,3 +27,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8df21b80b8f361f49bbec0a02c6734eb, type: 3}
   - {fileID: 8300000, guid: 4daf83c0b76f4ec4d8f68a09673778bf, type: 3}
   - {fileID: 8300000, guid: c9d8df6acccdc6a4f9b9c927d6944961, type: 3}
+  soldierDie:
+  - {fileID: 8300000, guid: 5c5becb6a0b61da47a437f0ef757b018, type: 3}
+  - {fileID: 8300000, guid: 4e596bd8cd1facd4ba0a0d30a472112d, type: 3}
+  - {fileID: 8300000, guid: cfbf3a23034fd67439da0fc965a90062, type: 3}
+  monsterDie:
+  - {fileID: 8300000, guid: 0e3059b056674a14eb728e215dbdae73, type: 3}
+  - {fileID: 8300000, guid: 6cedc32126ed55548a3dcde0fdf720b6, type: 3}
+  endPointSound: {fileID: 8300000, guid: a94511438bbc92849b75a2ef68d90d7b, type: 3}

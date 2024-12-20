@@ -4,10 +4,9 @@ using UnityEngine.UI;
 
 public class BtnBase : MonoBehaviour
 {
-    [SerializeField] protected string sceneName;
-    [SerializeField] protected SoundEffectSO soundEffectSO;
-    protected Button thisButton;
-    AudioSource audioSource;
+    [SerializeField] protected string           sceneName;
+    [SerializeField] protected SoundEffectSO    soundEffectSO;
+    protected Button        thisButton;
     protected virtual void Start()
     {
         thisButton = GetComponent<Button>();
@@ -15,8 +14,6 @@ public class BtnBase : MonoBehaviour
         {
            thisButton.onClick.AddListener(OnButtonClick);
         }
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void OnButtonClick()
@@ -48,12 +45,12 @@ public class BtnBase : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    protected void PlayClickSound()
+    protected virtual void PlayClickSound()
     {
-        AudioManager.Instance.PlaySound(audioSource, soundEffectSO.clickSound);
+        AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
     }
     protected void PlayCustomSound(AudioClip customAudioClip)
     {
-        AudioManager.Instance.PlaySound(audioSource, customAudioClip);
+        AudioManager.Instance.PlaySound(customAudioClip);
     }
 }

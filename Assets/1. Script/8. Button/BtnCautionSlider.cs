@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BtnCautionSlider : BtnBase
 {
-    private SpawnEnemyManager spawnEnemyManager;
-    public event Action OnCautionClick;
+    private SpawnEnemyManager   spawnEnemyManager;
+    public event Action         OnCautionClick;
     protected override void Start()
     {
         base.Start();
@@ -19,11 +19,14 @@ public class BtnCautionSlider : BtnBase
 
     protected override void OnButtonClick()
     {
-        //PlayClickSound();
+        PlayClickSound();
         spawnEnemyManager.CautionClick();
         OnCautionClick?.Invoke();
     }
 
-    
+    protected override void PlayClickSound()
+    {
+        AudioManager.Instance.PlaySound(soundEffectSO.comingWaveSound);
+    }
 
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TowerDataList", menuName = "Data Config/TowerDataList", order = 1)]
@@ -23,10 +24,33 @@ public class TowerDataListSO : ScriptableObject
         if(tower == null) return 0;
         return tower.goldRequired;
     }
+
     public float GetRangeDetect(string towerType, int level)
     {
         TowerData tower = towerDataList.Find(data => data.towerType == towerType && data.level == level);
         if(tower == null) return 0;
         return tower.rangeDetect;
     }
+
+    public string GetDescription(string towerType, int level)
+    {
+        TowerData tower = towerDataList.Find(data => data.towerType == towerType && data.level == level);
+        if(tower == null) return null;
+        return tower.descriptions;
+    }
+
+    public float GetSpawnRate(string towerType, int level)
+    {
+        TowerData tower = towerDataList.Find(data => data.towerType == towerType && data.level == level);
+        if(tower == null) return 0;
+        return tower.fireRate;
+    }
+
+    public string GetTowerSpawnObject(string towerType, int level)
+    {
+        TowerData tower = towerDataList.Find(data => data.towerType == towerType && data.level == level);
+        if(tower == null) return null;
+        return tower.SpawnObject;;
+    }
+
 }

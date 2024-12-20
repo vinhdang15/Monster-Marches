@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CSVEmptyPlotDataReader : MonoBehaviour
 {
-    public static CSVEmptyPlotDataReader Instance { get; private set; }
-    [SerializeField] TextAsset emptyPlotCSV;
-    public EmptyPlotDataListSO emptyPlotDataList;
+    public static CSVEmptyPlotDataReader    Instance { get; private set; }
+    [SerializeField] TextAsset              emptyPlotCSV;
+    public EmptyPlotDataListSO              emptyPlotDataList;
     public bool IsDataLoaded { get; private set; } = false;
 
     private void Awake()

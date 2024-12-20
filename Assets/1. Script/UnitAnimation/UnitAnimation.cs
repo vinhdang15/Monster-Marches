@@ -47,17 +47,7 @@ public class UnitAnimation : MonoBehaviour
 
     public void UnitPlayAttack()
     {
-        if(attackCoroutine == null)
-        {
-            attackCoroutine = StartCoroutine(AttackCoroutine());
-        }
-    }
-
-    private IEnumerator AttackCoroutine()
-    {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(2f);
-        attackCoroutine = null;
     }
 
     public void UnitPlaySpecialAbility()
@@ -73,5 +63,10 @@ public class UnitAnimation : MonoBehaviour
     public float GetCurrentAnimationLength()
     {
         return animator.GetCurrentAnimatorStateInfo(0).length;
+    }
+
+    public void ResetColor()
+    {
+        spriteRenderer.color = Color.white;
     }
 }

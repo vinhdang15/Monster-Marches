@@ -7,7 +7,7 @@ public class BarrackTowerManager : TowerBaseManager
     [SerializeField] TowerView              barrackPerfab;
     public Dictionary<TowerPresenter, BarackTowerInfor> barackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
-    public  void Init(Vector3 pos, BarrackType barrackType, EmptyPlot emptyPlot)
+    public  void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot)
     {
         TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(barrackType.ToString().Trim().ToLower(), 1);
         
@@ -27,7 +27,7 @@ public class BarrackTowerManager : TowerBaseManager
 
     public void InitBarack(Vector3 pos, EmptyPlot emptyPlot)
     {
-        Init(pos,BarrackType.Barrack, emptyPlot);
+        Init(pos,TowerType.Barrack, emptyPlot);
     }
 
     // call from GameplayManager
@@ -39,12 +39,15 @@ public class BarrackTowerManager : TowerBaseManager
     #region PROCESS SPAWN SOLDIER
     private void SpawnBarackSoldier(TowerPresenter barrackPresenter)
     {
-        if(barrackPresenter.towerModel.TowerType != BarrackType.Barrack.ToString().Trim().ToLower()) return;
-        string soldierName = barrackPresenter.towerModel.BulletType;
+        if(barrackPresenter.towerModel.TowerType != TowerType.Barrack.ToString().Trim().ToLower()) return;
+        string soldierName = barrackPresenter.towerModel.SpawnObject;
         Vector2 initPos = barrackPresenter.towerView.GetSpawnBulletPos();
 
         GuardPoint barackGuardPoint = barackTowerInfor[barrackPresenter].barackGuardPoint;
-        soldierManager.BarrackSpawnSoldier(soldierName, initPos, barackGuardPoint);
+
+        Vector2 barrackPos = barrackPresenter.gameObject.transform.position;
+        float soldierRevivalSpeed = barrackPresenter.towerModel.SpawnRate;
+        soldierManager.BarrackSpawnSoldier(soldierName, initPos, barackGuardPoint, barrackPos, soldierRevivalSpeed);
     }
     #endregion
 }

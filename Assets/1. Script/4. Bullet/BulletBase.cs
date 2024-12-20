@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletBase : MonoBehaviour
 {
-    public string   Type => gameObject.name.Trim().ToLower();
+    public string   BulletType               { get; set; }
     public int      Damage                   { get; set; }
     public float    Speed                    { get; set; }
     public string   EffectType               { get; set; }
@@ -19,6 +19,8 @@ public class BulletBase : MonoBehaviour
     [HideInInspector] public Vector2     bulletLastPos;
     protected BulletAnimation            bulletAnimation;
     public event Action<BulletBase>      OnFinishBulletAnimation;
+
+    [SerializeField] SoundEffectSO soundEffectSO;
     
     private void OnDisable()
     {
@@ -35,6 +37,7 @@ public class BulletBase : MonoBehaviour
 
     private void InitBulletData(BulletData _bulletData)
     {
+        BulletType              = _bulletData.bulletType;
         Speed                   = _bulletData.speed;
         Damage                  = _bulletData.damage;
         EffectType              = _bulletData.effectTyes;
@@ -115,7 +118,7 @@ public class BulletBase : MonoBehaviour
 
     protected virtual void SetBulletDirection()
     {
-        if(!this.Type.Contains("bomb")) RotateInMovingDirection();
+        if(!this.BulletType.Contains("bomb")) RotateInMovingDirection();
         else RotateInCircle();
     }
 
@@ -130,7 +133,6 @@ public class BulletBase : MonoBehaviour
         Vector2 moveDir = bulletLastPos - (Vector2)transform.position;
         float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0, angle + 180), 1f);
-        // transform.rotation = Quaternion.Euler(0, 0, angle + 180);
     }
 
     protected virtual void MoveTowards()
@@ -139,9 +141,11 @@ public class BulletBase : MonoBehaviour
     }
     #endregion
 
-    #region BuLLET REACHING ENEMY POS, DEAL DAMAGE AND ANOTATION 
+    #region BuLLET REACHING ENEMY POS, DEAL DAMAGE AND ANOTATION
+    // Animation event action
     public void DealDamageToEnemy()
     {
+        BulletHittingSound();
         targetEnemy.TakeDamage(Damage);
     }
 
@@ -161,6 +165,7 @@ public class BulletBase : MonoBehaviour
 
     protected IEnumerator FinishAnotationCoroutine()
     {
+        yield return null;
         yield return new WaitForSeconds(bulletAnimation.GetCurrentAnimationLength());
         InvokeOnFinishBulletAnimation();
     }
@@ -183,6 +188,42 @@ public class BulletBase : MonoBehaviour
         isReachEnemyPos = false;
         isSetUpStartPos = false;
         targetEnemy = null;
+    }
+    #endregion
+
+    #region BULLET SOUND
+    public void BulletWhistleSound()
+    {
+        switch(BulletType)
+        {
+            case string t when t == BulletTypea.Arrow1.ToString().Trim().ToLower() ||
+                                t == BulletTypea.Arrow2.ToString().Trim().ToLower():
+                AudioManager.Instance.PlaySound(soundEffectSO.arrowSound);
+                break;
+            case string t when t == BulletTypea.MagicBall1.ToString().Trim().ToLower() ||
+                                t == BulletTypea.MagicBall2.ToString().Trim().ToLower():
+                AudioManager.Instance.PlaySound(soundEffectSO.MagicBallWhistleSound);
+                break;
+            case string t when t == BulletTypea.Bomb1.ToString().Trim().ToLower() ||
+                                t == BulletTypea.Bomb2.ToString().Trim().ToLower():
+                AudioManager.Instance.PlaySound(soundEffectSO.bomWhistleSound);
+                break;
+        }
+    }
+
+    public void BulletHittingSound()
+    {
+        switch(BulletType)
+        {
+            case string t when t == BulletTypea.MagicBall1.ToString().Trim().ToLower() ||
+                                t == BulletTypea.MagicBall2.ToString().Trim().ToLower():
+                AudioManager.Instance.PlaySound(soundEffectSO.MagicBallHitSound);
+                break;
+            case string t when t == BulletTypea.Bomb1.ToString().Trim().ToLower() ||
+                                t == BulletTypea.Bomb2.ToString().Trim().ToLower():
+                AudioManager.Instance.PlaySound(soundEffectSO.bomExplosionSound);
+                break;
+        }
     }
     #endregion
 }

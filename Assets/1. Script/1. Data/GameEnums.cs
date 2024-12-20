@@ -11,10 +11,18 @@ public enum TowerType
 {
     ArcherTower = 0,
     MageTower = 1,
-    CannonTower = 2,
+    Barrack = 2,
+    CannonTower = 3,
 }
 
-public enum BarrackType
+public enum BulletTypea
 {
-    Barrack = 0,
+    Arrow1,
+    Arrow2,
+    MagicBall1,
+    MagicBall2,
+    Bomb1,
+    Bomb2,
+    
+
 }

@@ -145,12 +145,12 @@ public class SpawnEnemyManager : MonoBehaviour
             OnCallNextWave?.Invoke();
             // update gold when call next wave early
 
-            HankdleCautionClick();
+            HandleCautionClick();
             UpdateCurrentWaveIndex();
         }
     }
 
-    private void HankdleCautionClick()
+    private void HandleCautionClick()
     {
         float elapsedTime = Time.time - waitCautionStartTime;
         float timeCallEarly = timeWaitForNextWave - elapsedTime;

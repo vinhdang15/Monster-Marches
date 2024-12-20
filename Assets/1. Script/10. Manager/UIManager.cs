@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
         GetTotalWave();
         GetCurrentWaveBeign();
         HandleGoldChange();
+        HandleLiveChange();
     }
     private void OnEnable()
     {
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
     private void RegisterGamePlayManagerEvent()
     {
         gamePlayManager.OnGoldChangeForUI += HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI += HandleLiveChange;
         gamePlayManager.OnSelectedTowerForUI += HandleSelectedTower;
         gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave += HandleUpdateCurrentWave;
     }
@@ -60,6 +62,7 @@ public class UIManager : MonoBehaviour
     private void UnregisterGamePlayManagerEvent()
     {
         gamePlayManager.OnGoldChangeForUI -= HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI -= HandleLiveChange;
         gamePlayManager.OnSelectedTowerForUI -= HandleSelectedTower;
         gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave -= HandleUpdateCurrentWave;
     }
@@ -76,6 +79,11 @@ public class UIManager : MonoBehaviour
     private void HandleUpdateCurrentWave(int currentWave)
     {
         currentWaveText.text = currentWave.ToString();
+    }
+
+    private void HandleLiveChange()
+    {
+        livesText.text = gamePlayManager.live.ToString();
     }
 
     private void HandleGoldChange()

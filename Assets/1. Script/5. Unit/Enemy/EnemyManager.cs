@@ -7,7 +7,8 @@ public class EnemyManager : MonoBehaviour
 {
     public UnitPool unitPool;
     public List<Enemy> totalenemies = new List<Enemy>();
-    public event Action<UnitBase> EnemyDieHandler;
+    public event Action<UnitBase> OnEnemyDeath;
+    public event Action OnEnemyReachEndPoint;
     
     private void Start()
     {
@@ -20,7 +21,8 @@ public class EnemyManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EnemyDieHandler = null;
+        OnEnemyDeath = null;
+        OnEnemyReachEndPoint = null;
     }
 
     private void Update()
@@ -34,7 +36,8 @@ public class EnemyManager : MonoBehaviour
 
     public void AddEnemy(Enemy enemy)
     {
-        enemy.OnEnemyDeath += HandleEnemyDeath;
+        enemy.OnEnemyDeath          += HandleEnemyDeath;
+        enemy.OnEnemyReachEndPoint  += HandleEnemyReachEndPoint;
         totalenemies.Add(enemy);
     }
 
@@ -42,10 +45,17 @@ public class EnemyManager : MonoBehaviour
     {
         totalenemies.Remove(enemy);
         // notifi for GamePlayManaer
-        EnemyDieHandler?.Invoke(enemy);
+        OnEnemyDeath?.Invoke(enemy);
         //Play die animation
         enemy.unitAnimation.UnitPlayDie();
         // wait to finish die animation then return unit pool
         StartCoroutine(enemy.ReturnPoolAfterPlayAnimation(unitPool));
+    }
+
+    private void HandleEnemyReachEndPoint(Enemy enemy)
+    {
+        totalenemies.Remove(enemy);
+        OnEnemyReachEndPoint?.Invoke();
+        unitPool.ReturnEnemy(enemy);
     }
 }

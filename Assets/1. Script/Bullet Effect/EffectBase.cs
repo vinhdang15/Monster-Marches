@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EffectBase : IEffect
+public class EffectBase : IEffect
 {
     public string       type;
     protected float     value;

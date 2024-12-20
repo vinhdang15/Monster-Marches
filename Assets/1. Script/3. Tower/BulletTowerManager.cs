@@ -88,14 +88,14 @@ public class BulletTowerManager : TowerBaseManager
             towerView.FireBulletAnimation();
             yield return new WaitForSeconds(0.2f);
 
-            string bulletType = towerModel.BulletType;
+            string bulletType = towerModel.SpawnObject;
             Vector2 spawnPos = towerView.GetSpawnBulletPos();
 
             if(towerPresentEnemiesList.Count > 0 && towerPresentEnemiesList[0].CurrentHp > 0)
             {
                 bulletManager.SpawnBullet(bulletType,spawnPos,towerPresentEnemiesList[0]);
             }
-            yield return new WaitForSeconds(towerPresenter.towerModel.FireRate - 0.2f);
+            yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate - 0.2f);
         }
     }
     #endregion

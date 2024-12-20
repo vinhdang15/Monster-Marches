@@ -9,7 +9,7 @@ public class UnitPool : MonoBehaviour
     {
         public UnitBase unitPrefab;
         public string unitType;
-        public string UnitName => unitPrefab.UnitName.Trim().ToLower();
+        public string UnitName => unitPrefab.name.Trim().ToLower();
         public int poolSize; 
     }
     public List<UnitPoolInfor> unitPoolInfors = new List<UnitPoolInfor>();
@@ -22,7 +22,7 @@ public class UnitPool : MonoBehaviour
         StartCoroutine(InitializePoolsCoroutine());
     }
 
-    private void unitType()
+    private void UnitType()
     {
         foreach(var unitpoolInfor in unitPoolInfors)
         {
@@ -33,7 +33,7 @@ public class UnitPool : MonoBehaviour
     private IEnumerator InitializePoolsCoroutine()
     {
         yield return new WaitUntil(() => CSVUnitDataReader.Instance.IsDataLoaded);
-        unitType();
+        UnitType();
         InitializeEnemyPools();
         InitializeSoldierPools();
     }
@@ -96,7 +96,7 @@ public class UnitPool : MonoBehaviour
         {
             Enemy unitPrefab = GetUnitPrefab(EnemyName) as Enemy;
             Enemy enemy = Instantiate(unitPrefab, transform);
-            UnitData unitData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPrefab.UnitName);
+            UnitData unitData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPrefab.name.Trim().ToLower());
             enemy.InItUnit(unitData);
             enemy.GetAnimation();
            return enemy;
@@ -122,7 +122,7 @@ public class UnitPool : MonoBehaviour
         {
             Soldier unitPrefab = (Soldier)GetUnitPrefab(unitName);
             Soldier soldier = Instantiate(unitPrefab, initPos, Quaternion.identity, transform);
-            UnitData unitData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPrefab.UnitName);
+            UnitData unitData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPrefab.name.Trim().ToLower());
             soldier.InItUnit(unitData);
             soldier.GetAnimation();
            return soldier;

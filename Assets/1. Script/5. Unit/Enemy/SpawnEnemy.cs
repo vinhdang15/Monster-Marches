@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 public class SpawnEnemy : MonoBehaviour
 {
     private UnitPool unitPool;
-    [SerializeField] private CSVUnitDataReader unitDataReader;
     [SerializeField] private EnemyManager enemyManager;
     [Header("Pathway to Spawn Enemy")]
     [SerializeField] private PathConfigSO pathConfigSO;
@@ -54,7 +53,7 @@ public class SpawnEnemy : MonoBehaviour
     
     private IEnumerator SpawnEnemyCoroutine()
     {
-        yield return new WaitUntil(() => unitDataReader.IsDataLoaded);
+        yield return new WaitUntil(() => CSVUnitDataReader.Instance.IsDataLoaded);
         // Check number enemy in the current way, if none hide the caution button else show the caution button
 
         // for loop to spwan enemies in all wave
@@ -94,7 +93,8 @@ public class SpawnEnemy : MonoBehaviour
 
     private void GetUnitBase(Enemy _enemy, int lineInPathIndex)
     {
-        Enemy enemy = unitPool.GetEnemy(_enemy.UnitName);
+        string unitPrefabName = _enemy.name.Trim().ToLower();
+        Enemy enemy = unitPool.GetEnemy(unitPrefabName);
         // add path to enemy pathway
         enemy.GetPathConfigSO(pathConfigSO);
         enemy.SetPosInPathWave(lineInPathIndex % 3);

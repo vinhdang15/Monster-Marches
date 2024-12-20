@@ -8,9 +8,8 @@ public class TowerBaseManager : MonoBehaviour
     {
         TowerView buildingView             = Instantiate(towerPrefab, pos, Quaternion.identity, transform);
         TowerModel buildingModel           = TowerModel.Craete(buildingView,towerData);
-        TowerPresenter buildingPresenter   = TowerPresenter.Create(buildingModel, buildingView);
-        buildingPresenter.UpdateRangeDetectUpgradeData();
-        return buildingPresenter;
+        TowerPresenter towerPresenter   = TowerPresenter.Create(buildingModel, buildingView);
+        return towerPresenter;
     }
 
     protected void AddTowerPersenterEmptyPlot(TowerPresenter towerPresenter, EmptyPlot emptyPlot)
@@ -34,8 +33,8 @@ public class TowerBaseManager : MonoBehaviour
         UpdateRangeDetection(buildingPresenter);
         UpdateRangeDetectionUpgrade(buildingPresenter);
 
-        // Upgrade TowerPresenter Extra data
-        buildingPresenter.UpdateBuildingData();
+        // Upgrade TowerPresenter data after upgrade tower
+        buildingPresenter.SetTowerPresenterData();
     }
 
     private void UpdateRangeDetection(TowerPresenter buildingPresenter)

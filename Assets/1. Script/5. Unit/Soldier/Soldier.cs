@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,16 +12,13 @@ public class Soldier : UnitBase
     public bool hadTarget;
     public Enemy targetEnemy = null;
     public Vector2 guardPos;
+    public Vector2 barrackPos;
+    public float RevivalSpeed;
     public Vector2 targetEnemyFontPos;
     public bool isReachGuardPos = false;
     public bool isReachTargetEnemyFontPos = false;
     private Vector2 offsetPos = new Vector2(0, 0);
     public event Action<Soldier> OnSoldierDeath;
-
-    private void OnDisable()
-    {
-        OnSoldierDeath = null;
-    }
 
     public enum SoldierState
     {
@@ -37,6 +35,7 @@ public class Soldier : UnitBase
         switch (currentState)
         {
             case SoldierState.MovingToGuardPos:
+                if(CurrentHp == 0) return;
                 ChangeMovingToGuardposStateTo();
                 UnTargetEnemy();
                 SetSoldierDirect(guardPos);
@@ -44,6 +43,7 @@ public class Soldier : UnitBase
                 break;
             
             case SoldierState.MovingToEnemy:
+                if(CurrentHp == 0) return;
                 SetTargetEnemy();
                 if(targetEnemy != null) SetSoldierDirect(targetEnemy.transform.position);
                 MoveToTargetEnemy(); 
@@ -198,7 +198,10 @@ public class Soldier : UnitBase
     {
         if(TargetEnemyActive())
         {
+            timeDelay -= Time.deltaTime;
+            if(timeDelay > 0) return;
             unitAnimation.UnitPlayAttack();
+            ResetTimeDelay(AttackSpeed);
         }
         else if(TargetEnemyNotActive())
         {
@@ -211,12 +214,13 @@ public class Soldier : UnitBase
     {
         if(targetEnemy != null && targetEnemy.CurrentHp > 0)
         {
+            AudioManager.Instance.PlaySoundTurnPitch(audioSource, soundEffectSO.GetRandomSwordSound());
             targetEnemy.TakeDamage(Damage);
         }
     }
     #endregion
 
-    #region TAKE DAMAGE AND RETURN TO POOL WHEN DIE
+    #region TAKE DAMAGE AND RETURN TO BARACK WHEN DIE
     // take damage and Die
     public override void TakeDamage(float damage)
     {
@@ -224,18 +228,44 @@ public class Soldier : UnitBase
 
         if(CurrentHp == 0)
         {
+            AudioManager.Instance.PlaySound(soundEffectSO.GetRandomSoldierDie());
             OnSoldierDeath?.Invoke(this);
         }
     }
 
-    public IEnumerator ReturnPoolAfterPlayAnimation(UnitPool unitPool)
+    public IEnumerator RevivalCoroutine()
     {
-        currentState = SoldierState.ActtackingEnemy;
+        yield return null;
         ResetSoldierState();
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
-        unitPool.ReturnSoldier(this);
+        gameObject.SetActive(false);
+        ReturnToBarrackPos();
+        yield return new WaitForSeconds(RevivalSpeed);
+        ResetUnit();
+        gameObject.SetActive(true);
         yield break;
     }
+
+    #region RETURN TO POOL WHEN BARACK REFUND
+    public void SoldierReturnToUnitPool(UnitPool unitPool)
+    {
+        ResetSoldierState();
+        unitPool.ReturnSoldier(this);
+    }
+
+    public void ResetSoldierState()
+    {
+        isReachGuardPos = false;
+        isReachTargetEnemyFontPos = false;
+        hadTarget = false;
+
+        if(targetEnemy != null)
+        {
+            targetEnemy.ResetEnemyState();
+            targetEnemy = null;
+        }
+    }
+    #endregion
 
     public override void ResetUnit()
     {   
@@ -247,7 +277,7 @@ public class Soldier : UnitBase
     {
         unitAnimation.SpriteSortingOrder();
         unitAnimation.UnitPlayWalk();
-        transform.position = Vector2.MoveTowards(transform.position, pos, MoveSpeed *Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, pos, CurrentSpeed *Time.deltaTime);
     }
 
     public void GuardPointChange()
@@ -266,16 +296,8 @@ public class Soldier : UnitBase
         return targetEnemy != null && targetEnemy.CurrentHp > 0;
     }
 
-    public void ResetSoldierState()
+    public void ReturnToBarrackPos()
     {
-        isReachGuardPos = false;
-        isReachTargetEnemyFontPos = false;
-        hadTarget = false;
-
-        if(targetEnemy != null)
-        {
-            targetEnemy.ResetEnemyState();
-            targetEnemy = null;
-        }
+        transform.position = barrackPos;
     }
 }

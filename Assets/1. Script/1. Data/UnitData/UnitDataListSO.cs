@@ -17,4 +17,11 @@ public class UnitDataListSO : ScriptableObject
         UnitData unitData = unitDataList.Find(data => data.unitName == unitName);
         return unitData.unitType;
     }
+
+    public int GetUnitDamage(string unitName)
+    {
+        UnitData unitData = unitDataList.Find(data => data.unitName == unitName);
+        Debug.Log(unitData.unitName+": " +  unitData.damage);
+        return unitData.damage;
+    }
 }

@@ -34,7 +34,7 @@ public class CSVBulletDataReader : MonoBehaviour
             if(values.Length < 5) continue;
             BulletData bulletData = new BulletData
             {
-                type                    = values[0].Trim().ToLower(),
+                bulletType              = values[0].Trim().ToLower(),
                 damage                  = int.Parse(values[1]),
                 speed                   = float.Parse(values[2]),
                 effectTyes              = values[3].Trim().ToLower(),

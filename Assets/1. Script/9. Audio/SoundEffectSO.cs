@@ -21,9 +21,29 @@ public class SoundEffectSO : ScriptableObject
     public AudioClip bomExplosionSound;
     public AudioClip bomWhistleSound;
     public AudioClip MagicBallHitSound;
-     public AudioClip MagicBallWhistleSound;
+    public AudioClip MagicBallWhistleSound;
     public List<AudioClip> Sword = new();
+
+    [Header("Soldier")]
+    public List<AudioClip> soldierDie;
+
+    [Header("Enemy")]
+    public List<AudioClip> monsterDie;
+    public AudioClip endPointSound;
+
     
+
+    public AudioClip GetRandomSoldierDie()
+    {
+        int index = Random.Range(0, soldierDie.Count);
+        return soldierDie[index];
+    }
+
+    public AudioClip GetRandomMonsterDie()
+    {
+        int index = Random.Range(0, monsterDie.Count);
+        return monsterDie[index];
+    }
 
     public AudioClip GetRandomSwordSound()
     {
