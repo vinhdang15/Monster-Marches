@@ -17,7 +17,7 @@ public class TowerModel : MonoBehaviour
         TowerType           = _data.towerType;
         Level               = _data.level;
         SpawnObject          = _data.SpawnObject;
-        SpawnRate            = _data.fireRate;
+        SpawnRate            = _data.spawnRate;
         RangeDetect         = _data.rangeDetect;
         RangeRaycast        = _data.rangeRaycast;
         GoldRequired        = _data.goldRequired;
@@ -36,7 +36,7 @@ public class TowerModel : MonoBehaviour
         TowerType           = _data.towerType;
         Level               = _data.level;
         SpawnObject          = _data.SpawnObject;
-        SpawnRate            = _data.fireRate;
+        SpawnRate            = _data.spawnRate;
         RangeDetect         = _data.rangeDetect;
         RangeRaycast        = _data.rangeRaycast;
         GoldRequired        = _data.goldRequired;
@@ -47,7 +47,7 @@ public class TowerModel : MonoBehaviour
         TowerType           = _data.towerType;
         Level               = _data.level;
         SpawnObject          = _data.SpawnObject;
-        SpawnRate            = _data.fireRate;
+        SpawnRate            = _data.spawnRate;
         RangeDetect         = _data.rangeDetect;
         RangeRaycast        = _data.rangeRaycast;
         GoldRequired        = _data.goldRequired;

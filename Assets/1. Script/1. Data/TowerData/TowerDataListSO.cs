@@ -43,7 +43,7 @@ public class TowerDataListSO : ScriptableObject
     {
         TowerData tower = towerDataList.Find(data => data.towerType == towerType && data.level == level);
         if(tower == null) return 0;
-        return tower.fireRate;
+        return tower.spawnRate;
     }
 
     public string GetTowerSpawnObject(string towerType, int level)

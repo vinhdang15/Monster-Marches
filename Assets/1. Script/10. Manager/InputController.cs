@@ -8,25 +8,22 @@ using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
 {
-    // Detect button click, sent button click information to GamePlayManager to proccess
-    [Header("TowerBuildingStatus")]
-    [SerializeField] GameObject initPanel;
-    [SerializeField] GameObject upgradePanel;
-    [Header("TowerInitStatus")]
-    [SerializeField] GameObject guardPointBtn;
-    [SerializeField] GameObject checkSmybol;
+    private EmptyPlot emptyPlot;
+    private TowerPresenter selectedTower;
+
     private Button currentButton = null;
     public bool isGuardPointSelected = false;
-    public delegate void HandelTowerClick();
-    public event HandelTowerClick OnInitArcherTower;
-    public event HandelTowerClick OnInitMageTower;
-    public event HandelTowerClick OnInitBarrackTower;
-    public event HandelTowerClick OnInitCannonTower;
-    public event HandelTowerClick OnTryToUpgradeTower;
-    public event HandelTowerClick OnUpgradeTower;
-    public event HandelTowerClick OnSellTower;
-    public delegate void RaycastInputClickHandler();
-    public event RaycastInputClickHandler OnRaycastHitNull;
+
+    public event Action<Button> OnButtonClick;
+    public event Action OnButtonDoubleClick;
+
+    public event Action<TowerType, EmptyPlot> OnTryToInitTower;
+    public event Action<TowerType> OnTowerInit;
+    public event Action<TowerPresenter> OnTryToUpgradeTower;
+    public event Action OnUpgradeTower;
+    public event Action OnSellTower;
+    
+    public event  Action OnRaycastHitNull;
     public event Action<EmptyPlot>OnSelectedEmptyPlot;
     public event Action<TowerPresenter> OnSelectedBulletTower;
     public event Action<TowerPresenter> OnSelectedBarrackTower;
@@ -37,6 +34,8 @@ public class InputController : MonoBehaviour
     private Vector2 mousePos;
     private Vector2 worldPos;
     private RaycastHit2D hit;
+    private TowerPresenter  currentTowerClick;
+    private EmptyPlot       currentEptyPlot;
 
     [Header("Audio")]
     private AudioSource audioSource;
@@ -83,36 +82,31 @@ public class InputController : MonoBehaviour
         hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, layerMask);
         if(hit.collider == null)
         {
+            currentButton = null;
             OnRaycastHitNull?.Invoke();
-            HideInitPanel();
-            HideUpgradePanel();
-            ShowGuardPointBtn(false);
         }
         else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("EmptyPlot"))
         {
-            ResetPanelState();
-            EmptyPlot emptyPlot = hit.collider.gameObject.GetComponent<EmptyPlot>();
+            emptyPlot = hit.collider.gameObject.GetComponent<EmptyPlot>();
+            CheckCurrentEmptyPlot(emptyPlot);
+
             OnSelectedEmptyPlot?.Invoke(emptyPlot);
-            ShowInitPanel(emptyPlot.GetPos());
         }
         else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("TowerRaycast"))
         {
-            TowerPresenter selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
-            OnSelectedBulletTower?.Invoke(selectedTower);
+            selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
+            CheckcurrentTowerClick(selectedTower);
 
-            Vector2 SelectedTowerPos = selectedTower.towerView.GetPos();
-            ShowUpgradePanel(SelectedTowerPos);
-            ShowGuardPointBtn(false);
+            OnSelectedBulletTower?.Invoke(selectedTower);
         }
         else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("BarrackRaycast"))
         {
-            TowerPresenter selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
-            OnSelectedBarrackTower?.Invoke(selectedTower);
+            selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
+            CheckcurrentTowerClick(selectedTower);
 
-            Vector2 SelectedTowerPos = selectedTower.towerView.GetPos();
-            ShowUpgradePanel(SelectedTowerPos);
-            ShowGuardPointBtn(true);
+            OnSelectedBarrackTower?.Invoke(selectedTower);
         }
+        Debug.Log(hit.collider.name);
     }
 
     private void TakeBarrackRangeDetect()
@@ -125,14 +119,11 @@ public class InputController : MonoBehaviour
         if(hit.collider == null)
         {
             OnRaycastHitNull?.Invoke();
-            HideInitPanel();
-            HideUpgradePanel();
             ResetIsGuardPointSelected();
         }
         else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Button"))
         {
-            HideUpgradePanel();
-            // execute order: button event => Update
+            // execute order: button event => Update.
             // to hit raycast button first then hit BarrackRangeDetect
             // then so BarrackRangeDetect after process button event
             // inform OnSelectedGuardPointBtnClic to GamePlayManager in here
@@ -141,19 +132,30 @@ public class InputController : MonoBehaviour
         else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("BarrackRangeDetect"))
         {
             ResetIsGuardPointSelected();
-            
-
-            TowerPresenter selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
             OnSelectedNewGuardPointPos?.Invoke(worldPos);
-
-            //OnRaycastHitNull?.Invoke();
-            // HideInitPanel();
-            // HideUpgradePanel();
-            // ResetPanelState();
         }
     }
 
+    private void CheckCurrentEmptyPlot(EmptyPlot emptyPlot)
+    {
+         if(currentEptyPlot != emptyPlot)
+        {
+            currentButton = null;
+        }
+        currentEptyPlot = emptyPlot;
+    }
+
+    private void CheckcurrentTowerClick(TowerPresenter selectedTower)
+    {
+        if(currentTowerClick != selectedTower)
+        {
+            currentButton = null;
+        }
+        currentTowerClick = selectedTower;
+    }
+    
     #region GUARD POINT
+    // Button event
     // GuardPoint selected
     public void GuardPointBtn()
     {
@@ -164,128 +166,78 @@ public class InputController : MonoBehaviour
     {
         isGuardPointSelected = false;
     }
-
-    private void ShowGuardPointBtn(bool show)
-    {
-        if(show) guardPointBtn.SetActive(true);
-        else guardPointBtn.SetActive(false);
-    }
-    #endregion
-
-    #region INIT, UPGRADE PANEL, CHECKSYMBOL VISIBLE
-    public void ShowInitPanel(Vector2 pos)
-    {
-        HideUpgradePanel();
-        initPanel.transform.position = pos;
-        initPanel.SetActive(true);
-    }
-
-    public void HideInitPanel()
-    {
-        if(initPanel.activeSelf)
-        {
-            ResetPanelState();
-            initPanel.SetActive(false);
-        }
-    }
-
-    public void ShowUpgradePanel(Vector2 pos)
-    {
-        HideInitPanel();
-        upgradePanel.transform.position = pos;
-        upgradePanel.SetActive(true);
-    }
-
-    public void HideUpgradePanel()
-    {
-        if(upgradePanel.activeSelf)
-        {
-            ResetPanelState();
-            upgradePanel.SetActive(false);
-        }
-    }
-
-    public void HidePanel()
-    {
-        HideInitPanel();
-        HideUpgradePanel();
-    }
-
-    private void ShowCheckSymbol(Button clickedButton)
-    {
-        checkSmybol.transform.position = clickedButton.transform.transform.position;
-        checkSmybol.SetActive(true);
-    }
-
-    private void HideCheckSymbol()
-    {
-        checkSmybol.SetActive(false);
-    }
-
-    private void ResetPanelState()
-    {
-        HideCheckSymbol();
-        currentButton = null;
-    }
     #endregion
 
     #region INIT && UPGRADE TOWER BUTTON
-    private void OnButtonClick(Button clickedButton, HandelTowerClick eventAction)
+    private void HandleInitBtnClick(Button clickedButton, TowerType towerType)
     {
         if(currentButton != clickedButton)
         {
             AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-            ShowCheckSymbol(clickedButton);
+            OnTryToInitTower?.Invoke(towerType, emptyPlot);
+            OnButtonClick?.Invoke(clickedButton);
         }
         else
         {
-            eventAction?.Invoke();
+            OnTowerInit?.Invoke(towerType);
+            OnButtonDoubleClick?.Invoke();
         }
         currentButton = clickedButton;
     }
 
-    // Init tower
+    // Button event: Init tower
     public void InitArcherTowerBtn(Button clickedButton)
     {
-        OnButtonClick(clickedButton, OnInitArcherTower);
+        HandleInitBtnClick(clickedButton, TowerType.ArcherTower);
     }
 
     public void InitMageTowerBtn(Button clickedButton)
     {
-        OnButtonClick(clickedButton, OnInitMageTower);
+        HandleInitBtnClick(clickedButton, TowerType.MageTower);
     }
 
     public void InitBarrackTowerBtn(Button clickedButton)
     {
-        OnButtonClick(clickedButton, OnInitBarrackTower);
+        HandleInitBtnClick(clickedButton, TowerType.Barrack);
     }
 
     public void InitCannonTowerBtn(Button clickedButton)
     {
-        OnButtonClick(clickedButton, OnInitCannonTower);
+        HandleInitBtnClick(clickedButton, TowerType.CannonTower);
     }
 
-    // Upgrade Tower
+    // Button event: Upgrade Tower
     public void UpgradeTower(Button clickedButton)
     {
         if(currentButton != clickedButton)
         {
             AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-            ShowCheckSymbol(clickedButton);
-            OnTryToUpgradeTower?.Invoke();
+            OnButtonClick?.Invoke(clickedButton);
+            OnTryToUpgradeTower?.Invoke(selectedTower);
         }
         else
         {
             OnUpgradeTower?.Invoke();
-            return;
+            OnButtonDoubleClick?.Invoke();
         }
         currentButton = clickedButton;
     }
 
-    //sell Tower
+    // Button event: Sell Tower
     public void SellTower(Button clickedButton)
     {
-        OnButtonClick(clickedButton, OnSellTower);
+        if(currentButton != clickedButton)
+        {
+            AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
+            OnButtonClick?.Invoke(clickedButton);
+        }
+        else
+        {
+            OnSellTower?.Invoke();
+            OnButtonDoubleClick?.Invoke();
+            return;
+        }
+        currentButton = clickedButton;
     } 
     #endregion
 }

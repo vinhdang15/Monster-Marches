@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class UpgradeMenu : UIElementBase
@@ -15,9 +16,19 @@ public class UpgradeMenu : UIElementBase
         sellTowerGoldText.text = towerPresenter.GoldRefund.ToString();
     }
 
-    public void ShowGuardPointBtn(bool show)
+    public override void Hide()
     {
-        if(show) guardPointBtn.SetActive(true);
-        else guardPointBtn.SetActive(false);
+        base.Hide();
+        HideGuardPointBtn();
+    }
+
+    public void ShowGuardPointBtn()
+    {
+        guardPointBtn.SetActive(true);
+    }
+
+    public void HideGuardPointBtn()
+    {
+        guardPointBtn.SetActive(false);
     }
 }

@@ -37,11 +37,11 @@ public class CSVTowerDataReader : MonoBehaviour
                 towerType       = values[0].Trim().ToLower(),
                 level           = int.Parse(values[1]),
                 SpawnObject      = values[2].Trim().ToLower(),
-                fireRate        = float.Parse(values[3]),
+                spawnRate        = float.Parse(values[3]),
                 rangeDetect     = float.Parse(values[4]),
                 rangeRaycast    = float.Parse(values[5]),
                 goldRequired    = int.Parse(values[6]),
-                descriptions    = values[7],
+                descriptions    = values[7].Replace("\"",""),
             };
             towerDataList.towerDataList.Add(towerData);
         }

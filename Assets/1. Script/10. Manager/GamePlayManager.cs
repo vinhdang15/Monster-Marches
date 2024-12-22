@@ -8,7 +8,7 @@ public class GamePlayManager : MonoBehaviour
 {
     public int gold = 200;
     public int live = 20;
-    [HideInInspector] public int archerTOwerInitGold;
+    [HideInInspector] public int archerTowerInitGold;
     [HideInInspector] public int mageTowerInitGold;
     [HideInInspector] public int barrackTowerInitGold;
     [HideInInspector] public int cannonTowerInitGold;
@@ -48,7 +48,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void GetInitGold()
     {
-        archerTOwerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString().Trim().ToLower());
+        archerTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString().Trim().ToLower());
         mageTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.MageTower.ToString().Trim().ToLower());
         barrackTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.Barrack.ToString().Trim().ToLower());
         cannonTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.CannonTower.ToString().Trim().ToLower());
@@ -66,10 +66,8 @@ public class GamePlayManager : MonoBehaviour
     // BUTTON CLICK EVENT
     private void RegisterButtonEvent()
     {
-        inputManager.OnInitArcherTower              += HandleInitArcherTower;
-        inputManager.OnInitMageTower                += HandleInitMageTower;
-        inputManager.OnInitBarrackTower             += HandleInitBarrackTower;
-        inputManager.OnInitCannonTower              += HandleInitCannonTower;
+        inputManager.OnTryToInitTower               += HandleOnTryToInitTower;
+        inputManager.OnTowerInit                    += HandleTowerInit;
         inputManager.OnTryToUpgradeTower            += HandleTryToUpgradeSelectedTower;
         inputManager.OnUpgradeTower                 += HandleUpgradeSelectedTower;
         inputManager.OnSellTower                    += HandleSellSelectedTower;
@@ -83,10 +81,8 @@ public class GamePlayManager : MonoBehaviour
 
     private void UnregisterButtonEvent()
     {
-        inputManager.OnInitArcherTower              -= HandleInitArcherTower;
-        inputManager.OnInitMageTower                -= HandleInitMageTower;
-        inputManager.OnInitBarrackTower             -= HandleInitBarrackTower;
-        inputManager.OnInitCannonTower              -= HandleInitCannonTower;
+        inputManager.OnTryToInitTower               -= HandleOnTryToInitTower;
+        inputManager.OnTowerInit                    -= HandleTowerInit;
         inputManager.OnTryToUpgradeTower            -= HandleTryToUpgradeSelectedTower;
         inputManager.OnUpgradeTower                 -= HandleUpgradeSelectedTower;
         inputManager.OnSellTower                    -= HandleSellSelectedTower;
@@ -148,37 +144,82 @@ public class GamePlayManager : MonoBehaviour
         action?.Invoke();
         gold -= goldRequired;
         OnGoldChangeForUI?.Invoke();
-        inputManager.HideInitPanel();
     }
     
     // Init tower
-    private void HandleInitArcherTower()
+    private void HandleOnTryToInitTower(TowerType  towerType, EmptyPlot emptyPlot)
     {
-        OnInitTower(archerTOwerInitGold, () => bulletTowerManager.InitArcherTower(initPanelPos, currentEmptyPlot));
+
+    }
+    private void HandleTowerInit(TowerType  towerType)
+    {
+        switch(towerType)
+        {
+            case TowerType.ArcherTower:
+                InitArcherTower();
+                break;
+            case TowerType.MageTower:
+                InitMageTower();
+                break;
+            case TowerType.Barrack:
+                InitBarrackTower();
+                break;
+            case TowerType.CannonTower:
+                InitCannonTower();
+                break;
+        }
+    }
+    private void InitArcherTower()
+    {
+        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initPanelPos, currentEmptyPlot));
     }
 
-    private void HandleInitMageTower()
+    private void InitMageTower()
     {
         OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initPanelPos, currentEmptyPlot));
     }
 
-    private void HandleInitBarrackTower()
+    private void InitBarrackTower()
     {
         OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initPanelPos, currentEmptyPlot));
     }
 
-    private void HandleInitCannonTower()
+    private void InitCannonTower()
     {
         OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initPanelPos, currentEmptyPlot));
     }
 
     // Upgrade selected tower
-    private void HandleTryToUpgradeSelectedTower()
+    private void HandleTryToUpgradeSelectedTower(TowerPresenter towerPresenter)
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         bulletTowerManager.UpdateRangeDetectionUpgrade(selectedBuilding);
         selectedBuilding.towerView.ShowRangeDetectionUpgrade(true);
-    }  
+    }
+
+    private void HandleUpgradeSelectedTower()
+    {
+        AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
+        if(gold < selectedBuilding.GoldUpdrade) return;
+        // process gold
+        int goldUpdrade = selectedBuilding.GoldUpdrade;
+        gold -= goldUpdrade;
+        OnGoldChangeForUI?.Invoke();
+        bulletTowerManager.UpgradeBuilding(selectedBuilding);
+        selectedBuilding.GoldRefund += goldUpdrade;
+        // Hide range detection and upgrade panel
+        HandleRaycatHitNull();
+    }
+
+    // Sell selected tower
+    private void HandleSellSelectedTower()
+    {
+        AudioManager.Instance.PlaySound(soundEffectSO.AddGoldSound);
+        gold += selectedBuilding.GoldRefund;
+        selectedBuilding.emptyPlot.ShowEmptyPlot();
+        Destroy(selectedBuilding.gameObject);
+        OnGoldChangeForUI?.Invoke();
+    }
     #endregion
 
     private void HandleSelectedEmptyPlot(EmptyPlot emptyPlot)
@@ -222,21 +263,6 @@ public class GamePlayManager : MonoBehaviour
         barrackTowerManager.SetNewGuardPointPos(selectedBuilding, newGuardPointPos);
     }
 
-    private void HandleUpgradeSelectedTower()
-    {
-        AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
-        if(gold < selectedBuilding.GoldUpdrade) return;
-        // process gold
-        int goldUpdrade = selectedBuilding.GoldUpdrade;
-        gold -= goldUpdrade;
-        OnGoldChangeForUI?.Invoke();
-        bulletTowerManager.UpgradeBuilding(selectedBuilding);
-        selectedBuilding.GoldRefund += goldUpdrade;
-        // Hide range detection and upgrade panel
-        HandleRaycatHitNull();
-        inputManager.HideUpgradePanel();
-    }
-
     // raycast hit null
     private void HandleRaycatHitNull()
     {
@@ -244,18 +270,6 @@ public class GamePlayManager : MonoBehaviour
         selectedBuilding.towerView.ShowRangeDetection(false);
         selectedBuilding.towerView.ShowRangeDetectionUpgrade(false);
         selectedBuilding = null;
-        inputManager.HidePanel();
-    }
-
-    // Sell selected tower
-    private void HandleSellSelectedTower()
-    {
-        AudioManager.Instance.PlaySound(soundEffectSO.AddGoldSound);
-        gold += selectedBuilding.GoldRefund;
-        selectedBuilding.emptyPlot.ShowEmptyPlot();
-        Destroy(selectedBuilding.gameObject);
-        OnGoldChangeForUI?.Invoke();
-        inputManager.HideUpgradePanel();
     }
     
     public int GetTowerGoldUpgrade()

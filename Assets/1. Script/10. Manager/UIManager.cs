@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
     }
     private void SetupTowerInitGoldText()
     {
-        ArcherTowerInitGoldText.text = gamePlayManager.archerTOwerInitGold.ToString();
+        ArcherTowerInitGoldText.text = gamePlayManager.archerTowerInitGold.ToString();
         mageTowerInitGoldText.text = gamePlayManager.mageTowerInitGold.ToString();
         barrackTowerInitGoldText.text = gamePlayManager.barrackTowerInitGold.ToString();
         cannonTowerInitGoldText.text = gamePlayManager.cannonTowerInitGold.ToString();
