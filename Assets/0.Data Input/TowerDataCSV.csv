@@ -1,9 +1,9 @@
-TowerType,Level,SpawnObject,SpawnRate,RangeDetect,RangeRaycast,GoldRequired,Descriptions
-ArcherTower,1,Arrow1,0.6,4,0.7,50,"<color=#FFD900><size=130%>Archer Tower:</size></color>\nHight fire rate"
-ArcherTower,2,Arrow2,0.6,5,0.7,70,"<color=#FFD900><size=130%>Archer Tower:</size></color>\nThe arrow come with effect, deal more dame"
-MageTower,1,MagicBall1,2,4,0.7,70,"<color=#FFD900><size=130%>Mage tower:</size></color>\nDeal dame mutil time"
-MageTower,2,MagicBall2,2,5,0.7,100,"<color=#FFD900><size=130%>Mage tower:</size></color>\nAdd more damages, slow down enemy"
-CannonTower,1,Bomb1,1.5,4,0.7,80,"<color=#FFD900><size=130%>Cannon Tower:</size></color>\nSpawn Bomb"
-CannonTower,2,Bomb2,1.3,5,0.7,120,"<color=#FFD900><size=130%>Cannon Tower:</size></color>\nAdd more damage effect"
-Barrack,1,Swordsman,5,3,0.7,70,"<color=#FFD900><size=130%>Barrack:</size></color>\nSpawn three soldier"
-Barrack,2,Swordsman,5,4,0.7,100,"<color=#FFD900><size=130%>Barrack:</size></color>\nspawn three soldier"
+TowerType,Level,SpawnObject,SpawnRate,TimeToSpawn,RangeDetect,RangeRaycast,GoldRequired,Descriptions
+ArcherTower,1,Arrow1,0.6,0.25,3,0.7,50,"<color=#FFD900><size=130%>Archer Tower:</size></color>\nHight fire rate"
+ArcherTower,2,Arrow2,0.6,0.25,3.5,0.7,70,"<color=#FFD900><size=130%>Archer Tower:</size></color>\nThe arrow come with effect, deal more dame"
+MageTower,1,MagicBall1,2,0.5,2.5,0.7,70,"<color=#FFD900><size=130%>Mage tower:</size></color>\nDeal dame mutil time"
+MageTower,2,MagicBall2,2,0.5,3,0.7,100,"<color=#FFD900><size=130%>Mage tower:</size></color>\nAdd more damagess, slow down enemy"
+CannonTower,1,Bomb1,1.5,0.5,3,0.7,80,"<color=#FFD900><size=130%>Cannon Tower:</size></color>\nSpawn Bomb deal area damage"
+CannonTower,2,Bomb2,1.3,0.5,3.5,0.7,120,"<color=#FFD900><size=130%>Cannon Tower:</size></color>\nAdd more damage effect"
+Barrack,1,Swordsman_1,5,0,3,0.7,70,"<color=#FFD900><size=130%>Barrack:</size></color>\nSpawn three Swordsman"
+Barrack,2,Swordsman_2,5,0,4,0.7,100,"<color=#FFD900><size=130%>Barrack:</size></color>\nspawn three knight"

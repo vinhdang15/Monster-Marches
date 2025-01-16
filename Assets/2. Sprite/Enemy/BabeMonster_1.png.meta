@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 125
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -136,337 +136,379 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk01
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5e92e41619036444979ed9bc09ade43
-      internalID: 2144045597
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk02
-      rect:
-        serializedVersion: 2
-        x: 129
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a54717cb39f44d8418016c909fa1b56f
-      internalID: 1041077605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk03
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e96836dcb48dbb4b82c1d8e3895f0a4
-      internalID: 251856487
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk04
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 813856a6593b71f4e8cf821db76608cc
-      internalID: -875348512
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk05
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 235fa4f418d8b894f95900e8ae0d190e
-      internalID: -788748102
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk06
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a647d278f2224724996049685875dc0d
-      internalID: 1254871221
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attack01
+      name: BabeMonster_1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a89ad47d5cd64134b81408b90d4ede05
-      internalID: -572908800
+      spriteID: db0dd8678b89f3a4aaa9da32d3cf2758
+      internalID: -1184203034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack02
+      name: BabeMonster_1_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c30966a10b3e49c4d972b0834b5a95df
+      internalID: -1059199511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_2
       rect:
         serializedVersion: 2
         x: 128
         y: 128
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ff0a99f0e40ca54ca631a3db4dac8b7
-      internalID: 985181511
+      spriteID: 299a52de7719a494b937cee406b3bd67
+      internalID: 1393825690
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack03
+      name: BabeMonster_1_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b37bfcce979b8447bdff98747c1187c
+      internalID: 1377703263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_4
       rect:
         serializedVersion: 2
         x: 256
         y: 128
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc7f162c04be0e54397af43b18887d18
-      internalID: -1532118705
+      spriteID: aa6f59bbdbacd894eb4085499564b2cd
+      internalID: 2052296976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack04
+      name: BabeMonster_1_5
       rect:
         serializedVersion: 2
-        x: 384
+        x: 320
         y: 128
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40f15b7e231ab3c45bbf789b23b1134f
-      internalID: 743001101
+      spriteID: 65035b2cc4ad7914991cffe8976f7cf0
+      internalID: 1143378734
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack05
+      name: BabeMonster_1_6
       rect:
         serializedVersion: 2
-        x: 512
-        y: 128
-        width: 128
-        height: 128
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df8483572f23718468f9e3269913763a
-      internalID: 1911530380
+      spriteID: e44d39166f5194f489cb5118361c96c3
+      internalID: 1023689179
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Die01
+      name: BabeMonster_1_7
       rect:
         serializedVersion: 2
-        x: 640
-        y: 128
-        width: 128
-        height: 128
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6b6b569517f7314db55fe8f00b5a884
-      internalID: 352226727
+      spriteID: 836df9b635950aa45b9c9017717ac6bb
+      internalID: -1405335067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Die02
+      name: BabeMonster_1_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 748cb32f8dcf9de49a32d9b8713d269d
+      internalID: -1161820831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_9
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee9cd39b80aaf3549b5a09657c7700fd
+      internalID: 2025681780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3a050740ed1f3448b35168b58a3231e
+      internalID: 12225455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_11
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 793da4689b3abb746852b878a9aa0371
+      internalID: -455616410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f90e521af14ba14b9f1e0e0e07c5922
-      internalID: 891818150
+      spriteID: 9aeb882953777124b9454bea3c55336c
+      internalID: 1219713724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Die03
+      name: BabeMonster_1_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c220938ead690d849ac7a8587da042e7
+      internalID: 1846620172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_14
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68c62fd41c57ee746a1c8debd68e68e8
-      internalID: 1443546956
+      spriteID: d555846a9106b4141a6d2341c30c72f0
+      internalID: -974091855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Die04
+      name: BabeMonster_1_15
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65eed645b2af0d546b6f99b612acdaee
+      internalID: 1271149242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BabeMonster_1_16
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dde95a668c351544696ae828014186af
-      internalID: -954574529
+      spriteID: 2e3292c05a130934e965677c50fc8247
+      internalID: -1773876884
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Die05
+      name: BabeMonster_1_17
       rect:
         serializedVersion: 2
-        x: 384
+        x: 320
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be6ea56be2853734f908b0a036876bee
-      internalID: -151986871
+      spriteID: 3fc92e2cdd3526b419c7a468cabcc7e9
+      internalID: -1634090789
       vertices: []
       indices: 
       edges: []
@@ -482,22 +524,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Attack01: -572908800
-      Attack02: 985181511
-      Attack03: -1532118705
-      Attack04: 743001101
-      Attack05: 1911530380
-      Die01: 352226727
-      Die02: 891818150
-      Die03: 1443546956
-      Die04: -954574529
-      Die05: -151986871
-      Walk01: 2144045597
-      Walk02: 1041077605
-      Walk03: 251856487
-      Walk04: -875348512
-      Walk05: -788748102
-      Walk06: 1254871221
+      BabeMonster_1_0: -1184203034
+      BabeMonster_1_1: -1059199511
+      BabeMonster_1_10: 12225455
+      BabeMonster_1_11: -455616410
+      BabeMonster_1_12: 1219713724
+      BabeMonster_1_13: 1846620172
+      BabeMonster_1_14: -974091855
+      BabeMonster_1_15: 1271149242
+      BabeMonster_1_16: -1773876884
+      BabeMonster_1_17: -1634090789
+      BabeMonster_1_2: 1393825690
+      BabeMonster_1_3: 1377703263
+      BabeMonster_1_4: 2052296976
+      BabeMonster_1_5: 1143378734
+      BabeMonster_1_6: 1023689179
+      BabeMonster_1_7: -1405335067
+      BabeMonster_1_8: -1161820831
+      BabeMonster_1_9: 2025681780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

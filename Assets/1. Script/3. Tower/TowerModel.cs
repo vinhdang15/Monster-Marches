@@ -8,6 +8,7 @@ public class TowerModel : MonoBehaviour
     public int     Level { get ; set ; }
     public string  SpawnObject { get ; set ; }
     public float   SpawnRate { get ; set ; }
+    public float   TimeToSpawn { get ; set ; }
     public float   RangeDetect { get ; set ; }
     public float   RangeRaycast { get ; set ; }
     public int     GoldRequired { get ; set ; }
@@ -16,15 +17,16 @@ public class TowerModel : MonoBehaviour
     {
         TowerType           = _data.towerType;
         Level               = _data.level;
-        SpawnObject          = _data.SpawnObject;
-        SpawnRate            = _data.spawnRate;
+        SpawnObject         = _data.SpawnObject;
+        SpawnRate           = _data.spawnRate;
+        TimeToSpawn         = _data.timeToSpawn;
         RangeDetect         = _data.rangeDetect;
         RangeRaycast        = _data.rangeRaycast;
         GoldRequired        = _data.goldRequired;
         Descriptions        = _data.descriptions;
     }
     
-    public static TowerModel Craete(TowerView TowerView, TowerData _data)
+    public static TowerModel Craete(TowerViewBase TowerView, TowerData _data)
     {
         TowerModel TowerMode = TowerView.gameObject.AddComponent<TowerModel>();
         TowerMode.InitBuildingMode(_data);
@@ -35,8 +37,9 @@ public class TowerModel : MonoBehaviour
     {
         TowerType           = _data.towerType;
         Level               = _data.level;
-        SpawnObject          = _data.SpawnObject;
-        SpawnRate            = _data.spawnRate;
+        SpawnObject         = _data.SpawnObject;
+        SpawnRate           = _data.spawnRate;
+        TimeToSpawn         = _data.timeToSpawn;
         RangeDetect         = _data.rangeDetect;
         RangeRaycast        = _data.rangeRaycast;
         GoldRequired        = _data.goldRequired;

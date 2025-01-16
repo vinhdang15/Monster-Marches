@@ -13,6 +13,7 @@ public class SpawnEnemyManager : MonoBehaviour
     public int TotalWave => SpawnEnemies[0].GetTotalWave();
     private int CurrentWaveIndex { get; set; } = 0;
     public int CurrentWave => CurrentWaveIndex + 1;
+    public int totalEnemies = 0;
 
     // spawn enemy infor
     // add 1 if any pathway finish spawn enemy in current wave
@@ -41,6 +42,7 @@ public class SpawnEnemyManager : MonoBehaviour
     private void Start()
     {
         RegisterFinishCurrentWaveEvent();
+        GetTotalEnemies();
     }
 
     private void OnDisable()
@@ -71,8 +73,11 @@ public class SpawnEnemyManager : MonoBehaviour
         }
     }
 
+    // after all enemies in current wave had spawn, start WaitToCallNextWaveCoroutine
+    // to call next enemies
     private void HandleFinishCurrentWave()
     {
+        if(CurrentWave == TotalWave) return;
         finishedSpawnEnemiesCount++;
         if(finishedSpawnEnemiesCount == NumberPathWay)
         {
@@ -91,6 +96,7 @@ public class SpawnEnemyManager : MonoBehaviour
         HideAllCautionSlider();
         OnCallNextWave?.Invoke();
         UpdateCurrentWaveIndex();
+
     }
     #endregion
 
@@ -104,7 +110,7 @@ public class SpawnEnemyManager : MonoBehaviour
     {
         foreach(var spawnEnemy in SpawnEnemies)
         {
-            if(spawnEnemy.GetNumberEnemyInNWave(CurrentWaveIndex + 1) != 0)
+            if(spawnEnemy.GetNumberEnemyInWave(CurrentWaveIndex + 1) != 0)
             {
                 spawnEnemy.btnCautionSlider.gameObject.SetActive(true);
             }
@@ -112,7 +118,6 @@ public class SpawnEnemyManager : MonoBehaviour
             {
                 spawnEnemy.btnCautionSlider.gameObject.SetActive(false);
             }
-            //Debug.Log($"Next Wave {CurrentWave + 1} => {spawnEnemy.name}: {spawnEnemy.enemyEntries[CurrentWave + 1].numberEnemyInWave}");
         }
     }
 
@@ -167,14 +172,26 @@ public class SpawnEnemyManager : MonoBehaviour
 
     private void UpdateCurrentWaveIndex()
     {
+        if(CurrentWaveIndex >= TotalWave) return;
         CurrentWaveIndex++;
-        // update UI curent wave
+        // update UI current wave
         OnUpdateCurrentWave?.Invoke(CurrentWave);
     }
 
     public float GetTimeBetweenEnemy()
     {
         return timeBetweenEnemy;
+    }
+
+    private void GetTotalEnemies()
+    {
+        foreach(var spawnEnemy in SpawnEnemies)
+        {
+            foreach(var enemyEntry in spawnEnemy.enemyEntries)
+            {
+                totalEnemies += enemyEntry.numberEnemyInWave;
+            }
+        }   
     }
 
 }

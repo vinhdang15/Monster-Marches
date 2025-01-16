@@ -12,6 +12,5 @@ public class EndPoint : MonoBehaviour
         IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
         if(enemy == null) return;
         enemy.OnReachEndPoint();
-        Debug.Log("check");
     }
 }

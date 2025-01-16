@@ -7,6 +7,10 @@ public class ParabolBullet : BulletBase
 {
     private float height = 2f;
     private float elapedtime = 0f;
+
+    // use adjustBulletTypeSpeed to convert ParabolBullet speed value
+    // to the same frame of reference as magic ball bullet speed value
+    private float adjustBulletTypeSpeed = 0.18f;
     
     public override void MoveToTarget()
     {   
@@ -16,7 +20,7 @@ public class ParabolBullet : BulletBase
         elapedtime += Time.deltaTime;
 
         // percent complete
-        float t = Mathf.Clamp01(elapedtime / Speed);
+        float t = Mathf.Clamp01(elapedtime * Speed * adjustBulletTypeSpeed);
 
         // update targer pos
         UpdateEnemyPos();

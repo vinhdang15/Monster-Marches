@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathConfigSO : ScriptableObject
 {
     [SerializeField] private List<Transform>    pathPrefab;
-    public int                                  index;
+    [HideInInspector] public int                index;
     public Transform                            cautionTranf;
     
     public Transform GetStartingWaypoint()

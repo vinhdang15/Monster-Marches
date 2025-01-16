@@ -17,7 +17,7 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] BulletTowerManager         bulletTowerManager;
     [SerializeField] BarrackTowerManager        barrackTowerManager;
     [SerializeField] EnemyManager               enemyManager;
-    [SerializeField] InputController               inputManager;
+    [SerializeField] InputController            inputManager;
     private Vector2                             initPanelPos;
     private TowerPresenter                      selectedBuilding;
     public event Action OnSelectedTowerForUI;
@@ -110,12 +110,30 @@ public class GamePlayManager : MonoBehaviour
     {
         gold += enemy.Gold;
         OnGoldChangeForUI?.Invoke();
+        CheckAllEnemiesDie();
+        // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
     }
 
     private void HandleEnemyReachEndPoint()
     {
         live --;
         OnLiveChangeForUI?.Invoke();
+        CheckAllEnemiesDie();
+        // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
+    }
+
+    private void CheckAllEnemiesDie()
+    {
+        if(spawnEnemyManager.totalEnemies == enemyManager.totalEnemiesDie)
+        {
+            // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
+            Invoke(nameof(ShowVictoryMenu), 2.5f);
+        }
+    }
+
+    private void ShowVictoryMenu()
+    {
+        PanelManager.Instance.ShowVictoryMenu();
     }
     #endregion
 

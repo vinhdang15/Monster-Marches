@@ -15,18 +15,14 @@ public class SoldierManager : MonoBehaviour
         }
     }
 
-    public void BarrackSpawnSoldier(string unitName, Vector2 initPos, GuardPoint guardPoint, Vector2 barrackPos, float RevivalSpeed)
+    public void BarrackSpawnSoldier(BarrackTowerView barrackTowerView, string unitName, Vector2 initPos, GuardPoint guardPoint, Vector2 barrackGatePos, float revivalSpeed)
     {
         guardPoint.OnBarrackDestroy += HandleOnBarrackDestroy;
 
         for(int i = 0; i < 3; i++)
         {
             Soldier soldier = unitPool.GetSoldier(unitName, initPos);
-            soldier.index = i;
-            soldier.GetAnimation();
-            soldier.GetOffsetPos();
-            soldier.barrackPos = barrackPos;
-            soldier.RevivalSpeed = RevivalSpeed;
+            soldier.SoldierInitInfor(barrackTowerView, i, barrackGatePos, revivalSpeed);
             soldier.OnSoldierDeath += HandleSoldierDie;
             guardPoint.AddSoldier(soldier);
             totalsoldiers.Add(soldier);

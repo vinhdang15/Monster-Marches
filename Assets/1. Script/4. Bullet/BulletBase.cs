@@ -116,6 +116,12 @@ public class BulletBase : MonoBehaviour
         return;
     }
 
+    public virtual void SetBulletInitAngle(float spawnBulletDirection)
+    {
+        if(spawnBulletDirection == 0) return;
+        transform.Rotate(new Vector3(0, 0, spawnBulletDirection));
+    }
+
     protected virtual void SetBulletDirection()
     {
         if(!this.BulletType.Contains("bomb")) RotateInMovingDirection();

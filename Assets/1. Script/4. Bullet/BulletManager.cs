@@ -17,10 +17,11 @@ public class BulletManager : MonoBehaviour
         }
     }
 
-    public void SpawnBullet(string bulletType, Vector2 initPos, UnitBase _enemy)
+    public void SpawnBullet(string bulletType, Vector2 initPos, float spawnBulletDirection, UnitBase _enemy)
     {
         BulletBase bullet = bulletPool.GetBullet(bulletType, initPos);
         bullet.InitBulletTarget(_enemy);
+        bullet.SetBulletInitAngle(spawnBulletDirection);
         bullet.OnFinishBulletAnimation += HandleFinishBulletAnimation;
         activeBullets.Add(bullet);
     }

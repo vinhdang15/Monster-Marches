@@ -106,7 +106,6 @@ public class InputController : MonoBehaviour
 
             OnSelectedBarrackTower?.Invoke(selectedTower);
         }
-        Debug.Log(hit.collider.name);
     }
 
     private void TakeBarrackRangeDetect()
@@ -124,8 +123,8 @@ public class InputController : MonoBehaviour
         else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Button"))
         {
             // execute order: button event => Update.
-            // to hit raycast button first then hit BarrackRangeDetect
-            // then so BarrackRangeDetect after process button event
+            // To hit raycast button first then hit BarrackRangeDetect
+            // then show BarrackRangeDetect after process button event
             // inform OnSelectedGuardPointBtnClic to GamePlayManager in here
             OnSelectedGuardPointBtnClick?.Invoke();
         }

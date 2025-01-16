@@ -31,17 +31,18 @@ public class CSVTowerDataReader : MonoBehaviour
             string[] values = Lines[i].Split(',');
             // make sure to only add rows that contain enough information (8 columns of information)
             // if it not, move to the next line
-            if(values.Length < 8) continue;
+            if(values.Length < 9) continue;
             TowerData towerData = new TowerData
             {
                 towerType       = values[0].Trim().ToLower(),
                 level           = int.Parse(values[1]),
-                SpawnObject      = values[2].Trim().ToLower(),
-                spawnRate        = float.Parse(values[3]),
-                rangeDetect     = float.Parse(values[4]),
-                rangeRaycast    = float.Parse(values[5]),
-                goldRequired    = int.Parse(values[6]),
-                descriptions    = values[7].Replace("\"",""),
+                SpawnObject     = values[2].Trim().ToLower(),
+                spawnRate       = float.Parse(values[3]),
+                timeToSpawn     = float.Parse(values[4]),
+                rangeDetect     = float.Parse(values[5]),
+                rangeRaycast    = float.Parse(values[6]),
+                goldRequired    = int.Parse(values[7]),
+                descriptions    = values[8].Replace("\"",""),
             };
             towerDataList.towerDataList.Add(towerData);
         }

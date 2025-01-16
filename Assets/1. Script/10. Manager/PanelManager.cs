@@ -6,11 +6,20 @@ using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
+    public static PanelManager Instance;
     [SerializeField] InputController inputController;
+    [SerializeField] GamePlayManager gamePlayManager;
     [SerializeField] GameObject checkSmybol;
+
+    [Header("GameMenu")]
+    [SerializeField] GameObject gameOverMenu;
+    [SerializeField] GameObject victoryMenu;
+    [SerializeField] GameObject pauseMenu;
+
     [Header("GameStatus")]
     [SerializeField] GameSttPanel gameSttPanel;
-    [Header("TowerBuildingStatus")]
+
+    [Header("TowerMenu")]
     [SerializeField] InitMenu initMenu;
     [SerializeField] UpgradeMenu upgradeMenu;
 
@@ -18,20 +27,39 @@ public class PanelManager : MonoBehaviour
     [SerializeField] CurrentSttPanel currentSttPanel;
     [SerializeField] UpgradeSttPanel upgradeSttPanel;
 
-    private void Start()
+    private void Awake()
     {
-        RegisterInputControllerEvent();
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    #region MENU, PANEL VISIBLE
+    private void Start()
+    {
+        GetTotalWave();
+        ResetCurrentWave();
+        HandleGoldChange();
+        RegisterInputControllerEvent();
+        RegisterGamePlayManagerEvent();
+    }
+
+    private void OnDisable()
+    {
+        UnregisterInputControllerEvent();
+        UnregisterGamePlayManagerEvent();
+    }
 
     private void HideCheckSymbol()
     {
         checkSmybol.SetActive(false);
     }
-    #endregion
 
-    #region PANEL, MENU VISIBLE
+    #region REGISTER EVENT
     private void RegisterInputControllerEvent()
     {
         inputController.OnTryToInitTower                += HandleOnTryToInitTower;
@@ -45,6 +73,35 @@ public class PanelManager : MonoBehaviour
         inputController.OnTryToUpgradeTower             += HandleOnTryToUpgradeTower;
     }
 
+    private void UnregisterInputControllerEvent()
+    {
+        inputController.OnTryToInitTower                -= HandleOnTryToInitTower;
+        inputController.OnButtonClick                   -= HandleShowCheckSymbol;
+        inputController.OnButtonDoubleClick             -= HandleRaycastHitNull;
+        inputController.OnRaycastHitNull                -= HandleRaycastHitNull;
+        inputController.OnSelectedEmptyPlot             -= HandleOnSelectedEmptyPlot;
+        inputController.OnSelectedBulletTower           -= HandleOnSelectedBulletTower;
+        inputController.OnSelectedBarrackTower          -= HandleOnSelectedBarrackTower;
+        inputController.OnSelectedGuardPointBtnClick    -= HandleOnSelectedGuardPointBtnClick;
+        inputController.OnTryToUpgradeTower             -= HandleOnTryToUpgradeTower;
+    }
+
+    private void RegisterGamePlayManagerEvent()
+    {
+        gamePlayManager.OnGoldChangeForUI                       += HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI                       += HandleLiveChange;
+        gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave   += HandleUpdateCurrentWave;
+    }
+
+    private void UnregisterGamePlayManagerEvent()
+    {
+        gamePlayManager.OnGoldChangeForUI                       -= HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI                       -= HandleLiveChange;
+        gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave   -= HandleUpdateCurrentWave;
+    }
+    #endregion
+
+    #region PANEL, MENU VISIBLE
     private void HandleOnTryToInitTower(TowerType type, EmptyPlot plot)
     {
         upgradeSttPanel.SetInitSttText(type);
@@ -80,7 +137,7 @@ public class PanelManager : MonoBehaviour
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
         upgradeMenu.Hide();
-        initMenu.ShowInPos(plot.transform.position);
+        initMenu.CheckAndShowInPos(plot.transform.position, gamePlayManager.gold);
     }
 
     private void HandleOnSelectedBulletTower(TowerPresenter presenter)
@@ -93,7 +150,8 @@ public class PanelManager : MonoBehaviour
         currentSttPanel.SetCurrentSttText(presenter);
         currentSttPanel.Show();
         upgradeMenu.HideGuardPointBtn();
-        upgradeMenu.ShowInPos(presenter.transform.position);
+        upgradeMenu.UpdateText(presenter);
+        upgradeMenu.CheckAndShowInPos(presenter.transform.position, gamePlayManager.gold);
     }
 
     private void HandleOnSelectedBarrackTower(TowerPresenter presenter)
@@ -106,7 +164,8 @@ public class PanelManager : MonoBehaviour
         currentSttPanel.SetCurrentSttText(presenter);
         currentSttPanel.Show();
         upgradeMenu.ShowGuardPointBtn();
-        upgradeMenu.ShowInPos(presenter.transform.position);
+        upgradeMenu.UpdateText(presenter);
+        upgradeMenu.CheckAndShowInPos(presenter.transform.position, gamePlayManager.gold);
     }
 
     private void HandleOnSelectedGuardPointBtnClick()
@@ -115,6 +174,53 @@ public class PanelManager : MonoBehaviour
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
         upgradeMenu.Hide();
+    }
+    #endregion
+
+    #region GAME STT PANEL
+    private void ResetCurrentWave()
+    {
+        gameSttPanel.ResetCurrentWave();
+    }
+    
+    private void GetTotalWave()
+    {
+        int totalWave = gamePlayManager.spawnEnemyManager.TotalWave;
+        gameSttPanel.GetTotalWave(totalWave);
+    }
+    private void HandleGoldChange()
+    {
+        gameSttPanel.UpdateGold(gamePlayManager.gold);
+    }
+
+    private void HandleUpdateCurrentWave(int currentWave)
+    {
+        gameSttPanel.HandleUpdateCurrentWave(currentWave);
+    }
+
+    private void HandleLiveChange()
+    {
+        int live = gamePlayManager.live;
+        gameSttPanel.UpdateLive(live);
+        if(live != 0) return;
+        gameOverMenu.SetActive(true);
+    }
+    #endregion
+
+    #region GAME MENU
+    public void ShowPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+    }
+
+    public void HidePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+    }
+
+    public void ShowVictoryMenu()
+    {
+        victoryMenu.SetActive(true);
     }
     #endregion
 }

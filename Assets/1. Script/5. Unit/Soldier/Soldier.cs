@@ -7,19 +7,23 @@ using UnityEngine;
 
 public class Soldier : UnitBase
 {
-    public int index;
-    public List<Enemy> enemiesInRange = new List<Enemy>();
-    public bool hadTarget;
-    public Enemy targetEnemy = null;
-    public Vector2 guardPos;
-    public Vector2 barrackPos;
-    public float RevivalSpeed;
-    public Vector2 targetEnemyFontPos;
-    public bool isReachGuardPos = false;
-    public bool isReachTargetEnemyFontPos = false;
-    private Vector2 offsetPos = new Vector2(0, 0);
-    public event Action<Soldier> OnSoldierDeath;
-
+    // soldier infor
+    public List<Enemy>          enemiesInRange = new List<Enemy>();
+    public BarrackTowerView     barrackTowerView;
+    public Vector2              guardPos;
+    private Vector2             barrackGatePos;
+    private bool                isReachGuardPos = false;
+    private int                 index;
+    private float               revivalSpeed;
+    private Vector2             offsetPos = new Vector2(0, 0);
+    // target infor
+    private bool                hadTarget;
+    private Enemy               targetEnemy = null;
+    private Vector2             targetEnemyFontPos;
+    public bool                 isReachTargetEnemyFontPos = false;
+    // soldier state
+    public event Action<Soldier>    OnSoldierDeath;
+    public SoldierState             currentState;
     public enum SoldierState
     {
         MovingToGuardPos,
@@ -28,7 +32,14 @@ public class Soldier : UnitBase
         Die,
     }
 
-    public SoldierState currentState;
+    public void SoldierInitInfor(BarrackTowerView barrackTowerView, int index, Vector2 barrackGatePos, float revivalSpeed)
+    {
+        this.barrackTowerView = barrackTowerView;
+        this.index = index;
+        this.revivalSpeed = revivalSpeed;
+        this.barrackGatePos = barrackGatePos;
+        GetOffsetPos();
+    }
     public void SoldierAction()
     {
         // Debug.Log(currentState);
@@ -51,7 +62,7 @@ public class Soldier : UnitBase
                 break;
 
             case SoldierState.ActtackingEnemy:
-                ActtkingTargetEnemy();
+                AttackingTargetEnemy();
                 CheckChangeAttackingEnemyStateTo();
                 break;
             case SoldierState.Die:
@@ -63,11 +74,11 @@ public class Soldier : UnitBase
     {
         switch (index)
         {
-            case 0: offsetPos = new Vector2(-0.15f, -0.15f);
+            case 0: offsetPos = new Vector2(-0.075f, -0.075f);
             break;
             case 1: offsetPos = new Vector2(0, 0);
             break;
-            case 2: offsetPos = new Vector2(-0.15f, 0.15f);
+            case 2: offsetPos = new Vector2(-0.075f, 0.075f);
             break;
         }
     }
@@ -194,14 +205,26 @@ public class Soldier : UnitBase
         }
     }
 
-    private void ActtkingTargetEnemy()
+    private void AttackingTargetEnemy()
     {
         if(TargetEnemyActive())
         {
-            timeDelay -= Time.deltaTime;
-            if(timeDelay > 0) return;
-            unitAnimation.UnitPlayAttack();
-            ResetTimeDelay(AttackSpeed);
+            if(canAttack)
+            {
+                unitAnimation.UnitPlayAttack();
+                canAttack = false;
+                return;
+            }
+            else
+            {
+                timeDelay -= Time.deltaTime;
+                if(timeDelay <= 0)
+                {
+                    canAttack = true;
+                    ResetTimeDelay(AttackSpeed);
+                }
+                return;
+            }
         }
         else if(TargetEnemyNotActive())
         {
@@ -229,6 +252,7 @@ public class Soldier : UnitBase
         if(CurrentHp == 0)
         {
             AudioManager.Instance.PlaySound(soundEffectSO.GetRandomSoldierDie());
+            base.HideHealthBar();
             OnSoldierDeath?.Invoke(this);
         }
     }
@@ -239,8 +263,10 @@ public class Soldier : UnitBase
         ResetSoldierState();
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
         gameObject.SetActive(false);
-        ReturnToBarrackPos();
-        yield return new WaitForSeconds(RevivalSpeed);
+        ReturnToBarrackGatePos();
+        yield return new WaitForSeconds(revivalSpeed);
+        barrackTowerView.OpenGateAnimation();
+        yield return new WaitForSeconds(0.8f);
         ResetUnit();
         gameObject.SetActive(true);
         yield break;
@@ -258,7 +284,7 @@ public class Soldier : UnitBase
         isReachGuardPos = false;
         isReachTargetEnemyFontPos = false;
         hadTarget = false;
-
+        canAttack = true;
         if(targetEnemy != null)
         {
             targetEnemy.ResetEnemyState();
@@ -296,8 +322,8 @@ public class Soldier : UnitBase
         return targetEnemy != null && targetEnemy.CurrentHp > 0;
     }
 
-    public void ReturnToBarrackPos()
+    public void ReturnToBarrackGatePos()
     {
-        transform.position = barrackPos;
+        transform.position = barrackGatePos;
     }
 }

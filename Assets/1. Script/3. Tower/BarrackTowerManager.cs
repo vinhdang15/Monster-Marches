@@ -1,28 +1,34 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BarrackTowerManager : TowerBaseManager
 {
-    [SerializeField] SoldierManager         soldierManager;
-    [SerializeField] TowerView              barrackPerfab;
+    [SerializeField] SoldierManager                     soldierManager;
+    [SerializeField] TowerViewBase                      barrackPerfab;
+    [SerializeField] BarrackSpawnGuardPointConfigSO     barrackSpawnGuardPointConfigSO;
     public Dictionary<TowerPresenter, BarackTowerInfor> barackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
     public  void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot)
     {
         TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(barrackType.ToString().Trim().ToLower(), 1);
         
-        TowerPresenter barrackPresenter = InitBuildingPresenter(barrackPerfab, towerData, pos);
+        TowerPresenter barrackPresenter = base.InitBuildingPresenter(barrackPerfab, towerData, pos);
+
+        
+
         base.AddTowerPersenterEmptyPlot(barrackPresenter, emptyPlot);
 
         barackTowerInfor[barrackPresenter] = new BarackTowerInfor();
         GetBarrackGuradPoint(barrackPresenter);
-        SpawnBarackSoldier(barrackPresenter);
+        barackTowerInfor[barrackPresenter].barackGuardPoint.transform.position = barrackSpawnGuardPointConfigSO.GetNearestPoint(barrackPresenter.transform).position;
+        StartCoroutine(SpawnBarrackSoldierCoroutine(barrackPresenter));
     }
 
     // assign barack guardPoint reference to barackTowerInfor
     private void GetBarrackGuradPoint(TowerPresenter barrackPresenter)
     {
-        barackTowerInfor[barrackPresenter].barackGuardPoint = barrackPresenter.transform.GetChild(0).GetComponent<GuardPoint>();
+        barackTowerInfor[barrackPresenter].barackGuardPoint = barrackPresenter.transform.GetChild(1).GetComponent<GuardPoint>();
     }
 
     public void InitBarack(Vector3 pos, EmptyPlot emptyPlot)
@@ -37,17 +43,19 @@ public class BarrackTowerManager : TowerBaseManager
     }
 
     #region PROCESS SPAWN SOLDIER
-    private void SpawnBarackSoldier(TowerPresenter barrackPresenter)
+    private IEnumerator SpawnBarrackSoldierCoroutine(TowerPresenter barrackPresenter)
     {
-        if(barrackPresenter.towerModel.TowerType != TowerType.Barrack.ToString().Trim().ToLower()) return;
         string soldierName = barrackPresenter.towerModel.SpawnObject;
-        Vector2 initPos = barrackPresenter.towerView.GetSpawnBulletPos();
+        BarrackTowerView barrackTowerView = barrackPresenter.towerView as BarrackTowerView;
+        Vector2 initPos = barrackTowerView.GetSpawnSoldierPos();
 
         GuardPoint barackGuardPoint = barackTowerInfor[barrackPresenter].barackGuardPoint;
 
-        Vector2 barrackPos = barrackPresenter.gameObject.transform.position;
+        Vector2 barrackGatePos = (barrackPresenter.towerView as BarrackTowerView).GetSpawnSoldierPos();
         float soldierRevivalSpeed = barrackPresenter.towerModel.SpawnRate;
-        soldierManager.BarrackSpawnSoldier(soldierName, initPos, barackGuardPoint, barrackPos, soldierRevivalSpeed);
+        barrackTowerView.OpenGateAnimation();
+        yield return new WaitForSeconds(0.8f);
+        soldierManager.BarrackSpawnSoldier(barrackTowerView, soldierName, initPos, barackGuardPoint, barrackGatePos, soldierRevivalSpeed);
     }
     #endregion
 }

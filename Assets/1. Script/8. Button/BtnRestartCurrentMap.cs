@@ -12,7 +12,7 @@ public class BtnRestartCurrentMap : BtnBase
     protected override void OnButtonClick()
     {
         PlayClickSound();
-        UIManager.Instance.HidePauseMenu();
+        PanelManager.Instance.HidePauseMenu();
         ReLoadCurrentScene();
     }
 }

@@ -6,21 +6,22 @@ using Random = UnityEngine.Random;
 
 public abstract class UnitBase : MonoBehaviour
 {
-    public string   UnitType        { get; set; }
+    private string   UnitType        { get; set; }
     public string   UnitName        { get; set; }      
-    public int      MaxHP           { get; set; }
+    private int      MaxHP           { get; set; }
     public float    MoveSpeed       { get; set; }
     public float    AttackSpeed     { get; set; }
-    public int      Damage          { get; set; }
+    protected int      Damage          { get; set; }
     public int      Gold            { get; set; }
-    public string   SpecialAbility  { get; set; }
+    private string   SpecialAbility  { get; set; }
     public float    CurrentHp       { get; set; }
     public float    CurrentSpeed    { get; set; }
-    public bool     IsUnderEffect   { get; set; }
+    private bool     IsUnderEffect   { get; set; }
     protected Vector2 CurrentPos    { get; set; }
     [SerializeField] HealthBar healthBar;
     protected float randomDelay;
     protected float timeDelay;
+    protected bool canAttack = true;
     protected AudioSource audioSource;
     [SerializeField] protected SoundEffectSO soundEffectSO;
     public Dictionary<string, IEffect> underEffect = new Dictionary<string, IEffect>();
@@ -31,7 +32,7 @@ public abstract class UnitBase : MonoBehaviour
     protected virtual void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        ResetTimeDelay();
+        //ResetTimeDelay();
     }
 
     protected void ResetTimeDelay(float timeWait = 0)
@@ -132,9 +133,11 @@ public abstract class UnitBase : MonoBehaviour
     public virtual void ResetUnit()
     {
         ResetHp();
+        ShowHealthBar();
         SetDefaultSpeed();
         unitAnimation.ResetColor();
         underEffect.Clear();
+        canAttack = true;
     }
 
     protected IEnumerator ExecuteWithDelay(Action action)
@@ -142,5 +145,15 @@ public abstract class UnitBase : MonoBehaviour
         float randomDelay = Random.Range(0f, 0.5f);
         yield return new WaitForSeconds(randomDelay);
         action?.Invoke();
+    }
+
+    protected void HideHealthBar()
+    {
+        healthBar.gameObject.SetActive(false);
+    }
+
+    protected void ShowHealthBar()
+    {
+        healthBar.gameObject.SetActive(true);
     }
 }

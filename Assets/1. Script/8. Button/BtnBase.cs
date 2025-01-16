@@ -41,6 +41,7 @@ public class BtnBase : MonoBehaviour
 
     protected void ReLoadCurrentScene()
     {
+        Time.timeScale = 1;
         sceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
     }

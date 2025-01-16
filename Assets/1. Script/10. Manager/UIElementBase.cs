@@ -13,7 +13,7 @@ public class UIElementBase : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    public virtual void ShowInPos(Vector2 pos)
+    public virtual void CheckAndShowInPos(Vector2 pos, int currentGold)
     {
         transform.position = pos;
         gameObject.SetActive(true);

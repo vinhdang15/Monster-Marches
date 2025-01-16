@@ -4,11 +4,11 @@ using UnityEngine;
 public class TowerBaseManager : MonoBehaviour
 {
     #region INIT BUILDING
-    protected TowerPresenter InitBuildingPresenter(TowerView towerPrefab, TowerData towerData, Vector3 pos)
+    protected TowerPresenter InitBuildingPresenter(TowerViewBase towerPrefab, TowerData towerData, Vector3 pos)
     {
-        TowerView buildingView             = Instantiate(towerPrefab, pos, Quaternion.identity, transform);
-        TowerModel buildingModel           = TowerModel.Craete(buildingView,towerData);
-        TowerPresenter towerPresenter   = TowerPresenter.Create(buildingModel, buildingView);
+        TowerViewBase buildingView          = Instantiate(towerPrefab, pos, Quaternion.identity, transform);
+        TowerModel buildingModel            = TowerModel.Craete(buildingView,towerData);
+        TowerPresenter towerPresenter       = TowerPresenter.Create(buildingModel, buildingView);
         return towerPresenter;
     }
 

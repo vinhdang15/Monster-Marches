@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletTowerManager : TowerBaseManager
 {
     [SerializeField] BulletManager          bulletManager;
-    [SerializeField] List<TowerView>        towerPrefabList = new List<TowerView>();
+    [SerializeField] List<TowerViewBase>        towerPrefabList = new List<TowerViewBase>();
     public Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
     
     private void OnDisable()
@@ -20,7 +20,7 @@ public class BulletTowerManager : TowerBaseManager
     {
         TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(towerType.ToString().Trim().ToLower(), 1);
 
-        TowerView towerPrefab = towerPrefabList[(int)towerType];
+        TowerViewBase towerPrefab = towerPrefabList[(int)towerType];
         TowerPresenter towerPresenter = base.InitBuildingPresenter(towerPrefab, towerData, pos);
 
         bulletTowerInfor[towerPresenter]       = new BulletTowerInfor();
@@ -81,21 +81,23 @@ public class BulletTowerManager : TowerBaseManager
     {
         List<Enemy> towerPresentEnemiesList = bulletTowerInfor[towerPresenter].enemies;
         TowerModel towerModel = towerPresenter.towerModel;
-        TowerView towerView = towerPresenter.towerView;
+        // TowerView towerView = towerPresenter.towerView;
+        BulletTowerView bulletTowerView = towerPresenter.towerView as BulletTowerView;
 
         while(towerPresentEnemiesList.Count > 0)
         {
-            towerView.FireBulletAnimation();
-            yield return new WaitForSeconds(0.2f);
+            bulletTowerView.FireBulletAnimation(towerPresentEnemiesList[0].transform);
+            yield return new WaitForSeconds(towerModel.TimeToSpawn);
 
             string bulletType = towerModel.SpawnObject;
-            Vector2 spawnPos = towerView.GetSpawnBulletPos();
+            Vector2 spawnPos = bulletTowerView.GetSpawnBulletPos();
+            float spawnBulletDirection = bulletTowerView.GetSpawnBulletDirection();
 
             if(towerPresentEnemiesList.Count > 0 && towerPresentEnemiesList[0].CurrentHp > 0)
             {
-                bulletManager.SpawnBullet(bulletType,spawnPos,towerPresentEnemiesList[0]);
+                bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0]);
             }
-            yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate - 0.2f);
+            yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate);
         }
     }
     #endregion

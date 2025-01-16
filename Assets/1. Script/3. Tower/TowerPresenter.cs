@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class TowerPresenter : MonoBehaviour
 {
     public TowerModel        towerModel;
-    public TowerView         towerView;
+    public TowerViewBase         towerView;
     public EmptyPlot         emptyPlot;
     public int               CurentTowerDamage { set ; get ; }
     public string            DescriptionUpgrade { set ; get ; }
@@ -16,14 +17,14 @@ public class TowerPresenter : MonoBehaviour
     public int               GoldUpdrade { set ; get ; }
     public int               GoldRefund { set ; get ; }
 
-    public static TowerPresenter Create(TowerModel towerModel, TowerView towerView)
+    public static TowerPresenter Create(TowerModel towerModel, TowerViewBase towerView)
     {
         TowerPresenter towerPresenter = towerView.gameObject.AddComponent<TowerPresenter>();
         towerPresenter.TowerPresenterInit(towerModel, towerView);
         return towerPresenter;
     } 
     
-    public void TowerPresenterInit(TowerModel towerModel, TowerView towerView)
+    public void TowerPresenterInit(TowerModel towerModel, TowerViewBase towerView)
     {
         this.towerModel = towerModel;
         this.towerView  = towerView;

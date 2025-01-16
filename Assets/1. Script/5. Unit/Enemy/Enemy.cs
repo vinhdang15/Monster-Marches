@@ -13,6 +13,7 @@ public class Enemy : UnitBase, IEnemy
     public bool islockByEnemy;
     public event Action<Enemy> OnEnemyDeath;
     public event Action<Enemy> OnEnemyReachEndPoint;
+    private bool isProcessDead = false;
 
     protected override void Awake()
     {
@@ -39,6 +40,7 @@ public class Enemy : UnitBase, IEnemy
         pathFinder.OnSetPosInPathWay(_pathWaveIndex);
     }
 
+    int index = 0;
     // Move
     public void EnemyAction()
     {
@@ -54,6 +56,7 @@ public class Enemy : UnitBase, IEnemy
             if(timeDelay > 0) return;
             unitAnimation.UnitPlayAttack();
             ResetTimeDelay(AttackSpeed);
+            index++;
         }
         else
         {
@@ -75,12 +78,18 @@ public class Enemy : UnitBase, IEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        ProcessEnemyDead();
+    }
 
-        if(CurrentHp == 0)
-        {
-            AudioManager.Instance.PlaySound(soundEffectSO.GetRandomMonsterDie());
-            OnEnemyDeath?.Invoke(this);
-        }
+    // using isProcessDead to prevent OnEnemyDeath call multi time
+    private void ProcessEnemyDead()
+    {
+        if(CurrentHp > 0) return;
+        if(isProcessDead) return;
+        isProcessDead = true;
+        AudioManager.Instance.PlaySound(soundEffectSO.GetRandomMonsterDie());
+        base.HideHealthBar();
+        OnEnemyDeath?.Invoke(this);
     }
 
     public override void DealDamage()
@@ -110,8 +119,8 @@ public class Enemy : UnitBase, IEnemy
     // use ResetUnit when return to pool
     public override void ResetUnit()
     {
-        targetSoldier = null;
-        islockByEnemy = false;
+        isProcessDead = false;
+        ResetEnemyState();
         base.ResetUnit();
     }
 

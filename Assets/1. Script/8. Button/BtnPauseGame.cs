@@ -13,14 +13,13 @@ public class BtnPauseGame : BtnBase
     {
         PlayClickSound();
 
-        if (UIManager.Instance != null)
-        {
-            UIManager.Instance.ShowPauseMenu();
-            UIManager.Instance.PauseGame();
-        }
-        else
-        {
-            Debug.LogError("UIManager.Instance is null. Make sure it is initialized.");
-        }
+        PanelManager.Instance.ShowPauseMenu();
+        PauseGame();
     }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
 }

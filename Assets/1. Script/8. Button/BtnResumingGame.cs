@@ -12,7 +12,12 @@ public class BtnResumingGame : BtnBase
     protected override void OnButtonClick()
     {
         PlayClickSound();
-        UIManager.Instance.HidePauseMenu();
-        UIManager.Instance.ResumingGame();
+        PanelManager.Instance.HidePauseMenu();
+        ResumingGame();
+    }
+
+    private void ResumingGame()
+    {
+        Time.timeScale = 1;
     }
 }

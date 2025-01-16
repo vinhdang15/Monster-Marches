@@ -43,7 +43,7 @@ public class UpgradeSttPanel : UIElementBase
         }
     }
 
-    public override void ShowInPos(Vector2 pos)
+    public void ShowInPos(Vector2 pos)
     {
         float offsetInXAxis = 6f;
         if(pos.x >= 0)

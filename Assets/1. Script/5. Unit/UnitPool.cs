@@ -68,7 +68,6 @@ public class UnitPool : MonoBehaviour
                 Soldier soldier = (Soldier)Instantiate(unitPoolInfor.unitPrefab, transform);
                 UnitData soldierData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPoolInfor.UnitName);
                 soldier.InItUnit(soldierData);
-                soldier.index = i % 3;
                 soldier.GetAnimation();
                 soldier.gameObject.SetActive(false);
                 soldierQueue.Enqueue(soldier);

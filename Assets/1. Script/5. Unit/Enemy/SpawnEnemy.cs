@@ -7,18 +7,18 @@ using Random = UnityEngine.Random;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    private UnitPool unitPool;
-    [SerializeField] private EnemyManager enemyManager;
+    private UnitPool                        unitPool;
+    [SerializeField] private EnemyManager   enemyManager;
     [Header("Pathway to Spawn Enemy")]
-    [SerializeField] private PathConfigSO pathConfigSO;
+    [SerializeField] private PathConfigSO   pathConfigSO;
     [Header("Enemy-Wave information")]
-    public List<EnemyEntry> enemyEntries = new List<EnemyEntry>();
-     private float timeBetweenEnemy;
-    public BtnCautionSlider btnCautionSlider;
-    private SpawnEnemyManager spawnEnemyManager;
-    private bool isStartNextWave = false;
+    public List<EnemyEntry>                 enemyEntries = new List<EnemyEntry>();
+    private float                           timeBetweenEnemy;
+    public BtnCautionSlider                 btnCautionSlider;
+    private SpawnEnemyManager               spawnEnemyManager;
+    private bool                            isStartNextWave = false;
 
-    public event Action OnFinishCurrentWave;
+    public event Action                     OnFinishCurrentWave;
     
     private void Awake()
     {
@@ -54,8 +54,6 @@ public class SpawnEnemy : MonoBehaviour
     private IEnumerator SpawnEnemyCoroutine()
     {
         yield return new WaitUntil(() => CSVUnitDataReader.Instance.IsDataLoaded);
-        // Check number enemy in the current way, if none hide the caution button else show the caution button
-
         // for loop to spwan enemies in all wave
         for(int y = 0; y < enemyEntries.Count; y++)
         {
@@ -77,14 +75,14 @@ public class SpawnEnemy : MonoBehaviour
         StartCoroutine(SpawnEnemyCoroutine());
     }
 
-    public int GetNumberEnemyInNWave(int waveIndex)
+    public int GetNumberEnemyInWave(int waveIndex)
     {
         return waveIndex < enemyEntries.Count ? enemyEntries[waveIndex].numberEnemyInWave : 0;
     }
 
     private void CheckShowFristWaveCaution()
     {
-        if(GetNumberEnemyInNWave(0) != 0)
+        if(GetNumberEnemyInWave(0) != 0)
         {
             btnCautionSlider.gameObject.SetActive(true);
         }
