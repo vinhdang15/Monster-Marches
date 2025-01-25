@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3963179969260493659}
   - component: {fileID: 5926776655140994121}
   m_Layer: 11
-  m_Name: Cannon
+  m_Name: CannonTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,6 +196,8 @@ MonoBehaviour:
   sprites:
   - {fileID: -1911854312, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
   - {fileID: -1482778638, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
+  goldText: {fileID: 0}
+  isGreyOut: 0
 --- !u!1 &2114248796177637563
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1978230290724829879}
+  - component: {fileID: 158768095895792075}
   - component: {fileID: 5004083041484079598}
   m_Layer: 2
   m_Name: InitMenu
@@ -237,6 +240,18 @@ RectTransform:
   m_AnchoredPosition: {x: -963.39, y: -539.99}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &158768095895792075
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114248796177637563}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &5004083041484079598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21935802dfa0c6947822a0abe05be3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeDelay: 1
+  canvasGroup: {fileID: 0}
+  rectTransform: {fileID: 0}
   archerTowerInitGoldText: {fileID: 3592054553506199868}
   mageTowerInitGoldText: {fileID: 502861760162157946}
   barrackTowerInitGoldText: {fileID: 1919976946784865202}
@@ -268,7 +286,7 @@ GameObject:
   - component: {fileID: 8149201484918002823}
   - component: {fileID: 5349911215633072908}
   m_Layer: 11
-  m_Name: Barrack
+  m_Name: BarrackTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,6 +467,8 @@ MonoBehaviour:
   sprites:
   - {fileID: 1389661603, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
   - {fileID: 1339402370, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
+  goldText: {fileID: 0}
+  isGreyOut: 0
 --- !u!1 &5093673447958131643
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +484,7 @@ GameObject:
   - component: {fileID: 1602992193727660002}
   - component: {fileID: 8840420685324873432}
   m_Layer: 11
-  m_Name: Mage
+  m_Name: MageTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,6 +665,8 @@ MonoBehaviour:
   sprites:
   - {fileID: -1238429493, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
   - {fileID: -123034654, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
+  goldText: {fileID: 0}
+  isGreyOut: 0
 --- !u!1 &5284826771158705645
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.6}
+  m_AnchoredPosition: {x: 0, y: -0.625}
   m_SizeDelta: {x: 0.75, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &36791727854761846
@@ -888,7 +910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.6}
+  m_AnchoredPosition: {x: 0, y: -0.625}
   m_SizeDelta: {x: 0.75, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3713720916957002223
@@ -1003,7 +1025,7 @@ GameObject:
   - component: {fileID: 8900123326875874249}
   - component: {fileID: 2730534523452603620}
   m_Layer: 11
-  m_Name: Archer
+  m_Name: ArcherTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1184,6 +1206,8 @@ MonoBehaviour:
   sprites:
   - {fileID: 114054971, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
   - {fileID: -46197217, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
+  goldText: {fileID: 0}
+  isGreyOut: 0
 --- !u!1 &8655448256039880737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,7 +1242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.6}
+  m_AnchoredPosition: {x: 0, y: -0.625}
   m_SizeDelta: {x: 0.75, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2691539054402607368
@@ -1352,7 +1376,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.6}
+  m_AnchoredPosition: {x: 0, y: -0.625}
   m_SizeDelta: {x: 0.75, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8562767311455033232

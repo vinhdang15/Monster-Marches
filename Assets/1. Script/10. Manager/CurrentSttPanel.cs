@@ -9,6 +9,10 @@ public class CurrentSttPanel : UIElementBase
     [SerializeField] TextMeshProUGUI towerDamageText;
     [SerializeField] TextMeshProUGUI spawnRateText;
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     public void SetCurrentSttText(TowerPresenter towerPresenter)
     {
         TowerType.text = towerPresenter.towerModel.TowerType.ToString();

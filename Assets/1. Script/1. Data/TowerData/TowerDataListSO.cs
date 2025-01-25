@@ -7,6 +7,8 @@ public class TowerDataListSO : ScriptableObject
 {
     public List<TowerData> towerDataList = new List<TowerData>();
 
+    public List<int> TowerInitGoldList = new List<int>();
+
     public TowerData GetTowerData(string towerType, int level)
     {
         return towerDataList.Find(data => data.towerType == towerType && data.level == level);

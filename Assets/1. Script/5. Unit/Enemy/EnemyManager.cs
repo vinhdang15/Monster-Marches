@@ -13,11 +13,11 @@ public class EnemyManager : MonoBehaviour
     
     private void Start()
     {
-        foreach(var enemy in ActiveEnemies)
-        {
-            enemy.GetAnimation();
-            enemy.unitAnimation.UnitPlayWalk();
-        }
+        // foreach(var enemy in ActiveEnemies)
+        // {
+        //     enemy.GetAnimation();
+        //     enemy.unitAnimation.UnitPlayWalk();
+        // }
     }
 
     private void OnDisable()

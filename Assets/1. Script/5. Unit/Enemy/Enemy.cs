@@ -10,7 +10,6 @@ public class Enemy : UnitBase, IEnemy
     private List<Enemy> surroundingEnemies = new List<Enemy>();
     public Transform fontPoint;
     public Soldier targetSoldier;
-    public bool islockByEnemy;
     public event Action<Enemy> OnEnemyDeath;
     public event Action<Enemy> OnEnemyReachEndPoint;
     private bool isProcessDead = false;
@@ -78,17 +77,18 @@ public class Enemy : UnitBase, IEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        ProcessEnemyDead();
+        ProcessIfEnemyDead();
     }
 
     // using isProcessDead to prevent OnEnemyDeath call multi time
-    private void ProcessEnemyDead()
+    private void ProcessIfEnemyDead()
     {
         if(CurrentHp > 0) return;
         if(isProcessDead) return;
         isProcessDead = true;
         AudioManager.Instance.PlaySound(soundEffectSO.GetRandomMonsterDie());
         base.HideHealthBar();
+        base.isdead = true;
         OnEnemyDeath?.Invoke(this);
     }
 
@@ -110,17 +110,16 @@ public class Enemy : UnitBase, IEnemy
     }
 
     // use ResetEnemyState when soldier untarget this enemy
-    public void ResetEnemyState()
+    public void ResetEnemyTargetState()
     {
         targetSoldier = null;
-        islockByEnemy = false;
     }
 
     // use ResetUnit when return to pool
     public override void ResetUnit()
     {
         isProcessDead = false;
-        ResetEnemyState();
+        ResetEnemyTargetState();
         base.ResetUnit();
     }
 

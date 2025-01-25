@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ParabolBullet : BulletBase
 {
-    private float height = 2f;
+    private float height = 1.5f;
     private float elapedtime = 0f;
 
     // use adjustBulletTypeSpeed to convert ParabolBullet speed value

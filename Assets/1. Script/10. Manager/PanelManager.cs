@@ -9,23 +9,25 @@ public class PanelManager : MonoBehaviour
     public static PanelManager Instance;
     [SerializeField] InputController inputController;
     [SerializeField] GamePlayManager gamePlayManager;
-    [SerializeField] GameObject checkSmybol;
 
     [Header("GameMenu")]
-    [SerializeField] GameObject gameOverMenu;
-    [SerializeField] GameObject victoryMenu;
-    [SerializeField] GameObject pauseMenu;
-
-    [Header("GameStatus")]
-    [SerializeField] GameSttPanel gameSttPanel;
+    [SerializeField] PanelUI pauseMenu;
+    [SerializeField] PanelUI victoryMenu;
+    [SerializeField] PanelUI gameOverMenu;
 
     [Header("TowerMenu")]
     [SerializeField] InitMenu initMenu;
     [SerializeField] UpgradeMenu upgradeMenu;
+    [SerializeField] CheckSymbol checkSymbol;
 
     [Header("TowerStatus")]
     [SerializeField] CurrentSttPanel currentSttPanel;
     [SerializeField] UpgradeSttPanel upgradeSttPanel;
+
+    [Header("GameStatus")]
+    [SerializeField] GameSttPanel gameSttPanel;
+
+    private TowerPresenter CurrentSelectedPresenter;
 
     private void Awake()
     {
@@ -37,13 +39,15 @@ public class PanelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        LoadComponents();
     }
 
     private void Start()
     {
         GetTotalWave();
         ResetCurrentWave();
-        HandleGoldChange();
+        UpdateCurrentGold();
         RegisterInputControllerEvent();
         RegisterGamePlayManagerEvent();
     }
@@ -54,16 +58,29 @@ public class PanelManager : MonoBehaviour
         UnregisterGamePlayManagerEvent();
     }
 
-    private void HideCheckSymbol()
+    private void LoadComponents()
     {
-        checkSmybol.SetActive(false);
+        inputController     = GameObject.Find("InputController").GetComponent<InputController>();
+        gamePlayManager     = GameObject.Find("GamePlayManager").GetComponent<GamePlayManager>();
+
+        initMenu            = GameObject.Find("InitMenu").GetComponent<InitMenu>();
+        upgradeMenu         = GameObject.Find("UpgradeMenu").GetComponent<UpgradeMenu>();
+        checkSymbol         = GameObject.Find("CheckSymbol").GetComponent<CheckSymbol>();
+
+        pauseMenu           = GameObject.Find("PauseMenu").GetComponent<PanelUI>();
+        victoryMenu         = GameObject.Find("VictoryMenu").GetComponent<PanelUI>();
+        gameOverMenu        = GameObject.Find("GameOverMenu").GetComponent<PanelUI>();
+
+        currentSttPanel     = GameObject.Find("CurrentSttPanel").GetComponent<CurrentSttPanel>();
+        upgradeSttPanel     = GameObject.Find("UpgradeSttPanel").GetComponent<UpgradeSttPanel>();
+        gameSttPanel        = GameObject.Find("GameSttPanel").GetComponent<GameSttPanel>();
     }
 
     #region REGISTER EVENT
     private void RegisterInputControllerEvent()
     {
         inputController.OnTryToInitTower                += HandleOnTryToInitTower;
-        inputController.OnButtonClick                   += HandleShowCheckSymbol;
+        inputController.OnFirstButtonClick              += HandleShowCheckSymbol;
         inputController.OnButtonDoubleClick             += HandleRaycastHitNull;
         inputController.OnRaycastHitNull                += HandleRaycastHitNull;
         inputController.OnSelectedEmptyPlot             += HandleOnSelectedEmptyPlot;
@@ -76,7 +93,7 @@ public class PanelManager : MonoBehaviour
     private void UnregisterInputControllerEvent()
     {
         inputController.OnTryToInitTower                -= HandleOnTryToInitTower;
-        inputController.OnButtonClick                   -= HandleShowCheckSymbol;
+        inputController.OnFirstButtonClick              -= HandleShowCheckSymbol;
         inputController.OnButtonDoubleClick             -= HandleRaycastHitNull;
         inputController.OnRaycastHitNull                -= HandleRaycastHitNull;
         inputController.OnSelectedEmptyPlot             -= HandleOnSelectedEmptyPlot;
@@ -116,34 +133,38 @@ public class PanelManager : MonoBehaviour
 
     private void HandleShowCheckSymbol(Button clickedButton)
     {
-        checkSmybol.transform.position = clickedButton.transform.transform.position;
-        checkSmybol.SetActive(true);
+        checkSymbol.transform.position = clickedButton.transform.transform.position;
+        checkSymbol.GreyOutCheckSymbol(clickedButton);
+        checkSymbol.Show();
     }
 
     private void HandleRaycastHitNull()
     {
-        HideCheckSymbol();
-        upgradeSttPanel.Hide();
-        currentSttPanel.Hide();
         initMenu.Hide();
         upgradeMenu.Hide();
+        checkSymbol.Hide();
+        upgradeSttPanel.Hide();
+        currentSttPanel.Hide();
         currentSttPanel.Hide();
         upgradeSttPanel.Hide();
     }
 
     private void HandleOnSelectedEmptyPlot(EmptyPlot plot)
-    {
-        HideCheckSymbol();
+    {   
+        initMenu.Hide();
+        upgradeMenu.Hide();
+        checkSymbol.Hide();
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
-        upgradeMenu.Hide();
-        initMenu.CheckAndShowInPos(plot.transform.position, gamePlayManager.gold);
+        initMenu.ButtonCheckInitGoldRequire(GetCurrentGold());
+        initMenu.ShowInPos(plot.transform.position);
     }
 
     private void HandleOnSelectedBulletTower(TowerPresenter presenter)
     {
-        HideCheckSymbol();
+        CurrentSelectedPresenter = presenter;
         initMenu.Hide();
+        checkSymbol.Hide();
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
 
@@ -151,13 +172,15 @@ public class PanelManager : MonoBehaviour
         currentSttPanel.Show();
         upgradeMenu.HideGuardPointBtn();
         upgradeMenu.UpdateText(presenter);
-        upgradeMenu.CheckAndShowInPos(presenter.transform.position, gamePlayManager.gold);
+        upgradeMenu.UpdateButtonColor(presenter,GetCurrentGold());
+        upgradeMenu.ShowInPos(presenter.transform.position);
     }
 
     private void HandleOnSelectedBarrackTower(TowerPresenter presenter)
     {
-        HideCheckSymbol();
+        CurrentSelectedPresenter = presenter;
         initMenu.Hide();
+        checkSymbol.Hide();
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
 
@@ -165,12 +188,13 @@ public class PanelManager : MonoBehaviour
         currentSttPanel.Show();
         upgradeMenu.ShowGuardPointBtn();
         upgradeMenu.UpdateText(presenter);
-        upgradeMenu.CheckAndShowInPos(presenter.transform.position, gamePlayManager.gold);
+        upgradeMenu.UpdateButtonColor(presenter,GetCurrentGold());
+        upgradeMenu.ShowInPos(presenter.transform.position);
     }
 
     private void HandleOnSelectedGuardPointBtnClick()
     {
-        HideCheckSymbol();
+        checkSymbol.Hide();
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
         upgradeMenu.Hide();
@@ -188,11 +212,20 @@ public class PanelManager : MonoBehaviour
         int totalWave = gamePlayManager.spawnEnemyManager.TotalWave;
         gameSttPanel.GetTotalWave(totalWave);
     }
+
+    private void UpdateCurrentGold()
+    {
+        gameSttPanel.UpdateGold(GetCurrentGold());
+    }
     private void HandleGoldChange()
     {
-        gameSttPanel.UpdateGold(gamePlayManager.gold);
-    }
+        UpdateCurrentGold();
+        initMenu.ButtonCheckInitGoldRequire(GetCurrentGold());
 
+        if(CurrentSelectedPresenter == null) return;
+        upgradeMenu.UpdateButtonColor(CurrentSelectedPresenter,GetCurrentGold());
+    }
+    
     private void HandleUpdateCurrentWave(int currentWave)
     {
         gameSttPanel.HandleUpdateCurrentWave(currentWave);
@@ -203,24 +236,29 @@ public class PanelManager : MonoBehaviour
         int live = gamePlayManager.live;
         gameSttPanel.UpdateLive(live);
         if(live != 0) return;
-        gameOverMenu.SetActive(true);
+        gameOverMenu.Show();
+    }
+
+    private int GetCurrentGold()
+    {
+        return gamePlayManager.gold;
     }
     #endregion
 
     #region GAME MENU
     public void ShowPauseMenu()
     {
-        pauseMenu.SetActive(true);
+        pauseMenu.Show();
     }
 
     public void HidePauseMenu()
     {
-        pauseMenu.SetActive(false);
+        pauseMenu.Hide();
     }
 
     public void ShowVictoryMenu()
     {
-        victoryMenu.SetActive(true);
+        victoryMenu.Show();
     }
     #endregion
 }

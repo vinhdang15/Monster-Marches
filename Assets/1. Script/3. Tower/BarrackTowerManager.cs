@@ -9,13 +9,20 @@ public class BarrackTowerManager : TowerBaseManager
     [SerializeField] BarrackSpawnGuardPointConfigSO     barrackSpawnGuardPointConfigSO;
     public Dictionary<TowerPresenter, BarackTowerInfor> barackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
+    private void Awake()
+    {
+        LoadComponents();
+    }
+
+    private void LoadComponents()
+    {
+        soldierManager = GameObject.Find("SoldierManager").GetComponent<SoldierManager>();
+    }
+    
     public  void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot)
     {
         TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(barrackType.ToString().Trim().ToLower(), 1);
-        
         TowerPresenter barrackPresenter = base.InitBuildingPresenter(barrackPerfab, towerData, pos);
-
-        
 
         base.AddTowerPersenterEmptyPlot(barrackPresenter, emptyPlot);
 

@@ -7,27 +7,36 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minZoom = 2f;
     [SerializeField] private float maxZoom = 5.4f;
     [SerializeField] private float panSpeed = 0.5f;
-
+    [SerializeField] private float panThreshold = 0.5f;
     private Vector3 touchStart;
+    private Vector3 moveStart = new Vector3(0,0,-10);
 
     private void Update()
     {
-        if (Input.touchCount == 1)
+        if(Input.touchCount == 1)
         {
             // Di chuyển bản đồ bằng một ngón tay
             Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began)
+            if(touch.phase == TouchPhase.Began)
             {
                 touchStart = mainCamera.ScreenToWorldPoint(touch.position);
             }
-            else if (touch.phase == TouchPhase.Moved)
+            else if(touch.phase == TouchPhase.Moved)
             {
                 Vector3 direction = touchStart - mainCamera.ScreenToWorldPoint(touch.position);
-                mainCamera.transform.position += direction * panSpeed;
+                if(direction.magnitude <= panThreshold)
+                {
+                    moveStart = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                }
+                else
+                {
+                    Vector3 moveDirection = moveStart - mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                    mainCamera.transform.position += moveDirection * panSpeed;
+                }
             }
         }
-        else if (Input.touchCount == 2)
+        else if(Input.touchCount == 2)
         {
             // Phóng to và thu nhỏ bằng hai ngón tay
             Touch touchZero = Input.GetTouch(0);
@@ -43,15 +52,23 @@ public class CameraController : MonoBehaviour
 
             Zoom(difference * zoomSpeed);
         }
-        else if (Input.GetMouseButtonDown(0))
+        else if(Input.GetMouseButtonDown(0))
         {
             // Di chuyển bản đồ bằng chuột
             touchStart = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         }
-        else if (Input.GetMouseButton(0))
+        else if(Input.GetMouseButton(0))
         {
             Vector3 direction = touchStart - mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mainCamera.transform.position += direction * panSpeed;
+            if(direction.magnitude <= panThreshold)
+            {
+                moveStart = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            }
+            else
+            {
+                Vector3 moveDirection = moveStart - mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                mainCamera.transform.position += moveDirection * panSpeed;
+            }
         }
 
         // Phóng to và thu nhỏ bằng con lăn chuột

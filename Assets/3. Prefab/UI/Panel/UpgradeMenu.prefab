@@ -212,7 +212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.6}
+  m_AnchoredPosition: {x: 0, y: -0.625}
   m_SizeDelta: {x: 0.75, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1911668147888926065
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 9197319779016579917}
   - component: {fileID: 5460019153270502300}
   m_Layer: 11
-  m_Name: Upgrade
+  m_Name: UpgradeTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,6 +508,8 @@ MonoBehaviour:
   sprites:
   - {fileID: 1030335157, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
   - {fileID: -1489650981, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
+  goldText: {fileID: 0}
+  isGreyOut: 0
 --- !u!1 &2770311343538609255
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +524,7 @@ GameObject:
   - component: {fileID: 424139965896600591}
   - component: {fileID: 6491810889496491234}
   m_Layer: 11
-  m_Name: Sell
+  m_Name: SellTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -742,6 +744,7 @@ MonoBehaviour:
   guardPointBtn: {fileID: 204765091150536750}
   upgradeTowerGoldText: {fileID: 2573706429260340354}
   sellTowerGoldText: {fileID: 475738228615518650}
+  UpgradeButtonColor: {fileID: 0}
 --- !u!1 &5659776470514310085
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.6}
+  m_AnchoredPosition: {x: 0, y: -0.625}
   m_SizeDelta: {x: 0.75, y: 0.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &634455927449313327

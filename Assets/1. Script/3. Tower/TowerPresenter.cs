@@ -7,7 +7,7 @@ using Debug = UnityEngine.Debug;
 public class TowerPresenter : MonoBehaviour
 {
     public TowerModel        towerModel;
-    public TowerViewBase         towerView;
+    public TowerViewBase     towerView;
     public EmptyPlot         emptyPlot;
     public int               CurentTowerDamage { set ; get ; }
     public string            DescriptionUpgrade { set ; get ; }
@@ -41,13 +41,13 @@ public class TowerPresenter : MonoBehaviour
 
     public void SetTowerPresenterData()
     {
-        string towerType = towerModel.TowerType;
-        int towerLevel = towerModel.Level;
+        string towerType    = towerModel.TowerType;
+        int towerLevel      = towerModel.Level;
 
-        DescriptionUpgrade = CSVTowerDataReader.Instance.towerDataList.GetDescription(towerType, towerLevel + 1);
-        GoldUpdrade = CSVTowerDataReader.Instance.towerDataList.GetGoldRequired(towerType, towerLevel + 1);
-        RangeDetectUpgrade = CSVTowerDataReader.Instance.towerDataList.GetRangeDetect(towerType, towerLevel + 1);
-        TowerSpawnRateUpgrade = CSVTowerDataReader.Instance.towerDataList.GetSpawnRate(towerType, towerLevel + 1);
+        DescriptionUpgrade      = CSVTowerDataReader.Instance.towerDataList.GetDescription(towerType, towerLevel + 1);
+        GoldUpdrade             = CSVTowerDataReader.Instance.towerDataList.GetGoldRequired(towerType, towerLevel + 1);
+        RangeDetectUpgrade      = CSVTowerDataReader.Instance.towerDataList.GetRangeDetect(towerType, towerLevel + 1);
+        TowerSpawnRateUpgrade   = CSVTowerDataReader.Instance.towerDataList.GetSpawnRate(towerType, towerLevel + 1);
 
         switch(towerType)
         {

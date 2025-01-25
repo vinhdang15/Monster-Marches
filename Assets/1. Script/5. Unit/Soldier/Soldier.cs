@@ -8,14 +8,13 @@ using UnityEngine;
 public class Soldier : UnitBase
 {
     // soldier infor
-    public List<Enemy>          enemiesInRange = new List<Enemy>();
     public BarrackTowerView     barrackTowerView;
+    private int                 index;
     public Vector2              guardPos;
     private Vector2             barrackGatePos;
     private bool                isReachGuardPos = false;
-    private int                 index;
-    private float               revivalSpeed;
-    private Vector2             offsetPos = new Vector2(0, 0);
+    public List<Enemy>          enemiesInRange = new List<Enemy>();
+    private float               revivalTime;
     // target infor
     private bool                hadTarget;
     private Enemy               targetEnemy = null;
@@ -24,6 +23,9 @@ public class Soldier : UnitBase
     // soldier state
     public event Action<Soldier>    OnSoldierDeath;
     public SoldierState             currentState;
+    private bool isSoldierAvailable = true;
+    private Vector2                 offsetPos = new Vector2(0, 0);
+
     public enum SoldierState
     {
         MovingToGuardPos,
@@ -36,13 +38,12 @@ public class Soldier : UnitBase
     {
         this.barrackTowerView = barrackTowerView;
         this.index = index;
-        this.revivalSpeed = revivalSpeed;
+        this.revivalTime = revivalSpeed;
         this.barrackGatePos = barrackGatePos;
         GetOffsetPos();
     }
     public void SoldierAction()
     {
-        // Debug.Log(currentState);
         switch (currentState)
         {
             case SoldierState.MovingToGuardPos:
@@ -176,7 +177,6 @@ public class Soldier : UnitBase
         }
         else
         {
-            targetEnemy.islockByEnemy = true;
             isReachTargetEnemyFontPos = true;
             unitAnimation.UnitPlayIdle();
         }
@@ -209,10 +209,10 @@ public class Soldier : UnitBase
     {
         if(TargetEnemyActive())
         {
-            if(canAttack)
+            if(isSoldierAvailable)
             {
                 unitAnimation.UnitPlayAttack();
-                canAttack = false;
+                isSoldierAvailable = false;
                 return;
             }
             else
@@ -220,7 +220,7 @@ public class Soldier : UnitBase
                 timeDelay -= Time.deltaTime;
                 if(timeDelay <= 0)
                 {
-                    canAttack = true;
+                    isSoldierAvailable = true;
                     ResetTimeDelay(AttackSpeed);
                 }
                 return;
@@ -243,7 +243,7 @@ public class Soldier : UnitBase
     }
     #endregion
 
-    #region TAKE DAMAGE AND RETURN TO BARACK WHEN DIE
+    #region TAKE DAMAGE AND RETURN TO BARRACK WHEN DIE
     // take damage and Die
     public override void TakeDamage(float damage)
     {
@@ -253,6 +253,7 @@ public class Soldier : UnitBase
         {
             AudioManager.Instance.PlaySound(soundEffectSO.GetRandomSoldierDie());
             base.HideHealthBar();
+            base.isdead = true;
             OnSoldierDeath?.Invoke(this);
         }
     }
@@ -264,10 +265,11 @@ public class Soldier : UnitBase
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
         gameObject.SetActive(false);
         ReturnToBarrackGatePos();
-        yield return new WaitForSeconds(revivalSpeed);
+        yield return new WaitForSeconds(revivalTime);
         barrackTowerView.OpenGateAnimation();
         yield return new WaitForSeconds(0.8f);
-        ResetUnit();
+        base.ResetUnit();
+        base.isdead = false;
         gameObject.SetActive(true);
         yield break;
     }
@@ -284,10 +286,10 @@ public class Soldier : UnitBase
         isReachGuardPos = false;
         isReachTargetEnemyFontPos = false;
         hadTarget = false;
-        canAttack = true;
+        isSoldierAvailable = true;
         if(targetEnemy != null)
         {
-            targetEnemy.ResetEnemyState();
+            targetEnemy.ResetEnemyTargetState();
             targetEnemy = null;
         }
     }
@@ -296,6 +298,7 @@ public class Soldier : UnitBase
     public override void ResetUnit()
     {   
         base.ResetUnit();
+        isSoldierAvailable = true;
     }
     #endregion
 

@@ -33,9 +33,9 @@ RectTransform:
   - {fileID: 1987855026435302874}
   m_Father: {fileID: 5659346469342678333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3, y: -2.57}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -2.07}
   m_SizeDelta: {x: 6, y: 1.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4650642120846663557
@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 2885187764113620548}
   - component: {fileID: 3463968699624321015}
   - component: {fileID: 1705123804417877055}
+  - component: {fileID: 7694300498735164387}
   m_Layer: 2
   m_Name: UpgradeSttPanel
   m_TagString: Untagged
@@ -157,6 +158,32 @@ MonoBehaviour:
   descriptionText: {fileID: 6998408636119625735}
   towerDamageText: {fileID: 111368846546117044}
   spawnRateText: {fileID: 7104159764596255319}
+--- !u!114 &7694300498735164387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662993764799748731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &5168749784775265244
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,10 +216,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2606138643075872481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3, y: -0.75}
-  m_SizeDelta: {x: 6, y: 1.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8879255415201309073
 CanvasRenderer:
@@ -323,10 +350,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 282695425211594252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 4.6324997, y: -0.57}
-  m_SizeDelta: {x: 2.735, y: 1.14}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6754763263177918442
 CanvasRenderer:
@@ -457,9 +484,9 @@ RectTransform:
   - {fileID: 2274444600937102977}
   m_Father: {fileID: 5659346469342678333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 6, y: 1.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &8996896478727316552
@@ -520,10 +547,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 282695425211594252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.6324999, y: -0.57}
-  m_SizeDelta: {x: 3.2649999, y: 1.14}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6432677539753127522
 CanvasRenderer:

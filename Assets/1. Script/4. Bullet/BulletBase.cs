@@ -10,11 +10,12 @@ public class BulletBase : MonoBehaviour
     public float    Speed                    { get; set; }
     public string   EffectType               { get; set; }
     public float    DealDamageDelay          { get; set; }
+    public bool     hadAOEEffectType         = false;
     public bool     isReachEnemyPos          = false;
     public bool     isSetUpStartPos          = false;
     public Vector2 startPos;
     public List<IEffect> effects = new List<IEffect>();
-    protected UnitBase                   targetEnemy;
+    [SerializeField] protected UnitBase  targetEnemy;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
     protected BulletAnimation            bulletAnimation;
@@ -63,6 +64,11 @@ public class BulletBase : MonoBehaviour
                 continue;
             }
             effects.Add(effect);
+            
+            if(effecType.Contains ("aoe"))
+            {
+                hadAOEEffectType = true;
+            }
         }
     }
 
@@ -95,7 +101,7 @@ public class BulletBase : MonoBehaviour
 
     protected void UpdateEnemyPos()
     {
-        if(!targetEnemy.gameObject.activeSelf)return;
+        if(targetEnemy.isdead)return;
         enemyPos = targetEnemy.transform.position;
     }
 
@@ -157,7 +163,7 @@ public class BulletBase : MonoBehaviour
 
     protected void PlayAnimationWhenReachEnemyPos()
     {
-        if(targetEnemy != null && targetEnemy.CurrentHp > 0)
+        if(!targetEnemy.isdead || hadAOEEffectType)
         {
             bulletAnimation.PlayDealDamageAnimation();
         }
@@ -179,8 +185,24 @@ public class BulletBase : MonoBehaviour
     protected void ApplyBulletEffect()
     {
         if(effects.Count == 0) return;
-        if(!targetEnemy.gameObject.activeSelf || targetEnemy.CurrentHp == 0) return;
-        targetEnemy.ApplyBulletEffect(effects);
+        if(targetEnemy.gameObject.activeSelf && targetEnemy.CurrentHp > 0)
+        {
+            targetEnemy.ApplyBulletEffect(effects);
+        }
+        else if(hadAOEEffectType)
+        {
+            ApplyBulletExplodeEffect();
+        }
+    }
+
+    private void ApplyBulletExplodeEffect()
+    {
+        foreach(IEffect effect in effects)
+        {
+            EffectBase effectBase = effect as EffectBase;
+            if(!effectBase.type.Contains("aoe")) return;
+            effectBase.ApplyExplodeEffect(enemyPos);
+        }
     }
     
     protected void InvokeOnFinishBulletAnimation()

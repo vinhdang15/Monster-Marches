@@ -113,6 +113,7 @@ public class SpawnEnemyManager : MonoBehaviour
             if(spawnEnemy.GetNumberEnemyInWave(CurrentWaveIndex + 1) != 0)
             {
                 spawnEnemy.btnCautionSlider.gameObject.SetActive(true);
+                spawnEnemy.btnCautionSlider.StartFillCautionImage();
             }
             else
             {
@@ -181,6 +182,11 @@ public class SpawnEnemyManager : MonoBehaviour
     public float GetTimeBetweenEnemy()
     {
         return timeBetweenEnemy;
+    }
+
+    public float GetTimeWaitForNextWave()
+    {
+        return timeWaitForNextWave;
     }
 
     private void GetTotalEnemies()

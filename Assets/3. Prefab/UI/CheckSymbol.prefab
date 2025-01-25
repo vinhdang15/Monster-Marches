@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8785825947050446}
   - component: {fileID: 4527496588113119595}
   - component: {fileID: 1562974250636477073}
+  - component: {fileID: 8911843899632940812}
   m_Layer: 11
   m_Name: CheckSymbol
   m_TagString: Untagged
@@ -66,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 582351fe9b6150143b6547ca81af0b8f, type: 3}
+  m_Sprite: {fileID: -1486799853, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -111,3 +112,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.15}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &8911843899632940812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8511555825784246895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dc29d51e5d92846bf38982679204e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonImage: {fileID: 0}
+  sprites:
+  - {fileID: -1486799853, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}
+  - {fileID: 1652150863, guid: 12e6b0c63b2a1214c94d87960543f32f, type: 3}

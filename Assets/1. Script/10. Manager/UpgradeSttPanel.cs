@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class UpgradeSttPanel : UIElementBase
 {
@@ -43,7 +44,7 @@ public class UpgradeSttPanel : UIElementBase
         }
     }
 
-    public void ShowInPos(Vector2 pos)
+    public override void ShowInPos(Vector2 pos)
     {
         float offsetInXAxis = 6f;
         if(pos.x >= 0)
@@ -58,5 +59,6 @@ public class UpgradeSttPanel : UIElementBase
         float y = pos.y;
         transform.position = new Vector2(x, y);
         gameObject.SetActive(true);
+        transform.DOScale(1, timeDelay);
     }
 }

@@ -6,22 +6,21 @@ using Random = UnityEngine.Random;
 
 public abstract class UnitBase : MonoBehaviour
 {
-    private string   UnitType        { get; set; }
-    public string   UnitName        { get; set; }      
-    private int      MaxHP           { get; set; }
-    public float    MoveSpeed       { get; set; }
-    public float    AttackSpeed     { get; set; }
-    protected int      Damage          { get; set; }
-    public int      Gold            { get; set; }
-    private string   SpecialAbility  { get; set; }
-    public float    CurrentHp       { get; set; }
-    public float    CurrentSpeed    { get; set; }
-    private bool     IsUnderEffect   { get; set; }
-    protected Vector2 CurrentPos    { get; set; }
+    private string      UnitType        { get; set; }
+    public string       UnitName        { get; set; }      
+    private int         MaxHP           { get; set; }
+    public float        MoveSpeed       { get; set; }
+    public float        AttackSpeed     { get; set; }
+    protected int       Damage          { get; set; }
+    public int          Gold            { get; set; }
+    private string      SpecialAbility  { get; set; }
+    public bool         isdead = false;
+    public float        CurrentHp       { get; set; }
+    public float        CurrentSpeed    { get; set; }
+    protected Vector2   CurrentPos      { get; set; }
     [SerializeField] HealthBar healthBar;
     protected float randomDelay;
     protected float timeDelay;
-    protected bool canAttack = true;
     protected AudioSource audioSource;
     [SerializeField] protected SoundEffectSO soundEffectSO;
     public Dictionary<string, IEffect> underEffect = new Dictionary<string, IEffect>();
@@ -60,25 +59,15 @@ public abstract class UnitBase : MonoBehaviour
         SpecialAbility      = _unitData.specialAbility;
     }
     
-    public virtual void InitState()
-    {
-        SetupCurrentHp();
-        SetDefaultSpeed();
-    }
-
-    private void SetupCurrentHp()
-    {
-        CurrentHp = MaxHP;
-    }
+    // public virtual void InitState()
+    // {
+    //     SetupCurrentHp();
+    //     SetDefaultSpeed();
+    // }
 
     private void SetDefaultSpeed()
     {
         CurrentSpeed = MoveSpeed;
-    }
-
-    private void ResetHpBar()
-    {
-        healthBar.Reset();
     }
 
     public void ResetHp()
@@ -87,25 +76,39 @@ public abstract class UnitBase : MonoBehaviour
         ResetHpBar();
     }
 
+    private void SetupCurrentHp()
+    {
+        CurrentHp = MaxHP;
+    }
+
+    private void ResetHpBar()
+    {
+        healthBar.Reset();
+    }
+
     public void ResetCurrentSpeed()
     {
         CurrentSpeed = MoveSpeed;
     }
     #endregion
 
+    #region GET ANIMATION
+    public void GetAnimation()
+    {
+        unitAnimation = GetComponent<UnitAnimation>();
+        unitAnimation.GetAnimation();
+    }
+    #endregion
+
     #region UNIT ACTION STATE
     public virtual void TakeDamage(float damage)
     {
+        if(isdead) return;
         CurrentHp = Mathf.Max(CurrentHp - damage, 0);
         UpdateHealthBar();
     }
 
     public abstract void DealDamage();
-
-    private void UpdateHealthBar()
-    {
-        healthBar.ResizeOnCurrentHp(MaxHP, CurrentHp);
-    }
 
     public void ApplyBulletEffect(List<IEffect> effects)
     {
@@ -120,31 +123,10 @@ public abstract class UnitBase : MonoBehaviour
             StartCoroutine(effect.ApplyEffect(this));
         }
     }
-    #endregion
 
-    #region GET ANIMATION
-    public void GetAnimation()
+    private void UpdateHealthBar()
     {
-        unitAnimation = GetComponent<UnitAnimation>();
-        unitAnimation.GetAnimation();
-    }
-    #endregion
-
-    public virtual void ResetUnit()
-    {
-        ResetHp();
-        ShowHealthBar();
-        SetDefaultSpeed();
-        unitAnimation.ResetColor();
-        underEffect.Clear();
-        canAttack = true;
-    }
-
-    protected IEnumerator ExecuteWithDelay(Action action)
-    {
-        float randomDelay = Random.Range(0f, 0.5f);
-        yield return new WaitForSeconds(randomDelay);
-        action?.Invoke();
+        healthBar.ResizeOnCurrentHp(MaxHP, CurrentHp);
     }
 
     protected void HideHealthBar()
@@ -155,5 +137,15 @@ public abstract class UnitBase : MonoBehaviour
     protected void ShowHealthBar()
     {
         healthBar.gameObject.SetActive(true);
+    }
+    #endregion
+
+    public virtual void ResetUnit()
+    {
+        ResetHp();
+        ShowHealthBar();
+        SetDefaultSpeed();
+        unitAnimation.ResetColor();
+        underEffect.Clear();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EmptyPlotManager : MonoBehaviour
 {
-    [SerializeField] EmptyPlot emptyPlot;
+    [SerializeField] EmptyPlot emptyPlotPrefab;
     public List<EmptyPlot> emptyPlotList = new List<EmptyPlot>();
 
     private void Start()
@@ -26,7 +26,7 @@ public class EmptyPlotManager : MonoBehaviour
         foreach(var emptyPlotData in emptyPlotDataList)
         {
             Vector2 pos = new Vector2(emptyPlotData.x,emptyPlotData.y);
-            EmptyPlot emptyPlotScript = Instantiate(emptyPlot,pos, quaternion.identity, transform);
+            EmptyPlot emptyPlotScript = Instantiate(emptyPlotPrefab,pos, quaternion.identity, transform);
             emptyPlotList.Add(emptyPlotScript);
         }
     }

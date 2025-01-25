@@ -6,7 +6,17 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     [SerializeField] BulletPool bulletPool;
-    public List<BulletBase> activeBullets = new List<BulletBase>();
+    [SerializeField] List<BulletBase> activeBullets = new List<BulletBase>();
+
+    private void Awake()
+    {
+        LoadComponents();
+    }
+
+    private void LoadComponents()
+    {
+        bulletPool = GameObject.Find("BulletPool").GetComponent<BulletPool>();
+    }
 
     private void Update()
     {

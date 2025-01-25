@@ -14,11 +14,11 @@ public class InputController : MonoBehaviour
     private Button currentButton = null;
     public bool isGuardPointSelected = false;
 
-    public event Action<Button> OnButtonClick;
-    public event Action OnButtonDoubleClick;
+    public event Action<Button> OnFirstButtonClick;
+    public event Action         OnButtonDoubleClick;
 
     public event Action<TowerType, EmptyPlot> OnTryToInitTower;
-    public event Action<TowerType> OnTowerInit;
+    public event Action<TowerType> OnInitTower;
     public event Action<TowerPresenter> OnTryToUpgradeTower;
     public event Action OnUpgradeTower;
     public event Action OnSellTower;
@@ -174,12 +174,11 @@ public class InputController : MonoBehaviour
         {
             AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
             OnTryToInitTower?.Invoke(towerType, emptyPlot);
-            OnButtonClick?.Invoke(clickedButton);
+            OnFirstButtonClick?.Invoke(clickedButton);
         }
         else
         {
-            OnTowerInit?.Invoke(towerType);
-            OnButtonDoubleClick?.Invoke();
+            OnInitTower?.Invoke(towerType);
         }
         currentButton = clickedButton;
     }
@@ -211,32 +210,40 @@ public class InputController : MonoBehaviour
         if(currentButton != clickedButton)
         {
             AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-            OnButtonClick?.Invoke(clickedButton);
+            OnFirstButtonClick?.Invoke(clickedButton);
             OnTryToUpgradeTower?.Invoke(selectedTower);
         }
         else
         {
             OnUpgradeTower?.Invoke();
-            OnButtonDoubleClick?.Invoke();
         }
         currentButton = clickedButton;
     }
 
+    private void GetGoldUpgradeSeletedTower()
+    {
+
+    }
     // Button event: Sell Tower
     public void SellTower(Button clickedButton)
     {
         if(currentButton != clickedButton)
         {
             AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-            OnButtonClick?.Invoke(clickedButton);
+            OnFirstButtonClick?.Invoke(clickedButton);
         }
         else
         {
             OnSellTower?.Invoke();
-            OnButtonDoubleClick?.Invoke();
+            ButtonDoubleClickAction();
             return;
         }
         currentButton = clickedButton;
     } 
+
+    public void ButtonDoubleClickAction()
+    {
+        OnButtonDoubleClick?.Invoke();
+    }
     #endregion
 }

@@ -88,6 +88,7 @@ public class UnitPool : MonoBehaviour
         {
             Enemy enemy = enemyPool[EnemyName].Dequeue() as Enemy;
             enemy.GetAnimation();
+            enemy.isdead = false;
             enemy.gameObject.SetActive(true);
             return enemy;
         }
@@ -112,10 +113,11 @@ public class UnitPool : MonoBehaviour
         }
         if(soldierPool[unitName].Count > 0)
         {
-            Soldier unit = soldierPool[unitName].Dequeue();
-            unit.transform.position = initPos;
-            unit.gameObject.SetActive(true);
-            return unit;
+            Soldier soldier = soldierPool[unitName].Dequeue();
+            soldier.transform.position = initPos;
+            soldier.isdead = false;
+            soldier.gameObject.SetActive(true);
+            return soldier;
         }
         else // Init unit if out of unit in pool
         {

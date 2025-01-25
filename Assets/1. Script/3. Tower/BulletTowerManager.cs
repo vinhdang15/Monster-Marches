@@ -5,8 +5,13 @@ using UnityEngine;
 public class BulletTowerManager : TowerBaseManager
 {
     [SerializeField] BulletManager          bulletManager;
-    [SerializeField] List<TowerViewBase>        towerPrefabList = new List<TowerViewBase>();
-    public Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
+    [SerializeField] List<TowerViewBase>    towerPrefabList = new List<TowerViewBase>();
+    private Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
+
+    private void Awake()
+    {
+        bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
+    }
     
     private void OnDisable()
     {
@@ -81,7 +86,6 @@ public class BulletTowerManager : TowerBaseManager
     {
         List<Enemy> towerPresentEnemiesList = bulletTowerInfor[towerPresenter].enemies;
         TowerModel towerModel = towerPresenter.towerModel;
-        // TowerView towerView = towerPresenter.towerView;
         BulletTowerView bulletTowerView = towerPresenter.towerView as BulletTowerView;
 
         while(towerPresentEnemiesList.Count > 0)
@@ -93,10 +97,11 @@ public class BulletTowerManager : TowerBaseManager
             Vector2 spawnPos = bulletTowerView.GetSpawnBulletPos();
             float spawnBulletDirection = bulletTowerView.GetSpawnBulletDirection();
 
-            if(towerPresentEnemiesList.Count > 0 && towerPresentEnemiesList[0].CurrentHp > 0)
+            if(towerPresentEnemiesList.Count > 0 && !towerPresentEnemiesList[0].isdead)
             {
                 bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0]);
             }
+            // bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0]);
             yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate);
         }
     }

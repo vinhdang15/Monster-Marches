@@ -27,7 +27,7 @@ public class CautionManager : MonoBehaviour
             btnCautionSlider.gameObject.SetActive(false);
             spawnEnemy.btnCautionSlider = btnCautionSlider;
 
-            // adsigne click event for btnCautionSlider
+            // assign click event for btnCautionSlider
             btnCautionSlider.GetSpawnEnemyManager(spawnEnemyManager);
             RegisterBtnCautionSliderEvent(btnCautionSlider);
             btnCautionSliders.Add(btnCautionSlider);
@@ -44,15 +44,15 @@ public class CautionManager : MonoBehaviour
         btnCautionSlider.OnCautionClick -= HandleHideAllCautionSlider;
     }
 
-    private void ShowCautionSlider(BtnCautionSlider btnCautionSlider)
-    {
-        btnCautionSlider.gameObject.SetActive(true);
-    }
+    // private void ShowCautionSlider(BtnCautionSlider btnCautionSlider)
+    // {
+    //     btnCautionSlider.gameObject.SetActive(true);
+    // }
 
-    private void HideCautionSlider(BtnCautionSlider btnCautionSlider)
-    {
-        btnCautionSlider.gameObject.SetActive(false);
-    }
+    // private void HideCautionSlider(BtnCautionSlider btnCautionSlider)
+    // {
+    //     btnCautionSlider.gameObject.SetActive(false);
+    // }
 
     private void HandleHideAllCautionSlider()
     {
