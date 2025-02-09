@@ -9,6 +9,11 @@ public class CautionManager : MonoBehaviour
     [SerializeField] Transform cautionParent;
     private List<BtnCautionSlider> btnCautionSliders = new List<BtnCautionSlider>();
 
+    private void Awake()
+    {
+        LoadComponents();
+    }
+
     private void OnDisable()
     {
         foreach(var btnCautionSlider in btnCautionSliders)
@@ -17,18 +22,23 @@ public class CautionManager : MonoBehaviour
         }
     }
 
+    private void LoadComponents()
+    {
+        cautionParent = GameObject.Find(InitNameObject.CanvasWorldSpace.ToString()).transform;
+    }
+
     public void InitCaution(SpawnEnemyManager spawnEnemyManager)
     {
         foreach(var spawnEnemy in spawnEnemyManager.SpawnEnemies)
         {
-            // init and set po btnCautionSlider
+            // init and set pos btnCautionSlider
             Vector2 pos = spawnEnemy.GetCautionPos();
-            BtnCautionSlider btnCautionSlider = Instantiate(cautionSlider, pos, Quaternion.identity,cautionParent);
+            BtnCautionSlider btnCautionSlider = Instantiate(cautionSlider, pos, Quaternion.identity, cautionParent);
             btnCautionSlider.gameObject.SetActive(false);
             spawnEnemy.btnCautionSlider = btnCautionSlider;
 
             // assign click event for btnCautionSlider
-            btnCautionSlider.GetSpawnEnemyManager(spawnEnemyManager);
+            btnCautionSlider.SetSpawnEnemyManager(spawnEnemyManager);
             RegisterBtnCautionSliderEvent(btnCautionSlider);
             btnCautionSliders.Add(btnCautionSlider);
         }
@@ -43,16 +53,6 @@ public class CautionManager : MonoBehaviour
     {
         btnCautionSlider.OnCautionClick -= HandleHideAllCautionSlider;
     }
-
-    // private void ShowCautionSlider(BtnCautionSlider btnCautionSlider)
-    // {
-    //     btnCautionSlider.gameObject.SetActive(true);
-    // }
-
-    // private void HideCautionSlider(BtnCautionSlider btnCautionSlider)
-    // {
-    //     btnCautionSlider.gameObject.SetActive(false);
-    // }
 
     private void HandleHideAllCautionSlider()
     {

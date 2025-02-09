@@ -10,17 +10,17 @@ public class BulletTowerManager : TowerBaseManager
 
     private void Awake()
     {
-        bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
+        bulletManager = GameObject.Find(InitNameObject.BulletManager.ToString()).GetComponent<BulletManager>();
     }
     
     private void OnDisable()
     {
         foreach(var towerPresenter in bulletTowerInfor.Keys)
         {
-            UrRegisterTowerEvent(towerPresenter);
+            UnRegisterTowerEvent(towerPresenter);
         }
     }
-    
+
     public void InitTower(Vector3 pos, TowerType towerType, EmptyPlot emptyPlot)
     {
         TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(towerType.ToString().Trim().ToLower(), 1);
@@ -35,14 +35,14 @@ public class BulletTowerManager : TowerBaseManager
 
     private void RegisterTowerEvent(TowerPresenter towerPresenter)
     {
-        towerPresenter.towerView.OnEnemyEnter   += (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
-        towerPresenter.towerView.OnEnemyExit    += (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
+        towerPresenter.towerViewBase.OnEnemyEnter   += (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
+        towerPresenter.towerViewBase.OnEnemyExit    += (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
     }
 
-    private void UrRegisterTowerEvent(TowerPresenter towerPresenter)
+    private void UnRegisterTowerEvent(TowerPresenter towerPresenter)
     {
-        towerPresenter.towerView.OnEnemyEnter   -= (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
-        towerPresenter.towerView.OnEnemyExit    -= (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
+        towerPresenter.towerViewBase.OnEnemyEnter   -= (enmey, view) => HanldeEnemyEnter(enmey, towerPresenter);
+        towerPresenter.towerViewBase.OnEnemyExit    -= (enmey, view) => HanldeEnemyExit(enmey, towerPresenter);
     }
 
     public void InitArcherTower(Vector3 pos, EmptyPlot emptyPlot)
@@ -86,7 +86,7 @@ public class BulletTowerManager : TowerBaseManager
     {
         List<Enemy> towerPresentEnemiesList = bulletTowerInfor[towerPresenter].enemies;
         TowerModel towerModel = towerPresenter.towerModel;
-        BulletTowerView bulletTowerView = towerPresenter.towerView as BulletTowerView;
+        BulletTowerView bulletTowerView = towerPresenter.towerViewBase as BulletTowerView;
 
         while(towerPresentEnemiesList.Count > 0)
         {
@@ -99,7 +99,7 @@ public class BulletTowerManager : TowerBaseManager
 
             if(towerPresentEnemiesList.Count > 0 && !towerPresentEnemiesList[0].isdead)
             {
-                bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0]);
+                bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0], towerPresenter);
             }
             // bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0]);
             yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate);

@@ -15,7 +15,7 @@ public class GamePlayManager : MonoBehaviour
     [HideInInspector] public int towerUpgradeGold;
     [HideInInspector] public int towerSellGold;
     [SerializeField] EnemyManager               enemyManager;
-    [SerializeField] InputController            inputController;
+    [SerializeField] InputControllerxxx            inputController;
     [SerializeField] BulletTowerManager         bulletTowerManager;
     [SerializeField] BarrackTowerManager        barrackTowerManager;
     public SpawnEnemyManager spawnEnemyManager;
@@ -54,11 +54,11 @@ public class GamePlayManager : MonoBehaviour
 
     private void LoadComponents()
     {
-        enemyManager        = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
-        inputController     = GameObject.Find("InputController").GetComponent<InputController>();
-        spawnEnemyManager   = GameObject.Find("SpawnEnemyManager").GetComponent<SpawnEnemyManager>();
-        bulletTowerManager  = GameObject.Find("BulletTowerManager").GetComponent<BulletTowerManager>();
-        barrackTowerManager = GameObject.Find("BarrackTowerManager").GetComponent<BarrackTowerManager>();
+        enemyManager        = FindObjectOfType<EnemyManager>();
+        inputController     = FindObjectOfType<InputControllerxxx>();
+        spawnEnemyManager   = FindObjectOfType<SpawnEnemyManager>();
+        bulletTowerManager  = FindObjectOfType<BulletTowerManager>();
+        barrackTowerManager = FindObjectOfType<BarrackTowerManager>();
     }
 
     private void GetInitGold()
@@ -183,6 +183,7 @@ public class GamePlayManager : MonoBehaviour
     // Init tower
     private void HandleInitTower(TowerType  towerType)
     {
+        Debug.Log("checkkkkk");
         switch(towerType)
         {
             case TowerType.ArcherTower:
@@ -224,7 +225,7 @@ public class GamePlayManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         bulletTowerManager.UpdateRangeDetectionUpgrade(selectedBuilding);
-        selectedBuilding.towerView.ShowRangeDetectionUpgrade(true);
+        selectedBuilding.towerViewBase.ShowRangeDetectionUpgrade(true);
     }
 
     private void HandleUpgradeSelectedTower()
@@ -270,7 +271,7 @@ public class GamePlayManager : MonoBehaviour
         HideCurrentTowerRangeDetect();
         selectedBuilding = selectedTowerPresenter;
         OnSelectedTowerForUI?.Invoke();
-        selectedBuilding.towerView.ShowRangeDetection(true);;
+        selectedBuilding.towerViewBase.ShowRangeDetection(true);;
     }
     private void HandleOnSelectedBarrackTower(TowerPresenter selectedTowerPresenter)
     {  
@@ -285,7 +286,7 @@ public class GamePlayManager : MonoBehaviour
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         if(selectedBuilding != null)
         {
-            selectedBuilding.towerView.ShowRangeDetection(true);
+            selectedBuilding.towerViewBase.ShowRangeDetection(true);
         }
     }
 
@@ -293,7 +294,7 @@ public class GamePlayManager : MonoBehaviour
     private void HandleOnSelectedNewGuardPoint(Vector2 newGuardPointPos)
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-        selectedBuilding.towerView.ShowRangeDetection(false);
+        selectedBuilding.towerViewBase.ShowRangeDetection(false);
         barrackTowerManager.SetNewGuardPointPos(selectedBuilding, newGuardPointPos);
     }
 
@@ -301,8 +302,8 @@ public class GamePlayManager : MonoBehaviour
     private void HandleRaycatHitNull()
     {
         if(selectedBuilding == null) return;
-        selectedBuilding.towerView.ShowRangeDetection(false);
-        selectedBuilding.towerView.ShowRangeDetectionUpgrade(false);
+        selectedBuilding.towerViewBase.ShowRangeDetection(false);
+        selectedBuilding.towerViewBase.ShowRangeDetectionUpgrade(false);
         selectedBuilding = null;
     }
     
@@ -320,8 +321,8 @@ public class GamePlayManager : MonoBehaviour
     {
         if(selectedBuilding != null)
         {
-            selectedBuilding.towerView.ShowRangeDetection(false);
-            selectedBuilding.towerView.ShowRangeDetectionUpgrade(false);
+            selectedBuilding.towerViewBase.ShowRangeDetection(false);
+            selectedBuilding.towerViewBase.ShowRangeDetectionUpgrade(false);
         }
     }
 }

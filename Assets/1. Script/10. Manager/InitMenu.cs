@@ -23,7 +23,7 @@ public class InitMenu : UIElementBase
     {
         towerInitGold = CSVTowerDataReader.Instance.towerDataList.TowerInitGoldList;
         UpdateTowerInitGoldText();
-        base.Hide();
+        // base.Hide();
     }
 
     private void LoadComponent()

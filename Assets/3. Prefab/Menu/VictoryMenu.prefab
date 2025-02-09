@@ -64,7 +64,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a6c61eb0863564cb89bf860b1f985d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeDelay: 1
+  timeDelay: 0.25
+  canvasGroup: {fileID: 0}
+  rectTransform: {fileID: 0}
 --- !u!1 &3356935252519812364
 GameObject:
   m_ObjectHideFlags: 0

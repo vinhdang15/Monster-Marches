@@ -40,13 +40,13 @@ public class TowerBaseManager : MonoBehaviour
     private void UpdateRangeDetection(TowerPresenter buildingPresenter)
     {
         float rangeDetect = buildingPresenter.towerModel.RangeDetect;
-        buildingPresenter.towerView.SetRangeDetect(rangeDetect);
+        buildingPresenter.towerViewBase.SetRangeDetect(rangeDetect);
     }
 
     public void UpdateRangeDetectionUpgrade(TowerPresenter buildingPresenter)
     {
         float rangeDetectUpgrade = buildingPresenter.RangeDetectUpgrade;
-        buildingPresenter.towerView.SetRangeDetectUpgrade(rangeDetectUpgrade);
+        buildingPresenter.towerViewBase.SetRangeDetectUpgrade(rangeDetectUpgrade);
     }
     #endregion
 }

@@ -19,20 +19,20 @@ public class UnitPool : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(InitializePoolsCoroutine());
+        InitializePoolsCoroutine();
     }
 
     private void UnitType()
     {
-        foreach(var unitpoolInfor in unitPoolInfors)
+        foreach(var unitPoolInfor in unitPoolInfors)
         {
-            unitpoolInfor.unitType = CSVUnitDataReader.Instance.unitDataList.GetUnitType(unitpoolInfor.UnitName);
+            unitPoolInfor.unitType = CSVUnitDataReader.Instance.unitDataList.GetUnitType(unitPoolInfor.UnitName);
         }
     }
 
-    private IEnumerator InitializePoolsCoroutine()
+    private void InitializePoolsCoroutine()
     {
-        yield return new WaitUntil(() => CSVUnitDataReader.Instance.IsDataLoaded);
+        // yield return new WaitUntil(() => CSVUnitDataReader.Instance.IsDataLoaded);
         UnitType();
         InitializeEnemyPools();
         InitializeSoldierPools();

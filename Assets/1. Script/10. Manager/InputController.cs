@@ -1,249 +1,53 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.U2D.IK;
 using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
 {
-    private EmptyPlot emptyPlot;
-    private TowerPresenter selectedTower;
+    // chịu trách nhiệm xử lý các dữ kiện đầu vào của người dùng
+    [SerializeField] private Button archerTowerBtn;
+    [SerializeField] private Button mageTowerBtn;
+    [SerializeField] private Button barrackTowerBtn;
+    [SerializeField] private Button cannonTowerBtn;
+    [SerializeField] private Button guardPointBtn;
+    [SerializeField] private Button upgradeBtn;
+    [SerializeField] private Button sellBtn;
 
-    private Button currentButton = null;
-    public bool isGuardPointSelected = false;
+    public event Action<Button> OnArcherTowerInit;
+    public event Action<Button> OnMageTowerInit;
+    public event Action<Button> OnBarrackTowerInit;
+    public event Action<Button> OnCannonTowerInit;
+    public event Action<Button> OnGuardPointBtn;
+    public event Action<Button> OnUpgradeTower;
+    public event Action<Button> OnSellTower;
 
-    public event Action<Button> OnFirstButtonClick;
-    public event Action         OnButtonDoubleClick;
-
-    public event Action<TowerType, EmptyPlot> OnTryToInitTower;
-    public event Action<TowerType> OnInitTower;
-    public event Action<TowerPresenter> OnTryToUpgradeTower;
-    public event Action OnUpgradeTower;
-    public event Action OnSellTower;
-    
-    public event  Action OnRaycastHitNull;
-    public event Action<EmptyPlot>OnSelectedEmptyPlot;
-    public event Action<TowerPresenter> OnSelectedBulletTower;
-    public event Action<TowerPresenter> OnSelectedBarrackTower;
-    public event Action OnSelectedGuardPointBtnClick;
-    public event Action<Vector2> OnSelectedNewGuardPointPos;
-
-    // RaycastHit2D
-    private Vector2 mousePos;
-    private Vector2 worldPos;
-    private RaycastHit2D hit;
-    private TowerPresenter  currentTowerClick;
-    private EmptyPlot       currentEptyPlot;
-
-    [Header("Audio")]
-    private AudioSource audioSource;
-    [SerializeField] SoundEffectSO soundEffectSO;
-
-    private void Awake()
+    private void GetButton()
     {
-        audioSource = GetComponent<AudioSource>();
+        archerTowerBtn      = GameObject.Find("InitArcherTowerBtn").GetComponent<Button>();
+        mageTowerBtn        = GameObject.Find("InitMageTowerBtn").GetComponent<Button>();
+        barrackTowerBtn     = GameObject.Find("InitBarrackTowerBtn").GetComponent<Button>();
+        cannonTowerBtn      = GameObject.Find("InitCannonTowerBtn").GetComponent<Button>();
+        guardPointBtn       = GameObject.Find("GuardPointBtn").GetComponent<Button>();
+        upgradeBtn          = GameObject.Find("UpgradeTowerBtn").GetComponent<Button>();
+        sellBtn             = GameObject.Find("SellTowerBtn").GetComponent<Button>();
     }
 
-    private void Update()
+    private void AddButtonListener()
     {
-        GetRaycastHit();
+        archerTowerBtn.onClick.AddListener(() => OnArcherTowerInit?.Invoke(archerTowerBtn));
+        mageTowerBtn.onClick.AddListener(() => OnMageTowerInit?.Invoke(mageTowerBtn));
+        barrackTowerBtn.onClick.AddListener(() => OnBarrackTowerInit?.Invoke(barrackTowerBtn));
+        cannonTowerBtn.onClick.AddListener(() => OnCannonTowerInit?.Invoke(cannonTowerBtn));
+        guardPointBtn.onClick.AddListener(() => OnGuardPointBtn?.Invoke(guardPointBtn));
+        upgradeBtn.onClick.AddListener(() => OnUpgradeTower?.Invoke(upgradeBtn));
+        sellBtn.onClick.AddListener(() => OnSellTower?.Invoke(sellBtn));
     }
 
-    // Get VoeldPos
-    public void GetWorldPos()
+    public void InputCOntrollerPrepareGame()
     {
-        mousePos = Input.GetMouseButtonUp(0) ? Input.mousePosition : Input.GetTouch(0).position;
-        worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        GetButton();
+        AddButtonListener();
     }
-
-    // Detect raycast hit null to hide Panel
-    private void GetRaycastHit()
-    {
-        if(Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
-        {
-            if(!isGuardPointSelected)
-            {
-                IgnoreBarrackRangeDetect();
-            }
-            else
-            {
-                TakeBarrackRangeDetect();
-            }
-        }
-    }
-    
-    private void IgnoreBarrackRangeDetect()
-    {
-        GetWorldPos();
-
-        int layerMask = LayerMask.GetMask("TowerRaycast", "Button", "EmptyPlot", "BarrackRaycast");
-        hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, layerMask);
-        if(hit.collider == null)
-        {
-            currentButton = null;
-            OnRaycastHitNull?.Invoke();
-        }
-        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("EmptyPlot"))
-        {
-            emptyPlot = hit.collider.gameObject.GetComponent<EmptyPlot>();
-            CheckCurrentEmptyPlot(emptyPlot);
-
-            OnSelectedEmptyPlot?.Invoke(emptyPlot);
-        }
-        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("TowerRaycast"))
-        {
-            selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
-            CheckcurrentTowerClick(selectedTower);
-
-            OnSelectedBulletTower?.Invoke(selectedTower);
-        }
-        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("BarrackRaycast"))
-        {
-            selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
-            CheckcurrentTowerClick(selectedTower);
-
-            OnSelectedBarrackTower?.Invoke(selectedTower);
-        }
-    }
-
-    private void TakeBarrackRangeDetect()
-    {
-        GetWorldPos();
-        
-        int layerMask = LayerMask.GetMask("Button", "BarrackRangeDetect");
-        hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, layerMask);
-
-        if(hit.collider == null)
-        {
-            OnRaycastHitNull?.Invoke();
-            ResetIsGuardPointSelected();
-        }
-        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Button"))
-        {
-            // execute order: button event => Update.
-            // To hit raycast button first then hit BarrackRangeDetect
-            // then show BarrackRangeDetect after process button event
-            // inform OnSelectedGuardPointBtnClic to GamePlayManager in here
-            OnSelectedGuardPointBtnClick?.Invoke();
-        }
-        else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("BarrackRangeDetect"))
-        {
-            ResetIsGuardPointSelected();
-            OnSelectedNewGuardPointPos?.Invoke(worldPos);
-        }
-    }
-
-    private void CheckCurrentEmptyPlot(EmptyPlot emptyPlot)
-    {
-         if(currentEptyPlot != emptyPlot)
-        {
-            currentButton = null;
-        }
-        currentEptyPlot = emptyPlot;
-    }
-
-    private void CheckcurrentTowerClick(TowerPresenter selectedTower)
-    {
-        if(currentTowerClick != selectedTower)
-        {
-            currentButton = null;
-        }
-        currentTowerClick = selectedTower;
-    }
-    
-    #region GUARD POINT
-    // Button event
-    // GuardPoint selected
-    public void GuardPointBtn()
-    {
-        isGuardPointSelected = true;
-    }
-
-    private void ResetIsGuardPointSelected()
-    {
-        isGuardPointSelected = false;
-    }
-    #endregion
-
-    #region INIT && UPGRADE TOWER BUTTON
-    private void HandleInitBtnClick(Button clickedButton, TowerType towerType)
-    {
-        if(currentButton != clickedButton)
-        {
-            AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-            OnTryToInitTower?.Invoke(towerType, emptyPlot);
-            OnFirstButtonClick?.Invoke(clickedButton);
-        }
-        else
-        {
-            OnInitTower?.Invoke(towerType);
-        }
-        currentButton = clickedButton;
-    }
-
-    // Button event: Init tower
-    public void InitArcherTowerBtn(Button clickedButton)
-    {
-        HandleInitBtnClick(clickedButton, TowerType.ArcherTower);
-    }
-
-    public void InitMageTowerBtn(Button clickedButton)
-    {
-        HandleInitBtnClick(clickedButton, TowerType.MageTower);
-    }
-
-    public void InitBarrackTowerBtn(Button clickedButton)
-    {
-        HandleInitBtnClick(clickedButton, TowerType.Barrack);
-    }
-
-    public void InitCannonTowerBtn(Button clickedButton)
-    {
-        HandleInitBtnClick(clickedButton, TowerType.CannonTower);
-    }
-
-    // Button event: Upgrade Tower
-    public void UpgradeTower(Button clickedButton)
-    {
-        if(currentButton != clickedButton)
-        {
-            AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-            OnFirstButtonClick?.Invoke(clickedButton);
-            OnTryToUpgradeTower?.Invoke(selectedTower);
-        }
-        else
-        {
-            OnUpgradeTower?.Invoke();
-        }
-        currentButton = clickedButton;
-    }
-
-    private void GetGoldUpgradeSeletedTower()
-    {
-
-    }
-    // Button event: Sell Tower
-    public void SellTower(Button clickedButton)
-    {
-        if(currentButton != clickedButton)
-        {
-            AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-            OnFirstButtonClick?.Invoke(clickedButton);
-        }
-        else
-        {
-            OnSellTower?.Invoke();
-            ButtonDoubleClickAction();
-            return;
-        }
-        currentButton = clickedButton;
-    } 
-
-    public void ButtonDoubleClickAction()
-    {
-        OnButtonDoubleClick?.Invoke();
-    }
-    #endregion
 }

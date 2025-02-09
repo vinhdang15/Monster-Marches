@@ -6,7 +6,9 @@ public class BarrackTowerManager : TowerBaseManager
 {
     [SerializeField] SoldierManager                     soldierManager;
     [SerializeField] TowerViewBase                      barrackPerfab;
+    [SerializeField] SpawnGuardPointPath                spawnGuardPointPath;
     [SerializeField] BarrackSpawnGuardPointConfigSO     barrackSpawnGuardPointConfigSO;
+    
     public Dictionary<TowerPresenter, BarackTowerInfor> barackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
     private void Awake()
@@ -17,6 +19,8 @@ public class BarrackTowerManager : TowerBaseManager
     private void LoadComponents()
     {
         soldierManager = GameObject.Find("SoldierManager").GetComponent<SoldierManager>();
+        spawnGuardPointPath = GameObject.Find("SpawnGuardPointPath").GetComponent<SpawnGuardPointPath>();
+        barrackSpawnGuardPointConfigSO = spawnGuardPointPath.barrackSpawnGuardPointConfigSO;
     }
     
     public  void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot)
@@ -53,15 +57,15 @@ public class BarrackTowerManager : TowerBaseManager
     private IEnumerator SpawnBarrackSoldierCoroutine(TowerPresenter barrackPresenter)
     {
         string soldierName = barrackPresenter.towerModel.SpawnObject;
-        BarrackTowerView barrackTowerView = barrackPresenter.towerView as BarrackTowerView;
+        BarrackTowerView barrackTowerView = barrackPresenter.towerViewBase as BarrackTowerView;
         Vector2 initPos = barrackTowerView.GetSpawnSoldierPos();
 
         GuardPoint barackGuardPoint = barackTowerInfor[barrackPresenter].barackGuardPoint;
 
-        Vector2 barrackGatePos = (barrackPresenter.towerView as BarrackTowerView).GetSpawnSoldierPos();
+        Vector2 barrackGatePos = (barrackPresenter.towerViewBase as BarrackTowerView).GetSpawnSoldierPos();
         float soldierRevivalSpeed = barrackPresenter.towerModel.SpawnRate;
         barrackTowerView.OpenGateAnimation();
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
         soldierManager.BarrackSpawnSoldier(barrackTowerView, soldierName, initPos, barackGuardPoint, barrackGatePos, soldierRevivalSpeed);
     }
     #endregion

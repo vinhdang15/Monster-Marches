@@ -10,7 +10,12 @@ public class EnemyManager : MonoBehaviour
     public int totalEnemiesDie = 0;
     public event Action<UnitBase> OnEnemyDeath;
     public event Action OnEnemyReachEndPoint;
-    
+
+    private void Awake()
+    {
+        unitPool = GameObject.Find(InitNameObject.UnitPool.ToString()).GetComponent<UnitPool>();
+    }
+
     private void Start()
     {
         // foreach(var enemy in ActiveEnemies)
@@ -45,7 +50,7 @@ public class EnemyManager : MonoBehaviour
     private void HandleEnemyDeath(Enemy enemy)
     {
         ActiveEnemies.Remove(enemy);
-        // notifi for GamePlayManaer
+        // notify for GamePlayManaer
         totalEnemiesDie++;
         OnEnemyDeath?.Invoke(enemy);
         //Play die animation

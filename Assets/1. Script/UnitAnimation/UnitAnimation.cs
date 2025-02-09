@@ -30,10 +30,10 @@ public class UnitAnimation : MonoBehaviour
         animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
-    public void SpriteSortingOrder()
-    {
-        spriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
-    }
+    // public void SpriteSortingOrder()
+    // {
+    //     spriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
+    // }
 
     public void UnitPlayWalk()
     {

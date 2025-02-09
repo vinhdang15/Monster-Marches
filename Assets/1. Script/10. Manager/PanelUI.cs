@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 public class PanelUI : MonoBehaviour
 {
-    [SerializeField] float timeDelay = 1f;
+    [SerializeField] float timeDelay = 0.25f;
     [SerializeField]CanvasGroup canvasGroup;
     [SerializeField]RectTransform rectTransform;
 
@@ -30,7 +27,7 @@ public class PanelUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         rectTransform.anchoredPosition = new Vector2(0f, 1000f);
-        rectTransform.DOAnchorPos(new Vector2(0f, 0f), timeDelay, false).SetEase(Ease.OutBack,0.5f).SetUpdate(true);
+        rectTransform.DOAnchorPos(new Vector2(0f, 50f), timeDelay, false).SetEase(Ease.OutBack,0.5f).SetUpdate(true);
     }
 
     public void Hide()

@@ -7,7 +7,7 @@ using Debug = UnityEngine.Debug;
 public class TowerPresenter : MonoBehaviour
 {
     public TowerModel        towerModel;
-    public TowerViewBase     towerView;
+    public TowerViewBase     towerViewBase;
     public EmptyPlot         emptyPlot;
     public int               CurentTowerDamage { set ; get ; }
     public string            DescriptionUpgrade { set ; get ; }
@@ -27,7 +27,7 @@ public class TowerPresenter : MonoBehaviour
     public void TowerPresenterInit(TowerModel towerModel, TowerViewBase towerView)
     {
         this.towerModel = towerModel;
-        this.towerView  = towerView;
+        this.towerViewBase  = towerView;
         InitTowerRange();
         AddGoldInitRefund();
         SetTowerPresenterData();
@@ -35,8 +35,8 @@ public class TowerPresenter : MonoBehaviour
 
     public void InitTowerRange()
     {
-        towerView.SetRangeRaycat(towerModel.RangeRaycast);
-        towerView.SetRangeDetect(towerModel.RangeDetect);
+        towerViewBase.SetRangeRaycat(towerModel.RangeRaycast);
+        towerViewBase.SetRangeDetect(towerModel.RangeDetect);
     }
 
     public void SetTowerPresenterData()

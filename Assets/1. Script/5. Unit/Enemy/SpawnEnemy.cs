@@ -7,8 +7,8 @@ using Random = UnityEngine.Random;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    private UnitPool                        unitPool;
     [SerializeField] private EnemyManager   enemyManager;
+    private UnitPool                        unitPool;
     [Header("Pathway to Spawn Enemy")]
     [SerializeField] private PathConfigSO   pathConfigSO;
     [Header("Enemy-Wave information")]
@@ -20,19 +20,27 @@ public class SpawnEnemy : MonoBehaviour
 
     public event Action                     OnFinishCurrentWave;
     
-    private void Awake()
-    {
-        GetUnitPool();
-    }
+    // private void Awake()
+    // {
+    //     LoadComponents();
+    // }
 
-    private void Start()
+    // private void Start()
+    // {
+    //     GetTimeBetweenEnemy();
+    //     CheckShowFristWaveCaution();
+    // }
+
+    // private void OnEnable()
+    // {
+    //     RegisterStartNextWaveEvent();
+    // }
+
+    public void PrepareGame()
     {
+        LoadComponents();
         GetTimeBetweenEnemy();
         CheckShowFristWaveCaution();
-    }
-
-    private void OnEnable()
-    {
         RegisterStartNextWaveEvent();
     }
 
@@ -41,8 +49,10 @@ public class SpawnEnemy : MonoBehaviour
         UnregisterStartNextWaveEvent();
     }
 
-    private void GetUnitPool()
+    public void LoadComponents()
     {
+        enemyManager = GameObject.Find(InitNameObject.EnemyManager.ToString()).GetComponent<EnemyManager>();
+        spawnEnemyManager = GameObject.Find(InitNameObject.SpawnEnemyManager.ToString()).GetComponent<SpawnEnemyManager>();
         unitPool = enemyManager.unitPool;
     }
 
@@ -84,6 +94,7 @@ public class SpawnEnemy : MonoBehaviour
     {
         if(GetNumberEnemyInWave(0) != 0)
         {
+            btnCautionSlider.isfirstWave = true;
             btnCautionSlider.gameObject.SetActive(true);
         }
         else btnCautionSlider.gameObject.SetActive(false);
@@ -106,7 +117,7 @@ public class SpawnEnemy : MonoBehaviour
 
     public void RegisterStartNextWaveEvent()
     {
-        spawnEnemyManager = GetComponentInParent<SpawnEnemyManager>();
+        // spawnEnemyManager = GetComponentInParent<SpawnEnemyManager>();
         spawnEnemyManager.OnCallNextWave += StartNextWave;
     }
 

@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1826983413
-  m_SortingLayer: 3
+  m_SortingLayerID: 1589449537
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 12225455, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -265,13 +265,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c768eb2714f59f543b82b7838a9ac9ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isdead: 0
   healthBar: {fileID: 7428338480812606183}
   soundEffectSO: {fileID: 11400000, guid: 58f3b842f8497a046a2a1acaa17e7bc7, type: 2}
   unitAnimation: {fileID: 0}
   pathFinder: {fileID: 0}
   fontPoint: {fileID: 6829943804757150613}
   targetSoldier: {fileID: 0}
-  islockByEnemy: 0
 --- !u!82 &-6422966278590794426
 AudioSource:
   m_ObjectHideFlags: 0
@@ -434,19 +434,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1035436108223988046, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1035436108223988046, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1035436108223988046, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_SortingLayerID
-      value: -1826983413
+      value: 1589449537
       objectReference: {fileID: 0}
     - target: {fileID: 2485820940382481191, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485820940382481191, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2485820940382481191, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_SortingLayerID
-      value: -1826983413
+      value: 1589449537
       objectReference: {fileID: 0}
     - target: {fileID: 7953788290702452431, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_LocalScale.x

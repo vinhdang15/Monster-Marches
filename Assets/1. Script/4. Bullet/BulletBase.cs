@@ -16,10 +16,13 @@ public class BulletBase : MonoBehaviour
     public Vector2 startPos;
     public List<IEffect> effects = new List<IEffect>();
     [SerializeField] protected UnitBase  targetEnemy;
+    private bool isEnemyExitTowerView = false;
     protected Vector2                    enemyPos;
     [HideInInspector] public Vector2     bulletLastPos;
     protected BulletAnimation            bulletAnimation;
     public event Action<BulletBase>      OnFinishBulletAnimation;
+
+    public TowerPresenter towerPresenter;
 
     [SerializeField] SoundEffectSO soundEffectSO;
     
@@ -81,6 +84,20 @@ public class BulletBase : MonoBehaviour
     {
         targetEnemy = _enemy;
     }
+
+     public void InitBulletParent(TowerPresenter _towerPresenter)
+    {
+        towerPresenter = _towerPresenter;
+        towerPresenter.towerViewBase.OnEnemyExit += HandleEnemyExit;
+    }
+
+    private void HandleEnemyExit(Enemy enemy, TowerViewBase towerViewBase)
+    {
+        if(targetEnemy == enemy)
+        {
+            isEnemyExitTowerView = true;
+        }
+    }
     #endregion
 
     #region BULLET MOVING AND ROTATION
@@ -101,7 +118,7 @@ public class BulletBase : MonoBehaviour
 
     protected void UpdateEnemyPos()
     {
-        if(targetEnemy.isdead)return;
+        if(targetEnemy.isdead || isEnemyExitTowerView == true)return;
         enemyPos = targetEnemy.transform.position;
     }
 
@@ -215,6 +232,7 @@ public class BulletBase : MonoBehaviour
     {
         isReachEnemyPos = false;
         isSetUpStartPos = false;
+        isEnemyExitTowerView = false;
         targetEnemy = null;
     }
     #endregion

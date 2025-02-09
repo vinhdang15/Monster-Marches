@@ -27,9 +27,10 @@ public class BulletManager : MonoBehaviour
         }
     }
 
-    public void SpawnBullet(string bulletType, Vector2 initPos, float spawnBulletDirection, UnitBase _enemy)
+    public void SpawnBullet(string bulletType, Vector2 initPos, float spawnBulletDirection, UnitBase _enemy, TowerPresenter towerPresenter)
     {
         BulletBase bullet = bulletPool.GetBullet(bulletType, initPos);
+        bullet.InitBulletParent(towerPresenter);
         bullet.InitBulletTarget(_enemy);
         bullet.SetBulletInitAngle(spawnBulletDirection);
         bullet.OnFinishBulletAnimation += HandleFinishBulletAnimation;

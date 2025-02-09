@@ -7,6 +7,10 @@ public class FPSCounter : MonoBehaviour
     public TextMeshProUGUI fpsText; // Tham chiếu đến Text UI
     private float deltaTime = 0.0f;
 
+    private void Awake()
+    {
+        fpsText = GameObject.Find("FPS_Text").GetComponent<TextMeshProUGUI>();
+    }
     private void Start()
     {
         Application.targetFrameRate = 60;

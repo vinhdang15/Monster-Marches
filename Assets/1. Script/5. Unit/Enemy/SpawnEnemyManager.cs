@@ -6,11 +6,11 @@ using UnityEngine;
 public class SpawnEnemyManager : MonoBehaviour
 {
     // pathway infor
-    public List<SpawnEnemy> SpawnEnemies { get; set; }
+    public List<SpawnEnemy> SpawnEnemies;
     private int NumberPathWay => SpawnEnemies.Count;
 
     // Wave infor
-    public int TotalWave => SpawnEnemies[0].GetTotalWave();
+    public int TotalWave = 0;
     private int CurrentWaveIndex { get; set; } = 0;
     public int CurrentWave => CurrentWaveIndex + 1;
     public int totalEnemies = 0;
@@ -34,14 +34,24 @@ public class SpawnEnemyManager : MonoBehaviour
     // trigger to call the first wave when BtnCautionSlider click
     private bool isBeginFristWave = false;
 
-    private void Awake()
+    // private void Awake()
+    // {
+    //     LoadComponents();
+    // }
+    // private void Start()
+    // {
+    //     InitCaution();
+    //     RegisterFinishCurrentWaveEvent();
+    //     GetTotalEnemies();
+    // }
+
+    public void PrepareGame()
     {
-        GetSpawnEnemies();
+        LoadComponents();
+        FindAllSpawnEnemy();
         InitCaution();
-    }
-    private void Start()
-    {
         RegisterFinishCurrentWaveEvent();
+        GetTotalWave();
         GetTotalEnemies();
     }
 
@@ -50,11 +60,16 @@ public class SpawnEnemyManager : MonoBehaviour
         UnregisterFinishCurrentWaveEvent();
     }
 
-    #region SPAWN ENEMY
-    private void GetSpawnEnemies()
+    private void LoadComponents()
     {
-        SpawnEnemy[] children =  GetComponentsInChildren<SpawnEnemy>();
-        SpawnEnemies = new List<SpawnEnemy>(children);
+        cautionManager = GameObject.Find(InitNameObject.CautionManager.ToString()).GetComponent<CautionManager>();
+    }
+
+    #region SPAWN ENEMY
+    private void FindAllSpawnEnemy()
+    {
+        SpawnEnemy[] allSpawnEnemy = FindObjectsOfType<SpawnEnemy>();
+        SpawnEnemies = new List<SpawnEnemy>(allSpawnEnemy);
     }
 
     private void RegisterFinishCurrentWaveEvent()
@@ -113,7 +128,6 @@ public class SpawnEnemyManager : MonoBehaviour
             if(spawnEnemy.GetNumberEnemyInWave(CurrentWaveIndex + 1) != 0)
             {
                 spawnEnemy.btnCautionSlider.gameObject.SetActive(true);
-                spawnEnemy.btnCautionSlider.StartFillCautionImage();
             }
             else
             {
@@ -189,6 +203,11 @@ public class SpawnEnemyManager : MonoBehaviour
         return timeWaitForNextWave;
     }
 
+    private void GetTotalWave()
+    {
+        TotalWave = SpawnEnemies[0].GetTotalWave();
+    }
+
     private void GetTotalEnemies()
     {
         foreach(var spawnEnemy in SpawnEnemies)
@@ -199,5 +218,4 @@ public class SpawnEnemyManager : MonoBehaviour
             }
         }   
     }
-
 }

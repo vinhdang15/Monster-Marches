@@ -304,7 +304,6 @@ public class Soldier : UnitBase
 
     private void MoveTo(Vector2 pos)
     {
-        unitAnimation.SpriteSortingOrder();
         unitAnimation.UnitPlayWalk();
         transform.position = Vector2.MoveTowards(transform.position, pos, CurrentSpeed *Time.deltaTime);
     }

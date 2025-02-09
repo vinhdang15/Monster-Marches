@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PanelManager : MonoBehaviour
 {
     public static PanelManager Instance;
-    [SerializeField] InputController inputController;
+    [SerializeField] InputControllerxxx inputController;
     [SerializeField] GamePlayManager gamePlayManager;
 
     [Header("GameMenu")]
@@ -43,13 +43,23 @@ public class PanelManager : MonoBehaviour
         LoadComponents();
     }
 
-    private void Start()
+    // private void Start()
+    // {
+    //     GetTotalWave();
+    //     ResetCurrentWave();
+    //     UpdateCurrentGold();
+    //     RegisterInputControllerEvent();
+    //     RegisterGamePlayManagerEvent();
+    // }
+
+    public void PanelManagerPrepareGame()
     {
         GetTotalWave();
         ResetCurrentWave();
         UpdateCurrentGold();
         RegisterInputControllerEvent();
         RegisterGamePlayManagerEvent();
+        Debug.Log("PanelManagerPrepareGame check");
     }
 
     private void OnDisable()
@@ -60,20 +70,22 @@ public class PanelManager : MonoBehaviour
 
     private void LoadComponents()
     {
-        inputController     = GameObject.Find("InputController").GetComponent<InputController>();
-        gamePlayManager     = GameObject.Find("GamePlayManager").GetComponent<GamePlayManager>();
+        inputController     = FindObjectOfType<InputControllerxxx>();
+        gamePlayManager     = FindObjectOfType<GamePlayManager>();
 
-        initMenu            = GameObject.Find("InitMenu").GetComponent<InitMenu>();
-        upgradeMenu         = GameObject.Find("UpgradeMenu").GetComponent<UpgradeMenu>();
-        checkSymbol         = GameObject.Find("CheckSymbol").GetComponent<CheckSymbol>();
+        initMenu            = FindObjectOfType<InitMenu>();
+        initMenu.Hide();
+        upgradeMenu         = FindObjectOfType<UpgradeMenu>();
+        checkSymbol         = FindObjectOfType<CheckSymbol>();
 
-        pauseMenu           = GameObject.Find("PauseMenu").GetComponent<PanelUI>();
-        victoryMenu         = GameObject.Find("VictoryMenu").GetComponent<PanelUI>();
-        gameOverMenu        = GameObject.Find("GameOverMenu").GetComponent<PanelUI>();
+        pauseMenu           = FindObjectOfType<PanelUI>();
+        victoryMenu         = FindObjectOfType<PanelUI>();
+        gameOverMenu        = FindObjectOfType<PanelUI>();
 
-        currentSttPanel     = GameObject.Find("CurrentSttPanel").GetComponent<CurrentSttPanel>();
-        upgradeSttPanel     = GameObject.Find("UpgradeSttPanel").GetComponent<UpgradeSttPanel>();
-        gameSttPanel        = GameObject.Find("GameSttPanel").GetComponent<GameSttPanel>();
+        currentSttPanel     = FindObjectOfType<CurrentSttPanel>();
+        currentSttPanel.Hide();
+        upgradeSttPanel     = FindObjectOfType<UpgradeSttPanel>();
+        gameSttPanel        = FindObjectOfType<GameSttPanel>();
     }
 
     #region REGISTER EVENT
@@ -90,8 +102,14 @@ public class PanelManager : MonoBehaviour
         inputController.OnTryToUpgradeTower             += HandleOnTryToUpgradeTower;
     }
 
+    private void HandleOnTest()
+    {
+        Debug.Log("muc no");
+    }
+
     private void UnregisterInputControllerEvent()
     {
+        Debug.Log("Unregister");
         inputController.OnTryToInitTower                -= HandleOnTryToInitTower;
         inputController.OnFirstButtonClick              -= HandleShowCheckSymbol;
         inputController.OnButtonDoubleClick             -= HandleRaycastHitNull;
@@ -121,6 +139,7 @@ public class PanelManager : MonoBehaviour
     #region PANEL, MENU VISIBLE
     private void HandleOnTryToInitTower(TowerType type, EmptyPlot plot)
     {
+        Debug.Log("Handle On Try To Init Tower");
         upgradeSttPanel.SetInitSttText(type);
         upgradeSttPanel.ShowInPos(plot.transform.position);
     }
@@ -136,6 +155,7 @@ public class PanelManager : MonoBehaviour
         checkSymbol.transform.position = clickedButton.transform.transform.position;
         checkSymbol.GreyOutCheckSymbol(clickedButton);
         checkSymbol.Show();
+        Debug.Log("show check CheckSymbol");
     }
 
     private void HandleRaycastHitNull()
