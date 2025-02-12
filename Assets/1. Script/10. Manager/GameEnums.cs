@@ -34,6 +34,9 @@ public enum InitNameObject
     BulletManager,
     EnemyManager,
     InputController,
+    RaycastHandler,
+    InputButtonHandler,
+    TowerActionHandler,
     GamePlayManager,
     PanelManager,
     CautionManager

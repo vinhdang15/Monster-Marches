@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputController : MonoBehaviour
+public class InputButtonHandler : MonoBehaviour
 {
     // chịu trách nhiệm xử lý các dữ kiện đầu vào của người dùng
     [SerializeField] private Button archerTowerBtn;
@@ -15,13 +15,13 @@ public class InputController : MonoBehaviour
     [SerializeField] private Button upgradeBtn;
     [SerializeField] private Button sellBtn;
 
-    public event Action<Button> OnArcherTowerInit;
-    public event Action<Button> OnMageTowerInit;
-    public event Action<Button> OnBarrackTowerInit;
-    public event Action<Button> OnCannonTowerInit;
-    public event Action<Button> OnGuardPointBtn;
-    public event Action<Button> OnUpgradeTower;
-    public event Action<Button> OnSellTower;
+    public event Action<Button> OnArcherTowerInitBtnClick;
+    public event Action<Button> OnMageTowerInitBtnClick;
+    public event Action<Button> OnBarrackTowerInitBtnClick;
+    public event Action<Button> OnCannonTowerInitBtnClick;
+    public event Action<Button> OnGuardPointBtnBtnClick;
+    public event Action<Button> OnUpgradeTowerBtnClick;
+    public event Action<Button> OnSellTowerBtnClick;
 
     private void GetButton()
     {
@@ -36,16 +36,16 @@ public class InputController : MonoBehaviour
 
     private void AddButtonListener()
     {
-        archerTowerBtn.onClick.AddListener(() => OnArcherTowerInit?.Invoke(archerTowerBtn));
-        mageTowerBtn.onClick.AddListener(() => OnMageTowerInit?.Invoke(mageTowerBtn));
-        barrackTowerBtn.onClick.AddListener(() => OnBarrackTowerInit?.Invoke(barrackTowerBtn));
-        cannonTowerBtn.onClick.AddListener(() => OnCannonTowerInit?.Invoke(cannonTowerBtn));
-        guardPointBtn.onClick.AddListener(() => OnGuardPointBtn?.Invoke(guardPointBtn));
-        upgradeBtn.onClick.AddListener(() => OnUpgradeTower?.Invoke(upgradeBtn));
-        sellBtn.onClick.AddListener(() => OnSellTower?.Invoke(sellBtn));
+        archerTowerBtn.onClick.AddListener(() => OnArcherTowerInitBtnClick?.Invoke(archerTowerBtn));
+        mageTowerBtn.onClick.AddListener(() => OnMageTowerInitBtnClick?.Invoke(mageTowerBtn));
+        barrackTowerBtn.onClick.AddListener(() => OnBarrackTowerInitBtnClick?.Invoke(barrackTowerBtn));
+        cannonTowerBtn.onClick.AddListener(() => OnCannonTowerInitBtnClick?.Invoke(cannonTowerBtn));
+        guardPointBtn.onClick.AddListener(() => OnGuardPointBtnBtnClick?.Invoke(guardPointBtn));
+        upgradeBtn.onClick.AddListener(() => OnUpgradeTowerBtnClick?.Invoke(upgradeBtn));
+        sellBtn.onClick.AddListener(() => OnSellTowerBtnClick?.Invoke(sellBtn));
     }
 
-    public void InputCOntrollerPrepareGame()
+    public void InputButtonHandlerPrepareGame()
     {
         GetButton();
         AddButtonListener();

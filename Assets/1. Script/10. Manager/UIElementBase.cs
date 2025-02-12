@@ -22,6 +22,7 @@ public class UIElementBase : MonoBehaviour
 
     public virtual void Show()
     {
+        transform.DOScale(1, 0f);
         gameObject.SetActive(true);
     }
 

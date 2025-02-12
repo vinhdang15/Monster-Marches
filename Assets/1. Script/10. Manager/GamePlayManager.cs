@@ -15,34 +15,32 @@ public class GamePlayManager : MonoBehaviour
     [HideInInspector] public int towerUpgradeGold;
     [HideInInspector] public int towerSellGold;
     [SerializeField] EnemyManager               enemyManager;
-    [SerializeField] InputControllerxxx            inputController;
+    [SerializeField] PanelManager               panelManager;
+
+    [SerializeField] RaycastHandler             raycastHandler;
+    [SerializeField] TowerActionHandler         towerActionHandler;
+
     [SerializeField] BulletTowerManager         bulletTowerManager;
     [SerializeField] BarrackTowerManager        barrackTowerManager;
     public SpawnEnemyManager spawnEnemyManager;
-    private Vector2                             initPanelPos;
-    private TowerPresenter                      selectedBuilding;
+    private Vector2                             initMenuPanelPos;
+    private TowerPresenter                      selectedTower;
     public event Action OnSelectedTowerForUI;
     public event Action OnGoldChangeForUI;
     public event Action OnLiveChangeForUI;
-    public bool IsDataLoaded { get; private set; }
-
     
     public EmptyPlot currentEmptyPlot;
 
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    private void Awake()
+    public void GamePlayManagerPrepareGame()
     {
         LoadComponents();
-    }
-    
-    private void Start()
-    {
         RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
-        StartCoroutine(WaitForDataLoadAndProcess());
+        GetInitGold();
     }
 
     private void OnDisable()
@@ -54,8 +52,13 @@ public class GamePlayManager : MonoBehaviour
 
     private void LoadComponents()
     {
+        panelManager        = FindObjectOfType<PanelManager>();
         enemyManager        = FindObjectOfType<EnemyManager>();
-        inputController     = FindObjectOfType<InputControllerxxx>();
+
+        // inputController     = FindObjectOfType<InputControllerxxx>();
+        raycastHandler      = FindObjectOfType<RaycastHandler>();
+        towerActionHandler  = FindObjectOfType<TowerActionHandler>();
+
         spawnEnemyManager   = FindObjectOfType<SpawnEnemyManager>();
         bulletTowerManager  = FindObjectOfType<BulletTowerManager>();
         barrackTowerManager = FindObjectOfType<BarrackTowerManager>();
@@ -70,43 +73,35 @@ public class GamePlayManager : MonoBehaviour
     }
 
     #region REGISTER EMPTYPLOT CLICK EVENT, TOWER BUTTON CLICK EVENT, SELECTED TOWER EVENT
-    // EMPTYPLOT CLICK EVENT
-    private IEnumerator WaitForDataLoadAndProcess()
-    {
-        yield return new WaitUntil(() => CSVTowerDataReader.Instance.IsDataLoaded);
-        IsDataLoaded = true;
-        GetInitGold();
-    }
-
     // BUTTON CLICK EVENT
     private void RegisterButtonEvent()
     {
-        // inputController.OnTryToInitTower               += HandleOnTryToInitTower;
-        inputController.OnInitTower                    += HandleInitTower;
-        inputController.OnTryToUpgradeTower            += HandleTryToUpgradeSelectedTower;
-        inputController.OnUpgradeTower                 += HandleUpgradeSelectedTower;
-        inputController.OnSellTower                    += HandleSellSelectedTower;
-        inputController.OnSelectedEmptyPlot            += HandleSelectedEmptyPlot;
-        inputController.OnSelectedBulletTower          += HandleOnSelectedBulletTower;
-        inputController.OnSelectedBarrackTower         += HandleOnSelectedBarrackTower;
-        inputController.OnSelectedGuardPointBtnClick   += HandleOnSelectedGuardPointBtnClick;
-        inputController.OnSelectedNewGuardPointPos     += HandleOnSelectedNewGuardPoint;
-        inputController.OnRaycastHitNull               += HandleRaycatHitNull;
+        raycastHandler.OnRaycastHitNull             += HandleRaycatHitNull;
+        raycastHandler.OnSelectedEmptyPlot          += HandleSelectedEmptyPlot;
+        raycastHandler.OnSelectedBulletTower        += HandleOnSelectedBulletTower;
+        raycastHandler.OnSelectedBarrackTower       += HandleOnSelectedBarrackTower;
+        raycastHandler.OnSelectedNewGuardPointPos   += HandleOnSelectedNewGuardPoint;
+
+        towerActionHandler.OnInitTower              += HandleInitTower;
+        towerActionHandler.OnTryToUpgradeTower      += HandleTryToUpgradeSelectedTower;
+        towerActionHandler.OnUpgradeTower           += HandleUpgradeSelectedTower;
+        towerActionHandler.OnGuardPointBtnClick     += HandleGuardPointBtnClick;
+        towerActionHandler.OnSellTower              += HandleSellSelectedTower;
     }
 
     private void UnregisterButtonEvent()
     {
-        // inputController.OnTryToInitTower               -= HandleOnTryToInitTower;
-        inputController.OnInitTower                    -= HandleInitTower;
-        inputController.OnTryToUpgradeTower            -= HandleTryToUpgradeSelectedTower;
-        inputController.OnUpgradeTower                 -= HandleUpgradeSelectedTower;
-        inputController.OnSellTower                    -= HandleSellSelectedTower;
-        inputController.OnSelectedEmptyPlot            -= HandleSelectedEmptyPlot;
-        inputController.OnSelectedBulletTower          -= HandleOnSelectedBulletTower;
-        inputController.OnSelectedBarrackTower         -= HandleOnSelectedBarrackTower;
-        inputController.OnSelectedGuardPointBtnClick   -= HandleOnSelectedGuardPointBtnClick;
-        inputController.OnSelectedNewGuardPointPos     -= HandleOnSelectedNewGuardPoint;
-        inputController.OnRaycastHitNull               -= HandleRaycatHitNull;
+        raycastHandler.OnRaycastHitNull             -= HandleRaycatHitNull;
+        raycastHandler.OnSelectedEmptyPlot          -= HandleSelectedEmptyPlot;
+        raycastHandler.OnSelectedBulletTower        -= HandleOnSelectedBulletTower;
+        raycastHandler.OnSelectedBarrackTower       -= HandleOnSelectedBarrackTower;
+        raycastHandler.OnSelectedNewGuardPointPos   -= HandleOnSelectedNewGuardPoint;
+
+        towerActionHandler.OnInitTower              -= HandleInitTower;
+        towerActionHandler.OnTryToUpgradeTower      -= HandleTryToUpgradeSelectedTower;
+        towerActionHandler.OnUpgradeTower           -= HandleUpgradeSelectedTower;
+        towerActionHandler.OnGuardPointBtnClick     -= HandleGuardPointBtnClick;
+        towerActionHandler.OnSellTower              -= HandleSellSelectedTower;
     }
 
     private void RegisterEnemyEvent()
@@ -177,13 +172,12 @@ public class GamePlayManager : MonoBehaviour
         action?.Invoke();
         gold -= goldRequired;
         OnGoldChangeForUI?.Invoke();
-        inputController.ButtonDoubleClickAction();
+        panelManager.HandleRaycastHitNull();
     }
     
     // Init tower
     private void HandleInitTower(TowerType  towerType)
     {
-        Debug.Log("checkkkkk");
         switch(towerType)
         {
             case TowerType.ArcherTower:
@@ -202,58 +196,60 @@ public class GamePlayManager : MonoBehaviour
     }
     private void InitArcherTower()
     {
-        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initPanelPos, currentEmptyPlot));
+        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initMenuPanelPos, currentEmptyPlot));
     }
 
     private void InitMageTower()
     {
-        OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initPanelPos, currentEmptyPlot));
+        OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initMenuPanelPos, currentEmptyPlot));
     }
 
     private void InitBarrackTower()
     {
-        OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initPanelPos, currentEmptyPlot));
+        OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initMenuPanelPos, currentEmptyPlot));
     }
 
     private void InitCannonTower()
     {
-        OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initPanelPos, currentEmptyPlot));
+        OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initMenuPanelPos, currentEmptyPlot));
     }
 
     // Upgrade selected tower
     private void HandleTryToUpgradeSelectedTower(TowerPresenter towerPresenter)
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-        bulletTowerManager.UpdateRangeDetectionUpgrade(selectedBuilding);
-        selectedBuilding.towerViewBase.ShowRangeDetectionUpgrade(true);
+        bulletTowerManager.UpdateRangeDetectionUpgrade(selectedTower);
+        selectedTower.towerViewBase.ShowRangeDetectionUpgrade(true);
     }
 
     private void HandleUpgradeSelectedTower()
     {
-        if(gold < selectedBuilding.GoldUpdrade) return;
+        if(gold < selectedTower.GoldUpdrade) return;
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         // process gold
-        int goldUpdrade = selectedBuilding.GoldUpdrade;
+        int goldUpdrade = selectedTower.GoldUpdrade;
         gold -= goldUpdrade;
         OnGoldChangeForUI?.Invoke();
 
         TowerBaseManager towerBaseManager = bulletTowerManager;
-        towerBaseManager.UpgradeBuilding(selectedBuilding);
+        towerBaseManager.UpgradeBuilding(selectedTower);
 
-        selectedBuilding.GoldRefund += goldUpdrade;
+        selectedTower.GoldRefund += goldUpdrade;
         // Hide range detection and upgrade panel
         HandleRaycatHitNull();
-        inputController.ButtonDoubleClickAction();
+        // inputController.ButtonDoubleClickAction();
+        panelManager.HandleRaycastHitNull();
     }
 
     // Sell selected tower
     private void HandleSellSelectedTower()
     {
         AudioManager.Instance.PlaySound(soundEffectSO.AddGoldSound);
-        gold += selectedBuilding.GoldRefund;
-        selectedBuilding.emptyPlot.ShowEmptyPlot();
-        Destroy(selectedBuilding.gameObject);
+        gold += selectedTower.GoldRefund;
+        selectedTower.emptyPlot.ShowEmptyPlot();
+        Destroy(selectedTower.gameObject);
         OnGoldChangeForUI?.Invoke();
+        panelManager.HandleRaycastHitNull();
     }
     #endregion
 
@@ -262,31 +258,32 @@ public class GamePlayManager : MonoBehaviour
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
         currentEmptyPlot = emptyPlot;
-        initPanelPos = emptyPlot.GetPos();
+        initMenuPanelPos = emptyPlot.GetPos();
     }
 
     private void HandleOnSelectedBulletTower(TowerPresenter selectedTowerPresenter)
     {  
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
-        selectedBuilding = selectedTowerPresenter;
+        selectedTower = selectedTowerPresenter;
         OnSelectedTowerForUI?.Invoke();
-        selectedBuilding.towerViewBase.ShowRangeDetection(true);;
+        selectedTower.towerViewBase.ShowRangeDetection(true);
     }
+
     private void HandleOnSelectedBarrackTower(TowerPresenter selectedTowerPresenter)
     {  
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
-        selectedBuilding = selectedTowerPresenter;
+        selectedTower = selectedTowerPresenter;
         OnSelectedTowerForUI?.Invoke();
     }
 
-    private void HandleOnSelectedGuardPointBtnClick()
+    private void HandleGuardPointBtnClick()
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-        if(selectedBuilding != null)
+        if(selectedTower != null)
         {
-            selectedBuilding.towerViewBase.ShowRangeDetection(true);
+            selectedTower.towerViewBase.ShowRangeDetection(true);
         }
     }
 
@@ -294,35 +291,35 @@ public class GamePlayManager : MonoBehaviour
     private void HandleOnSelectedNewGuardPoint(Vector2 newGuardPointPos)
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
-        selectedBuilding.towerViewBase.ShowRangeDetection(false);
-        barrackTowerManager.SetNewGuardPointPos(selectedBuilding, newGuardPointPos);
+        selectedTower.towerViewBase.ShowRangeDetection(false);
+        barrackTowerManager.SetNewGuardPointPos(selectedTower, newGuardPointPos);
     }
 
     // raycast hit null
     private void HandleRaycatHitNull()
     {
-        if(selectedBuilding == null) return;
-        selectedBuilding.towerViewBase.ShowRangeDetection(false);
-        selectedBuilding.towerViewBase.ShowRangeDetectionUpgrade(false);
-        selectedBuilding = null;
+        if(selectedTower == null) return;
+        selectedTower.towerViewBase.ShowRangeDetection(false);
+        selectedTower.towerViewBase.ShowRangeDetectionUpgrade(false);
+        selectedTower = null;
     }
     
     public int GetTowerGoldUpgrade()
     {
-        return selectedBuilding.GoldUpdrade;
+        return selectedTower.GoldUpdrade;
     }
 
     public int GetTowerGoldRefund()
     {
-        return selectedBuilding.GoldRefund;
+        return selectedTower.GoldRefund;
     }
 
     private void HideCurrentTowerRangeDetect()
     {
-        if(selectedBuilding != null)
+        if(selectedTower != null)
         {
-            selectedBuilding.towerViewBase.ShowRangeDetection(false);
-            selectedBuilding.towerViewBase.ShowRangeDetectionUpgrade(false);
+            selectedTower.towerViewBase.ShowRangeDetection(false);
+            selectedTower.towerViewBase.ShowRangeDetectionUpgrade(false);
         }
     }
 }

@@ -31,7 +31,11 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private SoldierManager soldierManager;
     [SerializeField] private BulletManager bulletManager;
     [SerializeField] private EnemyManager enemyManager;
-    [SerializeField] private InputControllerxxx inputController;
+
+    [SerializeField] private RaycastHandler raycastHandler;
+    [SerializeField] private InputButtonHandler inputButtonHandler;
+    [SerializeField] private TowerActionHandler towerActionHandler;
+
     [SerializeField] private PanelManager panelManager;
     [SerializeField] private GamePlayManager gamePlayManager;
     [SerializeField] private CautionManager cautionManager;
@@ -107,10 +111,18 @@ public class GameInitiator : MonoBehaviour
 
         levelManager.BindSpawnEnemiesObject(levelData);
 
-        inputController = Instantiate(inputController, gameManager.transform);
-        inputController.name = InitNameObject.InputController.ToString();
-        inputController.AddArcherBtn();
+        // inputController = Instantiate(inputController, gameManager.transform);
+        // inputController.name = InitNameObject.InputController.ToString();
+
+        raycastHandler = Instantiate(raycastHandler, gameManager.transform);
+        raycastHandler.name = InitNameObject.RaycastHandler.ToString();
         
+        inputButtonHandler = Instantiate(inputButtonHandler, gameManager.transform);
+        inputButtonHandler.name = InitNameObject.InputButtonHandler.ToString();
+
+        towerActionHandler = Instantiate(towerActionHandler, gameManager.transform);
+        towerActionHandler.name = InitNameObject.TowerActionHandler.ToString();
+
         gamePlayManager = Instantiate(gamePlayManager, gameManager.transform);
         gamePlayManager.name = InitNameObject.GamePlayManager.ToString();
 
@@ -122,9 +134,14 @@ public class GameInitiator : MonoBehaviour
     private IEnumerator PrepareGame()
     {
         yield return new WaitForSeconds(0.5f);
-        panelManager.PanelManagerPrepareGame();
+        
         levelManager.SpawnEnemyManagerPrepareGame();
         levelManager.SpawnEnemiesPrepareGame();
+        raycastHandler.RaycastHandlerPrepareGame();
+        inputButtonHandler.InputButtonHandlerPrepareGame();
+        towerActionHandler.TowerActionPrepareGame();
+        gamePlayManager.GamePlayManagerPrepareGame();
+        panelManager.PanelManagerPrepareGame();
         yield return null;
         cameraController.LoadComponents(levelManager.GetMapPolygonCollider2D());
     }

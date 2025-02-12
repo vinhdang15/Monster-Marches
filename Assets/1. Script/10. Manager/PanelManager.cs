@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class PanelManager : MonoBehaviour
 {
     public static PanelManager Instance;
-    [SerializeField] InputControllerxxx inputController;
+    [SerializeField] RaycastHandler raycastHandler;
+    [SerializeField] TowerActionHandler towerActionHandler;
     [SerializeField] GamePlayManager gamePlayManager;
 
     [Header("GameMenu")]
@@ -27,7 +28,9 @@ public class PanelManager : MonoBehaviour
     [Header("GameStatus")]
     [SerializeField] GameSttPanel gameSttPanel;
 
-    private TowerPresenter CurrentSelectedPresenter;
+    
+    private Vector2        initMenuPanelPos;
+    private TowerPresenter selectedTower;
 
     private void Awake()
     {
@@ -59,7 +62,6 @@ public class PanelManager : MonoBehaviour
         UpdateCurrentGold();
         RegisterInputControllerEvent();
         RegisterGamePlayManagerEvent();
-        Debug.Log("PanelManagerPrepareGame check");
     }
 
     private void OnDisable()
@@ -70,11 +72,12 @@ public class PanelManager : MonoBehaviour
 
     private void LoadComponents()
     {
-        inputController     = FindObjectOfType<InputControllerxxx>();
+        raycastHandler      = FindObjectOfType<RaycastHandler>();
+        towerActionHandler  = FindObjectOfType<TowerActionHandler>();
         gamePlayManager     = FindObjectOfType<GamePlayManager>();
 
         initMenu            = FindObjectOfType<InitMenu>();
-        initMenu.Hide();
+        // initMenu.Hide();
         upgradeMenu         = FindObjectOfType<UpgradeMenu>();
         checkSymbol         = FindObjectOfType<CheckSymbol>();
 
@@ -91,34 +94,30 @@ public class PanelManager : MonoBehaviour
     #region REGISTER EVENT
     private void RegisterInputControllerEvent()
     {
-        inputController.OnTryToInitTower                += HandleOnTryToInitTower;
-        inputController.OnFirstButtonClick              += HandleShowCheckSymbol;
-        inputController.OnButtonDoubleClick             += HandleRaycastHitNull;
-        inputController.OnRaycastHitNull                += HandleRaycastHitNull;
-        inputController.OnSelectedEmptyPlot             += HandleOnSelectedEmptyPlot;
-        inputController.OnSelectedBulletTower           += HandleOnSelectedBulletTower;
-        inputController.OnSelectedBarrackTower          += HandleOnSelectedBarrackTower;
-        inputController.OnSelectedGuardPointBtnClick    += HandleOnSelectedGuardPointBtnClick;
-        inputController.OnTryToUpgradeTower             += HandleOnTryToUpgradeTower;
-    }
+        raycastHandler.OnRaycastHitNull                += HandleRaycastHitNull;
+        raycastHandler.OnSelectedEmptyPlot             += HandleOnSelectedEmptyPlot;
+        raycastHandler.OnSelectedEmptyPlot             += HandleOnSelectedEmptyPlot;
+        raycastHandler.OnSelectedBulletTower           += HandleOnSelectedBulletTower;
+        raycastHandler.OnSelectedBarrackTower          += HandleOnSelectedBarrackTower;
 
-    private void HandleOnTest()
-    {
-        Debug.Log("muc no");
+        towerActionHandler.OnFirstButtonClick          += HandleShowCheckSymbol;
+        towerActionHandler.OnTryToInitTower            += HandleOnTryToInitTower;
+        towerActionHandler.OnGuardPointBtnClick        += HandleGuardPointBtnClick;
+        towerActionHandler.OnTryToUpgradeTower         += HandleOnTryToUpgradeTower;
     }
 
     private void UnregisterInputControllerEvent()
     {
-        Debug.Log("Unregister");
-        inputController.OnTryToInitTower                -= HandleOnTryToInitTower;
-        inputController.OnFirstButtonClick              -= HandleShowCheckSymbol;
-        inputController.OnButtonDoubleClick             -= HandleRaycastHitNull;
-        inputController.OnRaycastHitNull                -= HandleRaycastHitNull;
-        inputController.OnSelectedEmptyPlot             -= HandleOnSelectedEmptyPlot;
-        inputController.OnSelectedBulletTower           -= HandleOnSelectedBulletTower;
-        inputController.OnSelectedBarrackTower          -= HandleOnSelectedBarrackTower;
-        inputController.OnSelectedGuardPointBtnClick    -= HandleOnSelectedGuardPointBtnClick;
-        inputController.OnTryToUpgradeTower             -= HandleOnTryToUpgradeTower;
+        raycastHandler.OnRaycastHitNull                -= HandleRaycastHitNull;
+        raycastHandler.OnSelectedEmptyPlot             -= HandleOnSelectedEmptyPlot;
+        raycastHandler.OnSelectedEmptyPlot             -= HandleOnSelectedEmptyPlot;
+        raycastHandler.OnSelectedBulletTower           -= HandleOnSelectedBulletTower;
+        raycastHandler.OnSelectedBarrackTower          -= HandleOnSelectedBarrackTower;
+
+        towerActionHandler.OnFirstButtonClick          -= HandleShowCheckSymbol;
+        towerActionHandler.OnTryToInitTower            -= HandleOnTryToInitTower;
+        towerActionHandler.OnGuardPointBtnClick        -= HandleGuardPointBtnClick;
+        towerActionHandler.OnTryToUpgradeTower         -= HandleOnTryToUpgradeTower;
     }
 
     private void RegisterGamePlayManagerEvent()
@@ -139,7 +138,6 @@ public class PanelManager : MonoBehaviour
     #region PANEL, MENU VISIBLE
     private void HandleOnTryToInitTower(TowerType type, EmptyPlot plot)
     {
-        Debug.Log("Handle On Try To Init Tower");
         upgradeSttPanel.SetInitSttText(type);
         upgradeSttPanel.ShowInPos(plot.transform.position);
     }
@@ -155,10 +153,9 @@ public class PanelManager : MonoBehaviour
         checkSymbol.transform.position = clickedButton.transform.transform.position;
         checkSymbol.GreyOutCheckSymbol(clickedButton);
         checkSymbol.Show();
-        Debug.Log("show check CheckSymbol");
     }
 
-    private void HandleRaycastHitNull()
+    public void HandleRaycastHitNull()
     {
         initMenu.Hide();
         upgradeMenu.Hide();
@@ -169,36 +166,37 @@ public class PanelManager : MonoBehaviour
         upgradeSttPanel.Hide();
     }
 
-    private void HandleOnSelectedEmptyPlot(EmptyPlot plot)
+    private void HandleOnSelectedEmptyPlot(EmptyPlot emptyPlotPos)
     {   
+        initMenuPanelPos = emptyPlotPos.transform.position;
         initMenu.Hide();
         upgradeMenu.Hide();
         checkSymbol.Hide();
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
         initMenu.ButtonCheckInitGoldRequire(GetCurrentGold());
-        initMenu.ShowInPos(plot.transform.position);
+        initMenu.ShowInPos(emptyPlotPos.transform.position);
     }
 
-    private void HandleOnSelectedBulletTower(TowerPresenter presenter)
+    private void HandleOnSelectedBulletTower(TowerPresenter selectedTowerPresenter)
     {
-        CurrentSelectedPresenter = presenter;
+        selectedTower = selectedTowerPresenter;
         initMenu.Hide();
         checkSymbol.Hide();
         upgradeSttPanel.Hide();
         currentSttPanel.Hide();
 
-        currentSttPanel.SetCurrentSttText(presenter);
+        currentSttPanel.SetCurrentSttText(selectedTowerPresenter);
         currentSttPanel.Show();
         upgradeMenu.HideGuardPointBtn();
-        upgradeMenu.UpdateText(presenter);
-        upgradeMenu.UpdateButtonColor(presenter,GetCurrentGold());
-        upgradeMenu.ShowInPos(presenter.transform.position);
+        upgradeMenu.UpdateText(selectedTowerPresenter);
+        upgradeMenu.UpdateButtonColor(selectedTowerPresenter,GetCurrentGold());
+        upgradeMenu.ShowInPos(selectedTowerPresenter.transform.position);
     }
 
     private void HandleOnSelectedBarrackTower(TowerPresenter presenter)
     {
-        CurrentSelectedPresenter = presenter;
+        selectedTower = presenter;
         initMenu.Hide();
         checkSymbol.Hide();
         upgradeSttPanel.Hide();
@@ -212,7 +210,7 @@ public class PanelManager : MonoBehaviour
         upgradeMenu.ShowInPos(presenter.transform.position);
     }
 
-    private void HandleOnSelectedGuardPointBtnClick()
+    private void HandleGuardPointBtnClick()
     {
         checkSymbol.Hide();
         upgradeSttPanel.Hide();
@@ -242,8 +240,8 @@ public class PanelManager : MonoBehaviour
         UpdateCurrentGold();
         initMenu.ButtonCheckInitGoldRequire(GetCurrentGold());
 
-        if(CurrentSelectedPresenter == null) return;
-        upgradeMenu.UpdateButtonColor(CurrentSelectedPresenter,GetCurrentGold());
+        if(selectedTower == null) return;
+        upgradeMenu.UpdateButtonColor(selectedTower,GetCurrentGold());
     }
     
     private void HandleUpdateCurrentWave(int currentWave)

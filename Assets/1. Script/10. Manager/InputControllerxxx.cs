@@ -14,7 +14,6 @@ public class InputControllerxxx : MonoBehaviour
     private bool isGuardPointSelected = false;
 
     public event Action<Button> OnFirstButtonClick;
-    public event Action         OnButtonDoubleClick;
 
     public event Action<TowerType, EmptyPlot> OnTryToInitTower;
     public event Action<TowerType> OnInitTower;
@@ -23,7 +22,7 @@ public class InputControllerxxx : MonoBehaviour
     public event Action OnSellTower;
     
     public event Action OnRaycastHitNull;
-    public event Action<EmptyPlot>OnSelectedEmptyPlot;
+    public event Action<EmptyPlot> OnSelectedEmptyPlot;
     public event Action<TowerPresenter> OnSelectedBulletTower;
     public event Action<TowerPresenter> OnSelectedBarrackTower;
     public event Action OnSelectedGuardPointBtnClick;
@@ -41,12 +40,12 @@ public class InputControllerxxx : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    public void AddArcherBtn()
+    public void AddButtonListener()
     {
-        archerBtn = GameObject.Find("ArcherTowerBtn").GetComponent<Button>();
+        archerBtn = GameObject.Find("InitArcherTowerBtn").GetComponent<Button>();
         archerBtn.onClick.AddListener(() => InitArcherTowerBtn(archerBtn));
 
-        barrackBtn = GameObject.Find("BarrackTowerBtn").GetComponent<Button>();
+        barrackBtn = GameObject.Find("InitBarrackTowerBtn").GetComponent<Button>();
         barrackBtn.onClick.AddListener(() => InitBarrackTowerBtn(barrackBtn));
     }
 
@@ -260,21 +259,9 @@ public class InputControllerxxx : MonoBehaviour
         else
         {
             OnSellTower?.Invoke();
-            ButtonDoubleClickAction();
             return;
         }
         currentButton = clickedButton;
     }
-
-    public void ButtonDoubleClickAction()
-    {
-        OnButtonDoubleClick?.Invoke();
-    }
     #endregion
-
-
-    public int GetOnFirstButtonClickSubscriberCount()
-    {
-        return OnFirstButtonClick?.GetInvocationList().Length ?? 0;
-    }
 }
