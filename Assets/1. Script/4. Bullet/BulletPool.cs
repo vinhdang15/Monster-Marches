@@ -23,7 +23,7 @@ public class BulletPool : MonoBehaviour
 
     private IEnumerator InitializePoolsCoroutine()
     {
-        yield return new WaitUntil(() => CSVBulletDataReader.Instance.IsDataLoaded && CSVEffectDataReader.Instance.IsDataLoaded);
+        yield return new WaitUntil(() => CSVBulletDataReader.Instance.IsDataLoaded && CSVBulletEffectDataReader.Instance.IsDataLoaded);
         InitializePools();
     }
 

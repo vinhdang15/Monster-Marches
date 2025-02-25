@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BarrackTowerManager : TowerBaseManager
 {
-    [SerializeField] SoldierManager                     soldierManager;
     [SerializeField] TowerViewBase                      barrackPerfab;
-    [SerializeField] SpawnGuardPointPath                spawnGuardPointPath;
     [SerializeField] BarrackSpawnGuardPointConfigSO     barrackSpawnGuardPointConfigSO;
+    [SerializeField] SoldierManager                     soldierManager;
+    [SerializeField] SpawnGuardPointPath                spawnGuardPointPath;
     
     public Dictionary<TowerPresenter, BarackTowerInfor> barackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 

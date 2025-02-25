@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4a0b6e0e1bbd8419c38ee823c25cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cautionSlider: {fileID: 222925368067258171, guid: 91ce3bd00dfd8934b868ed5dac945806, type: 3}
-  cautionParent: {fileID: 0}
+  cautionBtnPref: {fileID: 222925368067258171, guid: 91ce3bd00dfd8934b868ed5dac945806, type: 3}

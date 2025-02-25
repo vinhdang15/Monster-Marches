@@ -14,7 +14,7 @@ public class TowerPresenter : MonoBehaviour
     public int               TowerDamageUpgrade { set ; get ; }
     public float             TowerSpawnRateUpgrade { set ; get ; }
     public float             RangeDetectUpgrade { set ; get ; }
-    public int               GoldUpdrade { set ; get ; }
+    public int               GoldUpgrade { set ; get ; }
     public int               GoldRefund { set ; get ; }
 
     public static TowerPresenter Create(TowerModel towerModel, TowerViewBase towerView)
@@ -45,7 +45,7 @@ public class TowerPresenter : MonoBehaviour
         int towerLevel      = towerModel.Level;
 
         DescriptionUpgrade      = CSVTowerDataReader.Instance.towerDataList.GetDescription(towerType, towerLevel + 1);
-        GoldUpdrade             = CSVTowerDataReader.Instance.towerDataList.GetGoldRequired(towerType, towerLevel + 1);
+        GoldUpgrade             = CSVTowerDataReader.Instance.towerDataList.GetGoldRequired(towerType, towerLevel + 1);
         RangeDetectUpgrade      = CSVTowerDataReader.Instance.towerDataList.GetRangeDetect(towerType, towerLevel + 1);
         TowerSpawnRateUpgrade   = CSVTowerDataReader.Instance.towerDataList.GetSpawnRate(towerType, towerLevel + 1);
 

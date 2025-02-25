@@ -5,9 +5,8 @@ public class UnitAnimation : MonoBehaviour
 {
     private Animator        animator;
     private SpriteRenderer  spriteRenderer;
-    private float attackSpeed;
-    private float randomStartTime;
-    private Coroutine attackCoroutine;
+    private float           attackSpeed;
+    private float           randomStartTime;
 
     private void Awake()
     {
@@ -23,7 +22,7 @@ public class UnitAnimation : MonoBehaviour
 
     private void GetRandomStartTime()
     {
-        randomStartTime = Random.Range(0,0.3f);
+        randomStartTime = Random.Range(0, 0.3f);
     }
     public void GetAnimation()
     {
@@ -37,12 +36,12 @@ public class UnitAnimation : MonoBehaviour
 
     public void UnitPlayWalk()
     {
-        animator.SetFloat("Blend",0);
+        animator.SetFloat("Blend", 0);
     }
 
     public void UnitPlayIdle()
     {
-        animator.SetFloat("Blend",1);
+        animator.SetFloat("Blend", 1);
     }
 
     public void UnitPlayAttack()

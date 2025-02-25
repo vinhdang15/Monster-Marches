@@ -7,7 +7,8 @@ using UnityEngine;
 public class GamePlayManager : MonoBehaviour
 {
     public int gold = 200;
-    public int live = 20;
+    public int lives = 20;
+    public int currentLives;
     [HideInInspector] public int archerTowerInitGold;
     [HideInInspector] public int mageTowerInitGold;
     [HideInInspector] public int barrackTowerInitGold;
@@ -27,7 +28,8 @@ public class GamePlayManager : MonoBehaviour
     private TowerPresenter                      selectedTower;
     public event Action OnSelectedTowerForUI;
     public event Action OnGoldChangeForUI;
-    public event Action OnLiveChangeForUI;
+    public event Action<int> OnLiveChangeForUI;
+    public event Action<float> OnFinishedMatch;
     
     public EmptyPlot currentEmptyPlot;
 
@@ -41,6 +43,7 @@ public class GamePlayManager : MonoBehaviour
         RegisterButtonEvent();
         RegisterCautionClickEvent();
         GetInitGold();
+        currentLives = lives;
     }
 
     private void OnDisable()
@@ -55,7 +58,6 @@ public class GamePlayManager : MonoBehaviour
         panelManager        = FindObjectOfType<PanelManager>();
         enemyManager        = FindObjectOfType<EnemyManager>();
 
-        // inputController     = FindObjectOfType<InputControllerxxx>();
         raycastHandler      = FindObjectOfType<RaycastHandler>();
         towerActionHandler  = FindObjectOfType<TowerActionHandler>();
 
@@ -120,47 +122,43 @@ public class GamePlayManager : MonoBehaviour
     {
         gold += enemy.Gold;
         OnGoldChangeForUI?.Invoke();
-        CheckAllEnemiesDie();
+        HandleFinishedMatch();
         // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
     }
 
     private void HandleEnemyReachEndPoint()
     {
-        live --;
-        OnLiveChangeForUI?.Invoke();
-        CheckAllEnemiesDie();
+        currentLives --;
+        OnLiveChangeForUI?.Invoke(currentLives);
+        HandleFinishedMatch();
         // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
     }
 
-    private void CheckAllEnemiesDie()
+    private void HandleFinishedMatch()
     {
         if(spawnEnemyManager.totalEnemies == enemyManager.totalEnemiesDie)
         {
+            float lifePercentage = (float)currentLives / lives * 100;
             // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
-            Invoke(nameof(ShowVictoryMenu), 2.5f);
+            OnFinishedMatch?.Invoke(lifePercentage);
         }
-    }
-
-    private void ShowVictoryMenu()
-    {
-        PanelManager.Instance.ShowVictoryMenu();
     }
     #endregion
 
     // caution click event
     private void RegisterCautionClickEvent()
     {
-        spawnEnemyManager.OnCautionClick += HandleCautionClick;
+        spawnEnemyManager.OnAddGoldWhenCautionClick += HandleAddGoldWhenCautionClick;
     }
 
     private void UnregisterCautionClickEvent()
     {
-        spawnEnemyManager.OnCautionClick -= HandleCautionClick;
+        spawnEnemyManager.OnAddGoldWhenCautionClick -= HandleAddGoldWhenCautionClick;
     }
 
-    private void HandleCautionClick(float time)
+    private void HandleAddGoldWhenCautionClick(int goldAdd)
     {
-        gold += (int)time;
+        gold += goldAdd;
         OnGoldChangeForUI?.Invoke();
     }
 
@@ -224,10 +222,10 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleUpgradeSelectedTower()
     {
-        if(gold < selectedTower.GoldUpdrade) return;
+        if(gold < selectedTower.GoldUpgrade) return;
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         // process gold
-        int goldUpdrade = selectedTower.GoldUpdrade;
+        int goldUpdrade = selectedTower.GoldUpgrade;
         gold -= goldUpdrade;
         OnGoldChangeForUI?.Invoke();
 
@@ -306,7 +304,7 @@ public class GamePlayManager : MonoBehaviour
     
     public int GetTowerGoldUpgrade()
     {
-        return selectedTower.GoldUpdrade;
+        return selectedTower.GoldUpgrade;
     }
 
     public int GetTowerGoldRefund()

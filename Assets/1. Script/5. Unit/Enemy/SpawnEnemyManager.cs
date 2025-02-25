@@ -24,32 +24,21 @@ public class SpawnEnemyManager : MonoBehaviour
     // Init BtnCautionSlider
     [SerializeField] CautionManager cautionManager;
 
-    // Time show BtnCautionSlider, time call next wave
+    // Time show BtnCaution, time call next wave
     private float waitCautionStartTime;
     private Coroutine WaitToCallNextWave;
     public event Action OnCallNextWave;
+    public event Action      OnCautionClick;
     public event Action<int> OnUpdateCurrentWave;
-    public event Action<float> OnCautionClick;
+    public event Action<int> OnAddGoldWhenCautionClick;
 
     // trigger to call the first wave when BtnCautionSlider click
     private bool isBeginFristWave = false;
-
-    // private void Awake()
-    // {
-    //     LoadComponents();
-    // }
-    // private void Start()
-    // {
-    //     InitCaution();
-    //     RegisterFinishCurrentWaveEvent();
-    //     GetTotalEnemies();
-    // }
 
     public void PrepareGame()
     {
         LoadComponents();
         FindAllSpawnEnemy();
-        InitCaution();
         RegisterFinishCurrentWaveEvent();
         GetTotalWave();
         GetTotalEnemies();
@@ -62,7 +51,7 @@ public class SpawnEnemyManager : MonoBehaviour
 
     private void LoadComponents()
     {
-        cautionManager = GameObject.Find(InitNameObject.CautionManager.ToString()).GetComponent<CautionManager>();
+        cautionManager = FindObjectOfType<CautionManager>();
     }
 
     #region SPAWN ENEMY
@@ -104,11 +93,11 @@ public class SpawnEnemyManager : MonoBehaviour
     private IEnumerator WaitToCallNextWaveCoroutine()
     {
         yield return new WaitForSeconds(2f);
-        CheckToShowCautionSliderInWhichSpawnEnemy();
+        CheckToShowCautionBtnInWhichSpawnEnemy();
         waitCautionStartTime = Time.time;
         yield return new WaitForSeconds(timeWaitForNextWave);
         waitCautionStartTime = 0;
-        HideAllCautionSlider();
+        HideAllCautionFill();
         OnCallNextWave?.Invoke();
         UpdateCurrentWaveIndex();
 
@@ -116,31 +105,29 @@ public class SpawnEnemyManager : MonoBehaviour
     #endregion
 
     #region CAUTION SLIDER
-    private void InitCaution()
-    {
-        cautionManager.InitCaution(this);
-    }
-
-    private void CheckToShowCautionSliderInWhichSpawnEnemy()
+    private void CheckToShowCautionBtnInWhichSpawnEnemy()
     {
         foreach(var spawnEnemy in SpawnEnemies)
         {
             if(spawnEnemy.GetNumberEnemyInWave(CurrentWaveIndex + 1) != 0)
             {
-                spawnEnemy.btnCautionSlider.gameObject.SetActive(true);
+                // spawnEnemy.cautionBtn.gameObject.SetActive(true);
+                spawnEnemy.cautionBtn.StartActiveCautionFill();
             }
             else
             {
-                spawnEnemy.btnCautionSlider.gameObject.SetActive(false);
+                // spawnEnemy.cautionBtn.gameObject.SetActive(false);
+                spawnEnemy.cautionBtn.HideCautionFill();
             }
         }
     }
 
-    private void HideAllCautionSlider()
+    private void HideAllCautionFill()
     {
         foreach(var spawnEnemy in SpawnEnemies)
         {
-            spawnEnemy.btnCautionSlider.gameObject.SetActive(false);
+            // spawnEnemy.cautionBtn.gameObject.SetActive(false);
+            spawnEnemy.cautionBtn.HideCautionFill();
         }
     }
 
@@ -163,23 +150,25 @@ public class SpawnEnemyManager : MonoBehaviour
             // call next wave
 
             OnCallNextWave?.Invoke();
-            // update gold when call next wave early
 
+            // update gold when call next wave early
             HandleCautionClick();
             UpdateCurrentWaveIndex();
         }
+        OnCautionClick?.Invoke();
     }
 
     private void HandleCautionClick()
     {
         float elapsedTime = Time.time - waitCautionStartTime;
         float timeCallEarly = timeWaitForNextWave - elapsedTime;
+        int goldCallEarly = (int)timeCallEarly*2;
 
         foreach(var spawnEnemy in SpawnEnemies)
         {
-            if(spawnEnemy.btnCautionSlider.gameObject.activeSelf)
+            if(spawnEnemy.cautionBtn.gameObject.activeSelf)
             {
-                OnCautionClick?.Invoke(timeCallEarly);
+                OnAddGoldWhenCautionClick?.Invoke(goldCallEarly);
             }
         }
     }

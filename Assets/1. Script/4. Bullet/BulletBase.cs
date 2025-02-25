@@ -53,7 +53,7 @@ public class BulletBase : MonoBehaviour
         string[] effectTypes = _bulletData.effectTyes.Split(";");
         foreach(string effecType in effectTypes)
         {
-            EffectData effectData = CSVEffectDataReader.Instance.effectDataList.GetEffectData(effecType);
+            BulletEffectData effectData = CSVBulletEffectDataReader.Instance.bulletEffectDataList.GetBulletEffectData(effecType);
             if(effectData == null)
             {
                 // Debug.Log($"{this.name} have no effect");

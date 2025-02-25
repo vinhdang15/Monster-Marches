@@ -12,7 +12,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private CSVEmptyPlotDataReader     _CSVEmptyPlotDataReader;
     [SerializeField] private CSVTowerDataReader         _CSVTowerDataReader;
     [SerializeField] private CSVBulletDataReader        _CSVBulletDataReader;
-    [SerializeField] private CSVEffectDataReader        _CSVEffectDataReader;
+    [SerializeField] private CSVBulletEffectDataReader        _CSVEffectDataReader;
     [SerializeField] private CSVUnitDataReader          _CSVUnitDataReader;
 
     [Header("Init Canvas")]
@@ -39,6 +39,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private PanelManager panelManager;
     [SerializeField] private GamePlayManager gamePlayManager;
     [SerializeField] private CautionManager cautionManager;
+    private VictoryMenu victoryMenu;
     private GameObject gameManager;
     private GameObject levelData;
     
@@ -133,17 +134,16 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator PrepareGame()
     {
-        yield return new WaitForSeconds(0.5f);
-        
         levelManager.SpawnEnemyManagerPrepareGame();
+        cautionManager.CautionManagerPrepareGame();
         levelManager.SpawnEnemiesPrepareGame();
         raycastHandler.RaycastHandlerPrepareGame();
         inputButtonHandler.InputButtonHandlerPrepareGame();
         towerActionHandler.TowerActionPrepareGame();
         gamePlayManager.GamePlayManagerPrepareGame();
         panelManager.PanelManagerPrepareGame();
-        yield return null;
         cameraController.LoadComponents(levelManager.GetMapPolygonCollider2D());
+        yield return null;
     }
 
 }

@@ -14,7 +14,7 @@ public class SpawnEnemy : MonoBehaviour
     [Header("Enemy-Wave information")]
     public List<EnemyEntry>                 enemyEntries = new List<EnemyEntry>();
     private float                           timeBetweenEnemy;
-    public BtnCautionSlider                 btnCautionSlider;
+    public BtnCaution                       cautionBtn;
     private SpawnEnemyManager               spawnEnemyManager;
     private bool                            isStartNextWave = false;
 
@@ -94,10 +94,10 @@ public class SpawnEnemy : MonoBehaviour
     {
         if(GetNumberEnemyInWave(0) != 0)
         {
-            btnCautionSlider.isfirstWave = true;
-            btnCautionSlider.gameObject.SetActive(true);
+            cautionBtn.isFirstWave = true;
+            cautionBtn.StartActiveCautionFill();
         }
-        else btnCautionSlider.gameObject.SetActive(false);
+        else cautionBtn.HideCautionFill();
     }
 
     private void GetUnitBase(Enemy _enemy, int lineInPathIndex)

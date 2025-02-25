@@ -13,7 +13,7 @@ public class PanelManager : MonoBehaviour
 
     [Header("GameMenu")]
     [SerializeField] PanelUI pauseMenu;
-    [SerializeField] PanelUI victoryMenu;
+    [SerializeField] VictoryMenu victoryMenu;
     [SerializeField] PanelUI gameOverMenu;
 
     [Header("TowerMenu")]
@@ -28,8 +28,6 @@ public class PanelManager : MonoBehaviour
     [Header("GameStatus")]
     [SerializeField] GameSttPanel gameSttPanel;
 
-    
-    private Vector2        initMenuPanelPos;
     private TowerPresenter selectedTower;
 
     private void Awake()
@@ -42,26 +40,17 @@ public class PanelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        LoadComponents();
     }
-
-    // private void Start()
-    // {
-    //     GetTotalWave();
-    //     ResetCurrentWave();
-    //     UpdateCurrentGold();
-    //     RegisterInputControllerEvent();
-    //     RegisterGamePlayManagerEvent();
-    // }
 
     public void PanelManagerPrepareGame()
     {
+        LoadComponents();
         GetTotalWave();
         ResetCurrentWave();
         UpdateCurrentGold();
         RegisterInputControllerEvent();
         RegisterGamePlayManagerEvent();
+        GetTotalLive();
     }
 
     private void OnDisable()
@@ -82,7 +71,7 @@ public class PanelManager : MonoBehaviour
         checkSymbol         = FindObjectOfType<CheckSymbol>();
 
         pauseMenu           = FindObjectOfType<PanelUI>();
-        victoryMenu         = FindObjectOfType<PanelUI>();
+        victoryMenu         = FindObjectOfType<VictoryMenu>();
         gameOverMenu        = FindObjectOfType<PanelUI>();
 
         currentSttPanel     = FindObjectOfType<CurrentSttPanel>();
@@ -124,6 +113,7 @@ public class PanelManager : MonoBehaviour
     {
         gamePlayManager.OnGoldChangeForUI                       += HandleGoldChange;
         gamePlayManager.OnLiveChangeForUI                       += HandleLiveChange;
+        gamePlayManager.OnFinishedMatch                         += HandleFinishedMatch;
         gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave   += HandleUpdateCurrentWave;
     }
 
@@ -131,6 +121,7 @@ public class PanelManager : MonoBehaviour
     {
         gamePlayManager.OnGoldChangeForUI                       -= HandleGoldChange;
         gamePlayManager.OnLiveChangeForUI                       -= HandleLiveChange;
+        gamePlayManager.OnFinishedMatch                         -= HandleFinishedMatch;
         gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave   -= HandleUpdateCurrentWave;
     }
     #endregion
@@ -168,7 +159,6 @@ public class PanelManager : MonoBehaviour
 
     private void HandleOnSelectedEmptyPlot(EmptyPlot emptyPlotPos)
     {   
-        initMenuPanelPos = emptyPlotPos.transform.position;
         initMenu.Hide();
         upgradeMenu.Hide();
         checkSymbol.Hide();
@@ -225,6 +215,12 @@ public class PanelManager : MonoBehaviour
         gameSttPanel.ResetCurrentWave();
     }
     
+    private void GetTotalLive()
+    {
+        int live = gamePlayManager.lives;
+        gameSttPanel.UpdateLive(live);
+    }
+    
     private void GetTotalWave()
     {
         int totalWave = gamePlayManager.spawnEnemyManager.TotalWave;
@@ -249,12 +245,17 @@ public class PanelManager : MonoBehaviour
         gameSttPanel.HandleUpdateCurrentWave(currentWave);
     }
 
-    private void HandleLiveChange()
+    private void HandleLiveChange(int currentLives)
     {
-        int live = gamePlayManager.live;
-        gameSttPanel.UpdateLive(live);
-        if(live != 0) return;
+        gameSttPanel.UpdateLive(currentLives);
+        if(currentLives != 0) return;
         gameOverMenu.Show();
+    }
+
+    private void HandleFinishedMatch(float lifePercentage)
+    {
+        victoryMenu.SetStarScore(lifePercentage);
+        victoryMenu.StartVictoryMenu();
     }
 
     private int GetCurrentGold()
@@ -272,11 +273,6 @@ public class PanelManager : MonoBehaviour
     public void HidePauseMenu()
     {
         pauseMenu.Hide();
-    }
-
-    public void ShowVictoryMenu()
-    {
-        victoryMenu.Show();
     }
     #endregion
 }

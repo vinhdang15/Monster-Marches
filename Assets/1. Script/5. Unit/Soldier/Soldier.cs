@@ -68,7 +68,7 @@ public class Soldier : UnitBase
                 break;
             case SoldierState.Die:
                 break;
-        }
+        } 
     }
 
     public void GetOffsetPos()

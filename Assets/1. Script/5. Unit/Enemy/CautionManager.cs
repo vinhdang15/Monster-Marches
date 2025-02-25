@@ -5,60 +5,62 @@ using UnityEngine;
 
 public class CautionManager : MonoBehaviour
 {
-    [SerializeField] BtnCautionSlider cautionSlider;
-    [SerializeField] Transform cautionParent;
-    private List<BtnCautionSlider> btnCautionSliders = new List<BtnCautionSlider>();
+    [SerializeField] BtnCaution cautionBtnPref;
+    private SpawnEnemyManager spawnEnemyManager;
+    private Transform cautionParent;
+    private List<BtnCaution> cautionBtnList = new List<BtnCaution>();
 
-    private void Awake()
+    public void CautionManagerPrepareGame()
     {
         LoadComponents();
+        InitCaution();
+        RegisterSpawnEnemyManagerEvent();
     }
 
     private void OnDisable()
     {
-        foreach(var btnCautionSlider in btnCautionSliders)
-        {
-            UnregisterBtnCautionSliderEvent(btnCautionSlider);
-        }
+        UnregisterSpawnEnemyManagerEvent();
     }
 
     private void LoadComponents()
     {
         cautionParent = GameObject.Find(InitNameObject.CanvasWorldSpace.ToString()).transform;
+        spawnEnemyManager = FindObjectOfType<SpawnEnemyManager>();
     }
 
-    public void InitCaution(SpawnEnemyManager spawnEnemyManager)
+    private void RegisterSpawnEnemyManagerEvent()
+    {
+        spawnEnemyManager.OnCautionClick += HandleHideAllCautionSlider;
+    }
+
+    private void UnregisterSpawnEnemyManagerEvent()
+    {
+        spawnEnemyManager.OnCautionClick -= HandleHideAllCautionSlider;
+    }
+
+    public void InitCaution()
     {
         foreach(var spawnEnemy in spawnEnemyManager.SpawnEnemies)
         {
             // init and set pos btnCautionSlider
             Vector2 pos = spawnEnemy.GetCautionPos();
-            BtnCautionSlider btnCautionSlider = Instantiate(cautionSlider, pos, Quaternion.identity, cautionParent);
-            btnCautionSlider.gameObject.SetActive(false);
-            spawnEnemy.btnCautionSlider = btnCautionSlider;
+            BtnCaution cautionBtn = Instantiate(cautionBtnPref, pos, Quaternion.identity, cautionParent);
+            cautionBtn.CautionBtnPrepareGame();
+            spawnEnemy.cautionBtn = cautionBtn;
 
-            // assign click event for btnCautionSlider
-            btnCautionSlider.SetSpawnEnemyManager(spawnEnemyManager);
-            RegisterBtnCautionSliderEvent(btnCautionSlider);
-            btnCautionSliders.Add(btnCautionSlider);
+            cautionBtn.SetSpawnEnemyManager(spawnEnemyManager);
+            this.cautionBtnList.Add(cautionBtn);
         }
-    }
-
-    private void RegisterBtnCautionSliderEvent(BtnCautionSlider btnCautionSlider)
-    {
-        btnCautionSlider.OnCautionClick += HandleHideAllCautionSlider;
-    }
-
-    private void UnregisterBtnCautionSliderEvent(BtnCautionSlider btnCautionSlider)
-    {
-        btnCautionSlider.OnCautionClick -= HandleHideAllCautionSlider;
     }
 
     private void HandleHideAllCautionSlider()
     {
-        foreach( var btnCautionSlider in btnCautionSliders)
+        foreach( var cautionBtn in cautionBtnList)
         {
-            btnCautionSlider.gameObject.SetActive(false);
+            if(cautionBtn.isCautionFillActive())
+            {
+                cautionBtn.HideCautionFill();
+            }
         }
     }
 }

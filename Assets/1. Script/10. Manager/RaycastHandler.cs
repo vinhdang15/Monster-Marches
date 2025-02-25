@@ -12,7 +12,6 @@ public class RaycastHandler : MonoBehaviour
     private Vector2 worldPos;
     private RaycastHit2D hit;
     private bool isMenuPanelOn = false;
-    private bool allow = false;
 
     public event Action OnRaycastHitNull;
     public event Action<EmptyPlot> OnSelectedEmptyPlot;
@@ -24,14 +23,14 @@ public class RaycastHandler : MonoBehaviour
     public void RaycastHandlerPrepareGame()
     {
         LoadComponents();
-        RegistertowerActionHandlerEvent();
+        RegisterTowerActionHandlerEvent();
     }
     private void LoadComponents()
     {
         towerActionHandler = FindObjectOfType<TowerActionHandler>();
     }
 
-    private void RegistertowerActionHandlerEvent()
+    private void RegisterTowerActionHandlerEvent()
     {
         towerActionHandler.OnGuardPointBtnClick += HandleGuardPointBtnClick;
     }
