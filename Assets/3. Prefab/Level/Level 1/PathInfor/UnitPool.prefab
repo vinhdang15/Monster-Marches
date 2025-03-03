@@ -48,6 +48,12 @@ MonoBehaviour:
   - unitPrefab: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     unitType: 
     poolSize: 10
-  - unitPrefab: {fileID: 454278597149469648, guid: 52577287aa1c88b4cb16964be4f5479a, type: 3}
+  - unitPrefab: {fileID: 8473826244210404601, guid: 6dc459d00d7de7d4d8f3cb99e85c9778, type: 3}
     unitType: 
     poolSize: 10
+  - unitPrefab: {fileID: 454278597149469648, guid: 52577287aa1c88b4cb16964be4f5479a, type: 3}
+    unitType: 
+    poolSize: 3
+  - unitPrefab: {fileID: 454278597149469648, guid: 9335e6b38174c1548babd973e3446566, type: 3}
+    unitType: 
+    poolSize: 3

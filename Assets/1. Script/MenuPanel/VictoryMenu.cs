@@ -76,7 +76,6 @@ public class VictoryMenu : MonoBehaviour
             seqState2.AppendInterval(0.3f).SetUpdate(true);
             seqState2.OnComplete(() =>
             {
-                Debug.Log("check");
                 ButtonsTwwen();
             });
         });

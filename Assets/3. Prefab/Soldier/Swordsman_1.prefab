@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 1589449537
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1896018165, guid: 027bab5bce8164348866baebde2a35cd, type: 3}
+  m_Sprite: {fileID: -1904853522, guid: 4e9714fa7d4913d4f94b6e8952c29a23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 2dbfd76db98de3449bd4d3608336355c, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 7164a0d26da9cc342a4ca6b4420adc9b, type: 3}
 --- !u!50 &989140041608785772
 Rigidbody2D:
   serializedVersion: 4
@@ -396,9 +396,11 @@ MonoBehaviour:
   soundEffectSO: {fileID: 11400000, guid: 58f3b842f8497a046a2a1acaa17e7bc7, type: 2}
   unitAnimation: {fileID: 0}
   barrackTowerView: {fileID: 0}
+  index: 0
   guardPos: {x: 0, y: 0}
   enemiesInRange: []
-  isReachTargetEnemyFontPos: 0
+  isBarrackUpgrade: 0
+  isReachTargetEnemyFrontPos: 0
   currentState: 0
 --- !u!114 &3602700437888783339
 MonoBehaviour:
@@ -450,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7953788290702452431, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.287
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 7953788290702452431, guid: dc6c12da503dd4e4f8c0fb62e490cbfd, type: 3}
       propertyPath: m_LocalPosition.z

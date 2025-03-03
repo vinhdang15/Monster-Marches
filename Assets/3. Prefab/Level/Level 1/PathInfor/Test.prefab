@@ -52,9 +52,9 @@ MonoBehaviour:
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 1
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 0
+    numberEnemyInWave: 1
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
-    numberEnemyInWave: 0
+    numberEnemyInWave: 1
   - enemy: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     numberEnemyInWave: 0
   cautionBtn: {fileID: 0}
