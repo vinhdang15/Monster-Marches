@@ -22,7 +22,7 @@ public enum InitNameObject
     UpgradeSttPanel,
     GameSttPanel,
 
-    SpawnEnemyManager,
+    EnemySpawnerManager,
     UnitPool,
     BulletPool,
 

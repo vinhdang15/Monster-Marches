@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,18 +22,20 @@ public class TowerActionHandler : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    private void LoadComponents()
-    {
-        inputButtonHandler = FindObjectOfType<InputButtonHandler>();
-        raycastHandler = FindObjectOfType<RaycastHandler>();
-    }
+    
 
-    public void TowerActionPrepareGame()
+    public void PrepareGame()
     {
         LoadComponents();
         RegisterInputControllerEvent();
         RegisterRaycastHandlerEvent();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void LoadComponents()
+    {
+        inputButtonHandler = FindObjectOfType<InputButtonHandler>();
+        raycastHandler = FindObjectOfType<RaycastHandler>();
     }
 
     private void OnDisable()

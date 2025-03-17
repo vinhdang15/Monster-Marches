@@ -8,14 +8,19 @@ public class BulletManager : MonoBehaviour
     [SerializeField] BulletPool bulletPool;
     [SerializeField] List<BulletBase> activeBullets = new List<BulletBase>();
 
-    private void Awake()
+    // private void Awake()
+    // {
+    //     LoadComponents();
+    // }
+
+    public void PrepareGame()
     {
         LoadComponents();
     }
 
     private void LoadComponents()
     {
-        bulletPool = GameObject.Find("BulletPool").GetComponent<BulletPool>();
+        bulletPool = FindObjectOfType<BulletPool>();
     }
 
     private void Update()

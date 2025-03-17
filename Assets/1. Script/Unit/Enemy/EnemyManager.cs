@@ -11,18 +11,14 @@ public class EnemyManager : MonoBehaviour
     public event Action<UnitBase> OnEnemyDeath;
     public event Action OnEnemyReachEndPoint;
 
-    private void Awake()
+    public void PrepareGame()
     {
-        unitPool = GameObject.Find(InitNameObject.UnitPool.ToString()).GetComponent<UnitPool>();
+        LoadComponents();
     }
 
-    private void Start()
+    private void LoadComponents()
     {
-        // foreach(var enemy in ActiveEnemies)
-        // {
-        //     enemy.GetAnimation();
-        //     enemy.unitAnimation.UnitPlayWalk();
-        // }
+        unitPool = FindObjectOfType<UnitPool>();
     }
 
     private void OnDisable()

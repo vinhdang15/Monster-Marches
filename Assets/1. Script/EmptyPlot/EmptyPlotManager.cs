@@ -9,16 +9,16 @@ public class EmptyPlotManager : MonoBehaviour
     [SerializeField] EmptyPlot emptyPlotPrefab;
     public List<EmptyPlot> emptyPlotList = new List<EmptyPlot>();
 
-    private void Start()
-    {
-        StartCoroutine(InitEmptyPlotCoroutine());
-    }
+    // private void Start()
+    // {
+    //     StartCoroutine(InitEmptyPlotCoroutine());
+    // }
 
-    private IEnumerator InitEmptyPlotCoroutine()
-    {
-        yield return new WaitUntil(() => CSVEmptyPlotDataReader.Instance.IsDataLoaded);
-        InitEmptyPlot();
-    }
+    // private IEnumerator InitEmptyPlotCoroutine()
+    // {
+    //     yield return new WaitUntil(() => CSVEmptyPlotDataReader.Instance.IsDataLoaded);
+    //     InitEmptyPlot();
+    // }
 
     private void InitEmptyPlot()
     {

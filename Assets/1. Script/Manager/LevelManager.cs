@@ -8,10 +8,10 @@ public class LevelManager : MonoBehaviour
     private GameObject map;
     [SerializeField] private BulletPool bulletPoolPref;
     [SerializeField] private UnitPool unitPoolPref;
-    [SerializeField] private SpawnEnemyManager spawnEnemyManagerPref;
-    private SpawnEnemyManager spawnEnemyManager;
-    [SerializeField] private List<SpawnEnemy> spawnEnemiesPref = new List<SpawnEnemy>();
-    [SerializeField] public List<SpawnEnemy> spawnEnemies = new List<SpawnEnemy>();
+    [SerializeField] private EnemySpawnerManager spawnEnemyManagerPref;
+    private EnemySpawnerManager spawnEnemyManager;
+    [SerializeField] private List<EnemySpawner> spawnEnemiesPref = new List<EnemySpawner>();
+    [SerializeField] public List<EnemySpawner> spawnEnemies = new List<EnemySpawner>();
 
     public PolygonCollider2D GetMapPolygonCollider2D()
     {
@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
     public void BindSpawnEnemyManager(GameObject tranformParent)
     {
         spawnEnemyManager = Instantiate(spawnEnemyManagerPref, tranformParent.transform);
-        spawnEnemyManager.name = InitNameObject.SpawnEnemyManager.ToString();
+        spawnEnemyManager.name = InitNameObject.EnemySpawnerManager.ToString();
     }
 
     public void SpawnEnemyManagerPrepareGame()

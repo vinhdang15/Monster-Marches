@@ -61,3 +61,6 @@ TagManager:
   - name: UI
     uniqueID: 988487249
     locked: 0
+  - name: VisualEffect
+    uniqueID: 1129540669
+    locked: 0

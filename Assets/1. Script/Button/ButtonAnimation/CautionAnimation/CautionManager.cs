@@ -7,7 +7,7 @@ using UnityEngine;
 public class CautionManager : MonoBehaviour
 {
     [SerializeField] BtnCaution cautionBtnPref;
-    private SpawnEnemyManager spawnEnemyManager;
+    private EnemySpawnerManager enemySpawnManager;
     private Transform cautionParent;
     private List<BtnCaution> cautionBtnList = new List<BtnCaution>();
 
@@ -26,23 +26,23 @@ public class CautionManager : MonoBehaviour
     private void LoadComponents()
     {
         cautionParent = GameObject.Find(InitNameObject.CanvasWorldSpace.ToString()).transform;
-        spawnEnemyManager = FindObjectOfType<SpawnEnemyManager>();
+        enemySpawnManager = FindObjectOfType<EnemySpawnerManager>();
     }
 
     private void RegisterSpawnEnemyManagerEvent()
     {
-        spawnEnemyManager.OnCautionClick += HandleHideAllCautionSlider;
+        enemySpawnManager.OnCautionClick += HandleHideAllCautionSlider;
     }
 
     private void UnregisterSpawnEnemyManagerEvent()
     {
-        spawnEnemyManager.OnCautionClick -= HandleHideAllCautionSlider;
+        enemySpawnManager.OnCautionClick -= HandleHideAllCautionSlider;
     }
 
     public void InitCaution()
     {   
         int i = 1;
-        foreach(var spawnEnemy in spawnEnemyManager.SpawnEnemies)
+        foreach(var spawnEnemy in enemySpawnManager.SpawnEnemies)
         {
             // init and set pos btnCautionSlider
             Vector2 pos = spawnEnemy.GetCautionPos();
@@ -52,7 +52,7 @@ public class CautionManager : MonoBehaviour
             cautionBtn.CautionBtnPrepareGame();
             spawnEnemy.cautionBtn = cautionBtn;
 
-            cautionBtn.SetSpawnEnemyManager(spawnEnemyManager);
+            cautionBtn.SetSpawnEnemyManager(enemySpawnManager);
             this.cautionBtnList.Add(cautionBtn);
         }
     }

@@ -17,7 +17,6 @@ public class RaycastHandler : MonoBehaviour
     public event Action<EmptyPlot> OnSelectedEmptyPlot;
     public event Action<TowerPresenter> OnSelectedBulletTower;
     public event Action<TowerPresenter> OnSelectedBarrackTower;
-    // public event Action OnSelectedGuardPointBtnClick;
     public event Action<Vector2> OnSelectedNewGuardPointPos;
 
     public void RaycastHandlerPrepareGame()

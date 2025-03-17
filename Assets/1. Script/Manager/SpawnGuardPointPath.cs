@@ -5,4 +5,5 @@ using UnityEngine;
 public class SpawnGuardPointPath : MonoBehaviour
 {
     public BarrackSpawnGuardPointConfigSO     barrackSpawnGuardPointConfigSO;
+
 }

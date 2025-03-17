@@ -11,15 +11,20 @@ public class BarrackTowerManager : TowerBaseManager
     
     public Dictionary<TowerPresenter, BarackTowerInfor> barrackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
-    private void Awake()
+    // private void Awake()
+    // {
+    //     LoadComponents();
+    // }
+
+    public void PrepareGame()
     {
         LoadComponents();
     }
 
     private void LoadComponents()
     {
-        soldierManager = GameObject.Find("SoldierManager").GetComponent<SoldierManager>();
-        spawnGuardPointPath = GameObject.Find("SpawnGuardPointPath").GetComponent<SpawnGuardPointPath>();
+        soldierManager = FindObjectOfType<SoldierManager>();
+        spawnGuardPointPath = FindObjectOfType<SpawnGuardPointPath>();
         barrackSpawnGuardPointConfigSO = spawnGuardPointPath.barrackSpawnGuardPointConfigSO;
     }
     

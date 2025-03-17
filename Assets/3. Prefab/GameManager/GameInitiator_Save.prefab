@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6386766698239925671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5859636486880905716}
+  - component: {fileID: 2004014084657453386}
+  m_Layer: 0
+  m_Name: GameInitiator_Save
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5859636486880905716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386766698239925671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2004014084657453386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386766698239925671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e8b34c48c4e4c4bb352db473a042c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 7870814402929922444, guid: e1fb9769b45841547b6f2e313fda9863, type: 3}
+  _CSVEmptyPlotDataReader: {fileID: 5452699172751970287, guid: afb1f4e9cf97c5d4181894a85e4d4088, type: 3}
+  _CSVTowerDataReader: {fileID: 3551059645874224328, guid: bff4eb3488b9dbc45b1be40565afdff4, type: 3}
+  _CSVBulletDataReader: {fileID: 7312724373959494342, guid: 7ee64475ba35dd343bbc4a8cbdf485a2, type: 3}
+  _CSVBulletEffectDataReader: {fileID: 1688266290170792413, guid: 4ea64fb4dbaf72c408333c4e0b0f2dd1, type: 3}
+  _CSVUnitDataReader: {fileID: 8024145875720820022, guid: 9e6da9d84e2bd0d48b3c5100afb418f2, type: 3}
+  _CSVSkillDataReader: {fileID: 7053645185576752903, guid: 690447c08269be945bd5e707e4944fe6, type: 3}
+  visualEffectPool: {fileID: 972004755641587948, guid: 6307ebe7658c20a4987d8dc0b1f3b759, type: 3}
+  canvasScreenSpace: {fileID: 5920719379836529698, guid: c8971f742b9c62f4a9bab36421f53287, type: 3}
+  canvasWorldSpace: {fileID: 176745454639147383, guid: b0cc63d322b7ea84792560c65b61ab9c, type: 3}
+  levelManager: {fileID: 750976621276658891, guid: 99d55f7579a7cf742a5ba686fdb9064a, type: 3}
+  fPSCounter: {fileID: 6234544196098846960, guid: 7414ead0232e7b641bdafff1cdbc02fd, type: 3}
+  emptyPlotManager: {fileID: 6827882773492474754, guid: 6bb994a940112774bbe951688c6c533c, type: 3}
+  bulletTowerManager: {fileID: 4290534878689775746, guid: 36750726c2da7954d8f9b7b3af789fdf, type: 3}
+  barrackTowerManager: {fileID: 2572811732704144327, guid: a7242759b59aca44bb882858b1e8d34e, type: 3}
+  soldierManager: {fileID: 7058225555890191791, guid: 4bd75b57c3167d94c988a98f095f3fa3, type: 3}
+  bulletManager: {fileID: 3260903671357757072, guid: 689dbf24b75ff1b42958c330860ed17e, type: 3}
+  enemyManager: {fileID: 4034063545699120182, guid: b170ba4eb53a87342a554e3eb336850b, type: 3}
+  raycastHandler: {fileID: 1890386177643715819, guid: ed9d91c43ad27584ba9610f84c1cd54b, type: 3}
+  inputButtonHandler: {fileID: 6566239854668499126, guid: 9fae888604420f9498599d9e74860367, type: 3}
+  towerActionHandler: {fileID: 575354496877453398, guid: 03940d147f2751742b9d2d49a03d10b3, type: 3}
+  panelManager: {fileID: 5232098085455180400, guid: 0d01de6351df2cc4582d7a092d68b0df, type: 3}
+  gamePlayManager: {fileID: 2476189185622002317, guid: d339727312976d04c9c29eff42435059, type: 3}
+  cautionManager: {fileID: 694791887957451411, guid: dd00cdafe9436874d8ce20e5513a4a7b, type: 3}

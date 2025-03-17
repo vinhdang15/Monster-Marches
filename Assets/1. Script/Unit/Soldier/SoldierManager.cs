@@ -8,14 +8,19 @@ public class SoldierManager : MonoBehaviour
     private List<GuardPoint> guardPoints = new List<GuardPoint>();
     [SerializeField] List<Soldier> totalsoldiers = new List<Soldier>();
 
-    private void Awake()
+    // private void Awake()
+    // {
+    //     LoadComponents();
+    // }
+
+    public void PrepareGame()
     {
         LoadComponents();
     }
 
     private void LoadComponents()
     {
-        unitPool = GameObject.Find("UnitPool").GetComponent<UnitPool>();
+        unitPool = FindObjectOfType<UnitPool>();
     }
 
     private void Update()

@@ -8,9 +8,14 @@ public class BulletTowerManager : TowerBaseManager
     [SerializeField] List<TowerViewBase>    towerPrefabList = new List<TowerViewBase>();
     private Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
 
-    private void Awake()
+    // private void Awake()
+    // {
+    //     bulletManager = GameObject.Find(InitNameObject.BulletManager.ToString()).GetComponent<BulletManager>();
+    // }
+
+    public void PrepareGame()
     {
-        bulletManager = GameObject.Find(InitNameObject.BulletManager.ToString()).GetComponent<BulletManager>();
+        bulletManager = FindObjectOfType<BulletManager>();
     }
     
     private void OnDisable()

@@ -5,7 +5,6 @@ public class CSVUnitDataReader : MonoBehaviour
     public static CSVUnitDataReader     Instance { get; private set; }
     [SerializeField] TextAsset          unitDataCSV;
     public UnitDataListSO               unitDataList;
-    public bool IsDataLoaded { get; private set; }
 
     private void Awake()
     {
@@ -53,6 +52,5 @@ public class CSVUnitDataReader : MonoBehaviour
             };
             unitDataList.unitDataList.Add(unitData);
         }
-        IsDataLoaded = true;
     }
 }

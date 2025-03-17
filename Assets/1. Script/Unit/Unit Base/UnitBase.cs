@@ -50,7 +50,7 @@ public abstract class UnitBase : MonoBehaviour
     }
 
     #region INIT UNIT
-    public virtual void InItUnit(UnitData _unitData)
+    public virtual void InitUnit(UnitData _unitData)
     {
         InitUnitData(_unitData);
         SetupCurrentHp();

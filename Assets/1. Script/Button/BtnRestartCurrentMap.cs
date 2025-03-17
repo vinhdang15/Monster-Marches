@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BtnRestartCurrentMap : BtnBase
+public class BtnRestartCurrentMap : LoadSceneBtnBase
 {
     protected override void Start()
     {

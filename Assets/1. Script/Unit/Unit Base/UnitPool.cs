@@ -17,9 +17,21 @@ public class UnitPool : MonoBehaviour
     public Dictionary<string, Queue<Soldier>> soldierPool = new Dictionary<string, Queue<Soldier>>();
     
 
-    private void Start()
+    // private void Start()
+    // {
+    //     Initialize();
+    // }
+
+    public void Initialize()
     {
-        InitializePoolsCoroutine();
+        InitializeUnitPool();
+    }
+
+    private void InitializeUnitPool()
+    {
+        UnitType();
+        InitializeEnemyPools();
+        InitializeSoldierPools();
     }
 
     private void UnitType()
@@ -30,25 +42,17 @@ public class UnitPool : MonoBehaviour
         }
     }
 
-    private void InitializePoolsCoroutine()
-    {
-        // yield return new WaitUntil(() => CSVUnitDataReader.Instance.IsDataLoaded);
-        UnitType();
-        InitializeEnemyPools();
-        InitializeSoldierPools();
-    }
-
     private void InitializeEnemyPools()
     {
         foreach(var unitPoolInfor in unitPoolInfors)
         {
             if(unitPoolInfor.unitType != "enemy") continue;
             Queue<Enemy> enemyQueue = new Queue<Enemy>();
-            for( int i = 0; i < unitPoolInfor.poolSize; i++)
+            for(int i = 0; i < unitPoolInfor.poolSize; i++)
             {
                 Enemy enemy = (Enemy)Instantiate(unitPoolInfor.unitPrefab, transform);
                 UnitData unitData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPoolInfor.UnitName);
-                enemy.InItUnit(unitData);
+                enemy.InitUnit(unitData);
                 enemy.GetAnimation();
                 enemy.gameObject.SetActive(false);
                 enemyQueue.Enqueue(enemy);
@@ -67,7 +71,7 @@ public class UnitPool : MonoBehaviour
             {
                 Soldier soldier = (Soldier)Instantiate(unitPoolInfor.unitPrefab, transform);
                 UnitData soldierData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPoolInfor.UnitName);
-                soldier.InItUnit(soldierData);
+                soldier.InitUnit(soldierData);
                 soldier.GetAnimation();
                 soldier.gameObject.SetActive(false);
                 soldierQueue.Enqueue(soldier);
@@ -84,6 +88,7 @@ public class UnitPool : MonoBehaviour
             Debug.Log("there is no " + EnemyName);
             return null;
         }
+        
         if(enemyPool[EnemyName].Count > 0)
         {
             Enemy enemy = enemyPool[EnemyName].Dequeue() as Enemy;
@@ -97,7 +102,7 @@ public class UnitPool : MonoBehaviour
             Enemy unitPrefab = GetUnitPrefab(EnemyName) as Enemy;
             Enemy enemy = Instantiate(unitPrefab, transform);
             UnitData unitData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPrefab.name.Trim().ToLower());
-            enemy.InItUnit(unitData);
+            enemy.InitUnit(unitData);
             enemy.GetAnimation();
            return enemy;
         }
@@ -124,7 +129,7 @@ public class UnitPool : MonoBehaviour
             Soldier unitPrefab = (Soldier)GetUnitPrefab(unitName);
             Soldier soldier = Instantiate(unitPrefab, initPos, Quaternion.identity, transform);
             UnitData unitData = CSVUnitDataReader.Instance.unitDataList.GetUnitData(unitPrefab.name.Trim().ToLower());
-            soldier.InItUnit(unitData);
+            soldier.InitUnit(unitData);
             soldier.GetAnimation();
            return soldier;
         }

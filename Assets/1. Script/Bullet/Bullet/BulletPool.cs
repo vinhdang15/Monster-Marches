@@ -15,19 +15,17 @@ public class BulletPool : MonoBehaviour
     public List<BulletPoolInfo> bulletPoolInfos;
     Dictionary<string, Queue<BulletBase>> bulletPools = new Dictionary<string, Queue<BulletBase>>();
 
-    private void Start()
-    {   
-        // wait bullet data && bullet effect data been readed atfer that init bullet
-        StartCoroutine(InitializePoolsCoroutine());
-    }
-
-    private IEnumerator InitializePoolsCoroutine()
+    // private void Start()
+    // {   
+    //     Initialize();
+    // }
+    
+    public void Initialize()
     {
-        yield return new WaitUntil(() => CSVBulletDataReader.Instance.IsDataLoaded && CSVBulletEffectDataReader.Instance.IsDataLoaded);
-        InitializePools();
+        InitializeBulletPool();
     }
 
-    private void InitializePools()
+    private void InitializeBulletPool()
     {
         foreach(var bulletPoolInfo in bulletPoolInfos)
         {

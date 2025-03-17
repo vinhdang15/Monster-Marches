@@ -15,6 +15,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] PanelUI pauseMenu;
     [SerializeField] VictoryMenu victoryMenu;
     [SerializeField] PanelUI gameOverMenu;
+    [SerializeField] MapMenu mapMenu;
 
     [Header("TowerMenu")]
     [SerializeField] InitMenu initMenu;
@@ -42,7 +43,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
-    public void PanelManagerPrepareGame()
+    public void PrepareGame()
     {
         LoadComponents();
         GetTotalWave();
@@ -73,9 +74,9 @@ public class PanelManager : MonoBehaviour
         pauseMenu           = FindObjectOfType<PanelUI>();
         victoryMenu         = FindObjectOfType<VictoryMenu>();
         gameOverMenu        = FindObjectOfType<PanelUI>();
+        mapMenu             = FindObjectOfType<MapMenu>();
 
         currentSttPanel     = FindObjectOfType<CurrentSttPanel>();
-        currentSttPanel.Hide();
         upgradeSttPanel     = FindObjectOfType<UpgradeSttPanel>();
         gameSttPanel        = FindObjectOfType<GameSttPanel>();
     }
@@ -114,7 +115,7 @@ public class PanelManager : MonoBehaviour
         gamePlayManager.OnGoldChangeForUI                       += HandleGoldChange;
         gamePlayManager.OnLiveChangeForUI                       += HandleLiveChange;
         gamePlayManager.OnFinishedMatch                         += HandleFinishedMatch;
-        gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave   += HandleUpdateCurrentWave;
+        gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave   += HandleUpdateCurrentWave;
     }
 
     private void UnregisterGamePlayManagerEvent()
@@ -122,7 +123,7 @@ public class PanelManager : MonoBehaviour
         gamePlayManager.OnGoldChangeForUI                       -= HandleGoldChange;
         gamePlayManager.OnLiveChangeForUI                       -= HandleLiveChange;
         gamePlayManager.OnFinishedMatch                         -= HandleFinishedMatch;
-        gamePlayManager.spawnEnemyManager.OnUpdateCurrentWave   -= HandleUpdateCurrentWave;
+        gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave   -= HandleUpdateCurrentWave;
     }
     #endregion
 
@@ -223,7 +224,7 @@ public class PanelManager : MonoBehaviour
     
     private void GetTotalWave()
     {
-        int totalWave = gamePlayManager.spawnEnemyManager.TotalWave;
+        int totalWave = gamePlayManager.enemySpawnerManager.TotalWave;
         gameSttPanel.GetTotalWave(totalWave);
     }
 
@@ -265,6 +266,16 @@ public class PanelManager : MonoBehaviour
     #endregion
 
     #region GAME MENU
+    public void ShowMapMenu(MapModel mapModel)
+    {
+        mapMenu.Show(mapModel);
+    }
+
+    public void HideMapMenu()
+    {
+        mapMenu.Hide();
+    }
+    
     public void ShowPauseMenu()
     {
         pauseMenu.Show();

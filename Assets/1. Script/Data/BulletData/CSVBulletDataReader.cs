@@ -6,7 +6,6 @@ public class CSVBulletDataReader : MonoBehaviour
     public static CSVBulletDataReader   Instance { get; private set; }
     [SerializeField] TextAsset          bulletDataCSV;
     public BulletDataListSO             bulletDataList;
-    public bool IsDataLoaded { get; private set; }
 
     private void Awake()
     {
@@ -42,6 +41,5 @@ public class CSVBulletDataReader : MonoBehaviour
             };
             bulletDataList.bulletDataList.Add(bulletData);
         }
-        IsDataLoaded = true;
     }
 }

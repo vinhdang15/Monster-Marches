@@ -23,7 +23,7 @@ public class GamePlayManager : MonoBehaviour
 
     [SerializeField] BulletTowerManager         bulletTowerManager;
     [SerializeField] BarrackTowerManager        barrackTowerManager;
-    public SpawnEnemyManager                    spawnEnemyManager;
+    public EnemySpawnerManager                    enemySpawnerManager;
     private Vector2                             initMenuPanelPos;
     private TowerPresenter                      selectedTower;
     private TowerPresenter                      selectedBulletTower;
@@ -37,14 +37,18 @@ public class GamePlayManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    public void GamePlayManagerPrepareGame()
+    public void PrepareGame()
     {
         LoadComponents();
         RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
-        GetInitGold();
         currentLives = lives;
+    }
+
+    public void GetInfor()
+    {
+        GetTowerInitGold();
     }
 
     private void OnDisable()
@@ -62,12 +66,12 @@ public class GamePlayManager : MonoBehaviour
         raycastHandler      = FindObjectOfType<RaycastHandler>();
         towerActionHandler  = FindObjectOfType<TowerActionHandler>();
 
-        spawnEnemyManager   = FindObjectOfType<SpawnEnemyManager>();
+        enemySpawnerManager = FindObjectOfType<EnemySpawnerManager>();
         bulletTowerManager  = FindObjectOfType<BulletTowerManager>();
         barrackTowerManager = FindObjectOfType<BarrackTowerManager>();
     }
 
-    private void GetInitGold()
+    private void GetTowerInitGold()
     {
         archerTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString().Trim().ToLower());
         mageTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.MageTower.ToString().Trim().ToLower());
@@ -137,7 +141,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleFinishedMatch()
     {
-        if(spawnEnemyManager.totalEnemies == enemyManager.totalEnemiesDie)
+        if(enemySpawnerManager.totalEnemies == enemyManager.totalEnemiesDie)
         {
             float lifePercentage = (float)currentLives / lives * 100;
             // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
@@ -149,12 +153,12 @@ public class GamePlayManager : MonoBehaviour
     // caution click event
     private void RegisterCautionClickEvent()
     {
-        spawnEnemyManager.OnAddGoldWhenCautionClick += HandleAddGoldWhenCautionClick;
+        enemySpawnerManager.OnAddGoldWhenCautionClick += HandleAddGoldWhenCautionClick;
     }
 
     private void UnregisterCautionClickEvent()
     {
-        spawnEnemyManager.OnAddGoldWhenCautionClick -= HandleAddGoldWhenCautionClick;
+        enemySpawnerManager.OnAddGoldWhenCautionClick -= HandleAddGoldWhenCautionClick;
     }
 
     private void HandleAddGoldWhenCautionClick(int goldAdd)

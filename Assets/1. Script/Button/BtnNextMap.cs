@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BtnNextMap : BtnBase
 {
-    [SerializeField] MainMenu mainMenu;
-    protected override void Start()
-    {
-        base.Start();
-    }
+    // [SerializeField] MainMenu mainMenu;
+    // protected override void Start()
+    // {
+    //     base.Start();
+    // }
 
-    protected override void OnButtonClick()
-    {
-        PlayClickSound();
-        mainMenu.NextMap();
-    }
+    // protected override void OnButtonClick()
+    // {
+    //     PlayClickSound();
+    //     mainMenu.NextMap();
+    // }
 }

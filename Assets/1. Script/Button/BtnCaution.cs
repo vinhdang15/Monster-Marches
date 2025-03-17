@@ -8,7 +8,7 @@ public class BtnCaution : BtnBase
     [SerializeField] private CautionFill cautionFill;
     [SerializeField] private CautionGold cautionGold;
     public bool isFirstWave = false;
-    private SpawnEnemyManager   spawnEnemyManager;
+    private EnemySpawnerManager   spawnEnemyManager;
 
     protected override void Start()
     {
@@ -46,7 +46,7 @@ public class BtnCaution : BtnBase
         }
     }
 
-    public void SetSpawnEnemyManager(SpawnEnemyManager _spawnEnemyManager)
+    public void SetSpawnEnemyManager(EnemySpawnerManager _spawnEnemyManager)
     {
         spawnEnemyManager = _spawnEnemyManager;
         spawnEnemyManager.OnAddGoldWhenCautionClick += HandleShowGoldAddWhenCautionClick;

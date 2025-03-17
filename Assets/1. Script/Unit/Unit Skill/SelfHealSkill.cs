@@ -17,6 +17,7 @@ public class SelfHealSkill : SkillBase
         if(healCoolDown <= 0)
         {
             unit.Healing(skillValue);
+            ApplyEffect(unit);
             healCoolDown = skillOccursTime;
         }
         else
@@ -31,5 +32,17 @@ public class SelfHealSkill : SkillBase
                                 && soldier.IsInGuardPos()
                                 && soldier.CurrentHp < soldier.MaxHP;
         return soldierCanApply;
+    }
+
+    private void ApplyEffect(UnitBase unit)
+    {
+        // Effect a = VisualEffectPool.Instance.GetEffect(skillType);
+        // a.PlayEffect(unit.gameObject);
+        // Debug.Log("play effect");
+        Effect effectPrefab = VisualEffectPool.Instance.GetEffect(skillType);
+        if (effectPrefab != null)
+        {
+            effectPrefab.PlayEffect(unit.transform);
+        }
     }
 }

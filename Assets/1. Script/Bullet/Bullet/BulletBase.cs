@@ -185,7 +185,6 @@ public class BulletBase : MonoBehaviour
             bulletAnimation.PlayHitNullAnimation();
         }
         StartCoroutine(FinishAnotationCoroutine());
-
     }
 
     protected IEnumerator FinishAnotationCoroutine()

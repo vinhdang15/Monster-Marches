@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 
-public class BtnLoadStartMenu : BtnBase
+public class BtnLoadStartMenu : LoadSceneBtnBase
 {
     protected override void Start() 
     {

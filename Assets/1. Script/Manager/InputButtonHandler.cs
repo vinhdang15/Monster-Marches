@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InputButtonHandler : MonoBehaviour
 {
-    // chịu trách nhiệm xử lý các dữ kiện đầu vào của người dùng
+    // chịu trách nhiệm gửi thông tin khi người chơi tương tác với các nút
     [SerializeField] private Button archerTowerBtn;
     [SerializeField] private Button mageTowerBtn;
     [SerializeField] private Button barrackTowerBtn;

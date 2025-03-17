@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff92b87373c1b6b4b8f970edb23712e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 200
-  live: 20
+  gold: 2000
+  lives: 20
+  currentLives: 0
   archerTowerInitGold: 0
   mageTowerInitGold: 0
   barrackTowerInitGold: 0
@@ -53,7 +54,9 @@ MonoBehaviour:
   towerUpgradeGold: 0
   towerSellGold: 0
   enemyManager: {fileID: 0}
-  inputController: {fileID: 0}
+  panelManager: {fileID: 0}
+  raycastHandler: {fileID: 0}
+  towerActionHandler: {fileID: 0}
   bulletTowerManager: {fileID: 0}
   barrackTowerManager: {fileID: 0}
   spawnEnemyManager: {fileID: 0}
