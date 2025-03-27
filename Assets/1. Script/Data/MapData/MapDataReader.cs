@@ -6,7 +6,7 @@ using UnityEngine;
 public class MapDataReader : MonoBehaviour
 {
     public static MapDataReader Instance { get; private set; }
-    public MapDataListSO mapDataListSO;
+    public MapDataListSO        mapDataListSO;
 
     private void Awake()
     {

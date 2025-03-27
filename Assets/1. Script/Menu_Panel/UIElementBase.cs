@@ -9,16 +9,16 @@ public class UIElementBase : MonoBehaviour
     [SerializeField]CanvasGroup canvasGroup;
     [SerializeField]RectTransform rectTransform;
 
-    private void Awake()
-    {
-        LoadComponents();
-    }
+    // private void Awake()
+    // {
+    //     LoadComponents();
+    // }
 
-    private void LoadComponents()
-    {
-        canvasGroup = GetComponent<CanvasGroup>();
-        rectTransform = GetComponent<RectTransform>();
-    }
+    // private void LoadComponents()
+    // {
+    //     canvasGroup = GetComponent<CanvasGroup>();
+    //     rectTransform = GetComponent<RectTransform>();
+    // }
 
     public virtual void Show()
     {

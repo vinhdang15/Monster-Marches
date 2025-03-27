@@ -1,15 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
-    public MapManager Instance { get; private set; }
+    public static MapManager Instance { get; private set; }
     
-    [SerializeField] MapMenu mapMenu;
     [SerializeField] MapBtn mapBtnPrefeb;
     private Transform mapParent;
 
@@ -17,6 +14,9 @@ public class MapManager : MonoBehaviour
     private List<MapPresenter> mapPresenterList = new();
 
     private MapPresenter SelectedMapPresenter;
+    public List<LoadSelectedMapBtn> loadSelectedMapBtnList;
+
+    public event Action<MapPresenter> OnLoadSelectedMap;
 
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
@@ -27,7 +27,6 @@ public class MapManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            mapMenu = FindObjectOfType<MapMenu>();
         }
         else
         {
@@ -38,13 +37,22 @@ public class MapManager : MonoBehaviour
     public void PrepareGame()
     {
         GetMapParent();
+        RegisterButtonEvent();
     }
 
     private void GetMapParent()
     {
-        // mapParent = GameObject.Find(InitNameObject.CanvasWorldSpace.ToString()).transform;
         mapParent = CanvasManager.Instance.transform.Find("CanvasWorldSpace");
     }
+
+    private void RegisterButtonEvent()
+    {
+        foreach(var loadSelectedMapBtn in loadSelectedMapBtnList)
+        {
+            loadSelectedMapBtn.OnLoadMapBtnClick += HandleLoadSelectedMap;
+        }
+    }
+
     public void InitMapBtn()
     {
         foreach(MapData mapData in MapDataReader.Instance.mapDataListSO.mapDataList)
@@ -69,9 +77,28 @@ public class MapManager : MonoBehaviour
     {
         SelectedMapPresenter = mapPresenter;
         PanelManager.Instance.ShowMapMenu(mapPresenter.mapModel);
-        // mapMenu.gameObject.SetActive(true);
-        // mapMenu.Show(mapPresenter.mapModel);
     }
 
+    private void HandleLoadSelectedMap()
+    {
+        HideMapBtn();
+        PanelManager.Instance.HideMapMenu();
+        OnLoadSelectedMap?.Invoke(SelectedMapPresenter);
+    }
 
+    private void HideMapBtn()
+    {
+        foreach(var mapBtn in mapBtnList)
+        {
+            mapBtn.gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowMapBtn()
+    {
+        foreach(var mapBtn in mapBtnList)
+        {
+            mapBtn.gameObject.SetActive(true);
+        }
+    }
 }

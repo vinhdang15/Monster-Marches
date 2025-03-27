@@ -33,7 +33,7 @@ public class BulletPool : MonoBehaviour
             for(int i = 0; i < bulletPoolInfo.poolSize; i++)
             {
                 BulletBase bullet = Instantiate(bulletPoolInfo.bulletPrefab, transform);
-                BulletData bulletData = CSVBulletDataReader.Instance.bulletDataList.GetBulletData(bulletPoolInfo.BulletType);
+                BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPoolInfo.BulletType);
                 bullet.InitBullet(bulletData);
 
                 bullet.gameObject.SetActive(false);
@@ -65,7 +65,7 @@ public class BulletPool : MonoBehaviour
         {
             BulletBase bulletPrefab = GetBulletPrefab(bulletType);
             BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
-            BulletData bulletData = CSVBulletDataReader.Instance.bulletDataList.GetBulletData(bulletPrefab.BulletType);
+            BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPrefab.BulletType);
             bullet.InitBullet(bulletData);
             bullet.transform.position = initPos;
             bullet.startPos = initPos;

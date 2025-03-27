@@ -18,8 +18,8 @@ public class MapDataListSO : ScriptableObject
     //     return posList;
     // }
 
-    public void Test()
-    {
-        Debug.Log(mapDataList[0].initPos.ToVector2());
-    }
+    // public void Test()
+    // {
+    //     Debug.Log(mapDataList[0].initPos.ToVector2());
+    // }
 }

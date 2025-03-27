@@ -8,13 +8,9 @@ public class BarrackTowerManager : TowerBaseManager
     [SerializeField] BarrackSpawnGuardPointConfigSO     barrackSpawnGuardPointConfigSO;
     [SerializeField] SoldierManager                     soldierManager;
     [SerializeField] SpawnGuardPointPath                spawnGuardPointPath;
+    [SerializeField] List<TowerPresenter> barackTowerList = new();
     
     public Dictionary<TowerPresenter, BarackTowerInfor> barrackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
-
-    // private void Awake()
-    // {
-    //     LoadComponents();
-    // }
 
     public void PrepareGame()
     {
@@ -30,7 +26,7 @@ public class BarrackTowerManager : TowerBaseManager
     
     private void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot)
     {
-        TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(barrackType.ToString().Trim().ToLower(), 1);
+        TowerData towerData = TowerDataReader.Instance.towerDataListSO.GetTowerData(barrackType.ToString(), 1);
         TowerPresenter barrackPresenter = base.InitBuildingPresenter(barrackPerfab, towerData, pos);
 
         base.AddTowerPersenterEmptyPlot(barrackPresenter, emptyPlot);
@@ -90,8 +86,17 @@ public class BarrackTowerManager : TowerBaseManager
         yield return soldierManager.OnBarrackUpgrade(barackGuardPoint);
         yield return StartCoroutine(SpawnBarrackSoldierCoroutine(barrackPresenter));
     }
-
     #endregion
+
+    public void ClearBarrackTowers()
+    {
+        foreach(var barrackTower in barackTowerList)
+        {
+            Destroy(barrackTower.gameObject);
+            
+        }
+        barackTowerList.Clear();
+    }
 }
 
 public class BarackTowerInfor

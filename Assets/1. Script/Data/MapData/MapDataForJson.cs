@@ -44,7 +44,7 @@ public class MapDataForJson : MonoBehaviour
         },
     };
 
-    public List<MapData> GetMapdataForJson()
+    public List<MapData> GetMapDataForJson()
     {
         return mapDataList;
     }

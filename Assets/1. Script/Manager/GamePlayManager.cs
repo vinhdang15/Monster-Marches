@@ -73,10 +73,10 @@ public class GamePlayManager : MonoBehaviour
 
     private void GetTowerInitGold()
     {
-        archerTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.ArcherTower.ToString().Trim().ToLower());
-        mageTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.MageTower.ToString().Trim().ToLower());
-        barrackTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.Barrack.ToString().Trim().ToLower());
-        cannonTowerInitGold = CSVTowerDataReader.Instance.towerDataList.GetGoldInit(TowerType.CannonTower.ToString().Trim().ToLower());
+        archerTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.ArcherTower.ToString());
+        mageTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.MageTower.ToString());
+        barrackTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.Barrack.ToString());
+        cannonTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.CannonTower.ToString());
     }
 
     #region REGISTER EMPTYPLOT CLICK EVENT, TOWER BUTTON CLICK EVENT, SELECTED TOWER EVENT

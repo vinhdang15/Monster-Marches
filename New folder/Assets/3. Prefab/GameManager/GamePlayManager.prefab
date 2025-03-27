@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5444831390151220730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 97770723942875896}
+  - component: {fileID: 2476189185622002317}
+  m_Layer: 0
+  m_Name: GamePlayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &97770723942875896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5444831390151220730}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2476189185622002317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5444831390151220730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff92b87373c1b6b4b8f970edb23712e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 2000
+  lives: 20
+  currentLives: 0
+  archerTowerInitGold: 0
+  mageTowerInitGold: 0
+  barrackTowerInitGold: 0
+  cannonTowerInitGold: 0
+  towerUpgradeGold: 0
+  towerSellGold: 0
+  enemyManager: {fileID: 0}
+  panelManager: {fileID: 0}
+  raycastHandler: {fileID: 0}
+  towerActionHandler: {fileID: 0}
+  bulletTowerManager: {fileID: 0}
+  barrackTowerManager: {fileID: 0}
+  spawnEnemyManager: {fileID: 0}
+  currentEmptyPlot: {fileID: 0}
+  soundEffectSO: {fileID: 11400000, guid: 58f3b842f8497a046a2a1acaa17e7bc7, type: 2}

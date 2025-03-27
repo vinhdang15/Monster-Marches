@@ -8,11 +8,16 @@ public class BtnBase : MonoBehaviour
     protected Button        thisButton;
     protected virtual void Start()
     {
-        thisButton = GetComponent<Button>();
+        LoadComponents();
         if(thisButton != null)
         {
            thisButton.onClick.AddListener(OnButtonClick);
         }
+    }
+
+    protected virtual void LoadComponents()
+    {
+        thisButton = GetComponent<Button>();
     }
 
     protected virtual void OnButtonClick()

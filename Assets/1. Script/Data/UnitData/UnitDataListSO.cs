@@ -7,20 +7,20 @@ public class UnitDataListSO : ScriptableObject
 {
     public List<UnitData> unitDataList = new List<UnitData>();
 
-    public UnitData GetUnitData(string unitName)
+    public UnitData GetUnitData(string unitId)
     {
-        return unitDataList.Find(data => data.unitName == unitName);
+        return unitDataList.Find(data => data.id == unitId);
     }
 
-    public string GetUnitType(string unitName)
+    public string GetUnitType(string unitId)
     {
-        UnitData unitData = unitDataList.Find(data => data.unitName == unitName);
+        UnitData unitData = unitDataList.Find(data => data.id == unitId);
         return unitData.unitType;
     }
 
-    public int GetUnitDamage(string unitName)
+    public int GetUnitDamage(string unitId)
     {
-        UnitData unitData = unitDataList.Find(data => data.unitName == unitName);
-        return unitData.damage;
+        UnitData unitData = unitDataList.Find(data => data.id == unitId);
+        return unitData.attackDamage;
     }
 }

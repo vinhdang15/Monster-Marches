@@ -44,29 +44,29 @@ public class TowerPresenter : MonoBehaviour
         string towerType    = towerModel.TowerType;
         int towerLevel      = towerModel.Level;
 
-        DescriptionUpgrade      = CSVTowerDataReader.Instance.towerDataList.GetDescription(towerType, towerLevel + 1);
-        GoldUpgrade             = CSVTowerDataReader.Instance.towerDataList.GetGoldRequired(towerType, towerLevel + 1);
-        RangeDetectUpgrade      = CSVTowerDataReader.Instance.towerDataList.GetRangeDetect(towerType, towerLevel + 1);
-        TowerSpawnRateUpgrade   = CSVTowerDataReader.Instance.towerDataList.GetSpawnRate(towerType, towerLevel + 1);
+        DescriptionUpgrade      = TowerDataReader.Instance.towerDataListSO.GetDescription(towerType, towerLevel + 1);
+        GoldUpgrade             = TowerDataReader.Instance.towerDataListSO.GetGoldRequired(towerType, towerLevel + 1);
+        RangeDetectUpgrade      = TowerDataReader.Instance.towerDataListSO.GetRangeDetect(towerType, towerLevel + 1);
+        TowerSpawnRateUpgrade   = TowerDataReader.Instance.towerDataListSO.GetSpawnRate(towerType, towerLevel + 1);
 
         switch(towerType)
         {
-            case string t when  t == TowerType.ArcherTower.ToString().Trim().ToLower() ||
-                                t == TowerType.MageTower.ToString().Trim().ToLower() ||
-                                t == TowerType.CannonTower.ToString().Trim().ToLower():
-                string bullet = CSVTowerDataReader.Instance.towerDataList.GetTowerSpawnObject(towerType, towerLevel);
-                CurentTowerDamage = CSVBulletDataReader.Instance.bulletDataList.GetBulletDamage(bullet);
+            case string t when  t == TowerType.ArcherTower.ToString() ||
+                                t == TowerType.MageTower.ToString() ||
+                                t == TowerType.CannonTower.ToString():
+                string bullet = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel);
+                CurentTowerDamage = BulletDataReader.Instance.bulletDataListSO.GetBulletDamage(bullet);
                 if(towerLevel + 1 > 2) return;
-                string bulletUpgrade = CSVTowerDataReader.Instance.towerDataList.GetTowerSpawnObject(towerType, towerLevel + 1);
-                TowerDamageUpgrade = CSVBulletDataReader.Instance.bulletDataList.GetBulletDamage(bulletUpgrade);
+                string bulletUpgrade = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel + 1);
+                TowerDamageUpgrade = BulletDataReader.Instance.bulletDataListSO.GetBulletDamage(bulletUpgrade);
                 break;
 
-            case string t when t == TowerType.Barrack.ToString().Trim().ToLower():
-                string soldier = CSVTowerDataReader.Instance.towerDataList.GetTowerSpawnObject(towerType, towerLevel);
-                CurentTowerDamage = CSVUnitDataReader.Instance.unitDataList.GetUnitDamage(soldier);
+            case string t when t == TowerType.Barrack.ToString():
+                string soldier = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel);
+                CurentTowerDamage = UnitDataReader.Instance.unitDataListSO.GetUnitDamage(soldier);
                 if(towerLevel + 1 > 2) return;
-                string soldierUpgrade = CSVTowerDataReader.Instance.towerDataList.GetTowerSpawnObject(towerType, towerLevel + 1);
-                TowerDamageUpgrade = CSVUnitDataReader.Instance.unitDataList.GetUnitDamage(soldierUpgrade);
+                string soldierUpgrade = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel + 1);
+                TowerDamageUpgrade = UnitDataReader.Instance.unitDataListSO.GetUnitDamage(soldierUpgrade);
                 break;
         }
     }

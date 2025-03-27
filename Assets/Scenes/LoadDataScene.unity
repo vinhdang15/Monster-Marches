@@ -168,9 +168,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapDataReader: {fileID: 7892634020191321989, guid: 59fadfcc48d38d4498411c577b084e9e, type: 3}
+  emptyPlotDataReader: {fileID: 2530651970575130247, guid: db69663e0e60f614a8110aa543d4ea87, type: 3}
+  towerDataReader: {fileID: 5919611037689812246, guid: 5c51e9fa1a32c064ba28151a5cab9340, type: 3}
+  bulletDataReader: {fileID: -8763325126492671739, guid: 837f454913dcbdc4fbe21d954c11fba3, type: 3}
+  unitDataReader: {fileID: 8024145875720820022, guid: 9e6da9d84e2bd0d48b3c5100afb418f2, type: 3}
   cameraController: {fileID: 0}
-  gamePlayManager: {fileID: 2476189185622002317, guid: d339727312976d04c9c29eff42435059, type: 3}
+  sceneController: {fileID: 7297455620247048197, guid: d9fdb62125eacc64b8c7a67259290537, type: 3}
   mapManager: {fileID: 3196960339075115150, guid: 9b07b464fb8a4af4bbbcef7481b8c584, type: 3}
+  gamePlayManager: {fileID: 2476189185622002317, guid: d339727312976d04c9c29eff42435059, type: 3}
   emptyPlotManager: {fileID: 6827882773492474754, guid: 6bb994a940112774bbe951688c6c533c, type: 3}
   bulletTowerManager: {fileID: 4290534878689775746, guid: 36750726c2da7954d8f9b7b3af789fdf, type: 3}
   barrackTowerManager: {fileID: 2572811732704144327, guid: a7242759b59aca44bb882858b1e8d34e, type: 3}
@@ -189,6 +194,7 @@ MonoBehaviour:
   inputButtonHandler: {fileID: 6566239854668499126, guid: 9fae888604420f9498599d9e74860367, type: 3}
   towerActionHandler: {fileID: 575354496877453398, guid: 03940d147f2751742b9d2d49a03d10b3, type: 3}
   canvasManager: {fileID: 8558526826114363499, guid: 22133a23df8743543a8c182d2312bca6, type: 3}
+  selectedMapPresenter: {fileID: 0}
 --- !u!1 &505823609
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +359,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1093684020}
   - {fileID: 505823612}
   - {fileID: 183721340}
-  - {fileID: 1093684020}

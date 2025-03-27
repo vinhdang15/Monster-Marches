@@ -1,0 +1,9 @@
+PathWayID,WaveID,EnemyID,EnemyCount,TimeForEachSpawn,TimeToCallNextWave
+1_1,1,Monster_1,03,0.35,10
+1_1,2,Monster_1,05,0.35,10
+1_1,3,Monster_1,07,0.02,10
+1_1,4,Monster_1,12,0.02,10
+1_2,1,Monster_1,03,0.35,10
+1_2,2,Monster_1,05,0.35,10
+1_2,3,Monster_1,07,0.02,10
+1_2,4,Monster_1,12,0.02,10

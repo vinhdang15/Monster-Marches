@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2691658171191503364}
   - component: {fileID: 1122830193157943622}
-  - component: {fileID: 7150340793331613005}
+  - component: {fileID: 6712262811137417038}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -53,7 +53,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7150340793331613005
+--- !u!114 &6712262811137417038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,11 +62,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1998353052237067804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a6c61eb0863564cb89bf860b1f985d, type: 3}
+  m_Script: {fileID: 11500000, guid: 70b66cc21b7a1ac4797dd5d5f205ba65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeDelay: 0.25
-  canvasGroup: {fileID: 0}
   rectTransform: {fileID: 0}
 --- !u!1 &4162744254364926058
 GameObject:

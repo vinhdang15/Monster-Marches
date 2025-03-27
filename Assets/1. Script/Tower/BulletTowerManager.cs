@@ -6,12 +6,8 @@ public class BulletTowerManager : TowerBaseManager
 {
     [SerializeField] BulletManager          bulletManager;
     [SerializeField] List<TowerViewBase>    towerPrefabList = new List<TowerViewBase>();
+    [SerializeField] List<TowerPresenter>   bulletTOwerList;
     private Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
-
-    // private void Awake()
-    // {
-    //     bulletManager = GameObject.Find(InitNameObject.BulletManager.ToString()).GetComponent<BulletManager>();
-    // }
 
     public void PrepareGame()
     {
@@ -28,14 +24,15 @@ public class BulletTowerManager : TowerBaseManager
 
     public void InitTower(Vector3 pos, TowerType towerType, EmptyPlot emptyPlot)
     {
-        TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(towerType.ToString().Trim().ToLower(), 1);
-
+        TowerData towerData = TowerDataReader.Instance.towerDataListSO.GetTowerData(towerType.ToString(), 1);
         TowerViewBase towerPrefab = towerPrefabList[(int)towerType];
         TowerPresenter towerPresenter = base.InitBuildingPresenter(towerPrefab, towerData, pos);
 
         bulletTowerInfor[towerPresenter]       = new BulletTowerInfor();
         base.AddTowerPersenterEmptyPlot(towerPresenter, emptyPlot);
         RegisterTowerEvent(towerPresenter);
+
+        bulletTOwerList.Add(towerPresenter);
     }
 
     private void RegisterTowerEvent(TowerPresenter towerPresenter)
@@ -111,6 +108,15 @@ public class BulletTowerManager : TowerBaseManager
         }
     }
     #endregion
+
+    public void ClearBulletTowers()
+    {
+        foreach(var bulletTower in bulletTOwerList)
+        {
+            Destroy(bulletTower.gameObject);
+        }
+        bulletTOwerList.Clear();
+    }
 }
 
 [System.Serializable]

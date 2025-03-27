@@ -12,10 +12,10 @@ public class PanelManager : MonoBehaviour
     [SerializeField] GamePlayManager gamePlayManager;
 
     [Header("GameMenu")]
-    [SerializeField] PanelUI pauseMenu;
+    [SerializeField] PauseMenu pauseMenu;
     [SerializeField] VictoryMenu victoryMenu;
-    [SerializeField] PanelUI gameOverMenu;
-    [SerializeField] MapMenu mapMenu;
+    [SerializeField] GameOverMenu gameOverMenu;
+    [SerializeField] SelectedMapMenu mapMenu;
 
     [Header("TowerMenu")]
     [SerializeField] InitMenu initMenu;
@@ -46,6 +46,10 @@ public class PanelManager : MonoBehaviour
     public void PrepareGame()
     {
         LoadComponents();
+    }
+
+    public void GetInfor()
+    {
         GetTotalWave();
         ResetCurrentWave();
         UpdateCurrentGold();
@@ -67,14 +71,14 @@ public class PanelManager : MonoBehaviour
         gamePlayManager     = FindObjectOfType<GamePlayManager>();
 
         initMenu            = FindObjectOfType<InitMenu>();
-        // initMenu.Hide();
+
         upgradeMenu         = FindObjectOfType<UpgradeMenu>();
         checkSymbol         = FindObjectOfType<CheckSymbol>();
 
-        pauseMenu           = FindObjectOfType<PanelUI>();
+        pauseMenu           = FindObjectOfType<PauseMenu>();
         victoryMenu         = FindObjectOfType<VictoryMenu>();
-        gameOverMenu        = FindObjectOfType<PanelUI>();
-        mapMenu             = FindObjectOfType<MapMenu>();
+        gameOverMenu        = FindObjectOfType<GameOverMenu>();
+        mapMenu             = FindObjectOfType<SelectedMapMenu>();
 
         currentSttPanel     = FindObjectOfType<CurrentSttPanel>();
         upgradeSttPanel     = FindObjectOfType<UpgradeSttPanel>();
@@ -112,18 +116,18 @@ public class PanelManager : MonoBehaviour
 
     private void RegisterGamePlayManagerEvent()
     {
-        gamePlayManager.OnGoldChangeForUI                       += HandleGoldChange;
-        gamePlayManager.OnLiveChangeForUI                       += HandleLiveChange;
-        gamePlayManager.OnFinishedMatch                         += HandleFinishedMatch;
-        gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave   += HandleUpdateCurrentWave;
+        gamePlayManager.OnGoldChangeForUI                           += HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI                           += HandleLiveChange;
+        gamePlayManager.OnFinishedMatch                             += HandleFinishedMatch;
+        gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave     += HandleUpdateCurrentWave;
     }
 
     private void UnregisterGamePlayManagerEvent()
     {
-        gamePlayManager.OnGoldChangeForUI                       -= HandleGoldChange;
-        gamePlayManager.OnLiveChangeForUI                       -= HandleLiveChange;
-        gamePlayManager.OnFinishedMatch                         -= HandleFinishedMatch;
-        gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave   -= HandleUpdateCurrentWave;
+        gamePlayManager.OnGoldChangeForUI                           -= HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI                           -= HandleLiveChange;
+        gamePlayManager.OnFinishedMatch                             -= HandleFinishedMatch;
+        gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave     -= HandleUpdateCurrentWave;
     }
     #endregion
 
@@ -268,7 +272,7 @@ public class PanelManager : MonoBehaviour
     #region GAME MENU
     public void ShowMapMenu(MapModel mapModel)
     {
-        mapMenu.Show(mapModel);
+        mapMenu.ShowSelectedMapMenu(mapModel);
     }
 
     public void HideMapMenu()

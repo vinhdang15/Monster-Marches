@@ -23,6 +23,12 @@ public class InputButtonHandler : MonoBehaviour
     public event Action<Button> OnUpgradeTowerBtnClick;
     public event Action<Button> OnSellTowerBtnClick;
 
+    public void PrepareGame()
+    {
+        GetButton();
+        AddButtonListener();
+    }
+
     private void GetButton()
     {
         archerTowerBtn      = GameObject.Find("InitArcherTowerBtn").GetComponent<Button>();
@@ -43,11 +49,5 @@ public class InputButtonHandler : MonoBehaviour
         guardPointBtn.onClick.AddListener(() => OnGuardPointBtnBtnClick?.Invoke(guardPointBtn));
         upgradeBtn.onClick.AddListener(() => OnUpgradeTowerBtnClick?.Invoke(upgradeBtn));
         sellBtn.onClick.AddListener(() => OnSellTowerBtnClick?.Invoke(sellBtn));
-    }
-
-    public void InputButtonHandlerPrepareGame()
-    {
-        GetButton();
-        AddButtonListener();
     }
 }

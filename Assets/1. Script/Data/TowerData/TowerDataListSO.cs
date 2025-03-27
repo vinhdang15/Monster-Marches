@@ -52,7 +52,7 @@ public class TowerDataListSO : ScriptableObject
     {
         TowerData tower = towerDataList.Find(data => data.towerType == towerType && data.level == level);
         if(tower == null) return null;
-        return tower.SpawnObject;;
+        return tower.SpawnObject;
     }
 
 }

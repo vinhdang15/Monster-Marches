@@ -60,12 +60,12 @@ public abstract class UnitBase : MonoBehaviour
     private void InitUnitData(UnitData _unitData)
     {
         UnitType            = _unitData.unitType;
-        UnitName            = _unitData.unitName;
+        UnitName            = _unitData.id;
         MaxHP               = _unitData.maxHP;
         MoveSpeed           = _unitData.moveSpeed;
         AttackSpeed         = _unitData.attackSpeed;
-        Damage              = _unitData.damage;
-        Gold                = _unitData.gold;
+        Damage              = _unitData.attackDamage;
+        Gold                = _unitData.goldReward;
         skillType           = _unitData.skillType;
     }
     

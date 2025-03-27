@@ -1,0 +1,7 @@
+BulletType,Damage,Speed,EffectType,DealDamageDelay
+Arrow1,20,6,none,0
+Arrow2,30,6,Fire_DoT,0
+MagicBall1,35,4,Magic_DoT,0.3
+MagicBall2,35,4,Slow;Magic_DoT,0.3
+Bomb1,30,6,Bomb1_AoE20,1
+Bomb2,40,6,Bomb2_AoE30,1

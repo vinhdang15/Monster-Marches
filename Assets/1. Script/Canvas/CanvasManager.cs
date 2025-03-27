@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> gamePlayIUList;
-    [SerializeField] List<GameObject> xxx;
     public static CanvasManager Instance { get; private set; }
+    [SerializeField] TextMeshProUGUI fpsText;
+    [SerializeField] List<GameObject> gamePlayIUList;
+    [SerializeField] List<GameObject> ShowWhenInteractUIList;
+
+    public event Action OnLoadMapSelectionClick;
 
     private void Awake()
     {
@@ -24,7 +29,8 @@ public class CanvasManager : MonoBehaviour
 
     public void HideALLIU()
     {
-        HideXXX();
+        HideFPSText();
+        HideInteractUIList();
         HideAllGamePlayIUList();
     }
 
@@ -45,11 +51,26 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void HideXXX()
+    public void HideInteractUIList()
     {
-        foreach(GameObject i in xxx)
+        foreach(GameObject i in ShowWhenInteractUIList)
         {
             i.SetActive(false);
         }
+    }
+
+    private void HideFPSText()
+    {
+        fpsText.gameObject.SetActive(false);
+    }
+
+    public void ShowFPSText()
+    {
+        fpsText.gameObject.SetActive(true);
+    }
+
+    public void HandleLoadMapSelectionClick()
+    {
+        OnLoadMapSelectionClick?.Invoke();
     }
 }

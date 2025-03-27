@@ -31,15 +31,32 @@ public class SceneController : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    public void LoadScene(string sceneName)
+    {
+        if(!string.IsNullOrEmpty(sceneName))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.LogError("Scene name is not set.");
+        }
+    }
+
+    public void ReLoadCurrentScene()
+    {
+        Time.timeScale = 1;
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         switch(scene.name)
         {
-            case "Map1":
+            case "PlaySelectedMapScene":
             AudioManager.Instance.PlayBackgroundMusic(soundEffectSO.Theme[0]);
             break;
         }
-            
-
     }
 }

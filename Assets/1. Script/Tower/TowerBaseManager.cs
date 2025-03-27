@@ -26,7 +26,7 @@ public class TowerBaseManager : MonoBehaviour
         // upgrade tower mode
         string towerType = towerPresenter.towerModel.TowerType;
         int towerLevel = towerPresenter.towerModel.Level;
-        TowerData towerData = CSVTowerDataReader.Instance.towerDataList.GetTowerData(towerType, towerLevel + 1);
+        TowerData towerData = TowerDataReader.Instance.towerDataListSO.GetTowerData(towerType, towerLevel + 1);
         towerPresenter.towerModel.UpgradeTowerModel(towerData);
         
         // upgrade range, range upgrade
