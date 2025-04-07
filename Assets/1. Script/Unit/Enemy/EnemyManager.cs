@@ -5,20 +5,19 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public UnitPool unitPool;
-    public List<Enemy> ActiveEnemies = new List<Enemy>();
+    public List<Enemy> ActiveEnemies = new();
     public int totalEnemiesDie = 0;
     public event Action<UnitBase> OnEnemyDeath;
     public event Action OnEnemyReachEndPoint;
 
-    public void PrepareGame()
+    public void ClearEnemyManager()
     {
-        LoadComponents();
-    }
-
-    private void LoadComponents()
-    {
-        unitPool = FindObjectOfType<UnitPool>();
+        totalEnemiesDie = 0;
+        foreach(Enemy enemy in ActiveEnemies)
+        {
+            UnitPool.Instance.ReturnEnemy(enemy);
+        }
+        ActiveEnemies.Clear();
     }
 
     private void OnDisable()
@@ -52,9 +51,7 @@ public class EnemyManager : MonoBehaviour
         //Play die animation
         enemy.unitAnimation.UnitPlayDie();
         // wait to finish die animation then return unit pool
-        StartCoroutine(enemy.ReturnPoolAfterPlayAnimation(unitPool));
-
-       
+        StartCoroutine(enemy.ReturnPoolAfterPlayAnimation());
     }
 
     private void HandleEnemyReachEndPoint(Enemy enemy)
@@ -62,6 +59,6 @@ public class EnemyManager : MonoBehaviour
         ActiveEnemies.Remove(enemy);
         totalEnemiesDie++;
         OnEnemyReachEndPoint?.Invoke();
-        unitPool.ReturnEnemy(enemy);
+        UnitPool.Instance.ReturnEnemy(enemy);
     }
 }

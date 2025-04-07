@@ -12,35 +12,25 @@ public class MapDataForJson : MonoBehaviour
         {
             mapID = 1,
             mapName = "Forest_1",
-            imagePath = "xx",
-            description = "welcom to my dev joney.\nI think I gonna make it right.",
+            goldInit = 1000,
+            lives = 18,
+            description = "welcome to my dev joney.\nI think I gonna make it right.",
             activate = true,
             mapPassed = false,
-            starPoint = 0,
-            pathID = new List<string>(){"1_1","1_2"},
-            initPos = new Vector2Serializable(-3, 0),
-            endPointsPos = new List<Vector2Serializable>
-            {
-                new Vector2Serializable(-1f, -2f),
-                new Vector2Serializable(-10.35f, 0f),
-            }
+            mapStars = 0,
+            initMapBtnPos = new Vector2(-3, 0),
         },
         new MapData
         {
             mapID = 2,
             mapName = "Forest_2",
-            imagePath = "xxx",
-            description = "welcom to the Forest_2.\nLet's play",
+            goldInit = 500,
+            lives = 10,
+            description = "welcome to the Forest_2.\nLet's play",
             activate = false,
             mapPassed = false,
-            starPoint = 0,
-            pathID = new List<string>(){"1_1","1_2"},
-            initPos = new Vector2Serializable(3, 0),
-            endPointsPos = new List<Vector2Serializable>
-            {
-                new Vector2Serializable(-1f, -2f),
-                new Vector2Serializable(-10.35f, 0f),
-            }
+            mapStars = 0,
+            initMapBtnPos = new Vector2(3, 0),
         },
     };
 

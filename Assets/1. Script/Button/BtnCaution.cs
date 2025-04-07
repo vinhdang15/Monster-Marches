@@ -46,21 +46,21 @@ public class BtnCaution : BtnBase
         }
     }
 
-    public void SetSpawnEnemyManager(EnemySpawnerManager _spawnEnemyManager)
+    public void SetSpawnEnemyManager(EnemySpawnerManager spawnEnemyManager)
     {
-        spawnEnemyManager = _spawnEnemyManager;
-        spawnEnemyManager.OnAddGoldWhenCautionClick += HandleShowGoldAddWhenCautionClick;
-        float fillDuration = spawnEnemyManager.GetTimeWaitForNextWave();
+        this.spawnEnemyManager = spawnEnemyManager;
+        this.spawnEnemyManager.OnAddGoldWhenCautionClick += HandleShowGoldAddWhenCautionClick;
+        float fillDuration = this.spawnEnemyManager.GetTimeWaitForNextWave();
         cautionFill.SetFillDuration(fillDuration);
     }
 
     protected override void OnButtonClick()
     {
         PlayCustomSound(soundEffectSO.comingWaveSound);
-        spawnEnemyManager.CautionClick();
+        spawnEnemyManager.HandleCautionButtonClicked();
     }
 
-    public bool isCautionFillActive()
+    public bool IsCautionFillActive()
     {
         return cautionFill.gameObject.activeSelf;
     }
@@ -68,10 +68,23 @@ public class BtnCaution : BtnBase
     // show gold add when caution click 
     private void HandleShowGoldAddWhenCautionClick(int gold)
     {
-        if(gold == 0 || !isCautionFillActive()) return;
+        if(gold == 0 || !IsCautionFillActive()) return;
         {
             PlayCustomSound(soundEffectSO.AddGoldSound);
             cautionGold.StarTween(gold);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (spawnEnemyManager != null)
+        {
+            spawnEnemyManager.OnAddGoldWhenCautionClick -= HandleShowGoldAddWhenCautionClick;
+        }
+    }
+
+    public void Cleanup()
+    {
+        base.CleanupBtnListeners();
     }
 }

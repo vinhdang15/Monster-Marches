@@ -19,7 +19,7 @@ public class Soldier : UnitBase
 
     // target infor
     private bool                hasTarget;
-    public Enemy               targetEnemy = null;
+    public Enemy                targetEnemy = null;
     private Vector2             targetEnemyFontPos;
     public bool                 isReachTargetEnemyFrontPos = false;
 
@@ -39,8 +39,6 @@ public class Soldier : UnitBase
         AttackingEnemy,
         Die,
     }
-
-    
 
     private void InitComponents()
     {
@@ -201,7 +199,7 @@ public class Soldier : UnitBase
 
         targetEnemyFontPos = (Vector2)targetEnemy.fontPoint.position + offsetPos;
 
-        if((Vector2)transform.position != targetEnemyFontPos)
+        if (Vector2.SqrMagnitude((Vector2)transform.position - targetEnemyFontPos) > 0.005f)
         {
             isReachTargetEnemyFrontPos = false;
             Movement.MoveTo(targetEnemyFontPos);
@@ -288,10 +286,10 @@ public class Soldier : UnitBase
     #endregion
 
     #region RETURN TO POOL WHEN BARACK DESTROY
-    public void SoldierReturnToUnitPool(UnitPool unitPool)
+    public void SoldierReturnToUnitPool()
     {
         ResetSoldierState();
-        unitPool.ReturnSoldier(this);
+        UnitPool.Instance.ReturnSoldier(this);
     }
 
     public void ResetSoldierState()

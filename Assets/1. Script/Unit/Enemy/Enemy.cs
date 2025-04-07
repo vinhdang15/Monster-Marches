@@ -27,15 +27,10 @@ public class Enemy : UnitBase, IEnemy
         OnEnemyReachEndPoint = null;
     }
 
-    // Get Pathway
-    public void GetPathConfigSO(PathConfigSO pathConfigSO)
+    // Get Pathway, prepare game
+    public void PrepareGame(List<PathWaySegment> pathWaySegmentList, int pathWaySegmentIndex)
     {
-        pathFinder.PathConfigSO = pathConfigSO;
-    }
-
-    public void SetPosInPathWave(int _pathWaveIndex)
-    {
-        pathFinder.OnSetPosInPathWay(_pathWaveIndex);
+        pathFinder.PrepareGame(pathWaySegmentList,pathWaySegmentIndex);
     }
 
     public void EnemyAction()
@@ -122,11 +117,11 @@ public class Enemy : UnitBase, IEnemy
         }
     }
 
-    public IEnumerator ReturnPoolAfterPlayAnimation(UnitPool unitPool)
+    public IEnumerator ReturnPoolAfterPlayAnimation()
     {
         yield return null;
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
-        unitPool.ReturnEnemy(this);
+        UnitPool.Instance.ReturnEnemy(this);
         yield break;
     }
 

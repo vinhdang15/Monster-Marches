@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CautionManager : MonoBehaviour
@@ -9,18 +6,27 @@ public class CautionManager : MonoBehaviour
     [SerializeField] BtnCaution cautionBtnPref;
     private EnemySpawnerManager enemySpawnManager;
     private Transform cautionParent;
-    private List<BtnCaution> cautionBtnList = new List<BtnCaution>();
+    [SerializeField] private List<BtnCaution> cautionBtnList = new List<BtnCaution>();
 
-    public void CautionManagerPrepareGame()
+    public void PrepareGame()
     {
         LoadComponents();
-        InitCaution();
         RegisterSpawnEnemyManagerEvent();
     }
 
-    private void OnDisable()
+    public void ClearCautionBtnManager()
     {
-        UnregisterSpawnEnemyManagerEvent();
+        CleanupCautionBtn();
+    }
+
+    private void CleanupCautionBtn()
+    {
+        foreach(BtnCaution button in cautionBtnList)
+        {
+            button.Cleanup();
+            Destroy(button.gameObject);
+        }
+        cautionBtnList.Clear();
     }
 
     private void LoadComponents()
@@ -31,37 +37,40 @@ public class CautionManager : MonoBehaviour
 
     private void RegisterSpawnEnemyManagerEvent()
     {
-        enemySpawnManager.OnCautionClick += HandleHideAllCautionSlider;
+        enemySpawnManager.OnCautionBtnClicked += HandleHideAllCautionSlider;
     }
 
-    private void UnregisterSpawnEnemyManagerEvent()
-    {
-        enemySpawnManager.OnCautionClick -= HandleHideAllCautionSlider;
-    }
-
-    public void InitCaution()
+    public void InitializeCautionBtn()
     {   
-        int i = 1;
-        foreach(var spawnEnemy in enemySpawnManager.SpawnEnemies)
+        foreach(var enemyspawner in enemySpawnManager.enemySpawnerList)
         {
             // init and set pos btnCautionSlider
-            Vector2 pos = spawnEnemy.GetCautionPos();
+            Vector2 pos = enemyspawner.GetCautionBtnPos();
             BtnCaution cautionBtn = Instantiate(cautionBtnPref, pos, Quaternion.identity, cautionParent);
-            cautionBtn.gameObject.name = i.ToString();
-            i++;
             cautionBtn.CautionBtnPrepareGame();
-            spawnEnemy.cautionBtn = cautionBtn;
-
+            enemyspawner.SetCautionBtm(cautionBtn);
             cautionBtn.SetSpawnEnemyManager(enemySpawnManager);
-            this.cautionBtnList.Add(cautionBtn);
+
+            CheckShowFristWaveCautionBtn(enemyspawner, cautionBtn);
+            cautionBtnList.Add(cautionBtn);
         }
+    }
+
+    private void CheckShowFristWaveCautionBtn(EnemySpawner enemySpawner, BtnCaution cautionBtn)
+    {
+        if(enemySpawner.HasEnemyInWave(0))
+         {
+            cautionBtn.isFirstWave = true;
+            cautionBtn.StartActiveCautionFill();
+        }
+        else cautionBtn.HideCautionFill();
     }
 
     private void HandleHideAllCautionSlider()
     {
         foreach( var cautionBtn in cautionBtnList)
         {
-            if(cautionBtn.isCautionFillActive())
+            if(cautionBtn.IsCautionFillActive())
             {
                 cautionBtn.HideCautionFill();
             }

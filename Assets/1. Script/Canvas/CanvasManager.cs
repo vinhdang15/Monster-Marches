@@ -12,6 +12,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] List<GameObject> ShowWhenInteractUIList;
 
     public event Action OnLoadMapSelectionClick;
+    public event Action OnReloadCurrentMapClick;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void HideALLIU()
+    public void HideAllUI()
     {
         HideFPSText();
         HideInteractUIList();
@@ -72,5 +73,10 @@ public class CanvasManager : MonoBehaviour
     public void HandleLoadMapSelectionClick()
     {
         OnLoadMapSelectionClick?.Invoke();
+    }
+
+    public void HandleReloadCurrentMapClick()
+    {
+        OnReloadCurrentMapClick?.Invoke();
     }
 }

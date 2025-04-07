@@ -38,4 +38,9 @@ public class BtnBase : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(customAudioClip);
     }
+
+    protected void CleanupBtnListeners()
+    {
+        thisButton.onClick.RemoveAllListeners();
+    }
 }

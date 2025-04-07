@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CanvasWorldSpace
   - CanvasScreenSpace
+  - CautionBtn
   layers:
   - Default
   - TransparentFX

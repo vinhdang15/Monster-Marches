@@ -5,23 +5,7 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
-    [SerializeField] BulletPool bulletPool;
     [SerializeField] List<BulletBase> activeBullets = new List<BulletBase>();
-
-    // private void Awake()
-    // {
-    //     LoadComponents();
-    // }
-
-    public void PrepareGame()
-    {
-        LoadComponents();
-    }
-
-    private void LoadComponents()
-    {
-        bulletPool = FindObjectOfType<BulletPool>();
-    }
 
     private void Update()
     {
@@ -34,7 +18,7 @@ public class BulletManager : MonoBehaviour
 
     public void SpawnBullet(string bulletType, Vector2 initPos, float spawnBulletDirection, UnitBase _enemy, TowerPresenter towerPresenter)
     {
-        BulletBase bullet = bulletPool.GetBullet(bulletType, initPos);
+        BulletBase bullet = BulletPool.Instance.GetBullet(bulletType, initPos);
         bullet.InitBulletParent(towerPresenter);
         bullet.InitBulletTarget(_enemy);
         bullet.SetBulletInitAngle(spawnBulletDirection);
@@ -45,6 +29,6 @@ public class BulletManager : MonoBehaviour
     private void HandleFinishBulletAnimation(BulletBase bullet)
     {
         activeBullets.Remove(bullet);
-        bulletPool.ReturnBullet(bullet);
+        BulletPool.Instance.ReturnBullet(bullet);
     }
 }

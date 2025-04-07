@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -9,15 +7,15 @@ public class EmptyPlotManager : MonoBehaviour
     [SerializeField] EmptyPlot emptyPlotPrefab;
     public List<EmptyPlot> emptyPlotList = new List<EmptyPlot>();
 
-    public void InitializeEmptyPlot(int mapID)
+    public void InitializeEmptyPlot(MapData mapData)
     {
-        InitEmptyPlot(mapID);
+        InitEmptyPlot(mapData);
     }
 
-    private void InitEmptyPlot(int mapID)
+    private void InitEmptyPlot(MapData mapData)
     {
-        List<Vector2> emptyPlotDataList = EmptyPlotDataReader.Instance.GetEmptyPlotDataSelectedMapList(mapID);
-        foreach(var emptyPlotData in emptyPlotDataList)
+        List<Vector2> emptyPlotPosList = WayPointDataReader.Instance.GetSelectedMapEmptyPlotPos(mapData);
+        foreach(var emptyPlotData in emptyPlotPosList)
         {
             Vector2 pos = new Vector2(emptyPlotData.x,emptyPlotData.y);
             EmptyPlot emptyPlotScript = Instantiate(emptyPlotPrefab,pos, quaternion.identity, transform);
@@ -33,4 +31,14 @@ public class EmptyPlotManager : MonoBehaviour
         }
         emptyPlotList.Clear();
     }
+
+    public void ShowAllEmptyPlot()
+    {
+        foreach(EmptyPlot emptyPlot in emptyPlotList)
+        {
+            emptyPlot.gameObject.SetActive(true);
+        }
+    }
+
+    
 }

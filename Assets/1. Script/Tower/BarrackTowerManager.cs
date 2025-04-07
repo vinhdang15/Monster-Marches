@@ -5,10 +5,9 @@ using UnityEngine;
 public class BarrackTowerManager : TowerBaseManager
 {
     [SerializeField] TowerViewBase                      barrackPerfab;
-    [SerializeField] BarrackSpawnGuardPointConfigSO     barrackSpawnGuardPointConfigSO;
     [SerializeField] SoldierManager                     soldierManager;
-    [SerializeField] SpawnGuardPointPath                spawnGuardPointPath;
     [SerializeField] List<TowerPresenter> barackTowerList = new();
+    private List<Vector2> initGuardPointPosList;
     
     public Dictionary<TowerPresenter, BarackTowerInfor> barrackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
@@ -17,11 +16,20 @@ public class BarrackTowerManager : TowerBaseManager
         LoadComponents();
     }
 
+    public void InitializeGuardPointPosList(MapData mapData)
+    {
+        initGuardPointPosList = WayPointDataReader.Instance.GetInitGuardPointPosList(mapData);
+    }
+
+    public void ClearInitGuardPointposList()
+    {
+        initGuardPointPosList.Clear();
+    }
+
+
     private void LoadComponents()
     {
         soldierManager = FindObjectOfType<SoldierManager>();
-        spawnGuardPointPath = FindObjectOfType<SpawnGuardPointPath>();
-        barrackSpawnGuardPointConfigSO = spawnGuardPointPath.barrackSpawnGuardPointConfigSO;
     }
     
     private void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot)
@@ -33,8 +41,9 @@ public class BarrackTowerManager : TowerBaseManager
 
         barrackTowerInfor[barrackPresenter] = new BarackTowerInfor();
         GetBarrackGuradPoint(barrackPresenter);
-        barrackTowerInfor[barrackPresenter].barrackGuardPoint.transform.position = barrackSpawnGuardPointConfigSO.GetNearestPoint(barrackPresenter.transform).position;
+        barrackTowerInfor[barrackPresenter].barrackGuardPoint.transform.position = GetNearestPoint(barrackPresenter.transform, initGuardPointPosList);
         SpawnBarrackSoldier(barrackPresenter);
+        barackTowerList.Add(barrackPresenter);
     }
 
     public void InitBarack(Vector3 pos, EmptyPlot emptyPlot)
@@ -42,19 +51,19 @@ public class BarrackTowerManager : TowerBaseManager
         Init(pos, TowerType.Barrack, emptyPlot);
     }
 
-    // assign barrack guardPoint reference to barrackTowerInfor
+    // Assign barrack guardPoint reference to barrackTowerInfor
     private void GetBarrackGuradPoint(TowerPresenter barrackPresenter)
     {
         barrackTowerInfor[barrackPresenter].barrackGuardPoint = barrackPresenter.transform.GetChild(1).GetComponent<GuardPoint>();
     }
 
-    // call from GameplayManager
+    // Call from GameplayManager
     public void SetNewGuardPointPos(TowerPresenter barrackPresenter, Vector2 pos)
     {
         barrackTowerInfor[barrackPresenter].barrackGuardPoint.SetNewGuardPointPos(pos);
     }
 
-    #region PROCESS SPAWN SOLDIER
+    #region SPAWN SOLDIER
     public void SpawnBarrackSoldier(TowerPresenter barrackPresenter)
     {
         StartCoroutine(SpawnBarrackSoldierCoroutine(barrackPresenter));
@@ -74,7 +83,9 @@ public class BarrackTowerManager : TowerBaseManager
         yield return new WaitForSeconds(0.5f);
         soldierManager.BarrackSpawnSoldier(barrackTowerView, soldierName, initPos, barackGuardPoint, barrackGatePos, soldierRevivalSpeed);
     }
+    #endregion
 
+    #region UPGRADE SOLDIER
     public void ReplaceSoldier(TowerPresenter barrackPresenter)
     {
         StartCoroutine(ReplaceSoldierCoroutine(barrackPresenter));
@@ -88,12 +99,31 @@ public class BarrackTowerManager : TowerBaseManager
     }
     #endregion
 
+    private Vector2 GetNearestPoint(Transform barrackTowerView, List<Vector2> pos)
+    {
+        Vector2 nearestPoint = new();
+        float shortestDistance = float.MaxValue;;
+        foreach(Vector2 childPos in pos)
+        {
+            float distance = Vector2.Distance(barrackTowerView.position, childPos);
+            if(distance > shortestDistance) continue;
+            shortestDistance = distance;
+            nearestPoint = childPos;
+        }
+        return nearestPoint;
+    }
+
+    public void CleanupSelectedTower(TowerPresenter selectedTower)
+    {
+        barackTowerList.Remove(selectedTower);
+        Destroy(selectedTower.gameObject);
+    }
+    
     public void ClearBarrackTowers()
     {
         foreach(var barrackTower in barackTowerList)
         {
             Destroy(barrackTower.gameObject);
-            
         }
         barackTowerList.Clear();
     }

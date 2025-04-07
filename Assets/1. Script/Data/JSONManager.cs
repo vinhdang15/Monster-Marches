@@ -6,15 +6,17 @@ using System.Collections.Generic;
 public class JSONManager
 {
     private static string mapDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/MapData.json");
-    private static string emptyPlotDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/EmptyPlotData.json");
+    private static string waypointDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/WayPointData.json");
     private static string towerDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/TowerData.json");
     private static string bulletDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/BulletData.json");
     private static string unitDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/UnitData.json");
+    private static string SkillDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/SkillData.json");
+    private static string bulletEffectDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/BulletEffectData.json");
 
-    // For MapData
+    #region  MAP DATA
     public static void SaveMapDataToJson(List<MapData> mapDataList)
     {
-        string json = JsonConvert.SerializeObject(mapDataList, Formatting.Indented);
+        string json = JsonConvert.SerializeObject(mapDataList, Formatting.Indented, new Vector2Converter());
         File.WriteAllText(mapDataJsonPath, json);
         Debug.Log("Create completed MapData JSON file");
     }
@@ -27,35 +29,43 @@ public class JSONManager
             return new List<MapData>();
         }
         string json = File.ReadAllText(mapDataJsonPath);
+
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
         return JsonConvert.DeserializeObject<List<MapData>>(json);
     }
+    #endregion 
 
-    // For EmptyPlot Data
-    public static void SaveEmptyPlotDataToJson(List<EmptyPlotDataHolder> emptyPlotDataHolderList) 
+    #region WAY POINT DATA
+    public static void SaveWayPointDataToJson(List<WayPointData> wayPointDataList) 
     {
-        List<EmptyPlotSerializableData> serializableDataList = new();
-        foreach(EmptyPlotDataHolder i in emptyPlotDataHolderList)
-        {
-            EmptyPlotSerializableData serializableData = new(i.mapID, i.emptyPlotList);
-            serializableDataList.Add(serializableData);
-        }
-        string json = JsonConvert.SerializeObject(serializableDataList, Formatting.Indented);
-        File.WriteAllText(emptyPlotDataJsonPath, json);
-        Debug.Log("Create completed EmptyPlotData JSON file");
+        string json = JsonConvert.SerializeObject(wayPointDataList, Formatting.Indented, new Vector2Converter());
+        File.WriteAllText(waypointDataJsonPath, json);
+        Debug.Log("Create completed WayPointData JSON file");
     }
 
-    public static List<EmptyPlotSerializableData> LoadEmptyPlotDataFromJson()
+    public static List<WayPointData> LoadMapWayPointDataFromJson()
     {
-        if(!File.Exists(emptyPlotDataJsonPath))
+        if(!File.Exists(waypointDataJsonPath))
         {
-            Debug.Log("there is no EmptyPlotData Json file");
+            Debug.Log("there is no WayPointData Json file");
             return null;
         }
-        string json = File.ReadAllText(emptyPlotDataJsonPath);
-        return JsonConvert.DeserializeObject<List<EmptyPlotSerializableData>>(json);
+        string json = File.ReadAllText(waypointDataJsonPath);
+        
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+        return JsonConvert.DeserializeObject<List<WayPointData>>(json, settings);
     }
+    #endregion
 
-    // For Tower Data
+    #region TOWER DATA
     public static void SaveTowerDataToJson(List<TowerData> towerDataList)
     {
         string json = JsonConvert.SerializeObject(towerDataList, Formatting.Indented);
@@ -73,8 +83,9 @@ public class JSONManager
         string json = File.ReadAllText(towerDataJsonPath);
         return JsonConvert.DeserializeObject<List<TowerData>>(json);
     }
+    #endregion
 
-    // For Bullet Data
+    #region BULLET DATA
     public static void SaveBulletDataToJson(List<BulletData> bulletDataList)
     {
         string json = JsonConvert.SerializeObject(bulletDataList, Formatting.Indented);
@@ -92,8 +103,29 @@ public class JSONManager
         string json = File.ReadAllText(bulletDataJsonPath);
         return JsonConvert.DeserializeObject<List<BulletData>>(json);
     }
+    #endregion
 
-    // For Unit Data
+    #region BULLET EFFECT DATA
+    public static void SaveBulletEffectDataToJson(List<BulletEffectData> bulletEffectDataList)
+    {
+        string json = JsonConvert.SerializeObject(bulletEffectDataList, Formatting.Indented);
+        File.WriteAllText(bulletEffectDataJsonPath, json);
+        Debug.Log("Create completed BulletEffectData JSON file");
+    }
+
+    public static List<BulletEffectData> LoadBulletEffectDataFromJson()
+    {
+        if(!File.Exists(bulletEffectDataJsonPath))
+        {
+            Debug.Log("there is no BulletEffectData Json file");
+            return new List<BulletEffectData>();
+        }
+        string json = File.ReadAllText(bulletEffectDataJsonPath);
+        return JsonConvert.DeserializeObject<List<BulletEffectData>>(json);
+    }
+    #endregion
+
+    #region UNIT DATA
     public static void SaveUnitDataToJson(List<UnitData> unitDataList)
     {
         string json = JsonConvert.SerializeObject(unitDataList, Formatting.Indented);
@@ -111,4 +143,25 @@ public class JSONManager
         string json = File.ReadAllText(unitDataJsonPath);
         return JsonConvert.DeserializeObject<List<UnitData>>(json);
     }
+    #endregion
+
+    #region SKILL DATA
+    public static void SaveSkillDataToJson(List<SkillData> skillDataList)
+    {
+        string json = JsonConvert.SerializeObject(skillDataList, Formatting.Indented);
+        File.WriteAllText(SkillDataJsonPath, json);
+        Debug.Log("Create completed SkillData JSON file");
+    }
+
+    public static List<SkillData> LoadSkillDataFromJson()
+    {
+        if(!File.Exists(SkillDataJsonPath))
+        {
+            Debug.Log("there is no bulletData Json file");
+            return new List<SkillData>();
+        }
+        string json = File.ReadAllText(SkillDataJsonPath);
+        return JsonConvert.DeserializeObject<List<SkillData>>(json);
+    }
+    #endregion
 }

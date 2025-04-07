@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameInitiator : MonoBehaviour
 {
@@ -8,17 +7,21 @@ public class GameInitiator : MonoBehaviour
 
     [Header("Load Data")]
     [SerializeField] private MapDataReader mapDataReader;
-    [SerializeField] private EmptyPlotDataReader emptyPlotDataReader;
+    [SerializeField] private WayPointDataReader wayPointDataReader;
     [SerializeField] private TowerDataReader towerDataReader;
     [SerializeField] private BulletDataReader bulletDataReader;
+    [SerializeField] private BulletEffectDataReader bulletEffectDataReader;
     [SerializeField] private UnitDataReader unitDataReader;
+    [SerializeField] private SkillDataReader skillDataReader;
 
     [Header("Camera")]
     [SerializeField] private CameraController cameraController;
+    private MapImageController mapImageController;
 
     [Header("GameManager")]
     [SerializeField] private SceneController sceneController;
     [SerializeField] private MapManager mapManager;
+    [SerializeField] private EndPointManager endPointManager;
     [SerializeField] private GamePlayManager gamePlayManager;
     [SerializeField] private EmptyPlotManager emptyPlotManager;
 
@@ -30,9 +33,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private EnemySpawnerManager enemySpawnerManager;
     [SerializeField] private BulletPool bulletPool;
     [SerializeField] private UnitPool unitPool;
-
-    [SerializeField] private SpawnGuardPointPath spawnGuardPointPath;
-    [SerializeField] private EndPoint endPoint;
+    [SerializeField] private VisualEffectPool visualEffectPool;
 
     [SerializeField] private PanelManager panelManager;
     [SerializeField] private CautionManager cautionManager;
@@ -47,10 +48,9 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private CanvasManager canvasManager;
     
     [Header("SelectedMap")]
-    public MapPresenter selectedMapPresenter;
+    public MapData currentMapData;
     
     private GameObject gameManagerHolder;
-    private GameObject poolManagerHolder;
     private GameObject mapDataHolder;
     private GameObject handlerHolder;
 
@@ -63,7 +63,6 @@ public class GameInitiator : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             gameManagerHolder = CreateHolder("GameManagerHolder");
-            poolManagerHolder = CreateHolder("PoolManagerHolder");
             mapDataHolder = CreateHolder("MapDataHolder");
             handlerHolder = CreateHolder("HandlerHolder");
         }
@@ -88,7 +87,7 @@ public class GameInitiator : MonoBehaviour
 
         yield return StartCoroutine(InitializeGameObject());
 
-        yield return StartCoroutine(ObjectGetInfor());
+        // yield return StartCoroutine(ObjectGetInfor());
 
         RegisterEvent();
 
@@ -111,15 +110,25 @@ public class GameInitiator : MonoBehaviour
 
         mapDataReader = Instantiate(mapDataReader);
 
-        emptyPlotDataReader = Instantiate(emptyPlotDataReader);
+        wayPointDataReader = Instantiate(wayPointDataReader);
 
         towerDataReader = Instantiate(towerDataReader);
 
         bulletDataReader = Instantiate(bulletDataReader);
+        
+        bulletEffectDataReader = Instantiate(bulletEffectDataReader);
 
         unitDataReader = Instantiate(unitDataReader);
 
+        skillDataReader = Instantiate(skillDataReader);
+
         mapManager = Instantiate(mapManager);
+
+        GameObject mapImage = new("MapImageController");
+        mapImage.transform.SetParent(gameObject.transform);
+        mapImageController = mapImage.AddComponent<MapImageController>();
+
+        endPointManager = Instantiate(endPointManager, gameManagerHolder.transform);
 
         gamePlayManager = Instantiate(gamePlayManager, gameManagerHolder.transform);
         gamePlayManager.name = InitNameObject.GamePlayManager.ToString();
@@ -147,11 +156,9 @@ public class GameInitiator : MonoBehaviour
         cautionManager = Instantiate(cautionManager, gameManagerHolder.transform);
         cautionManager.name = InitNameObject.CautionManager.ToString();
 
-        spawnGuardPointPath = Instantiate(spawnGuardPointPath, mapDataHolder.transform);
-        endPoint = Instantiate(endPoint, mapDataHolder.transform);
-
-        bulletPool = Instantiate(bulletPool,poolManagerHolder.transform);
-        unitPool = Instantiate(unitPool,poolManagerHolder.transform);
+        bulletPool = Instantiate(bulletPool);
+        unitPool = Instantiate(unitPool);
+        visualEffectPool = Instantiate(visualEffectPool);
 
         panelManager = Instantiate(panelManager, gameManagerHolder.transform);
 
@@ -174,35 +181,25 @@ public class GameInitiator : MonoBehaviour
     {
         gamePlayManager.PrepareGame();
         mapManager.PrepareGame();
+        mapImageController.PrepareGame();
+        cautionManager.PrepareGame();
         panelManager.PrepareGame();
         inputButtonHandler.PrepareGame();
         raycastHandler.RaycastHandlerPrepareGame();
 
         barrackTowerManager.PrepareGame();
         bulletTowerManager.PrepareGame();
-        bulletManager.PrepareGame();
-
-        soldierManager.PrepareGame();
-        enemyManager.PrepareGame();
 
         towerActionHandler.PrepareGame();
-        enemySpawnerManager.PrepareGame();
-        canvasManager.HideALLIU();
+        canvasManager.HideAllUI();
         yield return null;
     }
 
     private IEnumerator InitializeGameObject()
     {
-        // bulletPool.Initialize();
         unitPool.Initialize();
-        yield return null;
-    }
-
-    private IEnumerator ObjectGetInfor()
-    {
-        gamePlayManager.GetInfor();
-        // enemySpawnerManager.GetInfor();
-        panelManager.GetInfor();
+        bulletPool.Initialize();
+        visualEffectPool.Initialize();
         yield return null;
     }
 
@@ -216,29 +213,68 @@ public class GameInitiator : MonoBehaviour
     {
         mapManager.OnLoadSelectedMap += HandleLoadSelectedMap;
         canvasManager.OnLoadMapSelectionClick += HandleReLoadSelectionMap;
+        canvasManager.OnReloadCurrentMapClick += HandleReLoadCurrentMap;
     }
 
     private void HandleLoadSelectedMap(MapPresenter selectedMapPresenter)
     {
+        currentMapData = selectedMapPresenter.mapModel.mapData;
+        mapImageController.LoadSpriteImage(currentMapData);
+        emptyPlotManager.InitializeEmptyPlot(currentMapData);
+        endPointManager.CreateEndPoint(currentMapData);
+        barrackTowerManager.InitializeGuardPointPosList(currentMapData);
+
+        enemySpawnerManager.GetInfor(currentMapData);
+        cautionManager.InitializeCautionBtn();
+
+        ObjGetMapInfor(currentMapData);
         Time.timeScale = 1;
+
         SceneController.Instance.LoadScene("PlaySelectedMapScene");
         CanvasManager.Instance.ShowFPSText();
         CanvasManager.Instance.ShowAllGamePlayIUList();
         fPSCounter.PrepareGame();
-
-        this.selectedMapPresenter = selectedMapPresenter;
-        int mapID = selectedMapPresenter.mapModel.MapID;
-        emptyPlotManager.InitializeEmptyPlot(mapID);
     }
 
     private void HandleReLoadSelectionMap()
     {
-        panelManager.HidePauseMenu();
-        canvasManager.HideALLIU();
+        ClearCurrentMapObj();
         emptyPlotManager.ClearEmptyPlot();
-        bulletTowerManager.ClearBulletTowers();
-        barrackTowerManager.ClearBarrackTowers();
+        endPointManager.ClearEndPoints();
+        barrackTowerManager.ClearInitGuardPointposList();
+        mapImageController.HideMapImage();
+
+        PanelManager.Instance.HidePauseMenu();
+        CanvasManager.Instance.HideAllUI();
         SceneController.Instance.LoadScene("MapSelectionScene");
         MapManager.Instance.ShowMapBtn();
+
+    }
+
+    private void HandleReLoadCurrentMap()
+    {
+        ClearCurrentMapObj();
+        enemySpawnerManager.GetInfor(currentMapData);
+        emptyPlotManager.ShowAllEmptyPlot();
+        ObjGetMapInfor(currentMapData);
+        PanelManager.Instance.HidePauseMenu();
+        SceneController.Instance.ReLoadCurrentScene();
+        cautionManager.InitializeCautionBtn();
+    }
+
+    private void ClearCurrentMapObj()
+    {
+        bulletTowerManager.ClearBulletTowers();
+        barrackTowerManager.ClearBarrackTowers();
+        soldierManager.ReturnAllSoldierToPool();
+        enemyManager.ClearEnemyManager();
+        enemySpawnerManager.ResetEnemySpawnerManager();
+        cautionManager.ClearCautionBtnManager();
+    }
+
+    private void ObjGetMapInfor(MapData mapData)
+    {
+        gamePlayManager.GetInfor(mapData);
+        panelManager.GetInfor();
     }
 }

@@ -11,21 +11,12 @@ public class UnitDataReader : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            LoadTowerData();
         }
         else
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        if (unitDataListSO == null)
-        {
-            Debug.LogError("UnitDataCSV is not assigned.");
-            return;
-        }
-        LoadTowerData();
     }
 
     private void LoadTowerData()

@@ -1,67 +1,84 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyManager   enemyManager;
-    private UnitPool                        unitPool;
+ 
     [Header("Pathway to Spawn Enemy")]
-    [SerializeField] private PathConfigSO   pathConfigSO;
+    private List<PathWaySegment>            pathWaySegmentList;
+    
     [Header("Enemy-Wave information")]
-    public List<EnemyEntry>                 enemyEntries = new List<EnemyEntry>();
+    public List<EnemyEntry>                 enemyEntries = new()
+    {
+        new EnemyEntry
+        {
+            enemyID = "Monster_1",
+            numberEnemyInWave = 1,
+        }
+    };
     private float                           timeBetweenEnemy;
     public BtnCaution                       cautionBtn;
-    private EnemySpawnerManager             spawnEnemyManager;
+    private Vector2                         cautionBtnPos;
+    private EnemySpawnerManager             enemySpawnerManager;
     private bool                            isStartNextWave = false;
-
     public event Action                     OnFinishCurrentWave;
-    
-    // private void Awake()
-    // {
-    //     LoadComponents();
-    // }
+    private Coroutine SpawnEnemyCoroutine;
 
-    // private void Start()
-    // {
-    //     GetTimeBetweenEnemy();
-    //     CheckShowFristWaveCaution();
-    // }
-
-    // private void OnEnable()
-    // {
-    //     RegisterStartNextWaveEvent();
-    // }
-
-    public void PrepareGame()
+    public void PrepareGame(EnemySpawnerManager enemySpawnerManager, Vector2 cautionBtnPos, List<PathWaySegment> pathWaySegmentList)
     {
         LoadComponents();
+        SetEnemySpawnerManager(enemySpawnerManager);
+        SetCautionBtnPos(cautionBtnPos);
+        SetPathWaySegmentList(pathWaySegmentList);
         GetTimeBetweenEnemy();
-        CheckShowFristWaveCaution();
         RegisterStartNextWaveEvent();
-    }
-
-    private void OnDisable()
-    {
-        UnregisterStartNextWaveEvent();
     }
 
     public void LoadComponents()
     {
         enemyManager = GameObject.Find(InitNameObject.EnemyManager.ToString()).GetComponent<EnemyManager>();
-        spawnEnemyManager = GameObject.Find(InitNameObject.EnemySpawnerManager.ToString()).GetComponent<EnemySpawnerManager>();
-        unitPool = enemyManager.unitPool;
+    }
+
+    private void SetEnemySpawnerManager(EnemySpawnerManager enemySpawnerManager)
+    {
+        this.enemySpawnerManager = enemySpawnerManager;
+    }
+
+    private void SetCautionBtnPos(Vector2 pos)
+    {
+        cautionBtnPos = pos;
+    }
+
+    public Vector2 GetCautionBtnPos()
+    {
+        return cautionBtnPos;
+    }
+
+    private void SetPathWaySegmentList(List<PathWaySegment> pathWaySegmentList)
+    {
+        this.pathWaySegmentList = pathWaySegmentList;
     }
 
     private void GetTimeBetweenEnemy()
     {
-        timeBetweenEnemy = spawnEnemyManager.GetTimeBetweenEnemy();
+        timeBetweenEnemy = enemySpawnerManager.GetTimeBetweenEnemy();
+    }
+
+    public void RegisterStartNextWaveEvent()
+    {
+        enemySpawnerManager.OnCallNextWave += StartNextWave;
+    }
+
+    public void UnregisterStartNextWaveEvent()
+    {
+        enemySpawnerManager.OnCallNextWave -= StartNextWave;
     }
     
-    private IEnumerator SpawnEnemyCoroutine()
+    private IEnumerator SpawnEnemy()
     {
         // for loop to spwan enemies in all wave
         for(int y = 0; y < enemyEntries.Count; y++)
@@ -69,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
             // for loop to spawn enemies in one wave
             for(int i = 0; i < enemyEntries[y].numberEnemyInWave; i++)
             {
-                GetUnitBase(enemyEntries[y].enemy, i);
+                GetUnitBase(enemyEntries[y].enemyID, i);
                 // wait time among instantiate each enemy
                 yield return new WaitForSeconds(SetTimeBetweenEnemy());
             }
@@ -81,48 +98,34 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartSpawnEnemyCoroutine()
     {
-        StartCoroutine(SpawnEnemyCoroutine());
+        if(SpawnEnemyCoroutine !=null)
+        {
+            StopCoroutine(SpawnEnemyCoroutine);
+        }
+        SpawnEnemyCoroutine = StartCoroutine(SpawnEnemy());
     }
 
-    public int GetNumberEnemyInWave(int waveIndex)
+    private int GetNumberEnemyInWave(int waveIndex)
     {
         return waveIndex < enemyEntries.Count ? enemyEntries[waveIndex].numberEnemyInWave : 0;
     }
 
-    private void CheckShowFristWaveCaution()
+    public bool HasEnemyInWave(int waveNumber)
     {
-        if(GetNumberEnemyInWave(0) != 0)
-        {
-            cautionBtn.isFirstWave = true;
-            cautionBtn.StartActiveCautionFill();
-        }
-        else cautionBtn.HideCautionFill();
+        return GetNumberEnemyInWave(waveNumber) > 0;
     }
 
-    private void GetUnitBase(Enemy _enemy, int lineInPathIndex)
+    private void GetUnitBase(string enemyID, int pathWaySegmentIndex)
     {
-        string unitPrefabName = _enemy.name.Trim().ToLower();
-        Enemy enemy = unitPool.GetEnemy(unitPrefabName);
-        // add path to enemy pathway
-        enemy.GetPathConfigSO(pathConfigSO);
-        enemy.SetPosInPathWave(lineInPathIndex % 3);
+        string unitPrefabName = enemyID;
+        Enemy enemy = UnitPool.Instance.GetEnemy(unitPrefabName);
+        enemy.PrepareGame(pathWaySegmentList, pathWaySegmentIndex % 3);
         enemyManager.AddEnemy(enemy);
     }
     
     private float SetTimeBetweenEnemy()
     {
         return Random.Range(timeBetweenEnemy * 0.3f, timeBetweenEnemy * 2.5f);
-    }
-
-    public void RegisterStartNextWaveEvent()
-    {
-        // spawnEnemyManager = GetComponentInParent<SpawnEnemyManager>();
-        spawnEnemyManager.OnCallNextWave += StartNextWave;
-    }
-
-    public void UnregisterStartNextWaveEvent()
-    {
-        spawnEnemyManager.OnCallNextWave -= StartNextWave;
     }
 
     private void StartNextWave()
@@ -135,15 +138,15 @@ public class EnemySpawner : MonoBehaviour
         return enemyEntries.Count;
     }
 
-    public Vector2 GetCautionPos()
+    public void SetCautionBtm(BtnCaution cautionBtn)
     {
-        return pathConfigSO.GetCautionPos();
+        this.cautionBtn = cautionBtn;
     }
 }
 
 [System.Serializable]
 public class EnemyEntry
 {
-    public Enemy enemy;
+    public string enemyID;
     public int numberEnemyInWave;
 }

@@ -9,8 +9,8 @@ public class VisualEffectPool : MonoBehaviour
     public class VisualEffectInfor
     {
         public Effect effectPrefab;
-        public string EffectName => effectPrefab.name.Trim().ToLower();
-        public int effectSize;
+        public string EffectName => effectPrefab.name;
+        public int poolSize;
     }
 
     [SerializeField] List<VisualEffectInfor> effectPoolInfors = new List<VisualEffectInfor>();
@@ -22,7 +22,6 @@ public class VisualEffectPool : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            InitEffects();
         }
         else
         {
@@ -30,7 +29,7 @@ public class VisualEffectPool : MonoBehaviour
         }
     }
 
-    public void InitEffects()
+    public void Initialize()
     {
         InitializeEffectPool();
     }
@@ -40,7 +39,7 @@ public class VisualEffectPool : MonoBehaviour
         foreach( var effectPoolInfor in effectPoolInfors)
         {
             Queue<Effect> effectQueue = new Queue<Effect>();
-            for(int i = 0; i< effectPoolInfor.effectSize; i++)
+            for(int i = 0; i< effectPoolInfor.poolSize; i++)
             {
                 Effect effect = Instantiate(effectPoolInfor.effectPrefab, transform);
                 effect.effectName = effectPoolInfor.EffectName;

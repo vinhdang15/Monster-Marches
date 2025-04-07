@@ -32,34 +32,35 @@ public class BulletBase : MonoBehaviour
     }
 
     #region INIT BULLET
-    public void InitBullet(BulletData _bulletData)
+    public void InitBullet(BulletData bulletData)
     {
-        InitBulletData(_bulletData);
-        InitBulletEffect(_bulletData);
+        InitBulletData(bulletData);
+        InitBulletEffect(bulletData);
         InitBulletAnimation();
     }
 
-    private void InitBulletData(BulletData _bulletData)
+    private void InitBulletData(BulletData bulletData)
     {
-        BulletType              = _bulletData.bulletType;
-        Speed                   = _bulletData.speed;
-        Damage                  = _bulletData.damage;
-        EffectType              = _bulletData.effectTyes;
-        DealDamageDelay         = _bulletData.dealDamageDelay;
+        
+        BulletType              = bulletData.bulletType;
+        Speed                   = bulletData.speed;
+        Damage                  = bulletData.damage;
+        EffectType              = bulletData.effectTyes;
+        DealDamageDelay         = bulletData.dealDamageDelay;
     }
 
-    private void InitBulletEffect(BulletData _bulletData)
+    private void InitBulletEffect(BulletData bulletData)
     {
-        string[] effectTypes = _bulletData.effectTyes.Split(";");
+        string[] effectTypes = bulletData.effectTyes.Split(";");
         foreach(string effecType in effectTypes)
         {
-            BulletEffectData effectData = CSVBulletEffectDataReader.Instance.bulletEffectDataList.GetBulletEffectData(effecType);
+            BulletEffectData effectData = BulletEffectDataReader.Instance.bulletEffectDataSO.GetBulletEffectData(effecType);
             if(effectData == null) continue;
             IEffect effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, 
                                                         effectData.effectOccursTime, effectData.effectRange);
             if(effect == null)
             {
-                Debug.Log($"{this} bullet not have {effect}");
+                Debug.Log($"{this} bullet not have {effecType}");
                 continue;
             }
             effects.Add(effect);
@@ -237,16 +238,16 @@ public class BulletBase : MonoBehaviour
     {
         switch(BulletType)
         {
-            case string t when t == BulletTypea.Arrow1.ToString().Trim().ToLower() ||
-                                t == BulletTypea.Arrow2.ToString().Trim().ToLower():
+            case string t when t == BulletTypea.Arrow_1.ToString() ||
+                                t == BulletTypea.Arrow_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.arrowSound);
                 break;
-            case string t when t == BulletTypea.MagicBall1.ToString().Trim().ToLower() ||
-                                t == BulletTypea.MagicBall2.ToString().Trim().ToLower():
+            case string t when t == BulletTypea.MagicBall_1.ToString() ||
+                                t == BulletTypea.MagicBall_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.MagicBallWhistleSound);
                 break;
-            case string t when t == BulletTypea.Bomb1.ToString().Trim().ToLower() ||
-                                t == BulletTypea.Bomb2.ToString().Trim().ToLower():
+            case string t when t == BulletTypea.Bomb_1.ToString() ||
+                                t == BulletTypea.Bomb_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.bomWhistleSound);
                 break;
         }
@@ -256,12 +257,12 @@ public class BulletBase : MonoBehaviour
     {
         switch(BulletType)
         {
-            case string t when t == BulletTypea.MagicBall1.ToString().Trim().ToLower() ||
-                                t == BulletTypea.MagicBall2.ToString().Trim().ToLower():
+            case string t when t == BulletTypea.MagicBall_1.ToString() ||
+                                t == BulletTypea.MagicBall_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.MagicBallHitSound);
                 break;
-            case string t when t == BulletTypea.Bomb1.ToString().Trim().ToLower() ||
-                                t == BulletTypea.Bomb2.ToString().Trim().ToLower():
+            case string t when t == BulletTypea.Bomb_1.ToString() ||
+                                t == BulletTypea.Bomb_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.bomExplosionSound);
                 break;
         }

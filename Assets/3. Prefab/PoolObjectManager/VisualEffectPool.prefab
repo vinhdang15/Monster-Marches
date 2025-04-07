@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectPoolInfors:
   - effectPrefab: {fileID: 3025538091213797232, guid: 2b083d8ef1ed1a44b929ae8829585b57, type: 3}
-    effectSize: 3
+    poolSize: 3

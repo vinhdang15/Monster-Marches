@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ReloadCurrentMapBtn : BtnBase
 {
+    [SerializeField] CanvasManager canvasManager;
     protected override void Start()
     {
         base.Start();
@@ -12,8 +13,7 @@ public class ReloadCurrentMapBtn : BtnBase
 
     protected override void OnButtonClick()
     {
-        PlayClickSound();
-        PanelManager.Instance.HidePauseMenu();
-        SceneController.Instance.ReLoadCurrentScene();
+        canvasManager.HandleReloadCurrentMapClick();
+        base.OnButtonClick();
     }
 }

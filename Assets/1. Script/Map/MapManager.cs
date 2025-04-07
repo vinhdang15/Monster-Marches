@@ -8,7 +8,7 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance { get; private set; }
     
     [SerializeField] MapBtn mapBtnPrefeb;
-    private Transform mapParent;
+    private Transform mapBtnParent;
 
     private List<MapModel> mapBtnList = new();
     private List<MapPresenter> mapPresenterList = new();
@@ -42,7 +42,7 @@ public class MapManager : MonoBehaviour
 
     private void GetMapParent()
     {
-        mapParent = CanvasManager.Instance.transform.Find("CanvasWorldSpace");
+        mapBtnParent = CanvasManager.Instance.transform.Find("CanvasWorldSpace");
     }
 
     private void RegisterButtonEvent()
@@ -57,8 +57,8 @@ public class MapManager : MonoBehaviour
     {
         foreach(MapData mapData in MapDataReader.Instance.mapDataListSO.mapDataList)
         {
-            Vector2 initPos = mapData.initPos.ToVector2();
-            MapBtn mapBtn = Instantiate(mapBtnPrefeb,initPos, quaternion.identity, mapParent);
+            Vector2 initPos = mapData.initMapBtnPos;
+            MapBtn mapBtn = Instantiate(mapBtnPrefeb,initPos, quaternion.identity, mapBtnParent);
             MapModel mapMode = MapModel.Create(mapBtn,mapData);
             MapPresenter mapPresenter = MapPresenter.Create(mapMode,mapBtn);
 

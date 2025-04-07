@@ -3,32 +3,46 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
-    // In each path (PathConfigSO), there is three Moving row
-    public PathConfigSO PathConfigSO { get; set; }
-    [SerializeField] List<Transform> waypoints;
+    private List<PathWaySegment> pathWaySegmentList;
+    [SerializeField] List<Vector2> wayPointList;
     int wayPointIndex = 0;
 
     private void Start()
     {
         wayPointIndex = 0;
     }
-    public void OnSetPosInPathWay(int _pathWayIndex)
-    {
-        PathConfigSO.index = _pathWayIndex;
 
-        transform.position = PathConfigSO.GetStartingWaypoint().position;
-        // rest waypoints, wayPointIndex
-        wayPointIndex = 0;
-        waypoints =  PathConfigSO.GetWayPoints();
+    public void PrepareGame(List<PathWaySegment> pathWaySegmentList, int pathWaySegmentIndex)
+    {
+        SetPathWaySegmentList(pathWaySegmentList);
+        GetWayPointList(pathWaySegmentIndex);
+        SetInitPosInWayPointList();
+    }
+
+    private void SetPathWaySegmentList(List<PathWaySegment> pathWaySegmentList)
+    {
+        this.pathWaySegmentList = pathWaySegmentList;
     }
     
+    private void GetWayPointList(int pathWaySegmentIndex)
+    {
+        PathWaySegment pathWaySegment = pathWaySegmentList[pathWaySegmentIndex];
+        wayPointList = pathWaySegment.WayPointList;
+    }
+    private void SetInitPosInWayPointList()
+    {
+        // Reset value
+        transform.position = wayPointList[0];
+        wayPointIndex = 1;
+    }
+
     public void FollowPath(float speed)
     {
-        if (wayPointIndex < waypoints.Count)
+        if (wayPointIndex < wayPointList.Count)
         {
-            if(transform.position != waypoints[wayPointIndex].position)
+            if (Vector2.SqrMagnitude((Vector2)transform.position - wayPointList[wayPointIndex]) > 0.01f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, waypoints[wayPointIndex].position, speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, wayPointList[wayPointIndex], speed * Time.deltaTime);
             }
             else
             {

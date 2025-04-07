@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +5,12 @@ public class JsonCreater : MonoBehaviour
 {
     public static JsonCreater Instance;
     MapDataForJson mapdataForJson;
-    EmptyPlotDataHolderListForJson emptyPlotDataForJson;
+    UnitDataForJon unitDataForJon;
+    SkillDataForJson skillDataForJson;
     TowerDataForJson towerDataForJson;
     BulletDataForJson bulletDataForJson;
-    UnitDataForJon unitDataForJon;
+    BulletEffectDataForJson bulletEffectDataForJson;
+    [SerializeField] WayPointDataProcessor wayPointDataList;
     
     private void Awake()
     {
@@ -30,10 +31,11 @@ public class JsonCreater : MonoBehaviour
     private void LoadComponents()
     {
         mapdataForJson = GetComponent<MapDataForJson>();
-        emptyPlotDataForJson = GetComponent<EmptyPlotDataHolderListForJson>();
         towerDataForJson = GetComponent<TowerDataForJson>();
         bulletDataForJson = GetComponent<BulletDataForJson>();
+        bulletEffectDataForJson = GetComponent<BulletEffectDataForJson>();
         unitDataForJon = GetComponent<UnitDataForJon>();
+        skillDataForJson = GetComponent<SkillDataForJson>();
     }
 
     public void CreateMapDataJson()
@@ -42,10 +44,10 @@ public class JsonCreater : MonoBehaviour
         JSONManager.SaveMapDataToJson(mapDatas);
     }
 
-    public void CreateEmptyPlotDataJson()
+    public void CreateWayPointDataJson()
     {
-        List<EmptyPlotDataHolder> emptyPlotDatas = emptyPlotDataForJson.GetEmptyPlotDataForJson();
-        JSONManager.SaveEmptyPlotDataToJson(emptyPlotDatas);
+        List<WayPointData> wayPointDatas = wayPointDataList.ExtractWayPointData();
+        JSONManager.SaveWayPointDataToJson(wayPointDatas);
     }
 
     public void CreateTowerDataJson()
@@ -53,16 +55,28 @@ public class JsonCreater : MonoBehaviour
         List<TowerData> towerDatas = towerDataForJson.GetTowerDataForJson();
         JSONManager.SaveTowerDataToJson(towerDatas);
     }
-
+    
     public void CreateBulletDataJson()
     {
         List<BulletData> bulletDatas = bulletDataForJson.GetBulletDataForJson();
         JSONManager.SaveBulletDataToJson(bulletDatas);
     }
 
+    public void CreateBulletEffectDataJson()
+    {
+        List<BulletEffectData> bulletEffectDatas = bulletEffectDataForJson.GetBulletEffectDatas();
+        JSONManager.SaveBulletEffectDataToJson(bulletEffectDatas);
+    }
+
     public void CreateUnitDataJson()
     {
         List<UnitData> unitDatas = unitDataForJon.GetUnitDataForJson();
         JSONManager.SaveUnitDataToJson(unitDatas);
+    }
+
+    public void CreateSkillDataJson()
+    {
+        List<SkillData> skillDatas = skillDataForJson.GetSkillDataForJson();
+        JSONManager.SaveSkillDataToJson(skillDatas);
     }
 }

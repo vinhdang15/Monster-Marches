@@ -9,16 +9,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1635199936100545347, guid: fcc93695c3b105946a2248be968814a6, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635199936100545347, guid: fcc93695c3b105946a2248be968814a6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9bddcf0cecf7b2c40a795944d0e69ade, type: 3}
+    - target: {fileID: 1635199936100545347, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_Color.b
-      value: 0.50445
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1635199936100545347, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_Color.g
-      value: 0.9811321
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1635199936100545347, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_Color.r
-      value: 0.9183003
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1752727699931298968, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_Pivot.x
@@ -46,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1752727699931298968, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 70
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 1752727699931298968, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 70
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1752727699931298968, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -86,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1752727699931298968, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 1752727699931298968, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -102,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5932137894974223648, guid: fcc93695c3b105946a2248be968814a6, type: 3}
       propertyPath: m_Name
-      value: Btn - Load ReLoad Main Menu
+      value: Btn - LoadMapSelectionScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

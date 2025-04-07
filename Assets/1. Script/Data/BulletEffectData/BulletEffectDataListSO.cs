@@ -8,7 +8,7 @@ public class BulletEffectDataListSO : ScriptableObject
     public List<BulletEffectData> bulletEffectDataList = new List<BulletEffectData>();
     public BulletEffectData GetBulletEffectData(string bulletEffectType)
     {  
-        string normalizedEffectTypee = bulletEffectType.Trim().ToLower();
+        string normalizedEffectTypee = bulletEffectType;
         return bulletEffectDataList.Find(data => data.effectType == bulletEffectType);
     }
 }

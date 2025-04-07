@@ -8,7 +8,7 @@ public class SkillDataListSO : ScriptableObject
 
     public SkillData GetSkillData(string type)
     {
-        type = type.Trim().ToLower();
+        // type = type.Trim().ToLower();
         return skillDataList.Find(data => data.skillType == type);
     }
 

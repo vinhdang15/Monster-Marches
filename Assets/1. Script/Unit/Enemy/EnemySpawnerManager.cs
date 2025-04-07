@@ -6,8 +6,10 @@ using UnityEngine;
 public class EnemySpawnerManager : MonoBehaviour
 {
     // pathway infor
-    public List<EnemySpawner> SpawnEnemies;
-    private int NumberPathWay => SpawnEnemies.Count;
+    public List<EnemySpawner> enemySpawnerList = new();
+    private int NumberPathWay => enemySpawnerList.Count;
+    List<MainPathWayInfo> mainPathWayInfoList = new();
+
 
     // Wave infor
     public int TotalWave = 0;
@@ -21,63 +23,83 @@ public class EnemySpawnerManager : MonoBehaviour
     [SerializeField] private float timeBetweenEnemy;
     [SerializeField] private float timeWaitForNextWave = 3f;
 
-    // Init BtnCautionSlider
-    [SerializeField] CautionManager cautionManager;
-
     // Time show BtnCaution, time call next wave
     private float waitCautionStartTime;
     private Coroutine WaitToCallNextWave;
     public event Action OnCallNextWave;
-    public event Action      OnCautionClick;
+    public event Action      OnCautionBtnClicked;
     public event Action<int> OnUpdateCurrentWave;
     public event Action<int> OnAddGoldWhenCautionClick;
 
     // trigger to call the first wave when BtnCautionSlider click
     private bool isBeginFristWave = false;
 
-    public void PrepareGame()
+    public void GetInfor(MapData mapData)
     {
-        LoadComponents();
-    }
-
-    public void GetInfor()
-    {
-        FindAllSpawnEnemy();
+        GetMainPathWayInfoList(mapData);
+        InitEnemySpawner();
         RegisterFinishCurrentWaveEvent();
         GetTotalWave();
         GetTotalEnemies();
     }
-
-    private void OnDisable()
+    
+    public void ResetEnemySpawnerManager()
     {
+        ResetEnemySpawner();
+        isBeginFristWave = false;
         UnregisterFinishCurrentWaveEvent();
     }
 
-    private void LoadComponents()
+    private void GetMainPathWayInfoList(MapData mapData)
     {
-        cautionManager = FindObjectOfType<CautionManager>();
+        mainPathWayInfoList = WayPointDataReader.Instance.GetMainPathWayInfoList(mapData);
     }
 
-    #region SPAWN ENEMY
-    private void FindAllSpawnEnemy()
+    #region SPAWN ENEMYSPAWNER
+    private void InitEnemySpawner()
     {
-        EnemySpawner[] allSpawnEnemy = FindObjectsOfType<EnemySpawner>();
-        SpawnEnemies = new List<EnemySpawner>(allSpawnEnemy);
+        ResetEnemySpawner();
+
+        foreach(MainPathWayInfo mainPathWayInfo in mainPathWayInfoList)
+        {
+            Vector2 cautionPos = mainPathWayInfo.cautionBtnPos;
+            List<PathWaySegment> pathWaySegmentList =  mainPathWayInfo.pathWaySegmentList;
+
+            GameObject enemySpawnerObj = new GameObject();
+            enemySpawnerObj.name = "EnemySpawner";
+            enemySpawnerObj.transform.SetParent(transform);
+            enemySpawnerObj.transform.position = Vector2.zero;
+            
+            EnemySpawner enemySpawner = enemySpawnerObj.AddComponent<EnemySpawner>();
+            enemySpawner.PrepareGame(this, cautionPos, pathWaySegmentList);
+            enemySpawnerList.Add(enemySpawner);
+        }
+    }
+
+    private void ResetEnemySpawner()
+    {
+        foreach(var enemySpawner in enemySpawnerList)
+        {
+            enemySpawner.OnFinishCurrentWave -= HandleFinishCurrentWave;
+            enemySpawner.UnregisterStartNextWaveEvent();
+            Destroy(enemySpawner.gameObject);
+        }
+        enemySpawnerList.Clear(); 
     }
 
     private void RegisterFinishCurrentWaveEvent()
     {
-        foreach(var spawnEnemy in SpawnEnemies)
+        foreach(var enemySpawner in enemySpawnerList)
         {
-            spawnEnemy.OnFinishCurrentWave += HandleFinishCurrentWave;
+            enemySpawner.OnFinishCurrentWave += HandleFinishCurrentWave;
         }
     } 
 
     private void UnregisterFinishCurrentWaveEvent()
     {
-        foreach(var spawnEnemy in SpawnEnemies)
+        foreach(var enemySpawner in enemySpawnerList)
         {
-            spawnEnemy.OnFinishCurrentWave -= HandleFinishCurrentWave;
+            enemySpawner.OnFinishCurrentWave -= HandleFinishCurrentWave;
         }
     }
 
@@ -97,7 +119,7 @@ public class EnemySpawnerManager : MonoBehaviour
     private IEnumerator WaitToCallNextWaveCoroutine()
     {
         yield return new WaitForSeconds(2f);
-        CheckToShowCautionBtnInWhichSpawnEnemy();
+        CheckToShowCautionBtnInWhichEnemySpawner();
         waitCautionStartTime = Time.time;
         yield return new WaitForSeconds(timeWaitForNextWave);
         waitCautionStartTime = 0;
@@ -109,39 +131,37 @@ public class EnemySpawnerManager : MonoBehaviour
     #endregion
 
     #region CAUTION SLIDER
-    private void CheckToShowCautionBtnInWhichSpawnEnemy()
+    private void CheckToShowCautionBtnInWhichEnemySpawner()
     {
-        foreach(var spawnEnemy in SpawnEnemies)
+        foreach(var enemyspawner in enemySpawnerList)
         {
-            if(spawnEnemy.GetNumberEnemyInWave(CurrentWaveIndex + 1) != 0)
+            if(enemyspawner.HasEnemyInWave(CurrentWaveIndex + 1))
             {
-                // spawnEnemy.cautionBtn.gameObject.SetActive(true);
-                spawnEnemy.cautionBtn.StartActiveCautionFill();
+                enemyspawner.cautionBtn.StartActiveCautionFill();
             }
             else
             {
-                // spawnEnemy.cautionBtn.gameObject.SetActive(false);
-                spawnEnemy.cautionBtn.HideCautionFill();
+                enemyspawner.cautionBtn.HideCautionFill();
             }
         }
     }
 
     private void HideAllCautionFill()
     {
-        foreach(var spawnEnemy in SpawnEnemies)
+        foreach(var enemySpawner in enemySpawnerList)
         {
             // spawnEnemy.cautionBtn.gameObject.SetActive(false);
-            spawnEnemy.cautionBtn.HideCautionFill();
+            enemySpawner.cautionBtn.HideCautionFill();
         }
     }
 
-    public void CautionClick()
+    public void HandleCautionButtonClicked()
     {
         if(!isBeginFristWave)
         {
-            foreach(var spawnEnemy in SpawnEnemies)
+            foreach(var enemySpawner in enemySpawnerList)
             {
-                spawnEnemy.StartSpawnEnemyCoroutine();
+                enemySpawner.StartSpawnEnemyCoroutine();
             }
             isBeginFristWave = true;
             OnUpdateCurrentWave?.Invoke(CurrentWave);
@@ -159,7 +179,7 @@ public class EnemySpawnerManager : MonoBehaviour
             HandleCautionClick();
             UpdateCurrentWaveIndex();
         }
-        OnCautionClick?.Invoke();
+        OnCautionBtnClicked?.Invoke();
     }
 
     private void HandleCautionClick()
@@ -168,9 +188,9 @@ public class EnemySpawnerManager : MonoBehaviour
         float timeCallEarly = timeWaitForNextWave - elapsedTime;
         int goldCallEarly = (int)timeCallEarly*2;
 
-        foreach(var spawnEnemy in SpawnEnemies)
+        foreach(var enemySpawner in enemySpawnerList)
         {
-            if(spawnEnemy.cautionBtn.isCautionFillActive())
+            if(enemySpawner.cautionBtn.IsCautionFillActive())
             {
                 OnAddGoldWhenCautionClick?.Invoke(goldCallEarly);
             }
@@ -198,14 +218,14 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void GetTotalWave()
     {
-        TotalWave = SpawnEnemies[0].GetTotalWave();
+        TotalWave = enemySpawnerList[0].GetTotalWave();
     }
 
     private void GetTotalEnemies()
     {
-        foreach(var spawnEnemy in SpawnEnemies)
+        foreach(var enemySpawner in enemySpawnerList)
         {
-            foreach(var enemyEntry in spawnEnemy.enemyEntries)
+            foreach(var enemyEntry in enemySpawner.enemyEntries)
             {
                 totalEnemies += enemyEntry.numberEnemyInWave;
             }

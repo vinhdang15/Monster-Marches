@@ -109,6 +109,12 @@ public class BulletTowerManager : TowerBaseManager
     }
     #endregion
 
+    public void CleanupSelectedTower(TowerPresenter selectedTower)
+    {
+        bulletTOwerList.Remove(selectedTower);
+        Destroy(selectedTower.gameObject);
+    }
+
     public void ClearBulletTowers()
     {
         foreach(var bulletTower in bulletTOwerList)

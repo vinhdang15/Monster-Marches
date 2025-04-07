@@ -54,10 +54,10 @@ public enum TowerType
 
 public enum BulletTypea
 {
-    Arrow1,
-    Arrow2,
-    MagicBall1,
-    MagicBall2,
-    Bomb1,
-    Bomb2,
+    Arrow_1,
+    Arrow_2,
+    MagicBall_1,
+    MagicBall_2,
+    Bomb_1,
+    Bomb_2,
 }

@@ -4,27 +4,12 @@ using UnityEngine;
 
 public class SoldierManager : MonoBehaviour
 {
-    [SerializeField] UnitPool unitPool;
     private List<GuardPoint> guardPoints = new List<GuardPoint>();
     [SerializeField] List<Soldier> totalsoldiers = new List<Soldier>();
 
-    // private void Awake()
-    // {
-    //     LoadComponents();
-    // }
-
-    public void PrepareGame()
-    {
-        LoadComponents();
-    }
-
-    private void LoadComponents()
-    {
-        unitPool = FindObjectOfType<UnitPool>();
-    }
-
     private void Update()
     {
+        if(totalsoldiers.Count == 0) return;
         foreach(var soldier in totalsoldiers)
         {
             soldier.SoldierAction();
@@ -37,7 +22,7 @@ public class SoldierManager : MonoBehaviour
 
         for(int i = 0; i < 3; i++)
         {
-            Soldier soldier = unitPool.GetSoldier(unitName, initPos);
+            Soldier soldier = UnitPool.Instance.GetSoldier(unitName, initPos);
             soldier.SoldierInitInfor(barrackTowerView, i, barrackGatePos, revivalSpeed);
             soldier.OnSoldierDeath += HandleSoldierDie;
             guardPoint.AddSoldier(soldier);
@@ -79,9 +64,20 @@ public class SoldierManager : MonoBehaviour
             totalsoldiers.Remove(soldier);
             soldier.OnSoldierDeath -= HandleSoldierDie;
             soldier.barrackTowerView = null;
-            soldier.SoldierReturnToUnitPool(unitPool);
+            soldier.SoldierReturnToUnitPool();
             soldier.isBarrackUpgrade = false;
         }
         guardPoint.soldiers.Clear();
+    }
+
+    public void ReturnAllSoldierToPool()
+    {
+        foreach(var soldier in totalsoldiers)
+        {
+            soldier.OnSoldierDeath -= HandleSoldierDie;
+            soldier.barrackTowerView = null;
+            soldier.SoldierReturnToUnitPool();
+            soldier.isBarrackUpgrade = false;
+        }
     }
 }

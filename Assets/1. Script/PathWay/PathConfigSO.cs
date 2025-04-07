@@ -6,7 +6,6 @@ public class PathConfigSO : ScriptableObject
 {
     [SerializeField] private List<Transform>    pathPrefab;
     [HideInInspector] public int                index;
-    public Transform                            cautionTranf;
     
     public Transform GetStartingWaypoint()
     {
@@ -21,10 +20,5 @@ public class PathConfigSO : ScriptableObject
             wavePoints.Add(child);
         }
         return wavePoints;
-    }
-
-    public Vector2 GetCautionPos()
-    {
-        return cautionTranf.GetChild(0).position;
     }
 }

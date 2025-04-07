@@ -1,13 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
+    public static BulletPool Instance { get; private set; }
     [System.Serializable]
     public class BulletPoolInfo
     {
-        public string       BulletType => bulletPrefab.name.Trim().ToLower();
+        public string       BulletType => bulletPrefab.name;
         public BulletBase   bulletPrefab;
         public int          poolSize;
     }
@@ -15,12 +15,19 @@ public class BulletPool : MonoBehaviour
     public List<BulletPoolInfo> bulletPoolInfos;
     Dictionary<string, Queue<BulletBase>> bulletPools = new Dictionary<string, Queue<BulletBase>>();
 
-    // private void Start()
-    // {   
-    //     Initialize();
-    // }
-    
-    public void Initialize()
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+        public void Initialize()
     {
         InitializeBulletPool();
     }

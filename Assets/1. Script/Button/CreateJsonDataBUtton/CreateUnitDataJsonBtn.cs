@@ -1,4 +1,4 @@
-public class CreateUnitDataJsonBtn : BtnBase
+public class CreateUnitDataBtn : BtnBase
 {
     protected override void Start()
     {

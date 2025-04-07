@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public abstract class UnitBase : MonoBehaviour
 {
     private string      UnitType        { get; set; }
-    public string       UnitName        { get; set; }      
+    public string       UnitID          { get; set; }      
     public int          MaxHP           { get; set; }
     public float        MoveSpeed       { get; set; }
     public float        AttackSpeed     { get; set; }
@@ -50,32 +50,32 @@ public abstract class UnitBase : MonoBehaviour
     }
 
     #region INIT UNIT
-    public virtual void InitUnit(UnitData _unitData)
+    public virtual void InitUnit(UnitData unitData)
     {
-        InitUnitData(_unitData);
+        InitUnitData(unitData);
         SetupCurrentHp();
         SetDefaultSpeed();
-        InitUnitSkill(_unitData);
+        InitUnitSkill(unitData);
     }
-    private void InitUnitData(UnitData _unitData)
+    private void InitUnitData(UnitData unitData)
     {
-        UnitType            = _unitData.unitType;
-        UnitName            = _unitData.id;
-        MaxHP               = _unitData.maxHP;
-        MoveSpeed           = _unitData.moveSpeed;
-        AttackSpeed         = _unitData.attackSpeed;
-        Damage              = _unitData.attackDamage;
-        Gold                = _unitData.goldReward;
-        skillType           = _unitData.skillType;
+        UnitType            = unitData.unitType;
+        UnitID              = unitData.id;
+        MaxHP               = unitData.maxHP;
+        MoveSpeed           = unitData.moveSpeed;
+        AttackSpeed         = unitData.attackSpeed;
+        Damage              = unitData.attackDamage;
+        Gold                = unitData.goldReward;
+        skillType           = unitData.skillType;
     }
     
-    private void InitUnitSkill(UnitData _unitData)
+    private void InitUnitSkill(UnitData unitData)
     {
-        string[] skillTypes = _unitData.skillType.Split(";");
-        
+        string[] skillTypes = unitData.skillType.Split(";");
+        // Debug.Log($"{gameObject.name} number of {skillTypes.Length}");
         foreach(string skillType in skillTypes)
         {
-            SkillData skillData = CSVSkillDataReader.Instance.skillDataListSO.GetSkillData(skillType);
+            SkillData skillData = SkillDataReader.Instance.skillDataListSO.GetSkillData(skillType);
             if(skillData == null) continue;
             ISkill skill = SkillFactory.CreateSkill(skillData.skillType, skillData.skillValue, 
                                                         skillData.skillOccursTime, skillData.skillRange);

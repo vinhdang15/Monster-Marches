@@ -3,10 +3,11 @@ using System.IO;
 
 public class MapImageHandler : MonoBehaviour
 {
-    private static string mapFolderPath = Path.Combine(Application.persistentDataPath, "MAPS/");
-    public static Sprite LoadMapSprite(string mapName)
+    private static string mapFolderPath = Path.Combine(Application.persistentDataPath, "MAP");
+
+    public static Sprite GetMapSprite(int mapID)
     {
-        string mapImagePath = mapFolderPath + "mapName";
+        string mapImagePath = Path.Combine(mapFolderPath, mapID.ToString() + ".png");
         if(File.Exists(mapImagePath))
         {
             byte[] imageData = File.ReadAllBytes(mapImagePath);

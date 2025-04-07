@@ -10,6 +10,7 @@ public class TowerActionHandler : MonoBehaviour
     private EmptyPlot           selectedEmptyPlot;
     private TowerPresenter      selectedTower;
     private Button              currentButton = null;
+    
 
     public event Action<Button>                 OnFirstButtonClick;
     public event Action<TowerType, EmptyPlot>   OnTryToInitTower;

@@ -8,7 +8,7 @@ public class SkillFactory : MonoBehaviour
     {
         switch (skillType)
         {
-            case string t when t.Contains("selfhealing"):
+            case string t when t.Contains("SelfHealing"):
                 return new SelfHealSkill(skillType, skillValue, skillOccursTime, skillRange);
             default :
                 return null;

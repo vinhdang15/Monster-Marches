@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GamePlayManager : MonoBehaviour
@@ -23,7 +20,7 @@ public class GamePlayManager : MonoBehaviour
 
     [SerializeField] BulletTowerManager         bulletTowerManager;
     [SerializeField] BarrackTowerManager        barrackTowerManager;
-    public EnemySpawnerManager                    enemySpawnerManager;
+    public EnemySpawnerManager                  enemySpawnerManager;
     private Vector2                             initMenuPanelPos;
     private TowerPresenter                      selectedTower;
     private TowerPresenter                      selectedBulletTower;
@@ -46,9 +43,11 @@ public class GamePlayManager : MonoBehaviour
         currentLives = lives;
     }
 
-    public void GetInfor()
+    public void GetInfor(MapData mapData)
     {
         GetTowerInitGold();
+        GetCurentMapInitGold(mapData);
+        GetCurrentMapLive(mapData);
     }
 
     private void OnDisable()
@@ -69,6 +68,16 @@ public class GamePlayManager : MonoBehaviour
         enemySpawnerManager = FindObjectOfType<EnemySpawnerManager>();
         bulletTowerManager  = FindObjectOfType<BulletTowerManager>();
         barrackTowerManager = FindObjectOfType<BarrackTowerManager>();
+    }
+
+    private void GetCurentMapInitGold(MapData mapData)
+    {
+        gold = mapData.goldInit;
+    }
+
+    private void GetCurrentMapLive(MapData mapData)
+    {
+        lives = mapData.lives;
     }
 
     private void GetTowerInitGold()
@@ -232,7 +241,7 @@ public class GamePlayManager : MonoBehaviour
         UpgradeSelectedTower();
 
         // check if there is barrack tower upgrade, then replace new soldier
-        if(selectedTower.towerModel.TowerType == "barrack")
+        if(selectedTower.towerModel.TowerType == "Barrack")
         {
             SelectedBarrackUpgradeSoldier();
         }
@@ -269,10 +278,23 @@ public class GamePlayManager : MonoBehaviour
         AudioManager.Instance.PlaySound(soundEffectSO.AddGoldSound);
         gold += selectedTower.GoldRefund;
         selectedTower.emptyPlot.ShowEmptyPlot();
-        Destroy(selectedTower.gameObject);
+        RemoveTowerInTowerList(selectedTower);
         OnGoldChangeForUI?.Invoke();
         panelManager.HandleRaycastHitNull();
     }
+
+    private void RemoveTowerInTowerList(TowerPresenter selectedTower)
+    {
+        if(selectedTower.towerModel.TowerType == "Barrack")
+        {
+            barrackTowerManager.CleanupSelectedTower(selectedTower);
+        }
+        else
+        {
+            bulletTowerManager.CleanupSelectedTower(selectedTower);
+        }   
+    }
+
     #endregion
 
     #region SELECT EMPTYPLOT, BULLET TOWER, BARRACK TOWER
