@@ -1,9 +1,0 @@
-TowerType,Level,SpawnObject,SpawnRate,TimeToSpawn,RangeDetect,RangeRaycast,GoldRequired,Descriptions
-ArcherTower,1,Arrow1,0.3,0.25,3,0.7,50,"<color=#FFD900><size=130%>Archer Tower:</size></color>\n  Shoots at a high speed. Allowing for rapid attacks"
-ArcherTower,2,Arrow2,0.3,0.25,3.5,0.7,70,"<color=#FFD900><size=130%>Archer Tower:</size></color>\n  The arrow applies a damage-over-time effect. Slowly reducing the enemy's health"
-MageTower,1,MagicBall1,1,0.4,2.5,0.7,70,"<color=#FFD900><size=130%>Mage tower:</size></color>\n  The Magic Ball hits the target and continues to deal damage over time."
-MageTower,2,MagicBall2,1,0.4,3,0.7,100,"<color=#FFD900><size=130%>Mage tower:</size></color>\n  The Magic Ball damages the enemy over time and also slows their movement"
-CannonTower,1,Bomb1,1.5,0.5,2,0.7,80,"<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Bombs explode on impact. Dealing damage to all enemies in the area."
-CannonTower,2,Bomb2,1.3,0.5,3.5,0.7,120,"<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Increases the damage attack. Making it more effective against enemies."
-Barrack,1,Swordsman_1,5,0,4,0.7,70,"<color=#FFD900><size=130%>Barrack:</size></color>\n   Summons three swordsmen to fight against incoming enemies."
-Barrack,2,Swordsman_2,5,0,3,0.7,100,"<color=#FFD900><size=130%>Barrack:</size></color>\n   Summons three knights who heal themselves and allies. But only when they are not engaged in combat."

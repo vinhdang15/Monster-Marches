@@ -1,5 +1,0 @@
-type,name,max_hp,moveSpeed,attackSpeed,damage,gold,skill
-enemy,Monster_1,100,0.8,1.5,30,5,None
-enemy,Monster_2,150,1,1.25,30,10,Ignore_Effect
-soldier,Swordsman_1,150,1,1,20,0,None
-soldier,Swordsman_2,150,1.2,1,30,0,SelfHealing

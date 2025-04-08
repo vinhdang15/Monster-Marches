@@ -3032,6 +3032,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2_EmptyPlotDataHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 164071416046066391, guid: da6aea901c8045c4287a0d12f47ecefd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3588886526640732818, guid: da6aea901c8045c4287a0d12f47ecefd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

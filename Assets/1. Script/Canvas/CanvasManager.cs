@@ -8,11 +8,12 @@ public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager Instance { get; private set; }
     [SerializeField] TextMeshProUGUI fpsText;
+    [SerializeField] List<GameObject> IntroUIList;
     [SerializeField] List<GameObject> gamePlayIUList;
     [SerializeField] List<GameObject> ShowWhenInteractUIList;
-
-    public event Action OnLoadMapSelectionClick;
-    public event Action OnReloadCurrentMapClick;
+    public event Action OnLoadWorldMapBtnClick;
+    public event Action OnReloadWorldMapBtnClick;
+    public event Action OnReloadCurrentMapBtnClick;
 
     private void Awake()
     {
@@ -30,11 +31,27 @@ public class CanvasManager : MonoBehaviour
 
     public void HideAllUI()
     {
+        HideIntroUIList();
         HideFPSText();
         HideInteractUIList();
         HideAllGamePlayIUList();
     }
 
+    public void ShowIntroBtn()
+    {
+        foreach(GameObject i in IntroUIList)
+        {
+            i.SetActive(true);
+        }
+    }
+
+    public void HideIntroUIList()
+    {
+        foreach(GameObject i in IntroUIList)
+        {
+            i.SetActive(false);
+        }
+    }
 
     public void HideAllGamePlayIUList()
     {
@@ -70,13 +87,18 @@ public class CanvasManager : MonoBehaviour
         fpsText.gameObject.SetActive(true);
     }
 
-    public void HandleLoadMapSelectionClick()
+    public void HandleLoadMapSelectionBtnClick()
     {
-        OnLoadMapSelectionClick?.Invoke();
+        OnLoadWorldMapBtnClick?.Invoke();
     }
 
-    public void HandleReloadCurrentMapClick()
+    public void HandleReLoadWorldMapBtnClick()
     {
-        OnReloadCurrentMapClick?.Invoke();
+        OnReloadWorldMapBtnClick?.Invoke();
+    }
+
+    public void HandleReloadCurrentMapBtnClick()
+    {
+        OnReloadCurrentMapBtnClick?.Invoke();
     }
 }

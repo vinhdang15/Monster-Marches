@@ -31,7 +31,22 @@ public class SceneController : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadIntroScene()
+    {
+        LoadScene("IntroScene");
+    }
+
+    public void LoadWorldMapScene()
+    {
+        LoadScene("WorldMapScene");
+    }
+
+    public void LoadSelectedMapScene()
+    {
+        LoadScene("SelectedMapScene");
+    }
+
+    private void LoadScene(string sceneName)
     {
         if(!string.IsNullOrEmpty(sceneName))
         {
@@ -54,7 +69,7 @@ public class SceneController : MonoBehaviour
     {
         switch(scene.name)
         {
-            case "PlaySelectedMapScene":
+            case "SelectedMapScene":
             AudioManager.Instance.PlayBackgroundMusic(soundEffectSO.Theme[0]);
             break;
         }

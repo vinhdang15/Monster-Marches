@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private GameObject virtualCamera;
-    private CinemachineVirtualCamera cinemachineVirtualCamera;
-    private CinemachineConfiner cinemachineConfiner;
-
+    public static CameraController Instance;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+    [SerializeField] private CinemachineConfiner cinemachineConfiner;
+
     [SerializeField] private float zoomSpeed = 0.1f;
     [SerializeField] private float minZoom = 2f;
     [SerializeField] private float maxZoom = 5.4f;
@@ -16,22 +16,39 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float panThreshold = 0.5f;
     private Vector3 touchStart;
     private Vector3 moveStart = new Vector3(0,0,-10);
-    private bool isLoadComponents = false;
+    private bool hasBoundingShape = false;
 
 
     private void Awake()
     {
-        LoadComponents();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadComponents();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }    
     private void LoadComponents()
     {
-        cinemachineVirtualCamera = virtualCamera.GetComponent<CinemachineVirtualCamera>();
-        cinemachineConfiner = virtualCamera.GetComponent<CinemachineConfiner>();
+        if(mainCamera == null) mainCamera = GetComponentInChildren<Camera>();
+        cinemachineVirtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        cinemachineConfiner = GetComponentInChildren<CinemachineConfiner>();
+    }
+
+    public void SetBoundingShape(MapImageController mapImageController)
+    {
+        PolygonCollider2D polygonCollider2D = mapImageController.GetPolygonCollider2D();
+        cinemachineConfiner.m_BoundingShape2D = polygonCollider2D;
+        hasBoundingShape = true;
     }
 
     private void Update()
     {
-        if(!isLoadComponents) return;
+        if(!hasBoundingShape) return;
         if(Input.touchCount == 1)
         {
             HandleTouchPan();
@@ -133,12 +150,5 @@ public class CameraController : MonoBehaviour
         float difference = currentMagnitude - prevMagnitude;
 
         Zoom(difference * zoomSpeed);
-    }
-
-    public void LoadComponents(PolygonCollider2D polygonCollider2D)
-    {
-        mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
-        cinemachineConfiner.m_BoundingShape2D = polygonCollider2D;
-        isLoadComponents = true;
     }
 }

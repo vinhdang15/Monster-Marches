@@ -1,19 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ReloadCurrentMapBtn : BtnBase
+public class LoadWorldMapSceneBtn : BtnBase
 {
     [SerializeField] CanvasManager canvasManager;
     protected override void Start()
     {
         base.Start();
     }
-
     protected override void OnButtonClick()
     {
-        canvasManager.HandleReloadCurrentMapBtnClick();
+        canvasManager.HandleLoadMapSelectionBtnClick();
         base.OnButtonClick();
     }
 }

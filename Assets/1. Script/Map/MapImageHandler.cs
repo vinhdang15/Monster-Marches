@@ -5,9 +5,9 @@ public class MapImageHandler : MonoBehaviour
 {
     private static string mapFolderPath = Path.Combine(Application.persistentDataPath, "MAP");
 
-    public static Sprite GetMapSprite(int mapID)
+    public static Sprite GetMapSprite(string mapID)
     {
-        string mapImagePath = Path.Combine(mapFolderPath, mapID.ToString() + ".png");
+        string mapImagePath = Path.Combine(mapFolderPath, mapID + ".png");
         if(File.Exists(mapImagePath))
         {
             byte[] imageData = File.ReadAllBytes(mapImagePath);

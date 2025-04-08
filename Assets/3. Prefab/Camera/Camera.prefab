@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &374333717226725715
 Transform:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1044021718647862153}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.90108836, y: -1.9038036, z: -9.806583}
+  m_LocalPosition: {x: 0, y: 0, z: -9.806583}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,7 +154,7 @@ Transform:
   m_GameObject: {fileID: 2534325957982330781}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.90108836, y: -1.9038036, z: -9.806583}
+  m_LocalPosition: {x: 0, y: 0, z: -9.806583}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -331,7 +331,7 @@ Transform:
   m_GameObject: {fileID: 7666391793874109721}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.90108836, y: 1.9038036, z: -0.19341683}
+  m_LocalPosition: {x: 0, y: 0, z: -0.19341683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -351,8 +351,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5a9238049ed654bbe3b1b35bcacf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 2534325957982330781}
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 3799467911663589066}
+  cinemachineVirtualCamera: {fileID: 0}
+  cinemachineConfiner: {fileID: 0}
   zoomSpeed: 1
   minZoom: 2
   maxZoom: 5.4

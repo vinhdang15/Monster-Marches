@@ -5,7 +5,7 @@ using UnityEngine;
 public class EndPointManager : MonoBehaviour
 {
     [SerializeField] EndPoint endPointPrefab;
-    [SerializeField] List<EndPoint> endPoints;
+    [SerializeField] List<EndPoint> endPointList;
 
     public void CreateEndPoint(MapData mapData)
     {
@@ -13,16 +13,16 @@ public class EndPointManager : MonoBehaviour
         foreach(var i in pos)
         {
             EndPoint endPoint = Instantiate(endPointPrefab, i, quaternion.identity, transform);
-            endPoints.Add(endPoint);
+            endPointList.Add(endPoint);
         };
     }
 
     public void ClearEndPoints()
     {
-        foreach(EndPoint i in endPoints)
+        foreach(EndPoint endPoint in endPointList)
         {
-            Destroy(i);   
+            Destroy(endPoint.gameObject);   
         }
-        endPoints.Clear();
+        endPointList.Clear();
     }
 }

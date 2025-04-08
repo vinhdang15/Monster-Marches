@@ -87,11 +87,11 @@ public class GameInitiator : MonoBehaviour
 
         yield return StartCoroutine(InitializeGameObject());
 
-        // yield return StartCoroutine(ObjectGetInfor());
-
         RegisterEvent();
 
-        LoadMapSelectionScene();
+        LoadIntroScene();
+        canvasManager.ShowIntroBtn();
+
     }
 
     private GameObject CreateHolder(string name)
@@ -127,6 +127,7 @@ public class GameInitiator : MonoBehaviour
         GameObject mapImage = new("MapImageController");
         mapImage.transform.SetParent(gameObject.transform);
         mapImageController = mapImage.AddComponent<MapImageController>();
+
 
         endPointManager = Instantiate(endPointManager, gameManagerHolder.transform);
 
@@ -203,23 +204,39 @@ public class GameInitiator : MonoBehaviour
         yield return null;
     }
 
-    private void LoadMapSelectionScene()
+     private void LoadIntroScene()
     {
-        SceneController.Instance.LoadScene("MapSelectionScene");
-        mapManager.InitMapBtn();
+        SceneController.Instance.LoadIntroScene();
+
+        mapImageController.LoadIntroSprite();
+        CameraController.Instance.SetBoundingShape(mapImageController);
     }
 
     private void RegisterEvent()
     {
         mapManager.OnLoadSelectedMap += HandleLoadSelectedMap;
-        canvasManager.OnLoadMapSelectionClick += HandleReLoadSelectionMap;
-        canvasManager.OnReloadCurrentMapClick += HandleReLoadCurrentMap;
+        canvasManager.OnLoadWorldMapBtnClick += HandleLoadWorldMapScene;
+        canvasManager.OnReloadWorldMapBtnClick += HandleReloadWorldMapScene;
+        canvasManager.OnReloadCurrentMapBtnClick += HandleReloadCurrentMap;
+    }
+
+     private void HandleLoadWorldMapScene()
+    {
+        CanvasManager.Instance.HideIntroUIList();
+        SceneController.Instance.LoadWorldMapScene();
+        mapImageController.LoadMapSelectionSprite();
+        CameraController.Instance.SetBoundingShape(mapImageController);
+
+        mapManager.InitMapBtn();
     }
 
     private void HandleLoadSelectedMap(MapPresenter selectedMapPresenter)
     {
         currentMapData = selectedMapPresenter.mapModel.mapData;
-        mapImageController.LoadSpriteImage(currentMapData);
+
+        mapImageController.LoadSelectedMapSprite(currentMapData);
+        CameraController.Instance.SetBoundingShape(mapImageController);
+
         emptyPlotManager.InitializeEmptyPlot(currentMapData);
         endPointManager.CreateEndPoint(currentMapData);
         barrackTowerManager.InitializeGuardPointPosList(currentMapData);
@@ -230,28 +247,30 @@ public class GameInitiator : MonoBehaviour
         ObjGetMapInfor(currentMapData);
         Time.timeScale = 1;
 
-        SceneController.Instance.LoadScene("PlaySelectedMapScene");
+        SceneController.Instance.LoadSelectedMapScene();
         CanvasManager.Instance.ShowFPSText();
         CanvasManager.Instance.ShowAllGamePlayIUList();
         fPSCounter.PrepareGame();
     }
 
-    private void HandleReLoadSelectionMap()
+    private void HandleReloadWorldMapScene()
     {
         ClearCurrentMapObj();
         emptyPlotManager.ClearEmptyPlot();
         endPointManager.ClearEndPoints();
         barrackTowerManager.ClearInitGuardPointposList();
-        mapImageController.HideMapImage();
+        
+        mapImageController.LoadMapSelectionSprite();
+        CameraController.Instance.SetBoundingShape(mapImageController);
 
         PanelManager.Instance.HidePauseMenu();
         CanvasManager.Instance.HideAllUI();
-        SceneController.Instance.LoadScene("MapSelectionScene");
+        SceneController.Instance.LoadWorldMapScene();
         MapManager.Instance.ShowMapBtn();
 
     }
 
-    private void HandleReLoadCurrentMap()
+    private void HandleReloadCurrentMap()
     {
         ClearCurrentMapObj();
         enemySpawnerManager.GetInfor(currentMapData);
