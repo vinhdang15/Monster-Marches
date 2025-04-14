@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MapPresenter : MonoBehaviour
 {
@@ -31,5 +30,19 @@ public class MapPresenter : MonoBehaviour
     private void HandleMapBtnClick(Button button)
     {
         OnMapBtnClickHanlder?.Invoke(this);
+    }
+
+    public void UpdateMapModel(int starPoint)
+    {
+        if(mapModel.StarPoint < starPoint)
+        {
+            mapModel.StarPoint = starPoint;
+        }
+    }
+
+    public void UpdateMapBtnImage()
+    {
+        Sequence sequence = DOTween.Sequence();
+        mapBtn.UpdateMapBtnImage(mapModel);
     }
 }

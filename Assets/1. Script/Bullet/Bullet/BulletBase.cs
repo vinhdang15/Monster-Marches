@@ -65,7 +65,7 @@ public class BulletBase : MonoBehaviour
             }
             effects.Add(effect);
             
-            if(effecType.Contains ("aoe"))
+            if(effecType.Contains ("AoE"))
             {
                 hadAOEEffectType = true;
             }

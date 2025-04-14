@@ -10,7 +10,6 @@ public class VictoryMenu : MonoBehaviour
     [SerializeField] StarController starController;
     [SerializeField] RectTransform reloadBtnRect;
     [SerializeField] RectTransform restartBtnRect;
-    private Vector2 victoryRibbonRectEndPos;
     private RectTransform rectTransform;
     private Vector2 initPos = new Vector2(0, 170);
     private Vector2 reloadBtnPos = new Vector2(0,-230);
@@ -48,47 +47,43 @@ public class VictoryMenu : MonoBehaviour
         LoadComponents();
         starController.StarControllerPrepareGame();
         ResetState();
+    }
 
-        victoryRibbonRectEndPos = new Vector2(0, 100);
+    private void StopTimeScale()
+    {
+        Time.timeScale = 0;
     }
 
     public void StartVictoryMenu()
     {   
-        // StartCoroutine(ShowCoroutine());
         gameObject.SetActive(true);
+        Invoke(nameof(StopTimeScale), 3f);
         Sequence seqState1 = DOTween.Sequence();
         seqState1.AppendInterval(1f).SetUpdate(true);
-        seqState1.Append(shieldRect.DOAnchorPos( Vector2.zero, duration).SetEase(Ease.OutBack,1f).SetUpdate(true));
+        seqState1.Append(shieldRect.DOAnchorPos( Vector2.zero, duration).SetEase(Ease.OutBack,1f));
         seqState1.AppendInterval(duration/2).SetUpdate(true);
 
         // start VictoryRibbonRect Tween
-        seqState1.Append(victoryRibbonRect.DOAnchorPos(new Vector2(0, 100), 0).SetUpdate(true));
-        seqState1.Join(victoryRibbonRect.DOAnchorPos( Vector2.zero, duration/4).SetEase(Ease.OutBack,1f).SetUpdate(true));
-        seqState1.Join(victoryRibbonRect.DOScale(1, duration/6)).SetUpdate(true);
-        seqState1.AppendInterval(0.5f).SetUpdate(true);
+        seqState1.Append(victoryRibbonRect.DOAnchorPos(new Vector2(0, 100), 0));
+        seqState1.Join(victoryRibbonRect.DOAnchorPos( Vector2.zero, duration/4).SetEase(Ease.OutBack,1f));
+        seqState1.Join(victoryRibbonRect.DOScale(1, duration/6));
+        seqState1.AppendInterval(0.5f);
         
 
         seqState1.OnComplete(() =>
         {
             starController.SetAnchorPos(Vector2.zero);
             starController.ActiveStars(0.3f);
-            seqState2 = DOTween.Sequence();
+            Sequence seqState2 = DOTween.Sequence();
             seqState2.AppendInterval(0.3f).SetUpdate(true);
             seqState2.OnComplete(() =>
             {
-                ButtonsTwwen();
+                ButtonsTween();
             });
         });
     }
 
-    private IEnumerator ShowCoroutine()
-    {
-        yield return new WaitForSeconds(1f);
-        Time.timeScale = 0;
-        gameObject.SetActive(true);
-    }
-
-    private void ButtonsTwwen()
+    private void ButtonsTween()
     {
         reloadBtnRect.anchoredPosition = Vector2.zero;
         restartBtnRect.anchoredPosition = Vector2.zero;
@@ -98,8 +93,9 @@ public class VictoryMenu : MonoBehaviour
     private void ButtonsSequence()
     {
         var seq = DOTween.Sequence();
-        seq.Append(reloadBtnRect.DOAnchorPos( reloadBtnPos, duration/3).SetUpdate(true));
-        seq.Append(restartBtnRect.DOAnchorPos( reStartBtnEndPos, duration/3).SetUpdate(true));
+        seq.AppendInterval(0f).SetUpdate(true);
+        seq.Append(reloadBtnRect.DOAnchorPos( reloadBtnPos, duration/3));
+        seq.Append(restartBtnRect.DOAnchorPos( reStartBtnEndPos, duration/3));
     }
 
     public void SetStarScore(float lifePercentage)

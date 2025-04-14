@@ -1,0 +1,87 @@
+[
+  {
+    "mapID": 1,
+    "pathWayWaveList": [
+      {
+        "pathID": 1,
+        "EnemyWaveList": [
+          {
+            "waveNumber": 1,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 2,
+            "timeBetweenEachSpawn": 0.8,
+            "timeWaitForNextWave": 10.0
+          },
+          {
+            "waveNumber": 2,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 5,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 3,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 5,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 4,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 3,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 7,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 3,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          }
+        ]
+      },
+      {
+        "pathID": 2,
+        "EnemyWaveList": [
+          {
+            "waveNumber": 1,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 0,
+            "timeBetweenEachSpawn": 0.0,
+            "timeWaitForNextWave": 0.0
+          },
+          {
+            "waveNumber": 2,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 3,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 3,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 5,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 4,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 5,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 5,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 10,
+            "timeBetweenEachSpawn": 0.8,
+            "timeWaitForNextWave": 5.0
+          }
+        ]
+      }
+    ]
+  }
+]

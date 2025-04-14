@@ -65,6 +65,13 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public bool IsWorldMapScene()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if(sceneName == "WorldMapScene") return true;
+        else return false;
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         switch(scene.name)

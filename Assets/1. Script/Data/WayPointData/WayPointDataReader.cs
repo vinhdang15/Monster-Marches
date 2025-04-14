@@ -12,7 +12,7 @@ public class WayPointDataReader : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadMapData();
+            LoadData();
         }
         else
         {
@@ -20,7 +20,7 @@ public class WayPointDataReader : MonoBehaviour
         }
     }
 
-    private void LoadMapData()
+    private void LoadData()
     {
         wayPointDataListSO.wayPointDatas = JSONManager.LoadMapWayPointDataFromJson();
     }

@@ -261,6 +261,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: GameIcon_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d35a37e5798d0a741b27395a61e60c9a
+      internalID: -1402033459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameIcon_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60946d9eae8242c48b25fd9feab14ba5
+      internalID: 1188526162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -278,6 +320,8 @@ TextureImporter:
       GameIcon_3: 673340435
       GameIcon_4: -635542220
       GameIcon_5: -1565028693
+      GameIcon_6: -1402033459
+      GameIcon_7: 1188526162
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

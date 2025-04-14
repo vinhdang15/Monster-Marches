@@ -39,7 +39,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Bomb1_AoE20 effect
         new BulletEffectData
         {
-            effectType          = "Bomb1_AoE20",
+            effectType          = "Bomb_1_AoE20",
             effectValue         = 20,
             effectDuration      = 0,
             effectOccursTime    = 0,
@@ -49,7 +49,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Bomb2_AoE30 effect
         new BulletEffectData
         {
-            effectType          = "Bomb2_AoE30",
+            effectType          = "Bomb_2_AoE30",
             effectValue         = 30,
             effectDuration      = 0,
             effectOccursTime    = 0,

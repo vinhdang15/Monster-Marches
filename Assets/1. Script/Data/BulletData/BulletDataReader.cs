@@ -12,7 +12,7 @@ public class BulletDataReader : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadBulletData();
+            LoadData();
         }
         else
         {
@@ -20,7 +20,7 @@ public class BulletDataReader : MonoBehaviour
         }
     }
 
-    private void LoadBulletData()
+    private void LoadData()
     {
         bulletDataListSO.bulletDataList = JSONManager.LoadBulletDataFromJson();
     }

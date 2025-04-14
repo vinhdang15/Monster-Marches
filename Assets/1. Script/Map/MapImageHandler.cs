@@ -3,7 +3,7 @@ using System.IO;
 
 public class MapImageHandler : MonoBehaviour
 {
-    private static string mapFolderPath = Path.Combine(Application.persistentDataPath, "MAP");
+    private static string mapFolderPath = Path.Combine(Application.streamingAssetsPath, "MapImage");
 
     public static Sprite GetMapSprite(string mapID)
     {

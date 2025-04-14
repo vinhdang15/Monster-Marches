@@ -13,6 +13,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private BulletEffectDataReader bulletEffectDataReader;
     [SerializeField] private UnitDataReader unitDataReader;
     [SerializeField] private SkillDataReader skillDataReader;
+    [SerializeField] private EnemyWaveDataReader enemyWaveDataReader;
 
     [Header("Camera")]
     [SerializeField] private CameraController cameraController;
@@ -51,10 +52,8 @@ public class GameInitiator : MonoBehaviour
     public MapData currentMapData;
     
     private GameObject gameManagerHolder;
-    private GameObject mapDataHolder;
     private GameObject handlerHolder;
 
-    private string sceneName;
     private void Awake()
     {
         if (Instance == null)
@@ -63,7 +62,6 @@ public class GameInitiator : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             gameManagerHolder = CreateHolder("GameManagerHolder");
-            mapDataHolder = CreateHolder("MapDataHolder");
             handlerHolder = CreateHolder("HandlerHolder");
         }
         else
@@ -77,8 +75,6 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // yield return StartCoroutine(BindDataReader());
-        
         yield return StartCoroutine(BindGameManagerObject());
 
         yield return StartCoroutine(BindCanvas());
@@ -90,6 +86,7 @@ public class GameInitiator : MonoBehaviour
         RegisterEvent();
 
         LoadIntroScene();
+        canvasManager.HideLoadingImage();
         canvasManager.ShowIntroBtn();
 
     }
@@ -121,6 +118,8 @@ public class GameInitiator : MonoBehaviour
         unitDataReader = Instantiate(unitDataReader);
 
         skillDataReader = Instantiate(skillDataReader);
+
+        enemyWaveDataReader = Instantiate(enemyWaveDataReader);
 
         mapManager = Instantiate(mapManager);
 
@@ -255,6 +254,7 @@ public class GameInitiator : MonoBehaviour
 
     private void HandleReloadWorldMapScene()
     {
+        Time.timeScale = 1;
         ClearCurrentMapObj();
         emptyPlotManager.ClearEmptyPlot();
         endPointManager.ClearEndPoints();
@@ -267,6 +267,7 @@ public class GameInitiator : MonoBehaviour
         CanvasManager.Instance.HideAllUI();
         SceneController.Instance.LoadWorldMapScene();
         MapManager.Instance.ShowMapBtn();
+        MapManager.Instance.UpdateMapPresenterInfo();
 
     }
 

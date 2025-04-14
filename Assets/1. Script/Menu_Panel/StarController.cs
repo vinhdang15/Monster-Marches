@@ -8,7 +8,7 @@ public class StarController : MonoBehaviour
     // handle starScore
     // execute StarMovement
     // execute reset star state
-    public int starScore = 0;
+    private int starScore = 0;
     [SerializeField] List<StarMovement> stars = new List<StarMovement>();
     private Vector2 oneStarPos;
     private List<Vector2> twoStarPos = new List<Vector2>();
@@ -99,5 +99,6 @@ public class StarController : MonoBehaviour
         {
             starScore = 3;
         }
+        MapManager.Instance.SetCurrentMapStarPoint(starScore);
     }
 }

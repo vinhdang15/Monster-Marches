@@ -40,7 +40,6 @@ public class GamePlayManager : MonoBehaviour
         RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
-        currentLives = lives;
     }
 
     public void GetInfor(MapData mapData)
@@ -48,6 +47,7 @@ public class GamePlayManager : MonoBehaviour
         GetTowerInitGold();
         GetCurentMapInitGold(mapData);
         GetCurrentMapLive(mapData);
+        currentLives = lives;
     }
 
     private void OnDisable()
@@ -159,7 +159,7 @@ public class GamePlayManager : MonoBehaviour
     }
     #endregion
 
-    // caution click event
+    // Caution click event
     private void RegisterCautionClickEvent()
     {
         enemySpawnerManager.OnAddGoldWhenCautionClick += HandleAddGoldWhenCautionClick;

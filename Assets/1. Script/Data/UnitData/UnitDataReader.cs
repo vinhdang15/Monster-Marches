@@ -11,7 +11,7 @@ public class UnitDataReader : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadTowerData();
+            LoadData();
         }
         else
         {
@@ -19,7 +19,7 @@ public class UnitDataReader : MonoBehaviour
         }
     }
 
-    private void LoadTowerData()
+    private void LoadData()
     {
         unitDataListSO.unitDataList = JSONManager.LoadUnitDataFromJson();
     }

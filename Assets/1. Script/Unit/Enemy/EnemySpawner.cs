@@ -10,31 +10,26 @@ public class EnemySpawner : MonoBehaviour
  
     [Header("Pathway to Spawn Enemy")]
     private List<PathWaySegment>            pathWaySegmentList;
+    private int pathID;
     
     [Header("Enemy-Wave information")]
-    public List<EnemyEntry>                 enemyEntries = new()
-    {
-        new EnemyEntry
-        {
-            enemyID = "Monster_1",
-            numberEnemyInWave = 1,
-        }
-    };
-    private float                           timeBetweenEnemy;
+    private List<EnemyWave>                 enemyWaveList = new();
+
     public BtnCaution                       cautionBtn;
     private Vector2                         cautionBtnPos;
     private EnemySpawnerManager             enemySpawnerManager;
     private bool                            isStartNextWave = false;
-    public event Action                     OnFinishCurrentWave;
+    public event Action<float>              OnFinishCurrentWave;
     private Coroutine SpawnEnemyCoroutine;
 
-    public void PrepareGame(EnemySpawnerManager enemySpawnerManager, Vector2 cautionBtnPos, List<PathWaySegment> pathWaySegmentList)
+    public void PrepareGame(EnemySpawnerManager enemySpawnerManager, Vector2 cautionBtnPos, int pathID, MapData mapData, List<PathWaySegment> pathWaySegmentList)
     {
         LoadComponents();
         SetEnemySpawnerManager(enemySpawnerManager);
         SetCautionBtnPos(cautionBtnPos);
+        SetPathWayID(pathID);
+        GetEnemyWaveDataList(pathID, mapData);
         SetPathWaySegmentList(pathWaySegmentList);
-        GetTimeBetweenEnemy();
         RegisterStartNextWaveEvent();
     }
 
@@ -58,14 +53,20 @@ public class EnemySpawner : MonoBehaviour
         return cautionBtnPos;
     }
 
+    private void SetPathWayID(int pathID)
+    {
+        this.pathID = pathID;
+    }
+
     private void SetPathWaySegmentList(List<PathWaySegment> pathWaySegmentList)
     {
         this.pathWaySegmentList = pathWaySegmentList;
     }
 
-    private void GetTimeBetweenEnemy()
+    private void GetEnemyWaveDataList(int pathID, MapData mapData)
     {
-        timeBetweenEnemy = enemySpawnerManager.GetTimeBetweenEnemy();
+
+        enemyWaveList = EnemyWaveDataReader.Instance.GetSelectedMapEnemyWaveList(pathID, mapData);
     }
 
     public void RegisterStartNextWaveEvent()
@@ -81,17 +82,17 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator SpawnEnemy()
     {
         // for loop to spwan enemies in all wave
-        for(int y = 0; y < enemyEntries.Count; y++)
+        for(int y = 0; y < enemyWaveList.Count; y++)
         {
             // for loop to spawn enemies in one wave
-            for(int i = 0; i < enemyEntries[y].numberEnemyInWave; i++)
+            for(int i = 0; i < enemyWaveList[y].numberEnemyInWave; i++)
             {
-                GetUnitBase(enemyEntries[y].enemyID, i);
+                GetUnitBase(enemyWaveList[y].enemyID, i);
                 // wait time among instantiate each enemy
-                yield return new WaitForSeconds(SetTimeBetweenEnemy());
+                yield return new WaitForSeconds(SetTimeBetweenEnemy(enemyWaveList[y].timeBetweenEachSpawn));
             }
             isStartNextWave = false;
-            OnFinishCurrentWave?.Invoke();
+            OnFinishCurrentWave?.Invoke(enemyWaveList[y].timeWaitForNextWave);
             yield return new WaitUntil(() => isStartNextWave); 
         }
     }
@@ -107,7 +108,7 @@ public class EnemySpawner : MonoBehaviour
 
     private int GetNumberEnemyInWave(int waveIndex)
     {
-        return waveIndex < enemyEntries.Count ? enemyEntries[waveIndex].numberEnemyInWave : 0;
+        return waveIndex < enemyWaveList.Count ? enemyWaveList[waveIndex].numberEnemyInWave : 0;
     }
 
     public bool HasEnemyInWave(int waveNumber)
@@ -123,9 +124,9 @@ public class EnemySpawner : MonoBehaviour
         enemyManager.AddEnemy(enemy);
     }
     
-    private float SetTimeBetweenEnemy()
+    private float SetTimeBetweenEnemy(float timeBetweenEachSpawn)
     {
-        return Random.Range(timeBetweenEnemy * 0.3f, timeBetweenEnemy * 2.5f);
+        return Random.Range(timeBetweenEachSpawn + 0.1f, timeBetweenEachSpawn - 0.1f);
     }
 
     private void StartNextWave()
@@ -135,18 +136,11 @@ public class EnemySpawner : MonoBehaviour
 
     public int GetTotalWave()
     {
-        return enemyEntries.Count;
+        return enemyWaveList.Count;
     }
 
     public void SetCautionBtm(BtnCaution cautionBtn)
     {
         this.cautionBtn = cautionBtn;
     }
-}
-
-[System.Serializable]
-public class EnemyEntry
-{
-    public string enemyID;
-    public int numberEnemyInWave;
 }

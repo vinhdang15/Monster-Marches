@@ -13,7 +13,7 @@ public class BulletEffectDataReader : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadTowerData();
+            LoadData();
         }
         else
         {
@@ -21,7 +21,7 @@ public class BulletEffectDataReader : MonoBehaviour
         }
     }
 
-    private void LoadTowerData()
+    private void LoadData()
     {
         bulletEffectDataSO.bulletEffectDataList = JSONManager.LoadBulletEffectDataFromJson();
     }

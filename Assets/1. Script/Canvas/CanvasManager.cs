@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,6 +7,7 @@ public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager Instance { get; private set; }
     [SerializeField] TextMeshProUGUI fpsText;
+    [SerializeField] GameObject loadingImage;
     [SerializeField] List<GameObject> IntroUIList;
     [SerializeField] List<GameObject> gamePlayIUList;
     [SerializeField] List<GameObject> ShowWhenInteractUIList;
@@ -27,6 +27,11 @@ public class CanvasManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
+
+    public void HideLoadingImage()
+    {
+        loadingImage.SetActive(false);
     }
 
     public void HideAllUI()

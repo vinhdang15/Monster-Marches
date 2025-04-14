@@ -5,37 +5,62 @@ using System.Collections.Generic;
 
 public class JSONManager
 {
-    private static string mapDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/MapData.json");
-    private static string waypointDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/WayPointData.json");
-    private static string towerDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/TowerData.json");
-    private static string bulletDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/BulletData.json");
-    private static string unitDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/UnitData.json");
-    private static string SkillDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/SkillData.json");
-    private static string bulletEffectDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/BulletEffectData.json");
+    private static string mapDesgineDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/MapDesgineData.json");
+    private static string mapProgressDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/MapProgressData.json");
+    private static string waypointDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/WayPointData.json");
+    private static string towerDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/TowerData.json");
+    private static string bulletDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/BulletData.json");
+    private static string unitDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/UnitData.json");
+    private static string SkillDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/SkillData.json");
+    private static string bulletEffectDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/BulletEffectData.json");
+    private static string enemyWaveDataJsonPath = Path.Combine(Application.streamingAssetsPath, "JSON/EnemyWaveData.json");
 
-    #region  MAP DATA
-    public static void SaveMapDataToJson(List<MapData> mapDataList)
+    #region  MAP DESIGNE DATA
+    public static void SaveMapDesignDataToJson(List<MapDesignData> mapDataList)
     {
+        Debug.Log(Application.streamingAssetsPath);
         string json = JsonConvert.SerializeObject(mapDataList, Formatting.Indented, new Vector2Converter());
-        File.WriteAllText(mapDataJsonPath, json);
+        File.WriteAllText(mapDesgineDataJsonPath, json);
+        
         Debug.Log("Create completed MapData JSON file");
-    }
+         
+;    }
 
-    public static List<MapData> LoadMapDataFromJson()
+    public static List<MapDesignData> LoadMapDesignDataFromJson()
     {
-        if(!File.Exists(mapDataJsonPath))
+        if(!File.Exists(mapDesgineDataJsonPath))
         {
             Debug.Log("there is no MapData Json file");
-            return new List<MapData>();
+            return new List<MapDesignData>();
         }
-        string json = File.ReadAllText(mapDataJsonPath);
+        string json = File.ReadAllText(mapDesgineDataJsonPath);
 
-        JsonSerializerSettings settings = new JsonSerializerSettings
+        // JsonSerializerSettings settings = new JsonSerializerSettings
+        // {
+        //     NullValueHandling = NullValueHandling.Ignore,
+        //     MissingMemberHandling = MissingMemberHandling.Ignore
+        // };
+        return JsonConvert.DeserializeObject<List<MapDesignData>>(json);
+    }
+    #endregion
+
+    #region  MAP DESIGNE DATA
+    public static void SaveMapProgressDataToJson(List<MapProgressData> mapProgressDataList)
+    {
+        string json = JsonConvert.SerializeObject(mapProgressDataList, Formatting.Indented, new Vector2Converter());
+        File.WriteAllText(mapProgressDataJsonPath, json);
+        Debug.Log("Create completed MapProgressData JSON file");
+    }
+
+    public static List<MapProgressData> LoadMapProgressDataFromJson()
+    {
+        if(!File.Exists(mapDesgineDataJsonPath))
         {
-            NullValueHandling = NullValueHandling.Ignore,
-            MissingMemberHandling = MissingMemberHandling.Ignore
-        };
-        return JsonConvert.DeserializeObject<List<MapData>>(json);
+            Debug.Log("there is no MapProgressData Json file");
+            return new List<MapProgressData>();
+        }
+        string json = File.ReadAllText(mapProgressDataJsonPath);
+        return JsonConvert.DeserializeObject<List<MapProgressData>>(json);
     }
     #endregion 
 
@@ -162,6 +187,26 @@ public class JSONManager
         }
         string json = File.ReadAllText(SkillDataJsonPath);
         return JsonConvert.DeserializeObject<List<SkillData>>(json);
+    }
+    #endregion
+
+     #region ENEMY WAY DATA
+    public static void SaveEnemyWayDataToJson(List<EnemyWaveData> EnemyWaveDataList)
+    {
+        string json = JsonConvert.SerializeObject(EnemyWaveDataList, Formatting.Indented);
+        File.WriteAllText(enemyWaveDataJsonPath, json);
+        Debug.Log("Create completed EnemyWayData JSON file");
+    }
+
+    public static List<EnemyWaveData> LoadEnemyWaveDataFromJson()
+    {
+        if(!File.Exists(enemyWaveDataJsonPath))
+        {
+            Debug.Log("there is no bulletData Json file");
+            return new List<EnemyWaveData>();
+        }
+        string json = File.ReadAllText(enemyWaveDataJsonPath);
+        return JsonConvert.DeserializeObject<List<EnemyWaveData>>(json);
     }
     #endregion
 }

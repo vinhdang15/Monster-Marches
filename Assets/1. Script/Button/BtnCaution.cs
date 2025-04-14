@@ -50,8 +50,9 @@ public class BtnCaution : BtnBase
     {
         this.spawnEnemyManager = spawnEnemyManager;
         this.spawnEnemyManager.OnAddGoldWhenCautionClick += HandleShowGoldAddWhenCautionClick;
-        float fillDuration = this.spawnEnemyManager.GetTimeWaitForNextWave();
-        cautionFill.SetFillDuration(fillDuration);
+        this.spawnEnemyManager.OnUpdateTimeWaitForNextWave += HandleOnUpdateTimeWaitForNextWave;
+        // float fillDuration = this.spawnEnemyManager.GetTimeWaitForNextWave();
+        // cautionFill.SetFillDuration(fillDuration);
     }
 
     protected override void OnButtonClick()
@@ -65,7 +66,7 @@ public class BtnCaution : BtnBase
         return cautionFill.gameObject.activeSelf;
     }
 
-    // show gold add when caution click 
+    // Show gold add when caution click 
     private void HandleShowGoldAddWhenCautionClick(int gold)
     {
         if(gold == 0 || !IsCautionFillActive()) return;
@@ -73,6 +74,13 @@ public class BtnCaution : BtnBase
             PlayCustomSound(soundEffectSO.AddGoldSound);
             cautionGold.StarTween(gold);
         }
+    }
+
+    // Update caution sliding time
+    private void HandleOnUpdateTimeWaitForNextWave(float timeWaitForNextWave)
+    {
+        // Debug.Log(timeWaitForNextWave);
+        cautionFill.SetFillDuration(timeWaitForNextWave);
     }
 
     private void OnDestroy()

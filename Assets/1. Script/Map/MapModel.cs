@@ -32,8 +32,7 @@ public class MapModel : MonoBehaviour
         this.MapLives = mapData.lives;
         this.Description = mapData.description;
         this.Activate = mapData.activate;
-        this.MapPassed = mapData.mapPassed;
-        this.StarPoint = mapData.mapStars;
+        this.StarPoint = mapData.starsPoint;
         this.InitMapBtnPos = mapData.initMapBtnPos;
     }
 }
