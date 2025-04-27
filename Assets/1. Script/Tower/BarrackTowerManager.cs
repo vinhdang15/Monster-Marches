@@ -7,7 +7,7 @@ public class BarrackTowerManager : TowerBaseManager
     [SerializeField] TowerViewBase                      barrackPerfab;
     [SerializeField] SoldierManager                     soldierManager;
     [SerializeField] List<TowerPresenter> barackTowerList = new();
-    private List<Vector2> initGuardPointPosList;
+    private List<Vector2> initGuardPointPosList = new();
     
     public Dictionary<TowerPresenter, BarackTowerInfor> barrackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
@@ -19,11 +19,6 @@ public class BarrackTowerManager : TowerBaseManager
     public void InitializeGuardPointPosList(MapData mapData)
     {
         initGuardPointPosList = WayPointDataReader.Instance.GetInitGuardPointPosList(mapData);
-    }
-
-    public void ClearInitGuardPointposList()
-    {
-        initGuardPointPosList.Clear();
     }
 
 

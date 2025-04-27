@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyWaveDataList", menuName = "EnemyWave Config/EnemyWaveDataSO", order = 1)]
 public class EnemyWaveDataSO : ScriptableObject
 {
-    public List<EnemyWaveData> EnemyWaveDatas = new();
+    public List<EnemyWaveData> EnemyWaveDataList = new();
 }

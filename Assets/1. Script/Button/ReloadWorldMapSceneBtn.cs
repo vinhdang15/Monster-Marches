@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ReloadWorldMapSceneBtn : BtnBase
 {
-    [SerializeField] CanvasManager canvasManager;
     protected override void Start() 
     {
         base.Start();
@@ -10,7 +9,7 @@ public class ReloadWorldMapSceneBtn : BtnBase
 
     protected override void OnButtonClick()
     {
-        canvasManager.HandleReLoadWorldMapBtnClick();
+        CanvasManager.Instance.HandleFinishGamepBtnClick();
         base.OnButtonClick();
     }
 }

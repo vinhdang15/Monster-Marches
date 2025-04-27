@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JsonCreater : MonoBehaviour
+public class JSONCreater : MonoBehaviour
 {
-    public static JsonCreater Instance;
+    public static JSONCreater Instance;
     MapDesignDataForJson mapDesignDataForJson;
     UnitDataForJon unitDataForJon;
     SkillDataForJson skillDataForJson;

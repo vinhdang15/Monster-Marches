@@ -15,11 +15,95 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_Data:
     m_SerializedData: []
-  m_GUID: 07dafe25b6623034dbf677ffcca01a90
-  m_SerializeEntries: []
+  m_GUID: b2c60dcee908ab7469e1a43cdf961120
+  m_SerializeEntries:
+  - m_GUID: 325fc8d912781a747bc6329cbc0004ed
+    m_Address: Assets/AddressableFile/MapImage/1.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MapImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8439254586e47c40b12d7eaaf1af174
+    m_Address: Assets/AddressableFile/MapImage/2.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MapImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2aee376ab81868e4e8a6e76f0d71e823
+    m_Address: Assets/AddressableFile/MapImage/WorldMap.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MapImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a17182e4c35cb74998800d4c3f93e09
+    m_Address: Assets/AddressableFile/MapImage/Loading.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MapImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcb038651f5422c42a650d02c0c228c9
+    m_Address: Assets/AddressableFile/MapImage/Intro.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MapImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41f610462ea8ce847b483ca2d0ad22a7
+    m_Address: Assets/AddressableFile/JSON/BulletData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c98274a46870f94cb3d5d2b34eb0e61
+    m_Address: Assets/AddressableFile/JSON/BulletEffectData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6f91106c5472d542bf1aa642cc28ad9
+    m_Address: Assets/AddressableFile/JSON/EnemyWaveData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0fa57a7a81c93de4d894ed999fc34e18
+    m_Address: Assets/AddressableFile/JSON/MapDesignData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a16fb644d04e068408de05af250ad410
+    m_Address: Assets/AddressableFile/JSON/SkillData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9b4d9f0674146c469130be2207f07df
+    m_Address: Assets/AddressableFile/JSON/TowerData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a65c5bcffcbbece44a79f56adc0457b7
+    m_Address: Assets/AddressableFile/JSON/UnitData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85cac0f985c97c94ea21798b1a0facc9
+    m_Address: Assets/AddressableFile/JSON/WayPointData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f21f3e9469c0c9845b00ad9d3be447a9
+    m_Address: Assets/AddressableFile/JSON/MapProgressData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: e7cbae050d14a3c4b81bdcf81956c73b, type: 2}
+  m_Settings: {fileID: 11400000, guid: 825f42600ffa1e242bdffe0e3f4fe3f7, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 575d5e8958e8d4e4a8788f18fb579ce6, type: 2}
-    - {fileID: 11400000, guid: 71fb661207d7683499b12bf28a6fe0a3, type: 2}
+    - {fileID: 11400000, guid: 1be1ded902110cd40b1609ed73169dbb, type: 2}
+    - {fileID: 11400000, guid: c0f09bce7b278bf43ad9e726fc3a7f49, type: 2}

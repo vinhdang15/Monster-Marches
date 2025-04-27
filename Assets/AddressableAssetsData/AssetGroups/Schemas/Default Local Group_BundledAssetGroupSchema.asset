@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
   m_Name: Default Local Group_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: bfd55db711018d9429697c9b2d6073a9, type: 2}
+  m_Group: {fileID: 11400000, guid: 67630d8516aad8d4aa219c9d01d15c03, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1
@@ -34,9 +34,9 @@ MonoBehaviour:
   m_RedirectLimit: -1
   m_RetryCount: 0
   m_BuildPath:
-    m_Id: 19e8d10773ca2d2408b384dc1fa70b86
+    m_Id: a8f4d698e93f25f48aa2748594c764d4
   m_LoadPath:
-    m_Id: cdc2a86ca6aecc049a567e00ec7f7623
+    m_Id: 0f9b427e112151d4d85df10a2d6fcf73
   m_BundleMode: 0
   m_AssetBundleProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
     public event Action<UnitBase> OnEnemyDeath;
     public event Action OnEnemyReachEndPoint;
 
-    public void ClearEnemyManager()
+    public void ResetEnemyManager()
     {
         totalEnemiesDie = 0;
         foreach(Enemy enemy in ActiveEnemies)

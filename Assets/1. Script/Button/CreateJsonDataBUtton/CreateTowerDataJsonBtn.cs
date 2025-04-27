@@ -6,7 +6,7 @@ public class CreateTowerDataJsonBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JsonCreater.Instance.CreateTowerDataJson();
+        JSONCreater.Instance.CreateTowerDataJson();
         base.OnButtonClick();
     }
 }

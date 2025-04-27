@@ -18,4 +18,4 @@ EditorBuildSettings:
     path: Assets/Scenes/SelectedMapScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: 9c3c998eeb95cd540badd4181d60ea38, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: c942f9a46ec7fa94683cb1a61a1ba7b0, type: 2}

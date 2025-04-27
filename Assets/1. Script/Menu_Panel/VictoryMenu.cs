@@ -7,7 +7,7 @@ public class VictoryMenu : MonoBehaviour
 {
     [SerializeField] RectTransform shieldRect;
     [SerializeField] RectTransform victoryRibbonRect;
-    [SerializeField] StarController starController;
+    [SerializeField] EndGameStarController starController;
     [SerializeField] RectTransform reloadBtnRect;
     [SerializeField] RectTransform restartBtnRect;
     private RectTransform rectTransform;
@@ -15,11 +15,12 @@ public class VictoryMenu : MonoBehaviour
     private Vector2 reloadBtnPos = new Vector2(0,-230);
     private Vector2 reStartBtnEndPos = new Vector2(0,-470);
     private float duration = 0.5f;
-    Sequence seqState2;
 
-    private void Start()
+    public void PrepareGame()
     {
-        VictoryMenuPrepareGame();
+        LoadComponents();
+        starController.PrepareGame();
+        ResetState();
     }
 
     private void LoadComponents()
@@ -27,7 +28,7 @@ public class VictoryMenu : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    private void ResetState()
+    public void ResetState()
     {
         rectTransform.anchoredPosition = initPos;
         shieldRect.anchoredPosition = new Vector2(0, 1000);
@@ -40,13 +41,6 @@ public class VictoryMenu : MonoBehaviour
 
         reloadBtnRect.anchoredPosition = new Vector2(0, 770);
         restartBtnRect.anchoredPosition = new Vector2(0, 530);
-    }
-
-    private void VictoryMenuPrepareGame()
-    {
-        LoadComponents();
-        starController.StarControllerPrepareGame();
-        ResetState();
     }
 
     private void StopTimeScale()

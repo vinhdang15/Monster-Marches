@@ -8,12 +8,12 @@ public class CanvasManager : MonoBehaviour
     public static CanvasManager Instance { get; private set; }
     [SerializeField] TextMeshProUGUI fpsText;
     [SerializeField] GameObject loadingImage;
-    [SerializeField] List<GameObject> IntroUIList;
-    [SerializeField] List<GameObject> gamePlayIUList;
-    [SerializeField] List<GameObject> ShowWhenInteractUIList;
-    public event Action OnLoadWorldMapBtnClick;
-    public event Action OnReloadWorldMapBtnClick;
-    public event Action OnReloadCurrentMapBtnClick;
+    [SerializeField] List<GameObject> WorldMapSceneUI;
+    [SerializeField] List<GameObject> gamePlaySceneUI;
+    [SerializeField] List<GameObject> gamePlaySceneUIShowWhenInteract;
+    [SerializeField] GameObject startGameMenu;
+    [SerializeField] VictoryMenu victoryMenu;
+    [SerializeField] GameObject saveGameMenu;
 
     private void Awake()
     {
@@ -29,38 +29,70 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
+    public void PrepareGame()
+    {
+        ShowWorldMapUI();
+        HideWorldMapSceneUI();
+        ShowStartGameMenu();
+        victoryMenu.PrepareGame();
+    }
+
     public void HideLoadingImage()
     {
         loadingImage.SetActive(false);
     }
 
-    public void HideAllUI()
+    private void ShowWorldMapUI()
     {
-        HideIntroUIList();
+        HideStartGameMenu();
+        HideSaveGameMenu();
         HideFPSText();
         HideInteractUIList();
-        HideAllGamePlayIUList();
+        HideGamePlaySceneIUList();
+        ShowWorldMapSceneUIList();
     }
 
-    public void ShowIntroBtn()
+    public void ShowSaveGameMenuHandler()
     {
-        foreach(GameObject i in IntroUIList)
+        HideStartGameMenu();
+        if(!JSONManager.HasSaveGameData())
         {
-            i.SetActive(true);
+            saveGameMenu.transform.GetChild(1).gameObject.SetActive(true);
+        }else
+        {
+            ShowSaveGameMenu();
         }
     }
 
-    public void HideIntroUIList()
+    private void ShowSaveGameMenu()
     {
-        foreach(GameObject i in IntroUIList)
+        foreach(Transform child in saveGameMenu.transform)
         {
-            i.SetActive(false);
+            child.gameObject.SetActive(true);
         }
     }
 
-    public void HideAllGamePlayIUList()
+    public void HideSaveGameMenu()
     {
-        foreach(GameObject i in gamePlayIUList)
+        foreach(Transform child in saveGameMenu.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowStartGameMenu()
+    {
+        startGameMenu.SetActive(true);
+    }
+
+    public void HideStartGameMenu()
+    {
+        startGameMenu.SetActive(false);
+    }
+
+    public void HideGamePlaySceneIUList()
+    {
+        foreach(GameObject i in gamePlaySceneUI)
         {
             i.SetActive(false);
         }
@@ -68,7 +100,7 @@ public class CanvasManager : MonoBehaviour
 
     public void ShowAllGamePlayIUList()
     {
-        foreach(GameObject i in gamePlayIUList)
+        foreach(GameObject i in gamePlaySceneUI)
         {
             i.SetActive(true);
         }
@@ -76,7 +108,22 @@ public class CanvasManager : MonoBehaviour
 
     public void HideInteractUIList()
     {
-        foreach(GameObject i in ShowWhenInteractUIList)
+        foreach(GameObject i in gamePlaySceneUIShowWhenInteract)
+        {
+            i.SetActive(false);
+        }
+    }
+
+    public void ShowWorldMapSceneUIList()
+    {
+        foreach(var i in WorldMapSceneUI)
+        {
+            i.SetActive(true);
+        }
+    }
+    public void HideWorldMapSceneUI()
+    {
+        foreach(var i in WorldMapSceneUI)
         {
             i.SetActive(false);
         }
@@ -92,18 +139,45 @@ public class CanvasManager : MonoBehaviour
         fpsText.gameObject.SetActive(true);
     }
 
-    public void HandleLoadMapSelectionBtnClick()
+    public void HandleReloadIntroScene()
     {
-        OnLoadWorldMapBtnClick?.Invoke();
+        HideWorldMapSceneUI();
+        ShowStartGameMenu();
+        GameInitiator.Instance.HandleReloadIntroScene();
     }
 
-    public void HandleReLoadWorldMapBtnClick()
+    public void HandleLoadWorldMapBtnClick()
     {
-        OnReloadWorldMapBtnClick?.Invoke();
+        ShowWorldMapUI();
+        GameInitiator.Instance.HandleLoadWorldMapScene();
+    }
+
+    public void HandleFinishGamepBtnClick()
+    {
+        ShowWorldMapUI();
+        ResetVictoryMenuState();
+        GameInitiator.Instance.HandleFinishMap();
+    }
+
+    public void HandleQuitCurrentMapBtnClick()
+    {
+        ShowWorldMapUI();
+        GameInitiator.Instance.HandleQuitCurrentMap();
     }
 
     public void HandleReloadCurrentMapBtnClick()
     {
-        OnReloadCurrentMapBtnClick?.Invoke();
+        GameInitiator.Instance.HandleReloadCurrentMap();
+    }
+
+    public void HandleSetNewGameBtnCLcik()
+    {
+        ShowWorldMapSceneUIList();
+        GameInitiator.Instance.HandleSetNewGameBtnClick();
+    }
+
+    private void ResetVictoryMenuState()
+    {
+        victoryMenu.ResetState();
     }
 }

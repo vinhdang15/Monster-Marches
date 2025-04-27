@@ -10,7 +10,7 @@ public class CreateWayPointDataJsonBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JsonCreater.Instance.CreateWayPointDataJson();
+        JSONCreater.Instance.CreateWayPointDataJson();
         base.OnButtonClick();
     }
 }

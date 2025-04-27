@@ -10,7 +10,7 @@ public class LoadSelectedMapBtn : BtnBase
 
     protected override void LoadComponents()
     {
-        MapManager.Instance.loadSelectedMapBtnList.Add(this);
+        MapBtnManager.Instance.loadSelectedMapBtnList.Add(this);
         base.LoadComponents();
     }
 

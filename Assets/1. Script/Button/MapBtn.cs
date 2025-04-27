@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class MapBtn : BtnBase
 {
     [SerializeField] List<Sprite> spriteList;
     [SerializeField] private Image image;
+
+    [SerializeField] List<GameObject> starList;
+    [SerializeField] GameObject starBackGround;
     public event Action<Button> OnMapBtnClick;
 
 
@@ -34,13 +38,44 @@ public class MapBtn : BtnBase
 
     private void CheckActiveMapBtn(MapModel mapModel)
     {
-        if(mapModel.Activate) transform.gameObject.SetActive(true);
-        else transform.gameObject.SetActive(false);   
+        if(mapModel.Activate)
+        {
+            transform.gameObject.SetActive(true);
+        }
+        else transform.gameObject.SetActive(false);
     }
 
     public void UpdateMapBtnImage(MapModel mapModel)
     {
-        if(mapModel.StarPoint == 0) image.sprite = spriteList[0];
+        if(mapModel.StarScore == 0) image.sprite = spriteList[0];
         else image.sprite = spriteList[1];
+    }
+
+    public IEnumerator TurnOnMapStar(int currentStarScore, int starScore)
+    {
+        if(currentStarScore >= starScore) yield break;
+        
+        for(int i = 0; i < starScore; i++)
+        {
+            yield return new WaitForSeconds(0.4f);
+            starList[i].SetActive(true);
+        }
+    }
+
+    public void SetDefaultTurnOnStar(int currentStarScore)
+    {
+        for(int i = 0; i < currentStarScore; i++)
+        {
+            starList[i].SetActive(true);
+        }
+        if(currentStarScore == 0)
+        {
+            starBackGround.SetActive(false);
+        }
+    }
+
+    public void ShowStarBackGround()
+    {
+        starBackGround.SetActive(true);
     }
 }

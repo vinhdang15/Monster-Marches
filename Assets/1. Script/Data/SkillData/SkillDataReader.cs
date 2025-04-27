@@ -22,6 +22,6 @@ public class SkillDataReader : MonoBehaviour
 
     private void LoadData()
     {
-        skillDataListSO.skillDataList = JSONManager.LoadSkillDataFromJson();
+        skillDataListSO.skillDataList = JSONManager.skillDataList;
     }
 }

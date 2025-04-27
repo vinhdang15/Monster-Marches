@@ -12,7 +12,7 @@ public class CurrentSttPanel : UIElementBase
     public void SetCurrentSttText(TowerPresenter towerPresenter)
     {
         TowerType.text = towerPresenter.towerModel.TowerType.ToString();
-        spawnRateText.text = towerPresenter.towerModel.SpawnRate.ToString() + "s";
-        towerDamageText.text = towerPresenter.CurentTowerDamage.ToString();
+        spawnRateText.text = "Rate: " + towerPresenter.towerModel.SpawnRate.ToString() + "s";
+        towerDamageText.text = "Damage: " + towerPresenter.CurentTowerDamage.ToString();
     }
 }

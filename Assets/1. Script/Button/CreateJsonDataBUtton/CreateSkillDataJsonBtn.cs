@@ -6,7 +6,7 @@ public class CreateSkillDataBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JsonCreater.Instance.CreateSkillDataJson();
+        JSONCreater.Instance.CreateSkillDataJson();
         base.OnButtonClick();
     }
 }

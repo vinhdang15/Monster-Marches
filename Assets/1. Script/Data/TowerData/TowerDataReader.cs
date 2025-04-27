@@ -21,7 +21,7 @@ public class TowerDataReader : MonoBehaviour
 
     private void LoadData()
     {
-        towerDataListSO.towerDataList = JSONManager.LoadTowerDataFromJson();
+        towerDataListSO.towerDataList = JSONManager.towerDataList;
         LoadTowerInit();
     }
 

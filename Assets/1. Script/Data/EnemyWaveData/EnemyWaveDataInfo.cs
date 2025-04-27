@@ -21,14 +21,14 @@ public class EnemyWaveDataInfo : MonoBehaviour
                             waveNumber = 1,
                             enemyID = "Monster_1",
                             numberEnemyInWave = 2,
-                            timeBetweenEachSpawn = 0.8f,
+                            timeBetweenEachSpawn = 1f,
                             timeWaitForNextWave = 10f,
                         },
                         new EnemyWave
                         {
                             waveNumber = 2,
                             enemyID = "Monster_1",
-                            numberEnemyInWave = 5,
+                            numberEnemyInWave = 2,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
                         },
@@ -38,7 +38,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                             enemyID = "Monster_1",
                             numberEnemyInWave = 5,
                             timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            timeWaitForNextWave = 7f,
                         },
                         new EnemyWave
                         {
@@ -50,7 +50,62 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         },
                         new EnemyWave
                         {
-                            waveNumber = 7,
+                            waveNumber = 5,
+                            enemyID = "Monster_1",
+                            numberEnemyInWave = 5,
+                            timeBetweenEachSpawn = 1.2f,
+                            timeWaitForNextWave = 5f,
+                        },
+                    }
+                },
+            }
+        },
+        
+        new EnemyWaveData
+        {
+            mapID = 2,
+            pathWayWaveList = new()
+            {
+                new PathWayWave
+                {
+                    pathID = 1,
+                    EnemyWaveList = new()
+                    {
+                        new EnemyWave
+                        {
+                            waveNumber = 1,
+                            enemyID = "Monster_1",
+                            numberEnemyInWave = 2,
+                            timeBetweenEachSpawn = 1f,
+                            timeWaitForNextWave = 10f,
+                        },
+                        new EnemyWave
+                        {
+                            waveNumber = 2,
+                            enemyID = "Monster_1",
+                            numberEnemyInWave = 0,
+                            timeBetweenEachSpawn = 0f,
+                            timeWaitForNextWave = 0f,
+                        },
+                        new EnemyWave
+                        {
+                            waveNumber = 3,
+                            enemyID = "Monster_1",
+                            numberEnemyInWave = 5,
+                            timeBetweenEachSpawn = 1.2f,
+                            timeWaitForNextWave = 7f,
+                        },
+                        new EnemyWave
+                        {
+                            waveNumber = 4,
+                            enemyID = "Monster_1",
+                            numberEnemyInWave = 3,
+                            timeBetweenEachSpawn = 1.2f,
+                            timeWaitForNextWave = 5f,
+                        },
+                        new EnemyWave
+                        {
+                            waveNumber = 5,
                             enemyID = "Monster_1",
                             numberEnemyInWave = 3,
                             timeBetweenEachSpawn = 1.2f,
@@ -84,9 +139,9 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         {
                             waveNumber = 3,
                             enemyID = "Monster_1",
-                            numberEnemyInWave = 5,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            numberEnemyInWave = 0,
+                            timeBetweenEachSpawn = 0f,
+                            timeWaitForNextWave = 0f,
                         },
                         new EnemyWave
                         {

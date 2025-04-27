@@ -21,6 +21,6 @@ public class UnitDataReader : MonoBehaviour
 
     private void LoadData()
     {
-        unitDataListSO.unitDataList = JSONManager.LoadUnitDataFromJson();
+        unitDataListSO.unitDataList = JSONManager.unitDataList;
     }
 }

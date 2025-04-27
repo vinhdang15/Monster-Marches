@@ -5,12 +5,23 @@ using UnityEngine;
 public class SoldierManager : MonoBehaviour
 {
     private List<GuardPoint> guardPoints = new List<GuardPoint>();
-    [SerializeField] List<Soldier> totalsoldiers = new List<Soldier>();
+    [SerializeField] List<Soldier> activeSoldiers = new List<Soldier>();
+
+    public void ClearSoldierManager()
+    {
+        StopAllCoroutines();
+
+        foreach(Soldier soldier in activeSoldiers)
+        {
+            UnitPool.Instance.ReturnSoldier(soldier);
+        }
+        activeSoldiers.Clear();
+    }
 
     private void Update()
     {
-        if(totalsoldiers.Count == 0) return;
-        foreach(var soldier in totalsoldiers)
+        if(activeSoldiers.Count == 0) return;
+        foreach(var soldier in activeSoldiers)
         {
             soldier.SoldierAction();
         }
@@ -26,7 +37,7 @@ public class SoldierManager : MonoBehaviour
             soldier.SoldierInitInfor(barrackTowerView, i, barrackGatePos, revivalSpeed);
             soldier.OnSoldierDeath += HandleSoldierDie;
             guardPoint.AddSoldier(soldier);
-            totalsoldiers.Add(soldier);
+            activeSoldiers.Add(soldier);
         }
         guardPoints.Add(guardPoint);
     }
@@ -36,7 +47,7 @@ public class SoldierManager : MonoBehaviour
         //totalsoldiers.Remove(soldier);
         //Play die animation
         soldier.unitAnimation.UnitPlayDie();
-        // wait to finish die animation then return barack tower wait to respawn
+        // wait to finish die animation then return to barack tower wait to respawn
         StartCoroutine(soldier.RevivalCoroutine());
     }
 
@@ -61,7 +72,7 @@ public class SoldierManager : MonoBehaviour
     {
         foreach(var soldier in guardPoint.soldiers)
         {
-            totalsoldiers.Remove(soldier);
+            activeSoldiers.Remove(soldier);
             soldier.OnSoldierDeath -= HandleSoldierDie;
             soldier.barrackTowerView = null;
             soldier.SoldierReturnToUnitPool();
@@ -72,7 +83,7 @@ public class SoldierManager : MonoBehaviour
 
     public void ReturnAllSoldierToPool()
     {
-        foreach(var soldier in totalsoldiers)
+        foreach(var soldier in activeSoldiers)
         {
             soldier.OnSoldierDeath -= HandleSoldierDie;
             soldier.barrackTowerView = null;

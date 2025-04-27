@@ -18,16 +18,16 @@ public class EnemySpawnerManager : MonoBehaviour
 
     // spawn enemy infor
     // add 1 if any pathway finish spawn enemy in current wave
-    private int finishedSpawnEnemiesCount = 0;
+    private int totalPathWayFinishSpawnEnemy = 0;
     private float timeWaitForNextWave = 0f;
 
     // Time show BtnCaution, time call next wave
-    private float waitCautionStartTime;
-    private Coroutine WaitToCallNextWave;
-    public event Action OnCallNextWave;
-    public event Action      OnCautionBtnClicked;
-    public event Action<int> OnAddGoldWhenCautionClick;
-    public event Action<float> OnUpdateTimeWaitForNextWave;
+    private float               waitCautionStartTime;
+    private Coroutine           WaitToCallNextWave;
+    public event Action         OnCallNextWave;
+    public event Action         OnCautionBtnClicked;
+    public event Action<int>    OnAddGoldWhenCautionClick;
+    public event Action<float>  OnUpdateTimeWaitForNextWave;
 
     // Update PanelManager
     public event Action<int> OnUpdateCurrentWave;
@@ -36,7 +36,7 @@ public class EnemySpawnerManager : MonoBehaviour
     private bool isBeginFristWave = false;
 
     public void GetInfor(MapData mapData)
-    {
+    {    
         GetMainPathWayInfoList(mapData);
         InitEnemySpawner(mapData);
         RegisterFinishCurrentWaveEvent();
@@ -46,16 +46,23 @@ public class EnemySpawnerManager : MonoBehaviour
     
     public void ResetEnemySpawnerManager()
     {
+        // StopAllCoroutines();
+        mainPathWayInfoList.Clear();
         ResetEnemySpawner();
         isBeginFristWave = false;
         CurrentWaveIndex = 0;
         timeWaitForNextWave = 0;
+        waitCautionStartTime = 0;
+        totalPathWayFinishSpawnEnemy = 0;
+        TotalWave = 0;
+        totalEnemies = 0;
+        WaitToCallNextWave = null;
         UnregisterFinishCurrentWaveEvent();
     }
 
     private void GetMainPathWayInfoList(MapData mapData)
     {
-        mainPathWayInfoList = WayPointDataReader.Instance.GetMainPathWayInfoList(mapData);
+        mainPathWayInfoList.AddRange(WayPointDataReader.Instance.GetMainPathWayInfoList(mapData));
     }
 
     #region SPAWN ENEMYSPAWNER
@@ -67,10 +74,12 @@ public class EnemySpawnerManager : MonoBehaviour
         {
             Vector2 cautionPos = mainPathWayInfo.cautionBtnPos;
             int pathID = mainPathWayInfo.pathWayID;
-            List<PathWaySegment> pathWaySegmentList =  mainPathWayInfo.pathWaySegmentList;
+            List<PathWaySegment> pathWaySegmentList = mainPathWayInfo.pathWaySegmentList;
 
-            GameObject enemySpawnerObj = new GameObject();
-            enemySpawnerObj.name = "EnemySpawner";
+            GameObject enemySpawnerObj = new()
+            {
+                name = "EnemySpawner"
+            };
             enemySpawnerObj.transform.SetParent(transform);
             enemySpawnerObj.transform.position = Vector2.zero;
             
@@ -114,10 +123,10 @@ public class EnemySpawnerManager : MonoBehaviour
         UpdateTimeWaitForNextWave(timeWaitForNextWaveInOneWave);
 
         if(CurrentWave == TotalWave) return;
-        finishedSpawnEnemiesCount++;
-        if(finishedSpawnEnemiesCount == NumberPathWay)
+        totalPathWayFinishSpawnEnemy++;
+        if(totalPathWayFinishSpawnEnemy == NumberPathWay)
         {
-            finishedSpawnEnemiesCount = 0;
+            totalPathWayFinishSpawnEnemy = 0;
             OnUpdateTimeWaitForNextWave?.Invoke(timeWaitForNextWave);
             WaitToCallNextWave = StartCoroutine(WaitToCallNextWaveCoroutine());
         }
@@ -201,6 +210,7 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void HandleAddGoldCautionClick()
     {
+        if(waitCautionStartTime == 0) return;
         float elapsedTime = Time.time - waitCautionStartTime;
         float timeCallEarly = timeWaitForNextWave - elapsedTime;
         int goldCallEarly = (int)timeCallEarly*3;

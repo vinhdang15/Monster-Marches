@@ -23,6 +23,6 @@ public class BulletEffectDataReader : MonoBehaviour
 
     private void LoadData()
     {
-        bulletEffectDataSO.bulletEffectDataList = JSONManager.LoadBulletEffectDataFromJson();
+        bulletEffectDataSO.bulletEffectDataList = JSONManager.bulletEffectDataList;
     }
 }

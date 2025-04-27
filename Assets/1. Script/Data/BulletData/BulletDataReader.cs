@@ -22,6 +22,6 @@ public class BulletDataReader : MonoBehaviour
 
     private void LoadData()
     {
-        bulletDataListSO.bulletDataList = JSONManager.LoadBulletDataFromJson();
+        bulletDataListSO.bulletDataList = JSONManager.bulletDataList;
     }
 }

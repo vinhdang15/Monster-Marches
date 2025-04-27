@@ -7,7 +7,6 @@ public class MapDataReader : MonoBehaviour
 {
     public static MapDataReader         Instance { get; private set; }
     public MapDataListSO                mapDataListSO;
-    private List<MapProgressData>       mapProgressDataList = new();
 
     private void Awake()
     {
@@ -15,7 +14,6 @@ public class MapDataReader : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadMapData();
         }
         else
         {
@@ -23,15 +21,24 @@ public class MapDataReader : MonoBehaviour
         }
     }
 
-    private void LoadMapData()
+    public void PrepareGame()
     {
-        List<MapDesignData> designList  = JSONManager.LoadMapDesignDataFromJson();
-        List<MapProgressData> progressList = JSONManager.LoadMapProgressDataFromJson();
+        InitFullMapData();
+    }
+
+    private void InitFullMapData()
+    {
+        List<MapDesignData> designList  = JSONManager.mapDesignDataList;
+        List<MapProgressData> progressList = JSONManager.mapProgressDataList;
+        List<MapProgressData> fullProgressList = new();
         foreach(var design in designList)
         {
             MapProgressData progress = progressList.Find(p => p.mapID == design.mapID);
-            progress ??= InitMapProgressData(design.mapID);
-            mapProgressDataList.Add(progress);
+            if(progress == null)
+            {
+                progress = InitMapProgressData(design.mapID); 
+            }
+            fullProgressList.Add(progress);
 
             MapData mapData = new()
             {
@@ -46,8 +53,10 @@ public class MapDataReader : MonoBehaviour
             };
             mapDataListSO.mapDataList.Add(mapData);
         }
+        JSONManager.SaveMapProgressDataToJson(fullProgressList);
+        JSONManager.mapProgressDataList = fullProgressList;
     }
-
+    
     private MapProgressData InitMapProgressData(int DesignMapID)
     {
         return new MapProgressData
@@ -58,16 +67,14 @@ public class MapDataReader : MonoBehaviour
         };
     }
 
-    public void UpdateMapProgressDataList(MapPresenter mapPresenter, int starPoint)
+    public void ResetFullMapData()
     {
-        for(int i = 0; i < mapProgressDataList.Count; i++)
-        {
-            if(mapProgressDataList[i].mapID != mapPresenter.mapModel.MapID) continue;
-            if(i + 1 < mapProgressDataList.Count) mapProgressDataList[i+1].activate = true;
-
-            if(mapProgressDataList[i].starsPoint >= starPoint) break;
-            else mapProgressDataList[i].starsPoint = starPoint;
-        }
-        // JSONManager.SaveMapProgressDataToJson(mapProgressDataList);
+        ClearMapDataListSO();
+        InitFullMapData();
+    }
+    
+    public void ClearMapDataListSO()
+    {
+        mapDataListSO.mapDataList.Clear();
     }
 }

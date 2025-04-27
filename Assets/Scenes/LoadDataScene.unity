@@ -177,7 +177,7 @@ MonoBehaviour:
   enemyWaveDataReader: {fileID: 221867342384875992, guid: 79f48724c94934a409d052a12f18b104, type: 3}
   cameraController: {fileID: 7870814402929922444, guid: e1fb9769b45841547b6f2e313fda9863, type: 3}
   sceneController: {fileID: 7297455620247048197, guid: d9fdb62125eacc64b8c7a67259290537, type: 3}
-  mapManager: {fileID: 3196960339075115150, guid: 9b07b464fb8a4af4bbbcef7481b8c584, type: 3}
+  mapBtnManager: {fileID: 3196960339075115150, guid: 9b07b464fb8a4af4bbbcef7481b8c584, type: 3}
   endPointManager: {fileID: 7206342589962573541, guid: 58102412ff4f0c9489b8a9dc3fdd5d33, type: 3}
   gamePlayManager: {fileID: 2476189185622002317, guid: d339727312976d04c9c29eff42435059, type: 3}
   emptyPlotManager: {fileID: 6827882773492474754, guid: 6bb994a940112774bbe951688c6c533c, type: 3}

@@ -14,8 +14,8 @@ public class UpgradeSttPanel : UIElementBase
         if(towerPresenter.towerModel.Level == 2) return;
         //int currentLevel = tower.currentLevel;
         descriptionText.text = towerPresenter.DescriptionUpgrade.Replace("\\n", Environment.NewLine);;
-        towerDamageText.text = towerPresenter.TowerDamageUpgrade.ToString();
-        spawnRateText.text = towerPresenter.TowerSpawnRateUpgrade.ToString() + "s";  
+        towerDamageText.text = "Damage: " +  towerPresenter.TowerDamageUpgrade.ToString();
+        spawnRateText.text = "Fire Rate: " + towerPresenter.TowerSpawnRateUpgrade.ToString() + "s";  
     }
 
     public void SetInitSttText(TowerType towerType)
@@ -25,7 +25,7 @@ public class UpgradeSttPanel : UIElementBase
 
         //int currentLevel = tower.currentLevel;
         descriptionText.text = towerData.descriptions.Replace("\\n", Environment.NewLine);
-        spawnRateText.text = towerData.spawnRate.ToString() + "s";
+        spawnRateText.text = "Fire Rate: " + towerData.spawnRate.ToString() + "s";
 
         switch(type)
         {
@@ -33,12 +33,12 @@ public class UpgradeSttPanel : UIElementBase
                                 t == TowerType.MageTower.ToString() ||
                                 t == TowerType.CannonTower.ToString():
                 string bullet = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(type, 1);
-                towerDamageText.text = BulletDataReader.Instance.bulletDataListSO.GetBulletDamage(bullet).ToString();
+                towerDamageText.text = "Damage: " +  BulletDataReader.Instance.bulletDataListSO.GetBulletDamage(bullet).ToString();
                 break;
 
-            case string t when t == TowerType.Barrack.ToString().Trim().ToLower():
+            case string t when t == TowerType.Barrack.ToString():
                 string soldier = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(type, 1).ToString();
-                towerDamageText.text = UnitDataReader.Instance.unitDataListSO.GetUnitDamage(soldier).ToString();
+                towerDamageText.text = "Soldier Damage: " +  UnitDataReader.Instance.unitDataListSO.GetUnitDamage(soldier).ToString();
                 break;
         }
     }

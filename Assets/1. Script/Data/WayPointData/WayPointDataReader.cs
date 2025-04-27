@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class WayPointDataReader : MonoBehaviour
@@ -22,7 +23,7 @@ public class WayPointDataReader : MonoBehaviour
 
     private void LoadData()
     {
-        wayPointDataListSO.wayPointDatas = JSONManager.LoadMapWayPointDataFromJson();
+        wayPointDataListSO.wayPointDatas = JSONManager.wayPointDataList;
     }
 
     public List<Vector2> GetSelectedMapEmptyPlotPos(MapData mapData)
@@ -35,6 +36,7 @@ public class WayPointDataReader : MonoBehaviour
             emptyPlotDataList = wpdata.emptyPlotPosList;
             break;
         }
+        
         return emptyPlotDataList;
     }
 

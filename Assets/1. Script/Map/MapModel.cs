@@ -10,7 +10,7 @@ public class MapModel : MonoBehaviour
     public string           Description { get ; set ; }
     public bool             Activate { get ; set ; }
     public bool             MapPassed { get ; set ; }
-    public int              StarPoint { get ; set ; }
+    public int              StarScore { get ; set ; }
     public List<string>     PathID { get ; set ; }
     public Vector2          InitMapBtnPos { get ; set ; }
     public List<Vector2>    EndPointPos { get ; set ; }
@@ -32,7 +32,7 @@ public class MapModel : MonoBehaviour
         this.MapLives = mapData.lives;
         this.Description = mapData.description;
         this.Activate = mapData.activate;
-        this.StarPoint = mapData.starsPoint;
+        this.StarScore = mapData.starsPoint;
         this.InitMapBtnPos = mapData.initMapBtnPos;
     }
 }

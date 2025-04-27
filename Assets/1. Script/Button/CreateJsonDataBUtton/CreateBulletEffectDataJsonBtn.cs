@@ -6,7 +6,7 @@ public class CreateBulletEffectDataJsonBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JsonCreater.Instance.CreateBulletEffectDataJson();
+        JSONCreater.Instance.CreateBulletEffectDataJson();
         base.OnButtonClick();
     }
 }

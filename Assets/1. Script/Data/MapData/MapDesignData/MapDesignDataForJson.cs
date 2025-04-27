@@ -13,7 +13,7 @@ public class MapDesignDataForJson : MonoBehaviour
         {
             mapID = 1,
             mapName = "Forest_1",
-            goldInit = 1000,
+            goldInit = 300,
             lives = 18,
             description = "welcome to my dev joney.\nI think I gonna make it right.",
             initMapBtnPos = Vector2.zero,
@@ -22,7 +22,7 @@ public class MapDesignDataForJson : MonoBehaviour
         {
             mapID = 2,
             mapName = "Forest_2",
-            goldInit = 500,
+            goldInit = 400,
             lives = 10,
             description = "welcome to the Forest_2.\nLet's play",
             initMapBtnPos = Vector2.zero,

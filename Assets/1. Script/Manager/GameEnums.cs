@@ -7,6 +7,21 @@ public class GameEnums : MonoBehaviour
 
 }
 
+public enum Address
+{
+    JSON,
+    MapImage,
+    MapDesignData,
+    MapProgressData,
+    WayPointData,
+    TowerData,
+    BulletData,
+    BulletEffectData,
+    UnitData,
+    SkillData,
+    EnemyWaveData
+}
+
 public enum InitNameObject
 {
     Camera,

@@ -8,7 +8,7 @@ public class BtnCaution : BtnBase
     [SerializeField] private CautionFill cautionFill;
     [SerializeField] private CautionGold cautionGold;
     public bool isFirstWave = false;
-    private EnemySpawnerManager   spawnEnemyManager;
+    private EnemySpawnerManager   enemySpawnerManager;
 
     protected override void Start()
     {
@@ -48,9 +48,9 @@ public class BtnCaution : BtnBase
 
     public void SetSpawnEnemyManager(EnemySpawnerManager spawnEnemyManager)
     {
-        this.spawnEnemyManager = spawnEnemyManager;
-        this.spawnEnemyManager.OnAddGoldWhenCautionClick += HandleShowGoldAddWhenCautionClick;
-        this.spawnEnemyManager.OnUpdateTimeWaitForNextWave += HandleOnUpdateTimeWaitForNextWave;
+        this.enemySpawnerManager = spawnEnemyManager;
+        this.enemySpawnerManager.OnAddGoldWhenCautionClick += HandleShowGoldAddWhenCautionClick;
+        this.enemySpawnerManager.OnUpdateTimeWaitForNextWave += HandleOnUpdateTimeWaitForNextWave;
         // float fillDuration = this.spawnEnemyManager.GetTimeWaitForNextWave();
         // cautionFill.SetFillDuration(fillDuration);
     }
@@ -58,7 +58,7 @@ public class BtnCaution : BtnBase
     protected override void OnButtonClick()
     {
         PlayCustomSound(soundEffectSO.comingWaveSound);
-        spawnEnemyManager.HandleCautionButtonClicked();
+        enemySpawnerManager.HandleCautionButtonClicked();
     }
 
     public bool IsCautionFillActive()
@@ -85,9 +85,9 @@ public class BtnCaution : BtnBase
 
     private void OnDestroy()
     {
-        if (spawnEnemyManager != null)
+        if (enemySpawnerManager != null)
         {
-            spawnEnemyManager.OnAddGoldWhenCautionClick -= HandleShowGoldAddWhenCautionClick;
+            enemySpawnerManager.OnAddGoldWhenCautionClick -= HandleShowGoldAddWhenCautionClick;
         }
     }
 

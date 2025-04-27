@@ -10,7 +10,7 @@ public class CreateMapProgressDataJsonBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JsonCreater.Instance.CreateMapProgressDataJson();
+        JSONCreater.Instance.CreateMapProgressDataJson();
         base.OnButtonClick();
     }
 }

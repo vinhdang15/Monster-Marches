@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,14 +15,11 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private UnitDataReader unitDataReader;
     [SerializeField] private SkillDataReader skillDataReader;
     [SerializeField] private EnemyWaveDataReader enemyWaveDataReader;
-
-    [Header("Camera")]
-    [SerializeField] private CameraController cameraController;
-    private MapImageController mapImageController;
+    private SpriteController spriteController;
 
     [Header("GameManager")]
     [SerializeField] private SceneController sceneController;
-    [SerializeField] private MapManager mapManager;
+    [SerializeField] private MapBtnManager mapBtnManager;
     [SerializeField] private EndPointManager endPointManager;
     [SerializeField] private GamePlayManager gamePlayManager;
     [SerializeField] private EmptyPlotManager emptyPlotManager;
@@ -75,6 +73,10 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator Start()
     {
+        yield return StartCoroutine(SpriteControllerdPrepareGame());
+            
+        yield return StartCoroutine(JSONManagerPrepareGame());
+
         yield return StartCoroutine(BindGameManagerObject());
 
         yield return StartCoroutine(BindCanvas());
@@ -83,11 +85,12 @@ public class GameInitiator : MonoBehaviour
 
         yield return StartCoroutine(InitializeGameObject());
 
+        yield return StartCoroutine(LoadIntroScene());
+
         RegisterEvent();
 
-        LoadIntroScene();
         canvasManager.HideLoadingImage();
-        canvasManager.ShowIntroBtn();
+        canvasManager.ShowStartGameMenu();
 
     }
 
@@ -121,12 +124,7 @@ public class GameInitiator : MonoBehaviour
 
         enemyWaveDataReader = Instantiate(enemyWaveDataReader);
 
-        mapManager = Instantiate(mapManager);
-
-        GameObject mapImage = new("MapImageController");
-        mapImage.transform.SetParent(gameObject.transform);
-        mapImageController = mapImage.AddComponent<MapImageController>();
-
+        mapBtnManager = Instantiate(mapBtnManager);
 
         endPointManager = Instantiate(endPointManager, gameManagerHolder.transform);
 
@@ -177,21 +175,35 @@ public class GameInitiator : MonoBehaviour
         yield return null;
     }
 
+    private IEnumerator JSONManagerPrepareGame()
+    {
+        var JSONPrepareDataTask = JSONManager.PrepareGameAsync();
+        yield return new WaitUntil(() =>JSONPrepareDataTask.IsCompleted);
+    }
+
+    private IEnumerator SpriteControllerdPrepareGame()
+    {
+        GameObject mapImageControllerObj = new("MapImageController");
+        mapImageControllerObj.transform.SetParent(gameObject.transform);
+        spriteController = mapImageControllerObj.AddComponent<SpriteController>();
+
+        var prepareSpriteTask = spriteController.PrepareGameAsync();
+        yield return new WaitUntil(() => prepareSpriteTask.IsCompleted);
+    }
+
     private IEnumerator PrepareGame()
     {
         gamePlayManager.PrepareGame();
-        mapManager.PrepareGame();
-        mapImageController.PrepareGame();
+        mapBtnManager.PrepareGame();
+        mapDataReader.PrepareGame();
         cautionManager.PrepareGame();
         panelManager.PrepareGame();
         inputButtonHandler.PrepareGame();
         raycastHandler.RaycastHandlerPrepareGame();
-
         barrackTowerManager.PrepareGame();
         bulletTowerManager.PrepareGame();
-
         towerActionHandler.PrepareGame();
-        canvasManager.HideAllUI();
+        canvasManager.PrepareGame();
         yield return null;
     }
 
@@ -203,38 +215,42 @@ public class GameInitiator : MonoBehaviour
         yield return null;
     }
 
-     private void LoadIntroScene()
+    private IEnumerator LoadIntroScene()
     {
-        SceneController.Instance.LoadIntroScene();
+        sceneController.LoadIntroScene();
 
-        mapImageController.LoadIntroSprite();
-        CameraController.Instance.SetBoundingShape(mapImageController);
+        spriteController.LoadIntroSprite();
+        CameraController.Instance.SetBoundingShape(spriteController);
+        yield return null;
     }
 
     private void RegisterEvent()
     {
-        mapManager.OnLoadSelectedMap += HandleLoadSelectedMap;
-        canvasManager.OnLoadWorldMapBtnClick += HandleLoadWorldMapScene;
-        canvasManager.OnReloadWorldMapBtnClick += HandleReloadWorldMapScene;
-        canvasManager.OnReloadCurrentMapBtnClick += HandleReloadCurrentMap;
+        mapBtnManager.OnLoadSelectedMap += HandleLoadSelectedMap; 
     }
 
-     private void HandleLoadWorldMapScene()
+    public void HandleReloadIntroScene()
     {
-        CanvasManager.Instance.HideIntroUIList();
-        SceneController.Instance.LoadWorldMapScene();
-        mapImageController.LoadMapSelectionSprite();
-        CameraController.Instance.SetBoundingShape(mapImageController);
+        spriteController.LoadIntroSprite();
+        mapBtnManager.HideMapBtn();
+    }
 
-        mapManager.InitMapBtn();
+    public void HandleLoadWorldMapScene()
+    {
+        canvasManager.HideSaveGameMenu();
+        sceneController.LoadWorldMapScene();
+        spriteController.LoadMapSelectionSprite();
+        CameraController.Instance.SetBoundingShape(spriteController);
+        mapBtnManager.InitMapBtn();
     }
 
     private void HandleLoadSelectedMap(MapPresenter selectedMapPresenter)
     {
+        
         currentMapData = selectedMapPresenter.mapModel.mapData;
 
-        mapImageController.LoadSelectedMapSprite(currentMapData);
-        CameraController.Instance.SetBoundingShape(mapImageController);
+        spriteController.LoadSelectedMapSprite(currentMapData);
+        CameraController.Instance.SetBoundingShape(spriteController);
 
         emptyPlotManager.InitializeEmptyPlot(currentMapData);
         endPointManager.CreateEndPoint(currentMapData);
@@ -246,49 +262,76 @@ public class GameInitiator : MonoBehaviour
         ObjGetMapInfor(currentMapData);
         Time.timeScale = 1;
 
-        SceneController.Instance.LoadSelectedMapScene();
-        CanvasManager.Instance.ShowFPSText();
-        CanvasManager.Instance.ShowAllGamePlayIUList();
+        sceneController.LoadSelectedMapScene();
+        canvasManager.HideWorldMapSceneUI();
+        canvasManager.ShowFPSText();
+        canvasManager.ShowAllGamePlayIUList();
         fPSCounter.PrepareGame();
     }
 
-    private void HandleReloadWorldMapScene()
+    // reload world map after finished a game
+    public void HandleFinishMap()
+    {
+        HandleQuitCurrentMap();
+        mapBtnManager.UpdateMapPresenterInfo();
+    }
+
+    public void HandleQuitCurrentMap()
     {
         Time.timeScale = 1;
         ClearCurrentMapObj();
         emptyPlotManager.ClearEmptyPlot();
         endPointManager.ClearEndPoints();
-        barrackTowerManager.ClearInitGuardPointposList();
         
-        mapImageController.LoadMapSelectionSprite();
-        CameraController.Instance.SetBoundingShape(mapImageController);
+        spriteController.LoadMapSelectionSprite();
+        CameraController.Instance.SetBoundingShape(spriteController);
 
-        PanelManager.Instance.HidePauseMenu();
-        CanvasManager.Instance.HideAllUI();
-        SceneController.Instance.LoadWorldMapScene();
-        MapManager.Instance.ShowMapBtn();
-        MapManager.Instance.UpdateMapPresenterInfo();
-
+        panelManager.HidePauseMenu();
+        sceneController.LoadWorldMapScene();
+        mapBtnManager.ShowMapBtn();
     }
 
-    private void HandleReloadCurrentMap()
+    public void HandleReloadCurrentMap()
     {
         ClearCurrentMapObj();
         enemySpawnerManager.GetInfor(currentMapData);
         emptyPlotManager.ShowAllEmptyPlot();
         ObjGetMapInfor(currentMapData);
-        PanelManager.Instance.HidePauseMenu();
-        SceneController.Instance.ReLoadCurrentScene();
+        panelManager.HidePauseMenu();
+        sceneController.ReLoadCurrentScene();
         cautionManager.InitializeCautionBtn();
+    }
+
+    public void HandleSetNewGameBtnClick()
+    {
+        canvasManager.ShowWorldMapSceneUIList();
+        StartCoroutine(ResetMapProgressDataCoroutine());
+    }
+
+    private IEnumerator ResetMapProgressDataCoroutine()
+    {
+        JSONManager.SetHasSaveGameData(true);
+        Debug.Log($"newgame click: {JSONManager.HasSaveGameData()}");
+        
+        yield return StartCoroutine(JSONManager.ResetMapProgressData());
+        Debug.Log("START RE INIT MAP BTN");
+        mapBtnManager.CLearAllMapBtn();
+        mapDataReader.ResetFullMapData();
+        HandleLoadWorldMapScene();
     }
 
     private void ClearCurrentMapObj()
     {
         bulletTowerManager.ClearBulletTowers();
+
         barrackTowerManager.ClearBarrackTowers();
+        soldierManager.ClearSoldierManager();
+
         soldierManager.ReturnAllSoldierToPool();
-        enemyManager.ClearEnemyManager();
+        enemyManager.ResetEnemyManager();
+        
         enemySpawnerManager.ResetEnemySpawnerManager();
+
         cautionManager.ClearCautionBtnManager();
     }
 

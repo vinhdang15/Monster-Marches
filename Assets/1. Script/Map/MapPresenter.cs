@@ -34,9 +34,9 @@ public class MapPresenter : MonoBehaviour
 
     public void UpdateMapModel(int starPoint)
     {
-        if(mapModel.StarPoint < starPoint)
+        if(mapModel.StarScore < starPoint)
         {
-            mapModel.StarPoint = starPoint;
+            mapModel.StarScore = starPoint;
         }
     }
 
@@ -44,5 +44,20 @@ public class MapPresenter : MonoBehaviour
     {
         Sequence sequence = DOTween.Sequence();
         mapBtn.UpdateMapBtnImage(mapModel);
+    }
+
+    public void ShowStarBackGround()
+    {
+        mapBtn.ShowStarBackGround();
+    }
+
+    public void LightUpMapStar(int currentStarScore, int starScore)
+    {
+        StartCoroutine(mapBtn.TurnOnMapStar(currentStarScore, starScore));
+    }
+
+    public void SetDefaultTurnOnStar(int currentStarScore)
+    {
+        mapBtn.SetDefaultTurnOnStar(currentStarScore);
     }
 }

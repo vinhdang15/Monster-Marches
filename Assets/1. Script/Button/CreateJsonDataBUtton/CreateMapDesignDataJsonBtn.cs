@@ -6,7 +6,7 @@ public class CreateMapDesignDataJsonBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JsonCreater.Instance.CreateMapDesignDataJson();
+        JSONCreater.Instance.CreateMapDesignDataJson();
         base.OnButtonClick();
     }
 }
