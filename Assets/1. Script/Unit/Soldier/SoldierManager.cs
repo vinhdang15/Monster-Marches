@@ -13,7 +13,7 @@ public class SoldierManager : MonoBehaviour
 
         foreach(Soldier soldier in activeSoldiers)
         {
-            UnitPool.Instance.ReturnSoldier(soldier);
+            UnitPool.Instance.ReturnUnit(soldier);
         }
         activeSoldiers.Clear();
     }
@@ -27,13 +27,13 @@ public class SoldierManager : MonoBehaviour
         }
     }
 
-    public void BarrackSpawnSoldier(BarrackTowerView barrackTowerView, string unitName, Vector2 initPos, GuardPoint guardPoint, Vector2 barrackGatePos, float revivalSpeed)
+    public void BarrackSpawnSoldier(BarrackTowerView barrackTowerView, string unitID, Vector2 initPos, GuardPoint guardPoint, Vector2 barrackGatePos, float revivalSpeed)
     {
         guardPoint.OnBarrackDestroy += HandleOnBarrackDestroy;
 
         for(int i = 0; i < 3; i++)
         {
-            Soldier soldier = UnitPool.Instance.GetSoldier(unitName, initPos);
+            Soldier soldier = UnitPool.Instance.GetUnitBase(unitID, initPos) as Soldier;
             soldier.SoldierInitInfor(barrackTowerView, i, barrackGatePos, revivalSpeed);
             soldier.OnSoldierDeath += HandleSoldierDie;
             guardPoint.AddSoldier(soldier);

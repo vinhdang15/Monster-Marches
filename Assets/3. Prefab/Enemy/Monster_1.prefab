@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 1589449537
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 12225455, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+  m_Sprite: {fileID: -1184203034, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 9.932601e-39
-  m_labelHash: 1.00340865e-13
+  m_CategoryHash: 1.8625731e-11
+  m_labelHash: 4.6835028e-20
   m_SpriteKey: 0
-  m_SpriteHash: 817945584
+  m_SpriteHash: 882990765
 --- !u!95 &8119671611435937968
 Animator:
   serializedVersion: 5
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721900661439d944383bc508cfc4fd56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
+  wayPointList: []
 --- !u!114 &-7850191307575187939
 MonoBehaviour:
   m_ObjectHideFlags: 0

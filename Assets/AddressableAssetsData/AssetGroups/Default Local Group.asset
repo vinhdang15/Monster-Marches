@@ -101,6 +101,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fa0de147fb60ea4c90f2f674d216b26
+    m_Address: Assets/3. Prefab/Enemy/Monster_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52577287aa1c88b4cb16964be4f5479a
+    m_Address: Assets/3. Prefab/Soldier/Swordsman_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9335e6b38174c1548babd973e3446566
+    m_Address: Assets/3. Prefab/Soldier/Swordsman_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6dc459d00d7de7d4d8f3cb99e85c9778
+    m_Address: Assets/3. Prefab/Enemy/Monster_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 825f42600ffa1e242bdffe0e3f4fe3f7, type: 2}
   m_SchemaSet:

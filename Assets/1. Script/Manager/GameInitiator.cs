@@ -6,6 +6,9 @@ public class GameInitiator : MonoBehaviour
 {
     public static GameInitiator Instance { get; private set; }
 
+    [Header("Check For Update")]
+    [SerializeField] private UpdateAndDownload checkForUpdateAndDownload;
+
     [Header("Load Data")]
     [SerializeField] private MapDataReader mapDataReader;
     [SerializeField] private WayPointDataReader wayPointDataReader;
@@ -15,7 +18,10 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private UnitDataReader unitDataReader;
     [SerializeField] private SkillDataReader skillDataReader;
     [SerializeField] private EnemyWaveDataReader enemyWaveDataReader;
-    private SpriteController spriteController;
+    private MapDisplayController spriteController;
+
+    [Header("FX")]
+    [SerializeField] private DustFX dustFX;
 
     [Header("GameManager")]
     [SerializeField] private SceneController sceneController;
@@ -67,17 +73,17 @@ public class GameInitiator : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        
     }
 
     private IEnumerator Start()
     {
-        yield return StartCoroutine(SpriteControllerdPrepareGame());
-            
+        yield return StartCoroutine(CheckForUpdateAndDownloadData());
+
         yield return StartCoroutine(JSONManagerPrepareGame());
 
-        yield return StartCoroutine(BindGameManagerObject());
+        yield return StartCoroutine(SpriteControllerdPrepareGame());
+
+        yield return StartCoroutine(BindGameObject());
 
         yield return StartCoroutine(BindCanvas());
 
@@ -89,9 +95,23 @@ public class GameInitiator : MonoBehaviour
 
         RegisterEvent();
 
-        canvasManager.HideLoadingImage();
         canvasManager.ShowStartGameMenu();
+    }
 
+    private IEnumerator CheckForUpdateAndDownloadData()
+    {
+        GameObject newGameObject = new("checkForUpdateAndDownload");
+        checkForUpdateAndDownload = newGameObject.AddComponent<UpdateAndDownload>();
+
+        bool isDone = false;
+        checkForUpdateAndDownload.CheckForUpdateAndDownload(() => {isDone = true;});
+        yield return new WaitUntil(() => isDone);
+    }
+
+    private IEnumerator JSONManagerPrepareGame()
+    {
+        var JSONPrepareDataTask = JSONManager.PrepareGameAsync();
+        yield return new WaitUntil(() =>JSONPrepareDataTask.IsCompleted);
     }
 
     private GameObject CreateHolder(string name)
@@ -100,12 +120,19 @@ public class GameInitiator : MonoBehaviour
         holder.transform.SetParent(this.transform);
         return holder;
     }
-
-    private IEnumerator BindGameManagerObject()
+    
+    private IEnumerator SpriteControllerdPrepareGame()
     {
-        // cameraController = Instantiate(cameraController);
-        // cameraController.name = InitNameObject.Camera.ToString();
+        GameObject mapImageControllerObj = new("MapImageController");
+        mapImageControllerObj.transform.SetParent(gameObject.transform);
+        spriteController = mapImageControllerObj.AddComponent<MapDisplayController>();
 
+        var prepareSpriteTask = spriteController.PrepareGameAsync();
+        yield return new WaitUntil(() => prepareSpriteTask.IsCompleted);
+    }
+
+    private IEnumerator BindGameObject()
+    {
         sceneController = Instantiate(sceneController);
 
         mapDataReader = Instantiate(mapDataReader);
@@ -127,6 +154,8 @@ public class GameInitiator : MonoBehaviour
         mapBtnManager = Instantiate(mapBtnManager);
 
         endPointManager = Instantiate(endPointManager, gameManagerHolder.transform);
+
+        dustFX = Instantiate(dustFX, gameManagerHolder.transform);
 
         gamePlayManager = Instantiate(gamePlayManager, gameManagerHolder.transform);
         gamePlayManager.name = InitNameObject.GamePlayManager.ToString();
@@ -175,25 +204,13 @@ public class GameInitiator : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator JSONManagerPrepareGame()
-    {
-        var JSONPrepareDataTask = JSONManager.PrepareGameAsync();
-        yield return new WaitUntil(() =>JSONPrepareDataTask.IsCompleted);
-    }
-
-    private IEnumerator SpriteControllerdPrepareGame()
-    {
-        GameObject mapImageControllerObj = new("MapImageController");
-        mapImageControllerObj.transform.SetParent(gameObject.transform);
-        spriteController = mapImageControllerObj.AddComponent<SpriteController>();
-
-        var prepareSpriteTask = spriteController.PrepareGameAsync();
-        yield return new WaitUntil(() => prepareSpriteTask.IsCompleted);
-    }
-
     private IEnumerator PrepareGame()
     {
-        gamePlayManager.PrepareGame();
+        gamePlayManager.PrepareGame(panelManager, enemyManager, raycastHandler,
+                            towerActionHandler, enemySpawnerManager,
+                            bulletTowerManager, barrackTowerManager,
+                            dustFX);
+        dustFX.PrepareGame();
         mapBtnManager.PrepareGame();
         mapDataReader.PrepareGame();
         cautionManager.PrepareGame();
@@ -246,7 +263,6 @@ public class GameInitiator : MonoBehaviour
 
     private void HandleLoadSelectedMap(MapPresenter selectedMapPresenter)
     {
-        
         currentMapData = selectedMapPresenter.mapModel.mapData;
 
         spriteController.LoadSelectedMapSprite(currentMapData);

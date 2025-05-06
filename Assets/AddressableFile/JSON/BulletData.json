@@ -17,14 +17,14 @@
     "bulletType": "MagicBall_1",
     "damage": 35,
     "speed": 4.0,
-    "effectTyes": "Magic_DoT",
+    "effectTyes": "Slow",
     "dealDamageDelay": 0.0
   },
   {
     "bulletType": "MagicBall_2",
     "damage": 35,
     "speed": 4.0,
-    "effectTyes": "Magic_DoT;Slow",
+    "effectTyes": "Slow;Magic_DoT",
     "dealDamageDelay": 0.0
   },
   {

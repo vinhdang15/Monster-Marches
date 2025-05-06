@@ -7,6 +7,9 @@ public class UnitAnimation : MonoBehaviour
     private SpriteRenderer  spriteRenderer;
     private float           attackSpeed;
     private float           randomStartTime;
+    // unit can has more than one effect color, using currentColor to keep them all
+    private Color           currentColor;
+    private Coroutine       effectFlashColorCoroutine;
 
     private void Awake()
     {
@@ -29,11 +32,7 @@ public class UnitAnimation : MonoBehaviour
         animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
-    // public void SpriteSortingOrder()
-    // {
-    //     spriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
-    // }
-
+    #region ANIMATION
     public void UnitPlayWalk()
     {
         animator.SetFloat("Blend", 0);
@@ -49,11 +48,6 @@ public class UnitAnimation : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
-    public void UnitPlaySpecialAbility()
-    {
-        // animator.SetFloat("Blend",3);
-    }
-
     public void UnitPlayDie()
     {
         animator.SetTrigger("Die");
@@ -63,9 +57,34 @@ public class UnitAnimation : MonoBehaviour
     {
         return animator.GetCurrentAnimatorStateInfo(0).length;
     }
+    #endregion
+
+    #region EFFECT COLOR
+    // Effect flash color
+    public void ApplyEffectFlashColor(Color effectColor)
+    {
+        effectFlashColorCoroutine = StartCoroutine(EffectFlashColor(effectColor));
+    }
+
+    private IEnumerator EffectFlashColor(Color effectColor)
+    {
+        if(effectFlashColorCoroutine != null) yield break;
+
+        currentColor = spriteRenderer.color;
+        spriteRenderer.color = effectColor;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = currentColor;
+    }
+
+    // Effect color
+    public void ApplyEffectColor(Color effectColor)
+    {
+        spriteRenderer.color = effectColor;
+    }
 
     public void ResetColor()
     {
         spriteRenderer.color = Color.white;
     }
+    #endregion
 }

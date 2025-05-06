@@ -14,6 +14,27 @@
           },
           {
             "waveNumber": 2,
+            "enemyID": "Monster_2",
+            "numberEnemyInWave": 2,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 3,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 2,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 4,
+            "enemyID": "Monster_1",
+            "numberEnemyInWave": 2,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 5,
             "enemyID": "Monster_1",
             "numberEnemyInWave": 2,
             "timeBetweenEachSpawn": 1.2,

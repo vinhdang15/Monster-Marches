@@ -40,7 +40,7 @@ public class ParabolBullet : BulletBase
         {
             isReachEnemyPos = true;
             PlayAnimationWhenReachEnemyPos();
-            ApplyBulletEffect();         
+            ApplyBulletEffect();
         }
     }
 

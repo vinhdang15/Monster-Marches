@@ -8,7 +8,7 @@ public class TowerModel : MonoBehaviour
     public int     Level { get ; set ; }
     public string  SpawnObject { get ; set ; }
     public float   SpawnRate { get ; set ; }
-    public float   TimeToSpawn { get ; set ; }
+    public float   FireAnimDelay  { get ; set ; }
     public float   RangeDetect { get ; set ; }
     public float   RangeRaycast { get ; set ; }
     public int     GoldRequired { get ; set ; }
@@ -27,7 +27,7 @@ public class TowerModel : MonoBehaviour
         Level               = _data.level;
         SpawnObject         = _data.SpawnObject;
         SpawnRate           = _data.spawnRate;
-        TimeToSpawn         = _data.timeToSpawn;
+        FireAnimDelay       = _data.fireAnimDelay;
         RangeDetect         = _data.rangeDetect;
         RangeRaycast        = _data.rangeRaycast;
         GoldRequired        = _data.goldRequired;

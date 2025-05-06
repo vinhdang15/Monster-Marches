@@ -33,7 +33,7 @@ public class SoldierRevivalHandler : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
 
         soldier.ResetUnit();
-        soldier.isdead = false;
+        soldier.isDead = false;
 
         gameObject.SetActive(true);
         yield break;

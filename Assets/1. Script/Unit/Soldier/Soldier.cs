@@ -274,7 +274,7 @@ public class Soldier : UnitBase
         {
             AudioManager.Instance.PlaySound(soundEffectSO.GetRandomSoldierDie());
             base.HideHealthBar();
-            base.isdead = true;
+            base.isDead = true;
             OnSoldierDeath?.Invoke(this);
         }
     }
@@ -289,7 +289,7 @@ public class Soldier : UnitBase
     public void SoldierReturnToUnitPool()
     {
         ResetSoldierState();
-        UnitPool.Instance.ReturnSoldier(this);
+        UnitPool.Instance.ReturnUnit(this);
     }
 
     public void ResetSoldierState()

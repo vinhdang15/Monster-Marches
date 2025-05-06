@@ -23,8 +23,4 @@ public class EffectBase : IEffect
     {
         yield return null;
     }
-    public virtual void ApplyExplodeEffect(Vector2 position)
-    {
-        
-    }
 }

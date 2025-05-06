@@ -15,7 +15,7 @@ public class TowerBaseManager : MonoBehaviour
     protected void AddTowerPersenterEmptyPlot(TowerPresenter towerPresenter, EmptyPlot emptyPlot)
     {
         towerPresenter.emptyPlot = emptyPlot;
-        towerPresenter.emptyPlot.HideEmptyPlot();
+        // towerPresenter.emptyPlot.HideEmptyPlot();
     }
 
     #endregion

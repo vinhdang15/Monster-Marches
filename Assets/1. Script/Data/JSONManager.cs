@@ -9,7 +9,6 @@ public class JSONManager
 {
     private static bool hasSaveGameData = false;
     private static string mapProgressDataJsonPath = Path.Combine(Application.persistentDataPath, "MapProgressData.json");
-
     private static string mapDesignDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/MapDesignData.json");
     private static string waypointDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/WayPointData.json");
     private static string towerDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/TowerData.json");
@@ -54,7 +53,7 @@ public class JSONManager
 
     public static async Task<List<MapDesignData>> LoadMapDesignDataFromJsonSever()
     {
-        List<MapDesignData> dataList = await GenericAddressableLoader<MapDesignData>.LoadJSONListAsync();
+        List<MapDesignData> dataList = await JSONListLoader<MapDesignData>.LoadJSONListAsync();
         return dataList;
     }
     #endregion
@@ -66,7 +65,7 @@ public class JSONManager
         File.WriteAllText(mapProgressDataJsonPath, json);
     }
 
-    private static async Task LoadNewMapProgressDataFromJsonSaver()
+    private static async Task LoadNewMapProgressDataFromJsonServer()
     {
         mapProgressDataList = await LoadMapProgressDataFromJsonSever();
     }
@@ -75,7 +74,6 @@ public class JSONManager
     {
         if(File.Exists(mapProgressDataJsonPath))
         {
-            Debug.Log("SECOUND get data from persistentDataPath");
             string json = File.ReadAllText(mapProgressDataJsonPath);
             mapProgressDataList = JsonConvert.DeserializeObject<List<MapProgressData>>(json);
             hasSaveGameData = true;
@@ -83,7 +81,6 @@ public class JSONManager
         else
         {
             mapProgressDataList = await LoadMapProgressDataFromAddress();
-            Debug.Log("FRIST save data from Address to persistentDataPath");
         }
         return mapProgressDataList;
     }
@@ -101,7 +98,7 @@ public class JSONManager
     // Load data from Addressable sever
     private static async Task<List<MapProgressData>> LoadMapProgressDataFromAddress()
     {
-        List<MapProgressData> dataList = await GenericAddressableLoader<MapProgressData>.LoadJSONListAsync();                                  
+        List<MapProgressData> dataList = await JSONListLoader<MapProgressData>.LoadJSONListAsync();                                  
         return dataList;
     }
 
@@ -109,7 +106,7 @@ public class JSONManager
     {
         DeleteCurrentMapProgressSaveData();
         
-        var reloadInitMapProgressData = LoadNewMapProgressDataFromJsonSaver();
+        var reloadInitMapProgressData = LoadNewMapProgressDataFromJsonServer();
         yield return new WaitUntil(() => reloadInitMapProgressData.IsCompleted);
     }
 
@@ -134,7 +131,7 @@ public class JSONManager
 
     private static async Task<List<WayPointData>> LoadWaypointDataFromJsonSever()
     {
-        List<WayPointData> dataList = await GenericAddressableLoader<WayPointData>.LoadJSONListAsync();
+        List<WayPointData> dataList = await JSONListLoader<WayPointData>.LoadJSONListAsync();
         return dataList;
     }
     #endregion
@@ -149,7 +146,7 @@ public class JSONManager
 
     private static async Task<List<TowerData>> LoadTowerDataFromJsonSever()
     {
-        List<TowerData> dataList = await GenericAddressableLoader<TowerData>.LoadJSONListAsync();         
+        List<TowerData> dataList = await JSONListLoader<TowerData>.LoadJSONListAsync();         
         return dataList;
     }
     #endregion
@@ -164,7 +161,7 @@ public class JSONManager
 
    private static async Task<List<BulletData>> LoadBulletDataFromJsonSever()
     {
-        List<BulletData> dataList = await GenericAddressableLoader<BulletData>.LoadJSONListAsync();
+        List<BulletData> dataList = await JSONListLoader<BulletData>.LoadJSONListAsync();
         return dataList;
     }
     #endregion
@@ -179,7 +176,7 @@ public class JSONManager
 
     private static async Task<List<BulletEffectData>> LoadBulletEffectDataFromJsonSever()
     {
-        List<BulletEffectData> dataList = await GenericAddressableLoader<BulletEffectData>.LoadJSONListAsync();
+        List<BulletEffectData> dataList = await JSONListLoader<BulletEffectData>.LoadJSONListAsync();
         return dataList;
     }
     #endregion
@@ -194,7 +191,7 @@ public class JSONManager
 
     private static async Task<List<UnitData>> LoadUnitDataFromJsonSever()
     {
-        List<UnitData> dataList = await GenericAddressableLoader<UnitData>.LoadJSONListAsync();
+        List<UnitData> dataList = await JSONListLoader<UnitData>.LoadJSONListAsync();
         return dataList;
     }
     #endregion
@@ -209,7 +206,7 @@ public class JSONManager
 
     private static async Task<List<SkillData>> LoadSkillDataFromJsonSever()
     {
-        List<SkillData> dataList = await GenericAddressableLoader<SkillData>.LoadJSONListAsync();
+        List<SkillData> dataList = await JSONListLoader<SkillData>.LoadJSONListAsync();
         return dataList;
     }
     #endregion
@@ -224,7 +221,7 @@ public class JSONManager
 
     private static async Task<List<EnemyWaveData>> LoadEnemyWaveDataFromJsonSever()
     {
-        List<EnemyWaveData> dataList = await GenericAddressableLoader<EnemyWaveData>.LoadJSONListAsync();
+        List<EnemyWaveData> dataList = await JSONListLoader<EnemyWaveData>.LoadJSONListAsync();
         return dataList;
     }
     #endregion

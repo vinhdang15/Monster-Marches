@@ -19,6 +19,7 @@ public class EmptyPlotManager : MonoBehaviour
         {
             Vector2 pos = new Vector2(emptyPlotData.x,emptyPlotData.y);
             EmptyPlot emptyPlotScript = Instantiate(emptyPlotPrefab,pos, quaternion.identity, transform);
+            emptyPlotScript.PrepareGame();
             emptyPlotList.Add(emptyPlotScript);
         }
     }

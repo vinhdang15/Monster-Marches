@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : UnitBase, IEnemy
@@ -16,7 +15,6 @@ public class Enemy : UnitBase, IEnemy
     protected override void Awake()
     {
         base.Awake();
-        pathFinder = GetComponent<PathFinder>();
     }
 
     // bullet instantitate in pool and bullet event register every time tower GetBullet,
@@ -30,6 +28,7 @@ public class Enemy : UnitBase, IEnemy
     // Get Pathway, prepare game
     public void PrepareGame(List<PathWaySegment> pathWaySegmentList, int pathWaySegmentIndex)
     {
+        pathFinder = GetComponent<PathFinder>();
         pathFinder.PrepareGame(pathWaySegmentList,pathWaySegmentIndex);
     }
 
@@ -85,7 +84,7 @@ public class Enemy : UnitBase, IEnemy
         if(CurrentPos == null || CurrentHp == 0) return;
         float x = transform.position.x - CurrentPos.x;
         if(x < 0) transform.localScale = new Vector2(-1,1);
-        else if(x < 0) transform.localScale = new Vector2(1,1);
+        else if(x > 0) transform.localScale = new Vector2(1,1);
         CurrentPos = transform.position;
     }
 
@@ -104,7 +103,7 @@ public class Enemy : UnitBase, IEnemy
         isProcessDead = true;
         AudioManager.Instance.PlaySound(soundEffectSO.GetRandomMonsterDie());
         base.HideHealthBar();
-        base.isdead = true;
+        base.isDead = true;
         OnEnemyDeath?.Invoke(this);
     }
 
@@ -121,7 +120,7 @@ public class Enemy : UnitBase, IEnemy
     {
         yield return null;
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
-        UnitPool.Instance.ReturnEnemy(this);
+        UnitPool.Instance.ReturnUnit(this);
         yield break;
     }
 

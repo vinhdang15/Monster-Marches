@@ -9,6 +9,6 @@ public class SelectedMapIcon : MonoBehaviour
 
     public void LoadSelectedMapIcon(string mapID)
     {
-        image.sprite = SpriteHandler.GetMapSprite(mapID);
+        image.sprite = MapSpriteManager.GetMapSprite(mapID);
     }
 }

@@ -69,7 +69,7 @@ public class BulletTowerManager : TowerBaseManager
 
         if(bulletTowerInfor[towerPresenter].enemies.Count == 1)
         {
-            bulletTowerInfor[towerPresenter].spawnBulletCoroutine = StartCoroutine(SpawnBulletCorountine(towerPresenter));
+            bulletTowerInfor[towerPresenter].spawnBulletCoroutine = StartCoroutine(SpawnBulletCoroutine(towerPresenter));
         }
     }
 
@@ -84,7 +84,7 @@ public class BulletTowerManager : TowerBaseManager
         }
     }
 
-    private IEnumerator SpawnBulletCorountine(TowerPresenter towerPresenter)
+    private IEnumerator SpawnBulletCoroutine(TowerPresenter towerPresenter)
     {
         List<Enemy> towerPresentEnemiesList = bulletTowerInfor[towerPresenter].enemies;
         TowerModel towerModel = towerPresenter.towerModel;
@@ -93,17 +93,16 @@ public class BulletTowerManager : TowerBaseManager
         while(towerPresentEnemiesList.Count > 0)
         {
             bulletTowerView.FireBulletAnimation(towerPresentEnemiesList[0].transform);
-            yield return new WaitForSeconds(towerModel.TimeToSpawn);
+            yield return new WaitForSeconds(towerModel.FireAnimDelay );
 
             string bulletType = towerModel.SpawnObject;
             Vector2 spawnPos = bulletTowerView.GetSpawnBulletPos();
             float spawnBulletDirection = bulletTowerView.GetSpawnBulletDirection();
 
-            if(towerPresentEnemiesList.Count > 0 && !towerPresentEnemiesList[0].isdead)
+            if(towerPresentEnemiesList.Count > 0 && !towerPresentEnemiesList[0].isDead)
             {
                 bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0], towerPresenter);
             }
-            // bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0]);
             yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate);
         }
     }

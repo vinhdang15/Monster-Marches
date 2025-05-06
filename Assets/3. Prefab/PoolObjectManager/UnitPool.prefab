@@ -47,7 +47,7 @@ MonoBehaviour:
   unitPoolInfors:
   - unitPrefab: {fileID: 8473826244210404601, guid: 3fa0de147fb60ea4c90f2f674d216b26, type: 3}
     unitType: 
-    poolSize: 100
+    poolSize: 10
   - unitPrefab: {fileID: 8473826244210404601, guid: 6dc459d00d7de7d4d8f3cb99e85c9778, type: 3}
     unitType: 
     poolSize: 10

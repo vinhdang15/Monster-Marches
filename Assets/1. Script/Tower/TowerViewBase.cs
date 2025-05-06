@@ -20,14 +20,14 @@ public class TowerViewBase : MonoBehaviour
         towerAnimation = GetComponent<TowerAnimation>();
     }
     
-    public void SetRangeRaycat(float rangeDetect)
+    public void SetRangeRaycat(float rangeRaycat)
     {
-        rangeRaycastCol.radius = rangeDetect;
+        rangeRaycastCol.radius = rangeRaycat;
     }
     
     public void SetRangeDetect(float rangeDetect)
     {
-        rangeDetectCol.radius = rangeDetect;
+        rangeDetectCol.radius = rangeDetect - 0.2f;
         rangeDetection.SetSprtieIndicator(rangeDetect);
     }
     
@@ -70,11 +70,4 @@ public class TowerViewBase : MonoBehaviour
             OnEnemyExit?.Invoke(enemyScript, this);
         }
     }
-
-    #region ANIMATION
-    public void InitTowerAnimation()
-    {
-        // towerAnimation.SetTrigger("init");
-    }
-    #endregion
 }

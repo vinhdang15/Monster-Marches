@@ -22,21 +22,26 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] BarrackTowerManager        barrackTowerManager;
     public EnemySpawnerManager                  enemySpawnerManager;
     private Vector2                             initMenuPanelPos;
+    private EmptyPlot                           SelectedEmptyPlot;
     private TowerPresenter                      selectedTower;
     private TowerPresenter                      selectedBulletTower;
     private TowerPresenter                      selectedBarackTower;
+    private DustFX dustFX;
     public event Action OnGoldChangeForUI;
     public event Action<int> OnLiveChangeForUI;
     public event Action<float> OnFinishedMatch;
     
-    public EmptyPlot currentEmptyPlot;
+    
 
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    public void PrepareGame()
+    public void PrepareGame(PanelManager PM, EnemyManager EM, RaycastHandler RH,
+                            TowerActionHandler TAH, EnemySpawnerManager ESM,
+                            BulletTowerManager BulletTM, BarrackTowerManager BarrackTM,
+                            DustFX DFX)
     {
-        LoadComponents();
+        LoadComponents(PM,EM,RH,TAH,ESM,BulletTM,BarrackTM,DFX);
         RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
@@ -57,17 +62,19 @@ public class GamePlayManager : MonoBehaviour
         UnregisterCautionClickEvent();
     }
 
-    private void LoadComponents()
+    private void LoadComponents(PanelManager PM, EnemyManager EM, RaycastHandler RH,
+                                TowerActionHandler TAH, EnemySpawnerManager ESM,
+                                BulletTowerManager BulletTM, BarrackTowerManager BarrackTM,
+                                DustFX DFX)
     {
-        panelManager        = FindObjectOfType<PanelManager>();
-        enemyManager        = FindObjectOfType<EnemyManager>();
-
-        raycastHandler      = FindObjectOfType<RaycastHandler>();
-        towerActionHandler  = FindObjectOfType<TowerActionHandler>();
-
-        enemySpawnerManager = FindObjectOfType<EnemySpawnerManager>();
-        bulletTowerManager  = FindObjectOfType<BulletTowerManager>();
-        barrackTowerManager = FindObjectOfType<BarrackTowerManager>();
+        panelManager        = PM;
+        enemyManager        = EM;
+        raycastHandler      = RH;
+        towerActionHandler  = TAH;
+        enemySpawnerManager = ESM;
+        bulletTowerManager  = BulletTM;
+        barrackTowerManager = BarrackTM;
+        dustFX              = DFX;
     }
 
     private void GetCurentMapInitGold(MapData mapData)
@@ -180,15 +187,26 @@ public class GamePlayManager : MonoBehaviour
     private void OnInitTower(int goldRequired, Action action)
     {
         if(gold < goldRequired) return;
-        AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         action?.Invoke();
         gold -= goldRequired;
         OnGoldChangeForUI?.Invoke();
-        panelManager.HandleRaycastHitNull();
     }
     
     // Init tower
     private void HandleInitTower(TowerType  towerType)
+    {
+        AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
+        SelectedEmptyPlot.DisableCollider();
+        SelectedEmptyPlot.PlayBuildingFX(PlayDustFX, () => InitTower(towerType));
+        panelManager.HandleRaycastHitNull();
+    }
+
+    private void PlayDustFX()
+    {
+        dustFX.PlayBuildingFX(SelectedEmptyPlot.transform.position);
+    }
+
+    private void InitTower(TowerType  towerType)
     {
         switch(towerType)
         {
@@ -206,24 +224,25 @@ public class GamePlayManager : MonoBehaviour
                 break;
         }
     }
+
     private void InitArcherTower()
     {
-        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initMenuPanelPos, currentEmptyPlot));
+        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initMenuPanelPos, SelectedEmptyPlot));
     }
 
     private void InitMageTower()
     {
-        OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initMenuPanelPos, currentEmptyPlot));
+        OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initMenuPanelPos, SelectedEmptyPlot));
     }
 
     private void InitBarrackTower()
     {
-        OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initMenuPanelPos, currentEmptyPlot));
+        OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initMenuPanelPos, SelectedEmptyPlot));
     }
 
     private void InitCannonTower()
     {
-        OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initMenuPanelPos, currentEmptyPlot));
+        OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initMenuPanelPos, SelectedEmptyPlot));
     }
     #endregion
 
@@ -255,11 +274,13 @@ public class GamePlayManager : MonoBehaviour
     {
         if(gold < selectedTower.GoldUpgrade) return;
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
+
         // process gold
         int goldUpdrade = selectedTower.GoldUpgrade;
         gold -= goldUpdrade;
         OnGoldChangeForUI?.Invoke();
 
+        PlayDustFX();
         TowerBaseManager towerBaseManager = bulletTowerManager;
         towerBaseManager.UpgradeTower(selectedTower);
         selectedTower.GoldRefund += goldUpdrade;
@@ -277,7 +298,7 @@ public class GamePlayManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(soundEffectSO.AddGoldSound);
         gold += selectedTower.GoldRefund;
-        selectedTower.emptyPlot.ShowEmptyPlot();
+        selectedTower.emptyPlot.EnableCollider();
         RemoveTowerInTowerList(selectedTower);
         OnGoldChangeForUI?.Invoke();
         panelManager.HandleRaycastHitNull();
@@ -302,7 +323,7 @@ public class GamePlayManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
-        currentEmptyPlot = emptyPlot;
+        SelectedEmptyPlot = emptyPlot;
         initMenuPanelPos = emptyPlot.GetPos();
     }
 

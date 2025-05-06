@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour
         totalEnemiesDie = 0;
         foreach(Enemy enemy in ActiveEnemies)
         {
-            UnitPool.Instance.ReturnEnemy(enemy);
+            UnitPool.Instance.ReturnUnit(enemy);
         }
         ActiveEnemies.Clear();
     }
@@ -59,6 +59,6 @@ public class EnemyManager : MonoBehaviour
         ActiveEnemies.Remove(enemy);
         totalEnemiesDie++;
         OnEnemyReachEndPoint?.Invoke();
-        UnitPool.Instance.ReturnEnemy(enemy);
+        UnitPool.Instance.ReturnUnit(enemy);
     }
 }

@@ -9,7 +9,7 @@ public class Effect : MonoBehaviour
 
     public void PlayEffect(Transform transform)
     {
-        gameObject.transform.SetParent(transform.transform);
+        gameObject.transform.SetParent(transform);
         gameObject.transform.localPosition = Vector2.zero;
         foreach(ParticleSystem ps in particleSystems)
         {

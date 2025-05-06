@@ -13,8 +13,8 @@ public abstract class UnitBase : MonoBehaviour
     public float        AttackSpeed     { get; set; }
     protected int       Damage          { get; set; }
     public int          Gold            { get; set; }
-    private string      skillType       { get; set; }
-    public bool         isdead = false;
+    private string      SkillType       { get; set; }
+    public bool         isDead = false;
     public float        CurrentHp       { get; set; }
     public float        CurrentSpeed    { get; set; }
     protected Vector2   CurrentPos      { get; set; }
@@ -66,7 +66,7 @@ public abstract class UnitBase : MonoBehaviour
         AttackSpeed         = unitData.attackSpeed;
         Damage              = unitData.attackDamage;
         Gold                = unitData.goldReward;
-        skillType           = unitData.skillType;
+        SkillType           = unitData.skillType;
     }
     
     private void InitUnitSkill(UnitData unitData)
@@ -127,14 +127,29 @@ public abstract class UnitBase : MonoBehaviour
     #region UNIT ACTION STATE
     public virtual void TakeDamage(float damage)
     {
-        if(isdead) return;
+        if(isDead) return;
         CurrentHp = Mathf.Max(CurrentHp - damage, 0);
         UpdateHealthBar();
     }
 
+    public virtual void ApplyEffectFlashColor(Color effectColor)
+    {
+        unitAnimation.ApplyEffectFlashColor(effectColor);
+    }
+
+    public virtual void ApplyEffectColor(Color effectColor)
+    {
+        unitAnimation.ApplyEffectColor(effectColor);
+    }
+
+    public virtual void ResetColor()
+    {
+        unitAnimation.ResetColor();
+    }
+
     public virtual void Healing(float healingValue)
     {
-        if(isdead) return;
+        if(isDead) return;
         CurrentHp = Mathf.Min(MaxHP, CurrentHp + healingValue);
         UpdateHealthBar();
     }
@@ -176,7 +191,7 @@ public abstract class UnitBase : MonoBehaviour
         ResetHp();
         ShowHealthBar();
         SetDefaultSpeed();
-        unitAnimation.ResetColor();
+        ResetColor();
         underEffect.Clear();
     }
 }

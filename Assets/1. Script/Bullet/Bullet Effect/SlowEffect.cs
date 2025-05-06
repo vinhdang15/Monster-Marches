@@ -11,7 +11,9 @@ public class SlowEffect : EffectBase
     public override IEnumerator ApplyEffect(UnitBase enemy)
     {
         enemy.CurrentSpeed = enemy.MoveSpeed*(1-value/100);
+        enemy.ApplyEffectColor(Color.cyan);
         yield return new WaitForSeconds(duration);
+        enemy.ResetColor();
         enemy.ResetCurrentSpeed();
         enemy.underEffect.Remove(type);
         yield break;

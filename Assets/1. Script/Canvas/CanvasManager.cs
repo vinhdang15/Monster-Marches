@@ -7,7 +7,6 @@ public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager Instance { get; private set; }
     [SerializeField] TextMeshProUGUI fpsText;
-    [SerializeField] GameObject loadingImage;
     [SerializeField] List<GameObject> WorldMapSceneUI;
     [SerializeField] List<GameObject> gamePlaySceneUI;
     [SerializeField] List<GameObject> gamePlaySceneUIShowWhenInteract;
@@ -35,11 +34,6 @@ public class CanvasManager : MonoBehaviour
         HideWorldMapSceneUI();
         ShowStartGameMenu();
         victoryMenu.PrepareGame();
-    }
-
-    public void HideLoadingImage()
-    {
-        loadingImage.SetActive(false);
     }
 
     private void ShowWorldMapUI()

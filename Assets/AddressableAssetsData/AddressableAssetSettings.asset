@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: b2c60dcee908ab7469e1a43cdf961120
   m_currentHash:
     serializedVersion: 2
-    Hash: 0694fe1c342c8a255ecf3cc779323fbe
+    Hash: 54d2ccdc3847c499aa83afc5dca96d16
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -64,9 +64,9 @@ MonoBehaviour:
       - m_Id: 0f9b427e112151d4d85df10a2d6fcf73
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 466731909e1a0b74ca1f5fdfc95d359f
-        m_Value: ServerData/[BuildTarget]
+        m_Value: ServerData/StandaloneWindows64
       - m_Id: 9cc6f13ff6149a4428a5e612f86484a5
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: https://vinhdang15.github.io/Guardians-Of-The-Wells-Data/StandaloneWindows64
     m_ProfileEntryNames:
     - m_Id: b6c21d4339d953b49a0c98574528fc82
       m_Name: BuildTarget
@@ -89,6 +89,7 @@ MonoBehaviour:
     - default
     - JSON
     - MapImage
+    - Unit
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 95972a048a3b87740b0f3b8567c8e589, type: 2}

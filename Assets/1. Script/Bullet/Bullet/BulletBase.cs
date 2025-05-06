@@ -115,8 +115,13 @@ public class BulletBase : MonoBehaviour
 
     protected void UpdateEnemyPos()
     {
-        if(targetEnemy.isdead || isEnemyExitTowerView == true)return;
+        if(targetEnemy.isDead || isEnemyExitTowerView == true) return;
         enemyPos = targetEnemy.transform.position;
+    }
+
+    protected virtual void MoveTowards()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
     }
 
     protected void UpdateBulletDirection()
@@ -131,6 +136,12 @@ public class BulletBase : MonoBehaviour
         bulletLastPos = transform.position;
     }
 
+    protected virtual void SetBulletDirection()
+    {
+        if(!this.BulletType.Contains("bomb")) RotateInMovingDirection();
+        else RotateInCircle();
+    }
+
     protected virtual void AdjustBulletSpeed()
     {
         return;
@@ -140,12 +151,6 @@ public class BulletBase : MonoBehaviour
     {
         if(spawnBulletDirection == 0) return;
         transform.Rotate(new Vector3(0, 0, spawnBulletDirection));
-    }
-
-    protected virtual void SetBulletDirection()
-    {
-        if(!this.BulletType.Contains("bomb")) RotateInMovingDirection();
-        else RotateInCircle();
     }
 
     private void RotateInCircle()
@@ -160,11 +165,6 @@ public class BulletBase : MonoBehaviour
         float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0,0, angle + 180), 1f);
     }
-
-    protected virtual void MoveTowards()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, enemyPos, Speed*Time.deltaTime);
-    }
     #endregion
 
     #region BuLLET REACHING ENEMY POS, DEAL DAMAGE AND ANOTATION
@@ -177,7 +177,12 @@ public class BulletBase : MonoBehaviour
 
     protected void PlayAnimationWhenReachEnemyPos()
     {
-        if(!targetEnemy.isdead || hadAOEEffectType)
+        if(hadAOEEffectType)
+        {
+            bulletAnimation.PlayDealDamageAnimation();
+        }
+
+        else if(!isEnemyExitTowerView && !targetEnemy.isDead)
         {
             bulletAnimation.PlayDealDamageAnimation();
         }
@@ -202,21 +207,8 @@ public class BulletBase : MonoBehaviour
         {
             targetEnemy.ApplyBulletEffect(effects);
         }
-        else if(hadAOEEffectType)
-        {
-            ApplyBulletExplodeEffect();
-        }
     }
 
-    private void ApplyBulletExplodeEffect()
-    {
-        foreach(IEffect effect in effects)
-        {
-            EffectBase effectBase = effect as EffectBase;
-            if(!effectBase.type.Contains("aoe")) return;
-            effectBase.ApplyExplodeEffect(enemyPos);
-        }
-    }
     
     protected void InvokeOnFinishBulletAnimation()
     {

@@ -10,7 +10,6 @@ public class EnemySpawner : MonoBehaviour
  
     [Header("Pathway to Spawn Enemy")]
     private List<PathWaySegment>            pathWaySegmentList;
-    private int pathID;
     
     [Header("Enemy-Wave information")]
     private List<EnemyWave>                 enemyWaveList = new();
@@ -27,7 +26,6 @@ public class EnemySpawner : MonoBehaviour
         LoadComponents();
         SetEnemySpawnerManager(enemySpawnerManager);
         SetCautionBtnPos(cautionBtnPos);
-        SetPathWayID(pathID);
         GetEnemyWaveDataList(pathID, mapData);
         SetPathWaySegmentList(pathWaySegmentList);
         RegisterStartNextWaveEvent();
@@ -51,11 +49,6 @@ public class EnemySpawner : MonoBehaviour
     public Vector2 GetCautionBtnPos()
     {
         return cautionBtnPos;
-    }
-
-    private void SetPathWayID(int pathID)
-    {
-        this.pathID = pathID;
     }
 
     private void SetPathWaySegmentList(List<PathWaySegment> pathWaySegmentList)
@@ -118,8 +111,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void GetUnitBase(string enemyID, int pathWaySegmentIndex)
     {
-        string unitPrefabName = enemyID;
-        Enemy enemy = UnitPool.Instance.GetEnemy(unitPrefabName);
+        Enemy enemy = UnitPool.Instance.GetUnitBase(enemyID) as Enemy;
         enemy.PrepareGame(pathWaySegmentList, pathWaySegmentIndex % 3);
         enemyManager.AddEnemy(enemy);
     }

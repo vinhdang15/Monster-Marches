@@ -4,7 +4,7 @@ public class TowerData
         public int      level;
         public string   SpawnObject;
         public float    spawnRate;
-        public float    timeToSpawn;
+        public float    fireAnimDelay;
         public float    rangeDetect;
         public float    rangeRaycast;
         public int      goldRequired; 

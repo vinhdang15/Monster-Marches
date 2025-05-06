@@ -7,19 +7,25 @@ public class GameEnums : MonoBehaviour
 
 }
 
-public enum Address
+public enum AddressLabel
 {
     JSON,
     MapImage,
-    MapDesignData,
-    MapProgressData,
-    WayPointData,
-    TowerData,
-    BulletData,
-    BulletEffectData,
-    UnitData,
-    SkillData,
-    EnemyWaveData
+    Unit,
+    // MapDesignData,
+    // MapProgressData,
+    // WayPointData,
+    // TowerData,
+    // BulletData,
+    // BulletEffectData,
+    // UnitData,
+    // SkillData,
+    // EnemyWaveData
+}
+
+public enum UnitID
+{
+    Monster_1,
 }
 
 public enum InitNameObject
