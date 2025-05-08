@@ -18,6 +18,7 @@ public class EmptyPlot : MonoBehaviour
         GetComponents();
         SetDefaultSprite();
     }
+    
     private void GetComponents()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

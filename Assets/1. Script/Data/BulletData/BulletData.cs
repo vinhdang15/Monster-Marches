@@ -1,6 +1,6 @@
 public class BulletData
 {
-        public string   bulletType;
+        public string   bulletID;
         public int      damage;
         public float    speed;
         public string   effectTyes;

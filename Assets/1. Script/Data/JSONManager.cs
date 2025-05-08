@@ -63,6 +63,7 @@ public class JSONManager
     {
         string json = JsonConvert.SerializeObject(mapProgressDataList, Formatting.Indented, new Vector2Converter());
         File.WriteAllText(mapProgressDataJsonPath, json);
+        Debug.Log("Create completed MapProgressData JSON file");
     }
 
     private static async Task LoadNewMapProgressDataFromJsonServer()

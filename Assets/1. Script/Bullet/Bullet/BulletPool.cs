@@ -7,7 +7,7 @@ public class BulletPool : MonoBehaviour
     [System.Serializable]
     public class BulletPoolInfo
     {
-        public string       BulletType => bulletPrefab.name;
+        public string       BulletID => bulletPrefab.name;
         public BulletBase   bulletPrefab;
         public int          poolSize;
     }
@@ -40,13 +40,13 @@ public class BulletPool : MonoBehaviour
             for(int i = 0; i < bulletPoolInfo.poolSize; i++)
             {
                 BulletBase bullet = Instantiate(bulletPoolInfo.bulletPrefab, transform);
-                BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPoolInfo.BulletType);
+                BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPoolInfo.BulletID);
                 bullet.InitBullet(bulletData);
 
                 bullet.gameObject.SetActive(false);
                 bulletQueue.Enqueue(bullet);
             }
-            bulletPools.Add(bulletPoolInfo.BulletType,bulletQueue);
+            bulletPools.Add(bulletPoolInfo.BulletID,bulletQueue);
         }
     }
 
@@ -72,7 +72,7 @@ public class BulletPool : MonoBehaviour
         {
             BulletBase bulletPrefab = GetBulletPrefab(bulletType);
             BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
-            BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPrefab.BulletType);
+            BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPrefab.BulletID);
             bullet.InitBullet(bulletData);
             bullet.transform.position = initPos;
             bullet.startPos = initPos;
@@ -86,9 +86,9 @@ public class BulletPool : MonoBehaviour
     {
         bullet.ResetBullet();
         bullet.gameObject.SetActive(false);
-        if(bulletPools.ContainsKey(bullet.BulletType))
+        if(bulletPools.ContainsKey(bullet.BulletID))
         {
-            bulletPools[bullet.BulletType].Enqueue(bullet);
+            bulletPools[bullet.BulletID].Enqueue(bullet);
         }
     }
 
@@ -96,7 +96,7 @@ public class BulletPool : MonoBehaviour
     {
         foreach(BulletPoolInfo bulletPoolInfo in bulletPoolInfos)
         {
-            if(bulletPoolInfo.BulletType == bulletType)
+            if(bulletPoolInfo.BulletID == bulletType)
             {
                 return bulletPoolInfo.bulletPrefab;
             }

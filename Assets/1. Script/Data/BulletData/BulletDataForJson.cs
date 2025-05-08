@@ -9,14 +9,14 @@ public class BulletDataForJson : MonoBehaviour
         // Arrow bullet
         new BulletData
         {
-            bulletType      = "Arrow_1",
+            bulletID      = "Arrow_1",
             damage          = 20,
             speed           = 6,
             effectTyes      = "none",
         },
         new BulletData
         {
-            bulletType      = "Arrow_2",
+            bulletID      = "Arrow_2",
             damage          = 30,
             speed           = 6,
             effectTyes      = "Fire_DoT",
@@ -25,14 +25,14 @@ public class BulletDataForJson : MonoBehaviour
         // MagicBall bullet
         new BulletData
         {
-            bulletType      = "MagicBall_1",
+            bulletID      = "MagicBall_1",
             damage          = 35,
             speed           = 4,
             effectTyes      = "Magic_DoT",
         },
         new BulletData
         {
-            bulletType      = "MagicBall_2",
+            bulletID      = "MagicBall_2",
             damage          = 35,
             speed           = 4,
             effectTyes      = "Magic_DoT;Slow"
@@ -41,14 +41,14 @@ public class BulletDataForJson : MonoBehaviour
         // Bomb bullet
         new BulletData
         {
-            bulletType      = "Bomb_1",
+            bulletID      = "Bomb_1",
             damage          = 30,
             speed           = 6,
             effectTyes      = "Bomb_1_AoE20",
         },
         new BulletData
         {
-            bulletType      = "Bomb_2",
+            bulletID      = "Bomb_2",
             damage          = 40,
             speed           = 6,
             effectTyes      = "Bomb_2_AoE30",

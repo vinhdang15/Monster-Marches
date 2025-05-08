@@ -19,10 +19,11 @@ public class WayPointDataProcessor : MonoBehaviour
             WayPointData data = new()
             {
                 mapID = mapWayPoint.mapID,
+                treePatchInforList = ExtractTreePatchInfoList(mapWayPoint.mapTreePatchList),
                 endPointPosList = ExtractChildPos(mapWayPoint.endPointHolder),
                 emptyPlotPosList = ExtractChildPos(mapWayPoint.emptyPlotHolder),
                 initGuardPointPosList = ExtractChildPosFromList(mapWayPoint.initGuardPointPosHolder),
-                mainPathWayInfoList = ExtractMainPathWayInfoList(mapWayPoint.mainPathWayList)
+                mainPathWayInforList = ExtractMainPathWayInfoList(mapWayPoint.mainPathWayList)
 
             };
             wayPointDataList.Add(data);
@@ -39,6 +40,22 @@ public class WayPointDataProcessor : MonoBehaviour
             pos.Add(childPos);
         }
         return pos;
+    }
+
+    private List<TreePatchInfo> ExtractTreePatchInfoList(List<MapTreePatch> mapTreePatchList)
+    {
+        List<TreePatchInfo> treePatchDataList = new();
+        foreach(var treePatch in mapTreePatchList)
+        { 
+            TreePatchInfo treePatchInfo = new()
+            {
+                treePatchID = treePatch.treePatchID,
+                treePatchList = ExtractChildPos(treePatch.treePatchHolder),
+            };
+
+            treePatchDataList.Add(treePatchInfo);
+        }
+        return treePatchDataList;
     }
 
     private List<Vector2> ExtractChildPosFromList(List<Transform> holder)

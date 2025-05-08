@@ -289,5 +289,10 @@ public class PanelManager : MonoBehaviour
     {
         pauseMenu.Hide();
     }
+
+    public void ResetVictoryMenu()
+    {
+        victoryMenu.ResetState();
+    }
     #endregion
 }

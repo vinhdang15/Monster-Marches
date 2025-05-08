@@ -21,9 +21,9 @@ public class EnemySpawner : MonoBehaviour
     public event Action<float>              OnFinishCurrentWave;
     private Coroutine SpawnEnemyCoroutine;
 
-    public void PrepareGame(EnemySpawnerManager enemySpawnerManager, Vector2 cautionBtnPos, int pathID, MapData mapData, List<PathWaySegment> pathWaySegmentList)
+    public void PrepareGame(EnemyManager enemyManager, EnemySpawnerManager enemySpawnerManager, Vector2 cautionBtnPos, int pathID, MapData mapData, List<PathWaySegment> pathWaySegmentList)
     {
-        LoadComponents();
+        LoadComponents(enemyManager);
         SetEnemySpawnerManager(enemySpawnerManager);
         SetCautionBtnPos(cautionBtnPos);
         GetEnemyWaveDataList(pathID, mapData);
@@ -31,9 +31,9 @@ public class EnemySpawner : MonoBehaviour
         RegisterStartNextWaveEvent();
     }
 
-    public void LoadComponents()
+    public void LoadComponents(EnemyManager enemyManager)
     {
-        enemyManager = GameObject.Find(InitNameObject.EnemyManager.ToString()).GetComponent<EnemyManager>();
+        this.enemyManager = enemyManager;
     }
 
     private void SetEnemySpawnerManager(EnemySpawnerManager enemySpawnerManager)

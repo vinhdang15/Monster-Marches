@@ -4,10 +4,18 @@ using UnityEngine;
 public class WayPointData
 {
     public int mapID;
-    public List<Vector2> endPointPosList;
-    public List<Vector2> emptyPlotPosList;
-    public List<Vector2> initGuardPointPosList;
-    public List<MainPathWayInfo> mainPathWayInfoList;
+    public List<Vector2>            endPointPosList;
+    public List<Vector2>            emptyPlotPosList;
+    public List<Vector2>            initGuardPointPosList;
+    public List<TreePatchInfo>      treePatchInforList;
+    public List<MainPathWayInfo>    mainPathWayInforList;
+}
+
+[System.Serializable]
+public class TreePatchInfo
+{
+    public string treePatchID;
+    public List<Vector2> treePatchList;
 }
 
 [System.Serializable]

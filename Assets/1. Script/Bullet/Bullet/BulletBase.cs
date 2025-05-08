@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletBase : MonoBehaviour
 {
-    public string   BulletType               { get; set; }
+    public string   BulletID               { get; set; }
     public int      Damage                   { get; set; }
     public float    Speed                    { get; set; }
     public string   EffectType               { get; set; }
@@ -42,7 +42,7 @@ public class BulletBase : MonoBehaviour
     private void InitBulletData(BulletData bulletData)
     {
         
-        BulletType              = bulletData.bulletType;
+        BulletID                = bulletData.bulletID;
         Speed                   = bulletData.speed;
         Damage                  = bulletData.damage;
         EffectType              = bulletData.effectTyes;
@@ -138,7 +138,7 @@ public class BulletBase : MonoBehaviour
 
     protected virtual void SetBulletDirection()
     {
-        if(!this.BulletType.Contains("bomb")) RotateInMovingDirection();
+        if(!this.BulletID.Contains("bomb")) RotateInMovingDirection();
         else RotateInCircle();
     }
 
@@ -181,7 +181,6 @@ public class BulletBase : MonoBehaviour
         {
             bulletAnimation.PlayDealDamageAnimation();
         }
-
         else if(!isEnemyExitTowerView && !targetEnemy.isDead)
         {
             bulletAnimation.PlayDealDamageAnimation();
@@ -228,7 +227,7 @@ public class BulletBase : MonoBehaviour
     #region BULLET SOUND
     public void BulletWhistleSound()
     {
-        switch(BulletType)
+        switch(BulletID)
         {
             case string t when t == BulletTypea.Arrow_1.ToString() ||
                                 t == BulletTypea.Arrow_2.ToString():
@@ -247,7 +246,7 @@ public class BulletBase : MonoBehaviour
 
     public void BulletHittingSound()
     {
-        switch(BulletType)
+        switch(BulletID)
         {
             case string t when t == BulletTypea.MagicBall_1.ToString() ||
                                 t == BulletTypea.MagicBall_2.ToString():

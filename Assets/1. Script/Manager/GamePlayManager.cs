@@ -197,13 +197,13 @@ public class GamePlayManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         SelectedEmptyPlot.DisableCollider();
-        SelectedEmptyPlot.PlayBuildingFX(PlayDustFX, () => InitTower(towerType));
+        SelectedEmptyPlot.PlayBuildingFX(() => PlayDustFX(SelectedEmptyPlot.transform.position), () => InitTower(towerType));
         panelManager.HandleRaycastHitNull();
     }
 
-    private void PlayDustFX()
+    private void PlayDustFX(Vector2 pos)
     {
-        dustFX.PlayBuildingFX(SelectedEmptyPlot.transform.position);
+        dustFX.PlayBuildingFX(pos);
     }
 
     private void InitTower(TowerType  towerType)
@@ -280,7 +280,7 @@ public class GamePlayManager : MonoBehaviour
         gold -= goldUpdrade;
         OnGoldChangeForUI?.Invoke();
 
-        PlayDustFX();
+        PlayDustFX(selectedTower.transform.position);
         TowerBaseManager towerBaseManager = bulletTowerManager;
         towerBaseManager.UpgradeTower(selectedTower);
         selectedTower.GoldRefund += goldUpdrade;

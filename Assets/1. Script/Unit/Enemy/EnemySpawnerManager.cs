@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemySpawnerManager : MonoBehaviour
 {
+    private EnemyManager enemyManager;
     // pathway infor
     public List<EnemySpawner> enemySpawnerList = new();
     private int NumberPathWay => enemySpawnerList.Count;
@@ -34,6 +35,11 @@ public class EnemySpawnerManager : MonoBehaviour
 
     // Trigger to call the first wave when BtnCautionSlider click
     private bool isBeginFristWave = false;
+
+    public void PrepareGame(EnemyManager enemyManager)
+    {
+        this.enemyManager = enemyManager;
+    }
 
     public void GetInfor(MapData mapData)
     {    
@@ -84,7 +90,7 @@ public class EnemySpawnerManager : MonoBehaviour
             enemySpawnerObj.transform.position = Vector2.zero;
             
             EnemySpawner enemySpawner = enemySpawnerObj.AddComponent<EnemySpawner>();
-            enemySpawner.PrepareGame(this, cautionPos,pathID, mapData, pathWaySegmentList);
+            enemySpawner.PrepareGame(enemyManager, this, cautionPos,pathID, mapData, pathWaySegmentList);
             enemySpawnerList.Add(enemySpawner);
         }
     }

@@ -85,7 +85,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &5248891281608216279
@@ -133,10 +133,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352b57a6123d817459dc116603a2739a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hadAOEEffectType: 0
   isReachEnemyPos: 0
   isSetUpStartPos: 0
   startPos: {x: 0, y: 0}
+  targetEnemy: {fileID: 0}
   bulletLastPos: {x: 0, y: 0}
+  towerPresenter: {fileID: 0}
   soundEffectSO: {fileID: 11400000, guid: 58f3b842f8497a046a2a1acaa17e7bc7, type: 2}
 --- !u!1 &9047220083992631884
 GameObject:
@@ -154,7 +157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4915878040177419480
 Transform:
   m_ObjectHideFlags: 0

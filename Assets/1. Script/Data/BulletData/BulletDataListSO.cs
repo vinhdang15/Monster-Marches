@@ -8,12 +8,12 @@ public class BulletDataListSO : ScriptableObject
 
     public BulletData GetBulletData(string type)
     {
-        return bulletDataList.Find(data => data.bulletType == type);
+        return bulletDataList.Find(data => data.bulletID == type);
     }
 
     public int GetBulletDamage(string type)
     {
-        BulletData bulletData = bulletDataList.Find(data => data.bulletType == type);
+        BulletData bulletData = bulletDataList.Find(data => data.bulletID == type);
         return bulletData.damage;
     }
 }

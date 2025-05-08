@@ -12,6 +12,7 @@ public enum AddressLabel
     JSON,
     MapImage,
     Unit,
+    TreePatch,
     // MapDesignData,
     // MapProgressData,
     // WayPointData,

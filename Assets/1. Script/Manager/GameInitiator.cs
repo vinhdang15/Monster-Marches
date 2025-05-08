@@ -29,6 +29,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private EndPointManager endPointManager;
     [SerializeField] private GamePlayManager gamePlayManager;
     [SerializeField] private EmptyPlotManager emptyPlotManager;
+    [SerializeField] private TreePatchManager treePatchManager;
 
     [SerializeField] private BulletTowerManager bulletTowerManager;
     [SerializeField] private BarrackTowerManager barrackTowerManager;
@@ -36,6 +37,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private SoldierManager soldierManager;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private EnemySpawnerManager enemySpawnerManager;
+    [SerializeField] private TreePatchPool treePatchPool;
     [SerializeField] private BulletPool bulletPool;
     [SerializeField] private UnitPool unitPool;
     [SerializeField] private VisualEffectPool visualEffectPool;
@@ -158,31 +160,27 @@ public class GameInitiator : MonoBehaviour
         dustFX = Instantiate(dustFX, gameManagerHolder.transform);
 
         gamePlayManager = Instantiate(gamePlayManager, gameManagerHolder.transform);
-        gamePlayManager.name = InitNameObject.GamePlayManager.ToString();
+
+        treePatchManager = Instantiate(treePatchManager, gameManagerHolder.transform);
 
         emptyPlotManager = Instantiate(emptyPlotManager, gameManagerHolder.transform);
-        emptyPlotManager.name = InitNameObject.EmptyPlotManager.ToString();
 
         bulletTowerManager = Instantiate(bulletTowerManager, gameManagerHolder.transform);
-        bulletTowerManager.name = InitNameObject.BulletTowerManager.ToString();
 
         barrackTowerManager = Instantiate(barrackTowerManager, gameManagerHolder.transform);
-        barrackTowerManager.name = InitNameObject.BarrackTowerManager.ToString();
         
         bulletManager = Instantiate(bulletManager, gameManagerHolder.transform);
-        bulletManager.name = InitNameObject.BulletManager.ToString();
 
         soldierManager = Instantiate(soldierManager, gameManagerHolder.transform);
-        soldierManager.name = InitNameObject.SoldierManager.ToString();
 
         enemyManager = Instantiate(enemyManager, gameManagerHolder.transform);
-        enemyManager.name = InitNameObject.EnemyManager.ToString();
 
         enemySpawnerManager = Instantiate(enemySpawnerManager, gameManagerHolder.transform);
 
         cautionManager = Instantiate(cautionManager, gameManagerHolder.transform);
-        cautionManager.name = InitNameObject.CautionManager.ToString();
 
+        // Object Pooling
+        treePatchPool = Instantiate(treePatchPool);
         bulletPool = Instantiate(bulletPool);
         unitPool = Instantiate(unitPool);
         visualEffectPool = Instantiate(visualEffectPool);
@@ -210,6 +208,8 @@ public class GameInitiator : MonoBehaviour
                             towerActionHandler, enemySpawnerManager,
                             bulletTowerManager, barrackTowerManager,
                             dustFX);
+        enemySpawnerManager.PrepareGame(enemyManager);
+        treePatchManager.PrepareGame(enemyManager);
         dustFX.PrepareGame();
         mapBtnManager.PrepareGame();
         mapDataReader.PrepareGame();
@@ -226,6 +226,7 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator InitializeGameObject()
     {
+        treePatchPool.Initialize();
         unitPool.Initialize();
         bulletPool.Initialize();
         visualEffectPool.Initialize();
@@ -268,6 +269,7 @@ public class GameInitiator : MonoBehaviour
         spriteController.LoadSelectedMapSprite(currentMapData);
         CameraController.Instance.SetBoundingShape(spriteController);
 
+        treePatchManager.InitializeTreePatch(currentMapData);
         emptyPlotManager.InitializeEmptyPlot(currentMapData);
         endPointManager.CreateEndPoint(currentMapData);
         barrackTowerManager.InitializeGuardPointPosList(currentMapData);
@@ -296,6 +298,7 @@ public class GameInitiator : MonoBehaviour
     {
         Time.timeScale = 1;
         ClearCurrentMapObj();
+        treePatchManager.ClearTreePatch();
         emptyPlotManager.ClearEmptyPlot();
         endPointManager.ClearEndPoints();
         
@@ -311,9 +314,11 @@ public class GameInitiator : MonoBehaviour
     {
         ClearCurrentMapObj();
         enemySpawnerManager.GetInfor(currentMapData);
+        treePatchManager.ResetTreePatchSprite();
         emptyPlotManager.ShowAllEmptyPlot();
         ObjGetMapInfor(currentMapData);
         panelManager.HidePauseMenu();
+        panelManager.ResetVictoryMenu();
         sceneController.ReLoadCurrentScene();
         cautionManager.InitializeCautionBtn();
     }

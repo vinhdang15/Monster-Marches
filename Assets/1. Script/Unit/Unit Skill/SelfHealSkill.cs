@@ -36,9 +36,6 @@ public class SelfHealSkill : SkillBase
 
     private void ApplyEffect(UnitBase unit)
     {
-        // Effect a = VisualEffectPool.Instance.GetEffect(skillType);
-        // a.PlayEffect(unit.gameObject);
-        // Debug.Log("play effect");
         Effect effectPrefab = VisualEffectPool.Instance.GetEffect(skillType);
         if (effectPrefab != null)
         {

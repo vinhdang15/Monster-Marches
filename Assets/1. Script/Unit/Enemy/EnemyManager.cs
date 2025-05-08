@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public List<Enemy> ActiveEnemies = new();
+    public List<Enemy> ActiveUnitList = new();
     public int totalEnemiesDie = 0;
     public event Action<UnitBase> OnEnemyDeath;
     public event Action OnEnemyReachEndPoint;
@@ -13,11 +13,11 @@ public class EnemyManager : MonoBehaviour
     public void ResetEnemyManager()
     {
         totalEnemiesDie = 0;
-        foreach(Enemy enemy in ActiveEnemies)
+        foreach(Enemy enemy in ActiveUnitList)
         {
             UnitPool.Instance.ReturnUnit(enemy);
         }
-        ActiveEnemies.Clear();
+        ActiveUnitList.Clear();
     }
 
     private void OnDisable()
@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        foreach(var enemy in ActiveEnemies)
+        foreach(var enemy in ActiveUnitList)
         {
             enemy.EnemyAction();
             enemy.SetMovingDirection();
@@ -39,12 +39,12 @@ public class EnemyManager : MonoBehaviour
     {
         enemy.OnEnemyDeath          += HandleEnemyDeath;
         enemy.OnEnemyReachEndPoint  += HandleEnemyReachEndPoint;
-        ActiveEnemies.Add(enemy);
+        ActiveUnitList.Add(enemy);
     }
 
     private void HandleEnemyDeath(Enemy enemy)
     {
-        ActiveEnemies.Remove(enemy);
+        ActiveUnitList.Remove(enemy);
         // notify for GamePlayManaer
         totalEnemiesDie++;
         OnEnemyDeath?.Invoke(enemy);
@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
 
     private void HandleEnemyReachEndPoint(Enemy enemy)
     {
-        ActiveEnemies.Remove(enemy);
+        ActiveUnitList.Remove(enemy);
         totalEnemiesDie++;
         OnEnemyReachEndPoint?.Invoke();
         UnitPool.Instance.ReturnUnit(enemy);

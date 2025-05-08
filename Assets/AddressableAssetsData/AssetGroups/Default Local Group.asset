@@ -125,6 +125,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Unit
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7c0ff95309a61a469313bab091ad133
+    m_Address: Assets/3. Prefab/TreePatch/TreePatch_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TreePatch
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 825f42600ffa1e242bdffe0e3f4fe3f7, type: 2}
   m_SchemaSet:

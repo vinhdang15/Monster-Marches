@@ -1,41 +1,41 @@
 [
   {
-    "bulletType": "Arrow_1",
+    "bulletID": "Arrow_1",
     "damage": 20,
     "speed": 6.0,
     "effectTyes": "none",
     "dealDamageDelay": 0.0
   },
   {
-    "bulletType": "Arrow_2",
+    "bulletID": "Arrow_2",
     "damage": 30,
     "speed": 6.0,
     "effectTyes": "Fire_DoT",
     "dealDamageDelay": 0.0
   },
   {
-    "bulletType": "MagicBall_1",
+    "bulletID": "MagicBall_1",
     "damage": 35,
     "speed": 4.0,
-    "effectTyes": "Slow",
+    "effectTyes": "Magic_DoT",
     "dealDamageDelay": 0.0
   },
   {
-    "bulletType": "MagicBall_2",
+    "bulletID": "MagicBall_2",
     "damage": 35,
     "speed": 4.0,
-    "effectTyes": "Slow;Magic_DoT",
+    "effectTyes": "Magic_DoT;Slow",
     "dealDamageDelay": 0.0
   },
   {
-    "bulletType": "Bomb_1",
+    "bulletID": "Bomb_1",
     "damage": 30,
     "speed": 6.0,
     "effectTyes": "Bomb_1_AoE20",
     "dealDamageDelay": 0.0
   },
   {
-    "bulletType": "Bomb_2",
+    "bulletID": "Bomb_2",
     "damage": 40,
     "speed": 6.0,
     "effectTyes": "Bomb_2_AoE30",

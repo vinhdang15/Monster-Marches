@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,11 +8,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public static class UnitPrefabManager
 {
     private static Dictionary<string, GameObject> unitPrefabDic = new();
-    private static Action onFinishedCallback;
 
-    public static async Task PreloadAllUnit(Action action)
+    public static async Task PreloadAllUnit()
     {
-        onFinishedCallback = action;
         var handle = Addressables.LoadAssetsAsync<GameObject>(AddressLabel.Unit.ToString(), null);
         await handle.Task;
 
@@ -28,7 +25,6 @@ public static class UnitPrefabManager
                 }
             }
         }
-        // action?.Invoke();
     }
 
     public static GameObject GetUnitPrefab(string unitID)

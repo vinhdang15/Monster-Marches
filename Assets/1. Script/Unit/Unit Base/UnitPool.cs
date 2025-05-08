@@ -29,7 +29,7 @@ public class UnitPool : MonoBehaviour
 
     private async Task PreloadAllUnit()
     {
-        await UnitPrefabManager.PreloadAllUnit(InitPrefabDic);
+        await UnitPrefabManager.PreloadAllUnit();
         InitPrefabDic();
         InitPool();
     }
@@ -46,8 +46,8 @@ public class UnitPool : MonoBehaviour
             Queue<UnitBase> unitQueue = new();
             for(int i = 0; i < poolSize; i++)
             {
-                GameObject unitOB = Instantiate(pair.Value, transform);
-                UnitBase unit = unitOB.GetComponent<UnitBase>();
+                GameObject unitObj = Instantiate(pair.Value, transform);
+                UnitBase unit = unitObj.GetComponent<UnitBase>();
                 UnitData unitData = UnitDataReader.Instance.unitDataListSO.GetUnitData(pair.Key);
                 unit.InitUnit(unitData);
                 unit.GetAnimation();

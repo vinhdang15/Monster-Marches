@@ -13,8 +13,8 @@ public class VisualEffectPool : MonoBehaviour
         public int poolSize;
     }
 
-    [SerializeField] List<VisualEffectInfor> effectPoolInfors = new List<VisualEffectInfor>();
-    [SerializeField] Dictionary<string, Queue<Effect>> effectPool = new Dictionary<string, Queue<Effect>>();
+    [SerializeField] List<VisualEffectInfor> effectPoolInfors = new();
+    [SerializeField] Dictionary<string, Queue<Effect>> effectPool = new();
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class VisualEffectPool : MonoBehaviour
     {
         foreach( var effectPoolInfor in effectPoolInfors)
         {
-            Queue<Effect> effectQueue = new Queue<Effect>();
+            Queue<Effect> effectQueue = new();
             for(int i = 0; i< effectPoolInfor.poolSize; i++)
             {
                 Effect effect = Instantiate(effectPoolInfor.effectPrefab, transform);
@@ -83,7 +83,7 @@ public class VisualEffectPool : MonoBehaviour
         {
             if(effectPoolInfor.EffectName == effectName)
             {
-                Effect effect = Instantiate(effectPoolInfor.effectPrefab,transform);
+                Effect effect = Instantiate(effectPoolInfor.effectPrefab, transform);
                 effect.effectName = effectPoolInfor.EffectName;
                 return effect;
             }
