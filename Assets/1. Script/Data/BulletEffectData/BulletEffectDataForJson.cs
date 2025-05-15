@@ -9,7 +9,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Slow effect
         new BulletEffectData
         {
-            effectType          = "Slow",
+            effectType          = BulletEffectType.Slow.ToString(),
             effectValue         = 50,
             effectDuration      = 1,
             effectOccursTime    = 0,
@@ -19,7 +19,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Magic_DoT effect
         new BulletEffectData
         {
-            effectType          = "Magic_DoT",
+            effectType          = BulletEffectType.Magic_DoT.ToString(),
             effectValue         = 15,
             effectDuration      = 1.5f,
             effectOccursTime    = 3,
@@ -29,7 +29,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Fire_DoT effect
         new BulletEffectData
         {
-            effectType          = "Fire_DoT",
+            effectType          = BulletEffectType.Fire_DoT.ToString(),
             effectValue         = 5,
             effectDuration      = 2,
             effectOccursTime    = 8,
@@ -39,7 +39,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Bomb1_AoE20 effect
         new BulletEffectData
         {
-            effectType          = "Bomb_1_AoE20",
+            effectType          = BulletEffectType.Bomb_1_AoE20.ToString(),
             effectValue         = 20,
             effectDuration      = 0,
             effectOccursTime    = 0,
@@ -49,7 +49,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Bomb2_AoE30 effect
         new BulletEffectData
         {
-            effectType          = "Bomb_2_AoE30",
+            effectType          = BulletEffectType.Bomb_2_AoE30.ToString(),
             effectValue         = 30,
             effectDuration      = 0,
             effectOccursTime    = 0,

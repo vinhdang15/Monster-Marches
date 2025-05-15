@@ -39,9 +39,14 @@ public class AudioManager : MonoBehaviour
         audioSource.Play();
     }
 
+    public void StopBackgroundMusic()
+    {
+        audioSource.Stop();
+    }
+
     public IEnumerator PlaySoundAndWait(AudioSource audioSource, AudioClip audioClip)
     {
-        audioSource.pitch = Random.Range(0.95f,1.05f);
+        audioSource.pitch = Random.Range(0.95f, 1.05f);
         audioSource.PlayOneShot(audioClip);
         yield return new WaitForSeconds(audioClip.length);
     }

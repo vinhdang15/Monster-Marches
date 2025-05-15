@@ -53,14 +53,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - Unit
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 52577287aa1c88b4cb16964be4f5479a
-    m_Address: Assets/3. Prefab/Soldier/Swordsman_1.prefab
+  - m_GUID: 9335e6b38174c1548babd973e3446566
+    m_Address: Assets/3. Prefab/Unit/Soldier/Soldier_2.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Unit
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9335e6b38174c1548babd973e3446566
-    m_Address: Assets/3. Prefab/Soldier/Swordsman_2.prefab
+  - m_GUID: 52577287aa1c88b4cb16964be4f5479a
+    m_Address: Assets/3. Prefab/Unit/Soldier/Soldier_1.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Unit

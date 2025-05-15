@@ -46,13 +46,11 @@ public class BtnCaution : BtnBase
         }
     }
 
-    public void SetSpawnEnemyManager(EnemySpawnerManager spawnEnemyManager)
+    public void SetSpawnEnemyManager(EnemySpawnerManager enemySpawnerManager)
     {
-        this.enemySpawnerManager = spawnEnemyManager;
+        this.enemySpawnerManager = enemySpawnerManager;
         this.enemySpawnerManager.OnAddGoldWhenCautionClick += HandleShowGoldAddWhenCautionClick;
         this.enemySpawnerManager.OnUpdateTimeWaitForNextWave += HandleOnUpdateTimeWaitForNextWave;
-        // float fillDuration = this.spawnEnemyManager.GetTimeWaitForNextWave();
-        // cautionFill.SetFillDuration(fillDuration);
     }
 
     protected override void OnButtonClick()
@@ -79,7 +77,6 @@ public class BtnCaution : BtnBase
     // Update caution sliding time
     private void HandleOnUpdateTimeWaitForNextWave(float timeWaitForNextWave)
     {
-        // Debug.Log(timeWaitForNextWave);
         cautionFill.SetFillDuration(timeWaitForNextWave);
     }
 

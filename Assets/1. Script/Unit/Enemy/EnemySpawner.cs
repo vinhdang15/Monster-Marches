@@ -77,19 +77,19 @@ public class EnemySpawner : MonoBehaviour
         // for loop to spwan enemies in all wave
         for(int y = 0; y < enemyWaveList.Count; y++)
         {
-            // for loop to spawn enemies in one wave
-            for(int i = 0; i < enemyWaveList[y].numberEnemyInWave; i++)
+            // for loop to spawn primary enemies in one wave
+            for(int i = 0; i < enemyWaveList[y].primaryEnemyCount; i++)
             {
-                GetUnitBase(enemyWaveList[y].enemyID, i);
-                // wait time among instantiate each enemy
+                GetUnitBase(enemyWaveList[y].primaryEnemyID);
+                // the waiting time between each enemy instantiate
                 yield return new WaitForSeconds(SetTimeBetweenEnemy(enemyWaveList[y].timeBetweenEachSpawn));
             }
 
-            // for loop to spawn enemies in one wave
-            for(int i = 0; i < enemyWaveList[y].numberEnemyInWave; i++)
+            // for loop to spawn secondary enemies in one wave
+            for(int i = 0; i < enemyWaveList[y].secondaryEnemyCount; i++)
             {
-                GetUnitBase(enemyWaveList[y].enemyID, i);
-                // wait time among instantiate each enemy
+                GetUnitBase(enemyWaveList[y].secondaryEnemyID);
+                // the waiting time between each enemy instantiate
                 yield return new WaitForSeconds(SetTimeBetweenEnemy(enemyWaveList[y].timeBetweenEachSpawn));
             }
             isStartNextWave = false;
@@ -109,7 +109,7 @@ public class EnemySpawner : MonoBehaviour
 
     private int GetNumberEnemyInWave(int waveIndex)
     {
-        return waveIndex < enemyWaveList.Count ? enemyWaveList[waveIndex].numberEnemyInWave : 0;
+        return waveIndex < enemyWaveList.Count ? enemyWaveList[waveIndex].primaryEnemyCount : 0;
     }
 
     public bool HasEnemyInWave(int waveNumber)
@@ -117,12 +117,18 @@ public class EnemySpawner : MonoBehaviour
         return GetNumberEnemyInWave(waveNumber) > 0;
     }
 
-    private void GetUnitBase(string enemyID, int pathWaySegmentIndex)
+    private void GetUnitBase(string enemyID)
     {
         Enemy enemy = UnitPool.Instance.GetUnitBase(enemyID) as Enemy;
-        enemy.PrepareGame(pathWaySegmentList, pathWaySegmentIndex % 3);
+        if (enemy == null) return;
+        enemy.PrepareGame(pathWaySegmentList, SetRandomIndex());
         enemyManager.AddEnemy(enemy);
     }
+
+    private int SetRandomIndex()
+    {
+        return Random.Range(0, 3);
+     }
     
     private float SetTimeBetweenEnemy(float timeBetweenEachSpawn)
     {

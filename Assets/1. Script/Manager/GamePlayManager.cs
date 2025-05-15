@@ -149,7 +149,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleEnemyReachEndPoint()
     {
-        currentLives --;
+        if(currentLives > 0) currentLives --;
         OnLiveChangeForUI?.Invoke(currentLives);
         HandleFinishedMatch();
         // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);

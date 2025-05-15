@@ -74,11 +74,13 @@ public class SceneController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch(scene.name)
+        if (scene.name == "SelectedMapScene")
         {
-            case "SelectedMapScene":
             AudioManager.Instance.PlayBackgroundMusic(soundEffectSO.Theme[0]);
-            break;
+        }
+        else
+        {
+            AudioManager.Instance.StopBackgroundMusic();
         }
     }
 }

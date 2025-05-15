@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,43 +17,53 @@ public class EnemyWaveDataInfo : MonoBehaviour
                     {
                         new EnemyWave
                         {
-                            waveNumber = 1,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 4,
-                            timeBetweenEachSpawn = 1f,
-                            timeWaitForNextWave = 10f,
+                            waveNumber              = 1,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.none.ToString(),
+                            secondaryEnemyCount     = 0,
+                            timeBetweenEachSpawn    = 1f,
+                            timeWaitForNextWave     = 10f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 2,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 4,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 2,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.none.ToString(),
+                            secondaryEnemyCount     = 0,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 3,
-                            enemyID = "Enemy_B_1",
-                            numberEnemyInWave = 5,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 7f,
+                            waveNumber              = 3,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 2,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 7f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 4,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 3,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 4,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 0,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 2,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 2,
-                            enemyID = "Enemy_A_1",
-                            numberEnemyInWave = 5,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 5,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 2,
+                            secondaryEnemyID        = UnitID.Enemy_A_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                     }
                 },
@@ -73,43 +82,53 @@ public class EnemyWaveDataInfo : MonoBehaviour
                     {
                         new EnemyWave
                         {
-                            waveNumber = 1,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 2,
-                            timeBetweenEachSpawn = 1f,
-                            timeWaitForNextWave = 10f,
+                            waveNumber              = 1,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 2,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 0,
-                            timeBetweenEachSpawn = 0f,
-                            timeWaitForNextWave = 0f,
+                            waveNumber              = 2,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 3,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 5,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 7f,
+                            waveNumber              = 3,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 4,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 3,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 4,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 5,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 3,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 5,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                     }
                 },
@@ -121,43 +140,53 @@ public class EnemyWaveDataInfo : MonoBehaviour
                     {
                         new EnemyWave
                         {
-                            waveNumber = 1,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 0,
-                            timeBetweenEachSpawn = 0f,
-                            timeWaitForNextWave = 0f,
+                            waveNumber              = 1,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 2,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 3,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 2,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 3,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 0,
-                            timeBetweenEachSpawn = 0f,
-                            timeWaitForNextWave = 0f,
+                            waveNumber              = 3,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 4,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 5,
-                            timeBetweenEachSpawn = 1.2f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 4,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 5,
-                            enemyID = "Enemy_C_1",
-                            numberEnemyInWave = 10,
-                            timeBetweenEachSpawn = 0.8f,
-                            timeWaitForNextWave = 5f,
+                            waveNumber              = 5,
+                            primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
+                            primaryEnemyCount       = 4,
+                            secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
+                            secondaryEnemyCount     = 1,
+                            timeBetweenEachSpawn    = 1.2f,
+                            timeWaitForNextWave     = 5f,
                         },
                     }
                 }
@@ -189,9 +218,11 @@ public class PathWayWave
 [System.Serializable]
 public class EnemyWave
 {   
-    public int waveNumber;
-    public string enemyID;
-    public int numberEnemyInWave;
-    public float timeBetweenEachSpawn;
-    public float timeWaitForNextWave;
+    public int      waveNumber;
+    public string   primaryEnemyID;
+    public int      primaryEnemyCount;
+    public string   secondaryEnemyID;
+    public int      secondaryEnemyCount;
+    public float    timeBetweenEachSpawn;
+    public float    timeWaitForNextWave;
 }

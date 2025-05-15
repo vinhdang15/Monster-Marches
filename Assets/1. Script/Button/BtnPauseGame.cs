@@ -14,12 +14,5 @@ public class BtnPauseGame : BtnBase
         PlayClickSound();
 
         PanelManager.Instance.ShowPauseMenu();
-        PauseGame();
     }
-
-    private void PauseGame()
-    {
-        Time.timeScale = 0;
-    }
-
 }

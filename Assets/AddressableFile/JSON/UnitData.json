@@ -1,17 +1,17 @@
 [
   {
     "unitType": "Soldier",
-    "id": "Swordsman_1",
+    "id": "Soldier_1",
     "maxHP": 150,
-    "moveSpeed": 1.0,
+    "moveSpeed": 1.2,
     "attackSpeed": 1.0,
     "attackDamage": 30,
     "goldReward": 0,
-    "skillType": "None"
+    "skillType": "none"
   },
   {
     "unitType": "Soldier",
-    "id": "Swordsman_2",
+    "id": "Soldier_2",
     "maxHP": 200,
     "moveSpeed": 1.2,
     "attackSpeed": 1.0,
@@ -23,21 +23,21 @@
     "unitType": "Enemy",
     "id": "Enemy_A_1",
     "maxHP": 350,
-    "moveSpeed": 0.8,
+    "moveSpeed": 0.5,
     "attackSpeed": 1.5,
     "attackDamage": 50,
     "goldReward": 5,
-    "skillType": "None"
+    "skillType": "none"
   },
   {
     "unitType": "Enemy",
     "id": "Enemy_B_1",
     "maxHP": 250,
-    "moveSpeed": 0.7,
+    "moveSpeed": 0.6,
     "attackSpeed": 1.5,
     "attackDamage": 40,
     "goldReward": 20,
-    "skillType": "None"
+    "skillType": "none"
   },
   {
     "unitType": "Enemy",
@@ -47,7 +47,7 @@
     "attackSpeed": 1.5,
     "attackDamage": 30,
     "goldReward": 20,
-    "skillType": "None"
+    "skillType": "none"
   },
   {
     "unitType": "Enemy",
@@ -57,6 +57,6 @@
     "attackSpeed": 1.5,
     "attackDamage": 30,
     "goldReward": 20,
-    "skillType": "None"
+    "skillType": "none"
   }
 ]

@@ -82,10 +82,7 @@ public class EnemySpawnerManager : MonoBehaviour
             int pathID = mainPathWayInfo.pathWayID;
             List<PathWaySegment> pathWaySegmentList = mainPathWayInfo.pathWaySegmentList;
 
-            GameObject enemySpawnerObj = new()
-            {
-                name = "EnemySpawner"
-            };
+            GameObject enemySpawnerObj = new("EnemySpawner");
             enemySpawnerObj.transform.SetParent(transform);
             enemySpawnerObj.transform.position = Vector2.zero;
             

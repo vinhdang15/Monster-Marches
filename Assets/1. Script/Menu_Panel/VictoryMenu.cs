@@ -12,8 +12,8 @@ public class VictoryMenu : MonoBehaviour
     [SerializeField] RectTransform restartBtnRect;
     private RectTransform rectTransform;
     private Vector2 initPos = new Vector2(0, 170);
-    private Vector2 reloadBtnPos = new Vector2(0,-230);
-    private Vector2 reStartBtnEndPos = new Vector2(0,-470);
+    private Vector2 reloadBtnPos = new Vector2(0, -230);
+    private Vector2 reStartBtnEndPos = new Vector2(0, -470);
     private float duration = 0.5f;
 
     public void PrepareGame()
@@ -49,20 +49,20 @@ public class VictoryMenu : MonoBehaviour
     }
 
     public void StartVictoryMenu()
-    {   
+    {
         gameObject.SetActive(true);
-        Invoke(nameof(StopTimeScale), 3f);
+        // Invoke(nameof(StopTimeScale), 3f);
         Sequence seqState1 = DOTween.Sequence();
         seqState1.AppendInterval(1f).SetUpdate(true);
-        seqState1.Append(shieldRect.DOAnchorPos( Vector2.zero, duration).SetEase(Ease.OutBack,1f));
-        seqState1.AppendInterval(duration/2).SetUpdate(true);
+        seqState1.Append(shieldRect.DOAnchorPos(Vector2.zero, duration).SetEase(Ease.OutBack, 1f));
+        seqState1.AppendInterval(duration / 2).SetUpdate(true);
 
         // start VictoryRibbonRect Tween
         seqState1.Append(victoryRibbonRect.DOAnchorPos(new Vector2(0, 100), 0));
-        seqState1.Join(victoryRibbonRect.DOAnchorPos( Vector2.zero, duration/4).SetEase(Ease.OutBack,1f));
-        seqState1.Join(victoryRibbonRect.DOScale(1, duration/6));
+        seqState1.Join(victoryRibbonRect.DOAnchorPos(Vector2.zero, duration / 4).SetEase(Ease.OutBack, 1f));
+        seqState1.Join(victoryRibbonRect.DOScale(1, duration / 6));
         seqState1.AppendInterval(0.5f);
-        
+
 
         seqState1.OnComplete(() =>
         {
@@ -88,12 +88,18 @@ public class VictoryMenu : MonoBehaviour
     {
         var seq = DOTween.Sequence();
         seq.AppendInterval(0f).SetUpdate(true);
-        seq.Append(reloadBtnRect.DOAnchorPos( reloadBtnPos, duration/3));
-        seq.Append(restartBtnRect.DOAnchorPos( reStartBtnEndPos, duration/3));
+        seq.Append(reloadBtnRect.DOAnchorPos(reloadBtnPos, duration / 3));
+        seq.Append(restartBtnRect.DOAnchorPos(reStartBtnEndPos, duration / 3));
+        seq.OnComplete(() => PauseGame());
     }
 
     public void SetStarScore(float lifePercentage)
     {
         starController.SetStarScore(lifePercentage);
+    }
+    
+    private void PauseGame()
+    {
+        Time.timeScale = 0;
     }
 } 

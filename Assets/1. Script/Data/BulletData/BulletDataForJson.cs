@@ -9,49 +9,49 @@ public class BulletDataForJson : MonoBehaviour
         // Arrow bullet
         new BulletData
         {
-            bulletID      = "Arrow_1",
+            bulletID        = BulletID.Arrow_1.ToString(),
             damage          = 25,
             speed           = 6,
-            effectTyes      = "none",
+            effectTyes      = BulletEffectType.none.ToString(),
         },
         new BulletData
         {
-            bulletID      = "Arrow_2",
+            bulletID        = BulletID.Arrow_2.ToString(),
             damage          = 30,
-            speed           = 6,
-            effectTyes      = "Fire_DoT",
+            speed           = 9,
+            effectTyes      = BulletEffectType.Fire_DoT.ToString(),
         },
 
         // MagicBall bullet
         new BulletData
         {
-            bulletID      = "MagicBall_1",
+            bulletID        = BulletID.MagicBall_1.ToString(),
             damage          = 35,
             speed           = 4,
-            effectTyes      = "Slow",
+            effectTyes      = BulletEffectType.Slow.ToString(),
         },
         new BulletData
         {
-            bulletID      = "MagicBall_2",
+            bulletID        = BulletID.MagicBall_2.ToString(),
             damage          = 40,
             speed           = 4,
-            effectTyes      = "Magic_DoT;Slow"
+            effectTyes      = $"{BulletEffectType.Magic_DoT};{BulletEffectType.Slow}"
         },
 
         // Bomb bullet
         new BulletData
         {
-            bulletID      = "Bomb_1",
+            bulletID        = BulletID.Bomb_1.ToString(),
             damage          = 30,
             speed           = 6,
-            effectTyes      = "Bomb_1_AoE20",
+            effectTyes      = BulletEffectType.Bomb_1_AoE20.ToString(),
         },
         new BulletData
         {
-            bulletID      = "Bomb_2",
+            bulletID        = BulletID.Bomb_2.ToString(),
             damage          = 50,
             speed           = 6,
-            effectTyes      = "Bomb_2_AoE30",
+            effectTyes      = BulletEffectType.Bomb_2_AoE30.ToString(),
         },
     };
 

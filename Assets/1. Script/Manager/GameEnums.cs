@@ -26,11 +26,9 @@ public enum TowerType
     MageTower = 1,
     CannonTower = 2,
     Barrack = 3,
-    TowerSell,
-    TowerUpgrade,
 }
 
-public enum BulletType
+public enum BulletID
 {
     Arrow_1,
     Arrow_2,
@@ -38,4 +36,38 @@ public enum BulletType
     MagicBall_2,
     Bomb_1,
     Bomb_2,
+}
+
+public enum BulletEffectType
+{
+    none,
+    Fire_DoT,
+    Slow,
+    Magic_DoT,
+    Bomb_1_AoE20,
+    Bomb_2_AoE30,
+}
+
+public enum Unitype
+{
+    Soldier,
+    Enemy,
+}
+
+public enum UnitID
+{
+    none,
+    Soldier_1,
+    Soldier_2,
+    Enemy_C_1,
+    Enemy_C_2,
+    Enemy_B_1,
+    Enemy_A_1,
+}
+
+public enum UnitSkill
+{
+    none,
+    SelfHealing,
+    Archery,
 }

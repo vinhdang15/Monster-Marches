@@ -8,7 +8,7 @@ public class SkillDataForJson : MonoBehaviour
     {
         new SkillData
         {
-            skillType = "SelfHealing",
+            skillType = UnitSkill.SelfHealing.ToString(),
             skillValue = 10,
             skillOccursTime = 1f,
             skillRange = 0f
@@ -16,7 +16,7 @@ public class SkillDataForJson : MonoBehaviour
 
         new SkillData
         {
-            skillType = "Archery",
+            skillType = UnitSkill.Archery.ToString(),
             skillValue = 15,
             skillOccursTime = 2f,
             skillRange = 3f

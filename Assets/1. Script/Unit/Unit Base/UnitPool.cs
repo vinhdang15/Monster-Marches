@@ -61,7 +61,9 @@ public class UnitPool : MonoBehaviour
     // get unit from pool
     public UnitBase GetUnitBase(string unitID, Vector2 initPos = default)
     {
-        if(!unitPool.ContainsKey(unitID))
+        if (unitID == UnitID.none.ToString()) return null;
+
+        if (!unitPool.ContainsKey(unitID))
         {
             Debug.Log("there is no " + unitID);
             return null;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TowerDataForJson : MonoBehaviour
@@ -9,9 +10,9 @@ public class TowerDataForJson : MonoBehaviour
         // ArcherTower
         new TowerData
         {
-            towerType = "ArcherTower",
+            towerType       = TowerType.ArcherTower.ToString(),
             level           = 1,
-            SpawnObject     = "Arrow_1",
+            SpawnObject     = BulletID.Arrow_1.ToString(),
             spawnRate       = 1f,
             fireAnimDelay   = 0.25f,
             rangeDetect     = 2.5f,
@@ -22,9 +23,9 @@ public class TowerDataForJson : MonoBehaviour
 
         new TowerData
         {
-            towerType = "ArcherTower",
+            towerType       = TowerType.ArcherTower.ToString(),
             level           = 2,
-            SpawnObject     = "Arrow_2",
+            SpawnObject     = BulletID.Arrow_2.ToString(),
             spawnRate       = 1f,
             fireAnimDelay   = 0.25f,
             rangeDetect     = 3f,
@@ -36,9 +37,9 @@ public class TowerDataForJson : MonoBehaviour
         // MageTower
         new TowerData
         {
-            towerType = "MageTower",
+            towerType       = TowerType.MageTower.ToString(),
             level           = 1,
-            SpawnObject     = "MagicBall_1",
+            SpawnObject     = BulletID.MagicBall_1.ToString(),
             spawnRate       = 1f,
             fireAnimDelay   = 0.4f,
             rangeDetect     = 2.3f,
@@ -49,9 +50,9 @@ public class TowerDataForJson : MonoBehaviour
 
         new TowerData
         {
-            towerType = "MageTower",
+            towerType       = TowerType.MageTower.ToString(),
             level           = 2,
-            SpawnObject     = "MagicBall_2",
+            SpawnObject     = BulletID.MagicBall_2.ToString(),
             spawnRate       = 1f,
             fireAnimDelay   = 0.4f,
             rangeDetect     = 2.8f,
@@ -63,9 +64,9 @@ public class TowerDataForJson : MonoBehaviour
         // CannonTower
         new TowerData
         {
-            towerType       = "CannonTower",
+            towerType       = TowerType.CannonTower.ToString(),
             level           = 1,
-            SpawnObject     = "Bomb_1",
+            SpawnObject     = BulletID.Bomb_1.ToString(),
             spawnRate       = 1.5f,
             fireAnimDelay   = 0.5f,
             rangeDetect     = 2f,
@@ -76,9 +77,9 @@ public class TowerDataForJson : MonoBehaviour
 
         new TowerData
         {
-            towerType       = "CannonTower",
+            towerType       = TowerType.CannonTower.ToString(),
             level           = 2,
-            SpawnObject     = "Bomb_2",
+            SpawnObject     = BulletID.Bomb_2.ToString(),
             spawnRate       = 1.3f,
             fireAnimDelay   = 0.5f,
             rangeDetect     = 2.5f,
@@ -90,9 +91,9 @@ public class TowerDataForJson : MonoBehaviour
         // Barrack
         new TowerData
         {
-            towerType       = "Barrack",
+            towerType       = TowerType.Barrack.ToString(),
             level           = 1,
-            SpawnObject     = "Swordsman_1",
+            SpawnObject     = UnitID.Soldier_1.ToString(),
             spawnRate       = 5f,
             fireAnimDelay   = 0f,
             rangeDetect     = 2f,
@@ -103,9 +104,9 @@ public class TowerDataForJson : MonoBehaviour
 
         new TowerData
         {
-            towerType       = "Barrack",
+            towerType       = TowerType.Barrack.ToString(),
             level           = 2,
-            SpawnObject     = "Swordsman_2",
+            SpawnObject     = UnitID.Soldier_2.ToString(),
             spawnRate       = 0.3f,
             fireAnimDelay   = 5f,
             rangeDetect     = 2.5f,

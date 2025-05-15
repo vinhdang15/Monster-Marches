@@ -258,7 +258,7 @@ public class PanelManager : MonoBehaviour
     {
         gameSttPanel.UpdateLive(currentLives);
         if (currentLives != 0) return;
-        gameOverMenu.Show();
+        gameOverMenu.Show(gameOverMenu.PauseGame);
     }
 
     private void HandleFinishedMatch(float lifePercentage)
@@ -286,7 +286,7 @@ public class PanelManager : MonoBehaviour
 
     public void ShowPauseMenu()
     {
-        pauseMenu.Show();
+        pauseMenu.Show(pauseMenu.PauseGame);
     }
 
     public void HidePauseMenu()

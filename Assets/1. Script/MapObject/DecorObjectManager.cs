@@ -15,6 +15,7 @@ public class DecorObjectManager : MonoBehaviour
     
 
     private Coroutine decayObjCoroutine;
+    private Coroutine animatedObjCoroutine;
     private float checkInterval = 3f;
 
     public void PrepareGame(EnemyManager enemyManager, GamePlayManager gamePlayManager)
@@ -44,7 +45,7 @@ public class DecorObjectManager : MonoBehaviour
 
         ClassifyDecorObject();
         if(decayObjList.Count > 0) StartDecayObjCoroutine();
-        if(animatedObjList.Count > 0) StartCoroutine(UpdateAnimatedObj());
+        if(animatedObjList.Count > 0) StartAnimatedObjCoroutine();
     }
 
     private void ClassifyDecorObject()
@@ -80,25 +81,34 @@ public class DecorObjectManager : MonoBehaviour
         decayObjCoroutine = StartCoroutine(UpdateDecayObjsprite());
     }
 
+    private void StartAnimatedObjCoroutine()
+    {
+        if(animatedObjCoroutine != null)
+        {
+            StopCoroutine(animatedObjCoroutine);
+        }
+        animatedObjCoroutine = StartCoroutine(UpdateAnimatedObj());
+    }
+
     private IEnumerator UpdateDecayObjsprite()
     {
-        while(true)
+        while (true)
         {
-            if(ActiveUnitList.Count > 0)
+            if (ActiveUnitList.Count > 0)
             {
                 DecayObjChangeSprite(3f);
-                yield return new WaitForSeconds(checkInterval/3);
+                yield return new WaitForSeconds(checkInterval / 3);
 
                 DecayObjChangeSprite(4f);
-                yield return new WaitForSeconds(checkInterval/3);
+                yield return new WaitForSeconds(checkInterval / 3);
 
                 DecayObjChangeSprite(5f);
-                yield return new WaitForSeconds(checkInterval/3);
+                yield return new WaitForSeconds(checkInterval / 3);
             }
             else if (gamePlayManager.currentLives != 0)
             {
                 DecayObjHealing();
-                yield return new WaitForSeconds(checkInterval/4);
+                yield return new WaitForSeconds(checkInterval / 4);
             }
             else
             {

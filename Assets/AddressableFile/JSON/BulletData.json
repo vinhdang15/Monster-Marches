@@ -9,7 +9,7 @@
   {
     "bulletID": "Arrow_2",
     "damage": 30,
-    "speed": 6.0,
+    "speed": 9.0,
     "effectTyes": "Fire_DoT",
     "dealDamageDelay": 0.0
   },

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UnitDataList", menuName = "Data Config/UnitDataList", order = 4)]
 public class UnitDataListSO : ScriptableObject
 {
-    public List<UnitData> unitDataList = new List<UnitData>();
+    public List<UnitData> unitDataList = new();
 
     public UnitData GetUnitData(string unitId)
     {

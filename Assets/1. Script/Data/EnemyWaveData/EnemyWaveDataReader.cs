@@ -47,9 +47,10 @@ public class EnemyWaveDataReader : MonoBehaviour
         EnemyWaveData enemyWaveData = GetSelectedMapEnemyWaveData(mapData);
         foreach(PathWayWave pathWayEnemyWave in enemyWaveData.pathWayWaveList)
         {
-            foreach(EnemyWave enemyWave in pathWayEnemyWave.EnemyWaveList)
+            foreach (EnemyWave enemyWave in pathWayEnemyWave.EnemyWaveList)
             {
-                totalEnemies += enemyWave.numberEnemyInWave;
+                totalEnemies += enemyWave.primaryEnemyCount;
+                totalEnemies += enemyWave.secondaryEnemyCount;
             }
         }
         return totalEnemies;

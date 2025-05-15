@@ -68,7 +68,7 @@
   {
     "towerType": "Barrack",
     "level": 1,
-    "SpawnObject": "Swordsman_1",
+    "SpawnObject": "Soldier_1",
     "spawnRate": 5.0,
     "fireAnimDelay": 0.0,
     "rangeDetect": 2.0,
@@ -79,7 +79,7 @@
   {
     "towerType": "Barrack",
     "level": 2,
-    "SpawnObject": "Swordsman_2",
+    "SpawnObject": "Soldier_2",
     "spawnRate": 0.3,
     "fireAnimDelay": 5.0,
     "rangeDetect": 2.5,
