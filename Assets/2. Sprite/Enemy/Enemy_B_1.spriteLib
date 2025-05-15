@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Walk
+    m_Hash: 765711723
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: BabeMonster_1_0
+      m_Hash: 526199827
+      m_Sprite: {fileID: -1184203034, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 710713810, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_1
+      m_Hash: 676994181
+      m_Sprite: {fileID: -1059199511, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -2008273201, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_2
+      m_Hash: 827542847
+      m_Sprite: {fileID: 1393825690, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1802297939, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_3
+      m_Hash: 106200489
+      m_Sprite: {fileID: 1377703263, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1029982385, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_4
+      m_Hash: 405858314
+      m_Sprite: {fileID: 2052296976, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1875074202, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_5
+      m_Hash: 792189084
+      m_Sprite: {fileID: 1143378734, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1341914586, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 6
+  - m_Name: Attack
+    m_Hash: 7088141
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: BabeMonster_1_6
+      m_Hash: 910068006
+      m_Sprite: {fileID: 1023689179, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 61334146, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_7
+      m_Hash: 20560304
+      m_Sprite: {fileID: -1405335067, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1543145024, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_8
+      m_Hash: 294036513
+      m_Sprite: {fileID: -1161820831, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1216759134, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_9
+      m_Hash: 646026423
+      m_Sprite: {fileID: 2025681780, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1848300085, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_10
+      m_Hash: 702673554
+      m_Sprite: {fileID: 12225455, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 340962598, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_11
+      m_Hash: 518439428
+      m_Sprite: {fileID: -455616410, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1726265037, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 6
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: BabeMonster_1_5
+      m_Hash: 792189084
+      m_Sprite: {fileID: 1143378734, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1726265037, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 1
+  - m_Name: Effect
+    m_Hash: 835491012
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: BabeMonster_1_3
+      m_Hash: 106200489
+      m_Sprite: {fileID: 1377703263, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1726265037, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_4
+      m_Hash: 405858314
+      m_Sprite: {fileID: 2052296976, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1726265037, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 2
+  - m_Name: Die
+    m_Hash: 20298039
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: BabeMonster_1_12
+      m_Hash: 133141438
+      m_Sprite: {fileID: 1219713724, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 631073475, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_13
+      m_Hash: 820552488
+      m_Sprite: {fileID: 1846620172, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1224995304, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_14
+      m_Hash: 780940939
+      m_Sprite: {fileID: -974091855, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 592141134, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_15
+      m_Hash: 428541469
+      m_Sprite: {fileID: 1271149242, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 932566360, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_16
+      m_Hash: 8542119
+      m_Sprite: {fileID: -1773876884, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1419945363, guid: 88257fdf30004a942b66aa1d6c00db1b, type: 3}
+    - m_Name: BabeMonster_1_17
+      m_Hash: 931489585
+      m_Sprite: {fileID: -1634090789, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1634090789, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 5
+  m_PrimaryLibraryGUID: cdcf9cf2ab01d37439fdbff16fd16269
+  m_ModificationHash: 638826722763802582
+  m_Version: 1

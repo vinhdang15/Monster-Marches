@@ -1,14 +1,20 @@
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
     public static CameraController Instance;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private CinemachineConfiner cinemachineConfiner;
 
+    private float camWidth;
+    private float camHeight;
+    private float maxX;
+    private float minX;
+    private float maxY;
+    private float minY;
+    private PolygonCollider2D polygonCollider2D;
     [SerializeField] private float zoomSpeed = 0.1f;
     [SerializeField] private float minZoom = 2f;
     [SerializeField] private float maxZoom = 5.4f;
@@ -35,15 +41,32 @@ public class CameraController : MonoBehaviour
     private void LoadComponents()
     {
         if(mainCamera == null) mainCamera = GetComponentInChildren<Camera>();
-        cinemachineVirtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         cinemachineConfiner = GetComponentInChildren<CinemachineConfiner>();
     }
 
-    public void SetBoundingShape(MapDisplayController mapImageController)
+    public void ResetBoundingShape(MapDisplayController mapImageController)
     {
-        PolygonCollider2D polygonCollider2D = mapImageController.GetPolygonCollider2D();
+        polygonCollider2D = mapImageController.GetPolygonCollider2D();
         cinemachineConfiner.m_BoundingShape2D = polygonCollider2D;
         hasBoundingShape = true;
+
+        UpdateCameraSize();
+        virtualCamera.transform.position = new Vector3(0, 0, -10);
+    }
+
+    private void UpdateCameraSize()
+    {
+        if(polygonCollider2D == null) return;
+        camHeight = virtualCamera.m_Lens.OrthographicSize * 2f;
+        camWidth = camHeight * mainCamera.aspect;
+
+        Bounds bounds = polygonCollider2D.bounds;
+        minX = bounds.min.x + camWidth/2;
+        maxX = bounds.max.x - camWidth/2;
+
+        minY = bounds.min.y + camHeight/2;
+        maxY = bounds.max.y - camHeight/2;
     }
 
     private void Update()
@@ -58,9 +81,9 @@ public class CameraController : MonoBehaviour
             HandleTouchZoom();
         }
 
+        // Di chuyển bản đồ bằng chuột
         if(Input.GetMouseButtonDown(0))
         {
-            // Di chuyển bản đồ bằng chuột
             touchStart = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         }
         else if(Input.GetMouseButton(0))
@@ -73,7 +96,12 @@ public class CameraController : MonoBehaviour
             else
             {
                 Vector3 moveDirection = moveStart - mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                cinemachineVirtualCamera.transform.position += moveDirection * panSpeed;
+
+                // Giới hạn di chuyển camera trong phạm vi của bounding shape
+                Vector3 newPosition = virtualCamera.transform.position + moveDirection * panSpeed;
+                newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+                newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
+                virtualCamera.transform.position = newPosition;
             }
         }
 
@@ -84,7 +112,8 @@ public class CameraController : MonoBehaviour
 
     private void Zoom(float increment)
     {
-        cinemachineVirtualCamera.m_Lens.OrthographicSize = Mathf.Clamp(mainCamera.orthographicSize - increment, minZoom, maxZoom);
+        virtualCamera.m_Lens.OrthographicSize = Mathf.Clamp(mainCamera.orthographicSize - increment, minZoom, maxZoom);
+        UpdateCameraSize();
     }
 
     private void HandleTouchInput()
@@ -130,7 +159,7 @@ public class CameraController : MonoBehaviour
             else
             {
                 Vector3 moveDirection = moveStart - mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                cinemachineVirtualCamera.transform.position += moveDirection * panSpeed;
+                virtualCamera.transform.position += moveDirection * panSpeed;
             }
         }
     }
@@ -151,4 +180,6 @@ public class CameraController : MonoBehaviour
 
         Zoom(difference * zoomSpeed);
     }
+
+
 }

@@ -10,7 +10,7 @@ public class CreateEnemyWaveDataBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JSONCreater.Instance.CreateEnemyWaveDataInfoJson();
+        JSONCreator.Instance.CreateEnemyWaveDataInfoJson();
         base.OnButtonClick();
     }
 }

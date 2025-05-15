@@ -7,19 +7,23 @@ using System.Collections;
 
 public class JSONManager
 {
+    // Application.persistentDataPath
+    private static string path = "E:/Funix_Course/Project-2D/Guardians Of The Wells/Assets/AddressableFile/JSON";
     private static bool hasSaveGameData = false;
-    private static string mapProgressDataJsonPath = Path.Combine(Application.persistentDataPath, "MapProgressData.json");
-    private static string mapDesignDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/MapDesignData.json");
-    private static string waypointDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/WayPointData.json");
-    private static string towerDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/TowerData.json");
-    private static string bulletDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/BulletData.json");
-    private static string unitDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/UnitData.json");
-    private static string SkillDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/SkillData.json");
-    private static string bulletEffectDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/BulletEffectData.json");
-    private static string enemyWaveDataJsonPath = Path.Combine(Application.persistentDataPath, "JSON/EnemyWaveData.json");
+    private static string mapProgressDataJsonPath = Path.Combine(path, "MapProgressData.json");
+    private static string mapDesignDataJsonPath = Path.Combine(path, "MapDesignData.json");
+    private static string mapObjDataJsonPath = Path.Combine(path, "MapObjData.json");
+    private static string waypointDataJsonPath = Path.Combine(path, "WayPointData.json");
+    private static string towerDataJsonPath = Path.Combine(path, "TowerData.json");
+    private static string bulletDataJsonPath = Path.Combine(path, "BulletData.json");
+    private static string unitDataJsonPath = Path.Combine(path, "UnitData.json");
+    private static string SkillDataJsonPath = Path.Combine(path, "SkillData.json");
+    private static string bulletEffectDataJsonPath = Path.Combine(path, "BulletEffectData.json");
+    private static string enemyWaveDataJsonPath = Path.Combine(path, "EnemyWaveData.json");
 
     public static List<MapDesignData> mapDesignDataList = new();
     public static List<MapProgressData> mapProgressDataList = new();
+    public static List<MapObjData> mapObjDataList = new();
     public static List<WayPointData> wayPointDataList = new();
     public static List<TowerData> towerDataList = new();
     public static List<BulletData> bulletDataList = new();
@@ -33,6 +37,7 @@ public class JSONManager
     {
         mapDesignDataList       = await LoadMapDesignDataFromJsonSever();
         mapProgressDataList     = await LoadMapProgressDataFromJsonSever();
+        mapObjDataList          = await LoadWMapObjDataFromJsonSever();
         wayPointDataList        = await LoadWaypointDataFromJsonSever();
         towerDataList           = await LoadTowerDataFromJsonSever();
         bulletDataList          = await LoadBulletDataFromJsonSever();
@@ -121,6 +126,21 @@ public class JSONManager
     }
 
     #endregion 
+
+    #region WAY POINT DATA
+    public static void SaveMapObjDataToJson(List<MapObjData> mapObjDataList)
+    {
+        string json = JsonConvert.SerializeObject(mapObjDataList, Formatting.Indented, new Vector2Converter());
+        File.WriteAllText(mapObjDataJsonPath, json);
+        Debug.Log("Create completed MapObjData JSON file");
+    }
+
+    private static async Task<List<MapObjData>> LoadWMapObjDataFromJsonSever()
+    {
+        List<MapObjData> dataList = await JSONListLoader<MapObjData>.LoadJSONListAsync();
+        return dataList;
+    }
+    #endregion
 
     #region WAY POINT DATA
     public static void SaveWayPointDataToJson(List<WayPointData> wayPointDataList)

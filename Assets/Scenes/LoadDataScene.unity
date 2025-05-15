@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkForUpdateAndDownload: {fileID: 6410877943427726379, guid: 6ff2d546c27e3784198971a1ce10ed4a, type: 3}
   mapDataReader: {fileID: 7892634020191321989, guid: 59fadfcc48d38d4498411c577b084e9e, type: 3}
+  mapObjDataReader: {fileID: 25971271131606672, guid: 5ad0bb99a763f7e4d9e1fa52787adfaa, type: 3}
   wayPointDataReader: {fileID: 5187704677088453521, guid: 8a65f0d82031cf8419638c9933c02619, type: 3}
   towerDataReader: {fileID: 5919611037689812246, guid: 5c51e9fa1a32c064ba28151a5cab9340, type: 3}
   bulletDataReader: {fileID: -8763325126492671739, guid: 837f454913dcbdc4fbe21d954c11fba3, type: 3}
@@ -182,14 +183,14 @@ MonoBehaviour:
   endPointManager: {fileID: 7206342589962573541, guid: 58102412ff4f0c9489b8a9dc3fdd5d33, type: 3}
   gamePlayManager: {fileID: 2476189185622002317, guid: d339727312976d04c9c29eff42435059, type: 3}
   emptyPlotManager: {fileID: 6827882773492474754, guid: 6bb994a940112774bbe951688c6c533c, type: 3}
-  treePatchManager: {fileID: 8727899049830353471, guid: 36520647619b02748803c2da6c500ffd, type: 3}
+  decorObjManager: {fileID: 8727899049830353471, guid: 36520647619b02748803c2da6c500ffd, type: 3}
   bulletTowerManager: {fileID: 4290534878689775746, guid: 36750726c2da7954d8f9b7b3af789fdf, type: 3}
   barrackTowerManager: {fileID: 2572811732704144327, guid: a7242759b59aca44bb882858b1e8d34e, type: 3}
   bulletManager: {fileID: 3260903671357757072, guid: 689dbf24b75ff1b42958c330860ed17e, type: 3}
   soldierManager: {fileID: 7058225555890191791, guid: 4bd75b57c3167d94c988a98f095f3fa3, type: 3}
   enemyManager: {fileID: 4034063545699120182, guid: b170ba4eb53a87342a554e3eb336850b, type: 3}
   enemySpawnerManager: {fileID: 2261135662972892038, guid: 71f8cb99f8438b246843c658682f30a4, type: 3}
-  treePatchPool: {fileID: 1780472275945384283, guid: a369a03fa0c0e5a4a90136e6d00df458, type: 3}
+  decorObjPool: {fileID: 1780472275945384283, guid: a369a03fa0c0e5a4a90136e6d00df458, type: 3}
   bulletPool: {fileID: 4259026402934746588, guid: f507a1a2eb5304449812c5b6a9bb4c00, type: 3}
   unitPool: {fileID: 5098816568152292960, guid: 02376750b67a1dd43a3358eefd12371d, type: 3}
   visualEffectPool: {fileID: 972004755641587948, guid: 6307ebe7658c20a4987d8dc0b1f3b759, type: 3}

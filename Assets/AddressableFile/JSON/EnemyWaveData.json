@@ -7,36 +7,36 @@
         "EnemyWaveList": [
           {
             "waveNumber": 1,
-            "enemyID": "Monster_1",
-            "numberEnemyInWave": 2,
+            "enemyID": "Enemy_C_1",
+            "numberEnemyInWave": 5,
             "timeBetweenEachSpawn": 1.0,
             "timeWaitForNextWave": 10.0
           },
           {
             "waveNumber": 2,
-            "enemyID": "Monster_1",
-            "numberEnemyInWave": 2,
+            "enemyID": "Enemy_C_1",
+            "numberEnemyInWave": 0,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 3,
-            "enemyID": "Monster_1",
-            "numberEnemyInWave": 5,
+            "enemyID": "Enemy_B_1",
+            "numberEnemyInWave": 0,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 7.0
           },
           {
             "waveNumber": 4,
-            "enemyID": "Monster_1",
-            "numberEnemyInWave": 3,
+            "enemyID": "Enemy_C_1",
+            "numberEnemyInWave": 0,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
-            "waveNumber": 5,
-            "enemyID": "Monster_1",
-            "numberEnemyInWave": 5,
+            "waveNumber": 2,
+            "enemyID": "Enemy_A_1",
+            "numberEnemyInWave": 0,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           }
@@ -52,35 +52,35 @@
         "EnemyWaveList": [
           {
             "waveNumber": 1,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 2,
             "timeBetweenEachSpawn": 1.0,
             "timeWaitForNextWave": 10.0
           },
           {
             "waveNumber": 2,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 0,
             "timeBetweenEachSpawn": 0.0,
             "timeWaitForNextWave": 0.0
           },
           {
             "waveNumber": 3,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 5,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 7.0
           },
           {
             "waveNumber": 4,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 3,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 5,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 3,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
@@ -92,35 +92,35 @@
         "EnemyWaveList": [
           {
             "waveNumber": 1,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 0,
             "timeBetweenEachSpawn": 0.0,
             "timeWaitForNextWave": 0.0
           },
           {
             "waveNumber": 2,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 3,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 3,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 0,
             "timeBetweenEachSpawn": 0.0,
             "timeWaitForNextWave": 0.0
           },
           {
             "waveNumber": 4,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 5,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 5,
-            "enemyID": "Monster_1",
+            "enemyID": "Enemy_C_1",
             "numberEnemyInWave": 10,
             "timeBetweenEachSpawn": 0.8,
             "timeWaitForNextWave": 5.0

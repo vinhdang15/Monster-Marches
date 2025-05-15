@@ -11,17 +11,9 @@ public class MapWayPoint
 {
     public int mapID;
     public Transform endPointHolder;
-    public Transform emptyPlotHolder;
-    public List<MapTreePatch> mapTreePatchList;
+    public Transform emptyPlotHolder; 
     public List<MainPathWay> mainPathWayList;
     public List<Transform> initGuardPointPosHolder;
-}
-
-[System.Serializable]
-public class MapTreePatch
-{
-    public string treePatchID;
-    public Transform treePatchHolder;
 }
 
 [System.Serializable]

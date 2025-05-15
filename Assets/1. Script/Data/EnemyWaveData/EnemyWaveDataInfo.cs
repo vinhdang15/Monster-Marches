@@ -19,23 +19,23 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 1,
-                            enemyID = "Monster_1",
-                            numberEnemyInWave = 2,
+                            enemyID = "Enemy_C_1",
+                            numberEnemyInWave = 4,
                             timeBetweenEachSpawn = 1f,
                             timeWaitForNextWave = 10f,
                         },
                         new EnemyWave
                         {
                             waveNumber = 2,
-                            enemyID = "Monster_1",
-                            numberEnemyInWave = 2,
+                            enemyID = "Enemy_C_1",
+                            numberEnemyInWave = 4,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
                         },
                         new EnemyWave
                         {
                             waveNumber = 3,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_B_1",
                             numberEnemyInWave = 5,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 7f,
@@ -43,15 +43,15 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 4,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 3,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
                         },
                         new EnemyWave
                         {
-                            waveNumber = 5,
-                            enemyID = "Monster_1",
+                            waveNumber = 2,
+                            enemyID = "Enemy_A_1",
                             numberEnemyInWave = 5,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
@@ -74,7 +74,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 1,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 2,
                             timeBetweenEachSpawn = 1f,
                             timeWaitForNextWave = 10f,
@@ -82,7 +82,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 2,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 0,
                             timeBetweenEachSpawn = 0f,
                             timeWaitForNextWave = 0f,
@@ -90,7 +90,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 3,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 5,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 7f,
@@ -98,7 +98,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 4,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 3,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
@@ -106,7 +106,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 5,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 3,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
@@ -122,7 +122,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 1,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 0,
                             timeBetweenEachSpawn = 0f,
                             timeWaitForNextWave = 0f,
@@ -130,7 +130,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 2,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 3,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
@@ -138,7 +138,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 3,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 0,
                             timeBetweenEachSpawn = 0f,
                             timeWaitForNextWave = 0f,
@@ -146,7 +146,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 4,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 5,
                             timeBetweenEachSpawn = 1.2f,
                             timeWaitForNextWave = 5f,
@@ -154,7 +154,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         new EnemyWave
                         {
                             waveNumber = 5,
-                            enemyID = "Monster_1",
+                            enemyID = "Enemy_C_1",
                             numberEnemyInWave = 10,
                             timeBetweenEachSpawn = 0.8f,
                             timeWaitForNextWave = 5f,

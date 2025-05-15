@@ -157,7 +157,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleFinishedMatch()
     {
-        if(enemySpawnerManager.totalEnemies == enemyManager.totalEnemiesDie)
+        if(enemySpawnerManager.totalEnemies == enemyManager.totalEnemiesDie && currentLives != 0)
         {
             float lifePercentage = (float)currentLives / lives * 100;
             // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);

@@ -14,7 +14,7 @@ public class UnitDataForJon : MonoBehaviour
             maxHP = 150,
             moveSpeed = 1f,
             attackSpeed = 1f,
-            attackDamage = 20,
+            attackDamage = 30,
             goldReward = 0,
             skillType = "None",
         },
@@ -23,10 +23,10 @@ public class UnitDataForJon : MonoBehaviour
         {
             unitType = "Soldier",
             id = "Swordsman_2",
-            maxHP = 175,
+            maxHP = 200,
             moveSpeed = 1.2f,
             attackSpeed = 1f,
-            attackDamage = 20,
+            attackDamage = 45,
             goldReward = 0,
             skillType = "SelfHealing",
         },
@@ -35,11 +35,11 @@ public class UnitDataForJon : MonoBehaviour
         new UnitData
         {
             unitType = "Enemy",
-            id = "Monster_1",
-            maxHP = 100,
+            id = "Enemy_A_1",
+            maxHP = 350,
             moveSpeed = 0.8f,
             attackSpeed = 1.5f,
-            attackDamage = 30,
+            attackDamage = 50,
             goldReward = 5,
             skillType = "None",
         },
@@ -47,13 +47,37 @@ public class UnitDataForJon : MonoBehaviour
         new UnitData
         {
             unitType = "Enemy",
-            id = "Monster_2",
-            maxHP = 200,
+            id = "Enemy_B_1",
+            maxHP = 250,
             moveSpeed = 0.7f,
             attackSpeed = 1.5f,
             attackDamage = 40,
             goldReward = 20,
-            skillType = "Ignore_Effect",
+            skillType = "None",
+        },
+
+        new UnitData
+        {
+            unitType = "Enemy",
+            id = "Enemy_C_1",
+            maxHP = 200,
+            moveSpeed = 0.7f,
+            attackSpeed = 1.5f,
+            attackDamage = 30,
+            goldReward = 20,
+            skillType = "None",
+        },
+
+        new UnitData
+        {
+            unitType = "Enemy",
+            id = "Enemy_C_2",
+            maxHP = 200,
+            moveSpeed = 0.7f,
+            attackSpeed = 1.5f,
+            attackDamage = 30,
+            goldReward = 20,
+            skillType = "None",
         },
     };
 

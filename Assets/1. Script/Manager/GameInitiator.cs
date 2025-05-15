@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +10,7 @@ public class GameInitiator : MonoBehaviour
 
     [Header("Load Data")]
     [SerializeField] private MapDataReader mapDataReader;
+    [SerializeField] private MapObjDataReader mapObjDataReader;
     [SerializeField] private WayPointDataReader wayPointDataReader;
     [SerializeField] private TowerDataReader towerDataReader;
     [SerializeField] private BulletDataReader bulletDataReader;
@@ -29,7 +29,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private EndPointManager endPointManager;
     [SerializeField] private GamePlayManager gamePlayManager;
     [SerializeField] private EmptyPlotManager emptyPlotManager;
-    [SerializeField] private TreePatchManager treePatchManager;
+    [SerializeField] private DecorObjectManager decorObjManager;
 
     [SerializeField] private BulletTowerManager bulletTowerManager;
     [SerializeField] private BarrackTowerManager barrackTowerManager;
@@ -37,7 +37,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private SoldierManager soldierManager;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private EnemySpawnerManager enemySpawnerManager;
-    [SerializeField] private TreePatchPool treePatchPool;
+    [SerializeField] private DecorObjectPool decorObjPool;
     [SerializeField] private BulletPool bulletPool;
     [SerializeField] private UnitPool unitPool;
     [SerializeField] private VisualEffectPool visualEffectPool;
@@ -113,7 +113,7 @@ public class GameInitiator : MonoBehaviour
     private IEnumerator JSONManagerPrepareGame()
     {
         var JSONPrepareDataTask = JSONManager.PrepareGameAsync();
-        yield return new WaitUntil(() =>JSONPrepareDataTask.IsCompleted);
+        yield return new WaitUntil(() => JSONPrepareDataTask.IsCompleted);
     }
 
     private GameObject CreateHolder(string name)
@@ -139,6 +139,8 @@ public class GameInitiator : MonoBehaviour
 
         mapDataReader = Instantiate(mapDataReader);
 
+        mapObjDataReader = Instantiate(mapObjDataReader);
+
         wayPointDataReader = Instantiate(wayPointDataReader);
 
         towerDataReader = Instantiate(towerDataReader);
@@ -161,7 +163,7 @@ public class GameInitiator : MonoBehaviour
 
         gamePlayManager = Instantiate(gamePlayManager, gameManagerHolder.transform);
 
-        treePatchManager = Instantiate(treePatchManager, gameManagerHolder.transform);
+        decorObjManager = Instantiate(decorObjManager, gameManagerHolder.transform);
 
         emptyPlotManager = Instantiate(emptyPlotManager, gameManagerHolder.transform);
 
@@ -180,7 +182,7 @@ public class GameInitiator : MonoBehaviour
         cautionManager = Instantiate(cautionManager, gameManagerHolder.transform);
 
         // Object Pooling
-        treePatchPool = Instantiate(treePatchPool);
+        decorObjPool = Instantiate(decorObjPool);
         bulletPool = Instantiate(bulletPool);
         unitPool = Instantiate(unitPool);
         visualEffectPool = Instantiate(visualEffectPool);
@@ -209,7 +211,7 @@ public class GameInitiator : MonoBehaviour
                             bulletTowerManager, barrackTowerManager,
                             dustFX);
         enemySpawnerManager.PrepareGame(enemyManager);
-        treePatchManager.PrepareGame(enemyManager);
+        decorObjManager.PrepareGame(enemyManager, gamePlayManager);
         dustFX.PrepareGame();
         mapBtnManager.PrepareGame();
         mapDataReader.PrepareGame();
@@ -226,7 +228,7 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator InitializeGameObject()
     {
-        treePatchPool.Initialize();
+        decorObjPool.Initialize();
         unitPool.Initialize();
         bulletPool.Initialize();
         visualEffectPool.Initialize();
@@ -238,7 +240,7 @@ public class GameInitiator : MonoBehaviour
         sceneController.LoadIntroScene();
 
         spriteController.LoadIntroSprite();
-        CameraController.Instance.SetBoundingShape(spriteController);
+        CameraController.Instance.ResetBoundingShape(spriteController);
         yield return null;
     }
 
@@ -257,8 +259,8 @@ public class GameInitiator : MonoBehaviour
     {
         canvasManager.HideSaveGameMenu();
         sceneController.LoadWorldMapScene();
-        spriteController.LoadMapSelectionSprite();
-        CameraController.Instance.SetBoundingShape(spriteController);
+        spriteController.LoadWorldMapSprite();
+        CameraController.Instance.ResetBoundingShape(spriteController);
         mapBtnManager.InitMapBtn();
     }
 
@@ -267,9 +269,9 @@ public class GameInitiator : MonoBehaviour
         currentMapData = selectedMapPresenter.mapModel.mapData;
 
         spriteController.LoadSelectedMapSprite(currentMapData);
-        CameraController.Instance.SetBoundingShape(spriteController);
+        CameraController.Instance.ResetBoundingShape(spriteController);
 
-        treePatchManager.InitializeTreePatch(currentMapData);
+        decorObjManager.InitializeDecorObj(currentMapData);
         emptyPlotManager.InitializeEmptyPlot(currentMapData);
         endPointManager.CreateEndPoint(currentMapData);
         barrackTowerManager.InitializeGuardPointPosList(currentMapData);
@@ -298,12 +300,12 @@ public class GameInitiator : MonoBehaviour
     {
         Time.timeScale = 1;
         ClearCurrentMapObj();
-        treePatchManager.ClearTreePatch();
+        decorObjManager.ClearDecayObj();
         emptyPlotManager.ClearEmptyPlot();
         endPointManager.ClearEndPoints();
         
-        spriteController.LoadMapSelectionSprite();
-        CameraController.Instance.SetBoundingShape(spriteController);
+        spriteController.LoadWorldMapSprite();
+        CameraController.Instance.ResetBoundingShape(spriteController);
 
         panelManager.HidePauseMenu();
         sceneController.LoadWorldMapScene();
@@ -314,10 +316,11 @@ public class GameInitiator : MonoBehaviour
     {
         ClearCurrentMapObj();
         enemySpawnerManager.GetInfor(currentMapData);
-        treePatchManager.ResetTreePatchSprite();
+        decorObjManager.ResetDecayObjSprite();
         emptyPlotManager.ShowAllEmptyPlot();
         ObjGetMapInfor(currentMapData);
         panelManager.HidePauseMenu();
+        panelManager.HideGameOverMenu();
         panelManager.ResetVictoryMenu();
         sceneController.ReLoadCurrentScene();
         cautionManager.InitializeCautionBtn();

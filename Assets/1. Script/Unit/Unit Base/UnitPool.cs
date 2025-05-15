@@ -77,8 +77,8 @@ public class UnitPool : MonoBehaviour
         }
         else // Init unit if out of unit in pool
         {
-            UnitBase unitPrefab = GetUnitPrefab(unitID);
-            UnitBase unit = Instantiate(unitPrefab, initPos, Quaternion.identity, transform);
+            UnitBase unitPrefabScript = GetUnitPrefabScript(unitID);
+            UnitBase unit = Instantiate(unitPrefabScript, initPos, Quaternion.identity, transform);
             UnitData unitData = UnitDataReader.Instance.unitDataListSO.GetUnitData(unit.UnitID);
             unit.InitUnit(unitData);
             unit.GetAnimation();
@@ -96,7 +96,7 @@ public class UnitPool : MonoBehaviour
         unit.ResetUnit();
     }
 
-    private UnitBase GetUnitPrefab(string unitID)
+    private UnitBase GetUnitPrefabScript(string unitID)
     {
         foreach(KeyValuePair<string, GameObject> pair in prefabDic)
         {

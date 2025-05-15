@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: b2c60dcee908ab7469e1a43cdf961120
   m_currentHash:
     serializedVersion: 2
-    Hash: bef789ec362d85a47b462328749eec52
+    Hash: 5a4d412b9041680501ea6fb8617485ab
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
     - JSON
     - MapImage
     - Unit
-    - TreePatch
+    - DecorObject
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 95972a048a3b87740b0f3b8567c8e589, type: 2}

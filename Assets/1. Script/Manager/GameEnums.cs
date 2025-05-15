@@ -12,56 +12,12 @@ public enum AddressLabel
     JSON,
     MapImage,
     Unit,
-    TreePatch,
-    // MapDesignData,
-    // MapProgressData,
-    // WayPointData,
-    // TowerData,
-    // BulletData,
-    // BulletEffectData,
-    // UnitData,
-    // SkillData,
-    // EnemyWaveData
-}
-
-public enum UnitID
-{
-    Monster_1,
+    DecorObject,
 }
 
 public enum InitNameObject
 {
-    Camera,
-    CanvasScreenSpace,
     CanvasWorldSpace,
-    InitMenu,
-    UpgradeMenu,
-    CheckSymbol,
-    PauseMenu,
-    VictoryMenu,
-    GameOverMenu,
-    CurrentSttPanel,
-    UpgradeSttPanel,
-    GameSttPanel,
-
-    EnemySpawnerManager,
-    UnitPool,
-    BulletPool,
-
-    FPSCounter,
-    EmptyPlotManager,
-    BulletTowerManager,
-    BarrackTowerManager,
-    SoldierManager,
-    BulletManager,
-    EnemyManager,
-    InputController,
-    RaycastHandler,
-    InputButtonHandler,
-    TowerActionHandler,
-    GamePlayManager,
-    PanelManager,
-    CautionManager
 }
 
 public enum TowerType
@@ -74,7 +30,7 @@ public enum TowerType
     TowerUpgrade,
 }
 
-public enum BulletTypea
+public enum BulletType
 {
     Arrow_1,
     Arrow_2,

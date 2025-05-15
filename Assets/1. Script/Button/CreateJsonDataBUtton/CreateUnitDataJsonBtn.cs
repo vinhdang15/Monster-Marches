@@ -6,7 +6,7 @@ public class CreateUnitDataBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JSONCreater.Instance.CreateUnitDataJson();
+        JSONCreator.Instance.CreateUnitDataJson();
         base.OnButtonClick();
     }
 }

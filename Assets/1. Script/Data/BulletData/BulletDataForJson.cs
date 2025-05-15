@@ -10,7 +10,7 @@ public class BulletDataForJson : MonoBehaviour
         new BulletData
         {
             bulletID      = "Arrow_1",
-            damage          = 20,
+            damage          = 25,
             speed           = 6,
             effectTyes      = "none",
         },
@@ -28,12 +28,12 @@ public class BulletDataForJson : MonoBehaviour
             bulletID      = "MagicBall_1",
             damage          = 35,
             speed           = 4,
-            effectTyes      = "Magic_DoT",
+            effectTyes      = "Slow",
         },
         new BulletData
         {
             bulletID      = "MagicBall_2",
-            damage          = 35,
+            damage          = 40,
             speed           = 4,
             effectTyes      = "Magic_DoT;Slow"
         },
@@ -49,7 +49,7 @@ public class BulletDataForJson : MonoBehaviour
         new BulletData
         {
             bulletID      = "Bomb_2",
-            damage          = 40,
+            damage          = 50,
             speed           = 6,
             effectTyes      = "Bomb_2_AoE30",
         },

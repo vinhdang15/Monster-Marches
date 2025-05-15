@@ -10,7 +10,7 @@ public class CreateBulletDataJsonBtn : BtnBase
     }
     protected override void OnButtonClick()
     {
-        JSONCreater.Instance.CreateBulletDataJson();
+        JSONCreator.Instance.CreateBulletDataJson();
         base.OnButtonClick();
     }
 }

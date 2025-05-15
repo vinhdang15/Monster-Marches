@@ -11,6 +11,7 @@ public class Enemy : UnitBase, IEnemy
     public event Action<Enemy> OnEnemyDeath;
     public event Action<Enemy> OnEnemyReachEndPoint;
     private bool isProcessDead = false;
+    public bool isMoving = true;
 
     protected override void Awake()
     {
@@ -39,6 +40,7 @@ public class Enemy : UnitBase, IEnemy
         if (IsTargetSoldierComming())
         {
             unitAnimation.UnitPlayIdle();
+            if(isMoving) isMoving = false;
         }
         else if (IsTargetSoldierAttacking())
         {
@@ -47,6 +49,8 @@ public class Enemy : UnitBase, IEnemy
         else
         {
             KeepMoving();
+            if(!isMoving) isMoving = true;
+            
         }
     }
 

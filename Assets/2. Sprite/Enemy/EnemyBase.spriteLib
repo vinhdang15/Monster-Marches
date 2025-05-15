@@ -94,13 +94,8 @@ MonoBehaviour:
       m_Sprite: {fileID: 1143378734, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1143378734, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
-    - m_Name: BabeMonster_1_0
-      m_Hash: 526199827
-      m_Sprite: {fileID: -1184203034, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: -1184203034, guid: e309ab7121ee0b64199480670602d1dd, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 1
   - m_Name: Effect
     m_Hash: 835491012
     m_CategoryList: []
@@ -154,5 +149,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 6
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638720642338802074
+  m_ModificationHash: 638824253216991009
   m_Version: 1

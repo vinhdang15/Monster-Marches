@@ -9,6 +9,7 @@ public class TowerPresenter : MonoBehaviour
     public TowerModel        towerModel;
     public TowerViewBase     towerViewBase;
     public EmptyPlot         emptyPlot;
+    public int               towerMaxLevel { set ; get ; }
     public int               CurentTowerDamage { set ; get ; }
     public string            DescriptionUpgrade { set ; get ; }
     public int               TowerDamageUpgrade { set ; get ; }
@@ -17,7 +18,7 @@ public class TowerPresenter : MonoBehaviour
     public int               GoldUpgrade { set ; get ; }
     public int               GoldRefund { set ; get ; }
 
-    public static TowerPresenter Create(TowerModel towerModel, TowerViewBase towerView)
+    public static TowerPresenter CreateTowerPresenterComponent(TowerModel towerModel, TowerViewBase towerView)
     {
         TowerPresenter towerPresenter = towerView.gameObject.AddComponent<TowerPresenter>();
         towerPresenter.TowerPresenterInit(towerModel, towerView);
@@ -30,7 +31,18 @@ public class TowerPresenter : MonoBehaviour
         this.towerViewBase  = towerView;
         InitTowerRange();
         AddGoldInitRefund();
+        GetTowerMaxLevel();
         SetTowerPresenterData();
+    }
+
+    private void GetTowerMaxLevel()
+    {
+        towerMaxLevel = TowerDataReader.Instance.towerDataListSO.GetTowerMaxLevel(towerModel.TowerType);
+    }
+
+    public bool IsTowerMaxLevel()
+    {
+        return towerModel.Level == towerMaxLevel;
     }
 
     public void InitTowerRange()
@@ -56,7 +68,7 @@ public class TowerPresenter : MonoBehaviour
                                 t == TowerType.CannonTower.ToString():
                 string bullet = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel);
                 CurentTowerDamage = BulletDataReader.Instance.bulletDataListSO.GetBulletDamage(bullet);
-                if(towerLevel + 1 > 2) return;
+                if(towerLevel >= towerMaxLevel) return;
                 string bulletUpgrade = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel + 1);
                 TowerDamageUpgrade = BulletDataReader.Instance.bulletDataListSO.GetBulletDamage(bulletUpgrade);
                 break;
@@ -64,7 +76,7 @@ public class TowerPresenter : MonoBehaviour
             case string t when t == TowerType.Barrack.ToString():
                 string soldier = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel);
                 CurentTowerDamage = UnitDataReader.Instance.unitDataListSO.GetUnitDamage(soldier);
-                if(towerLevel + 1 > 2) return;
+                if(towerLevel >= towerMaxLevel) return;
                 string soldierUpgrade = TowerDataReader.Instance.towerDataListSO.GetTowerSpawnObject(towerType, towerLevel + 1);
                 TowerDamageUpgrade = UnitDataReader.Instance.unitDataListSO.GetUnitDamage(soldierUpgrade);
                 break;

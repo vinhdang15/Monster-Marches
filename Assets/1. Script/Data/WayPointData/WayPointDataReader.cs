@@ -26,19 +26,6 @@ public class WayPointDataReader : MonoBehaviour
         wayPointDataListSO.wayPointDatas = JSONManager.wayPointDataList;
     }
 
-    public List<TreePatchInfo> GetTreePatchInfoList(MapData mapData)
-    {
-        List<TreePatchInfo> treePatchPosList = new();
-        int mapID = mapData.mapID;
-        foreach(var wpdata in wayPointDataListSO.wayPointDatas)
-        {
-            if(wpdata.mapID != mapID) continue;
-            treePatchPosList = wpdata.treePatchInforList;
-            break;
-        }
-        return treePatchPosList;
-    }
-
     public List<Vector2> GetSelectedMapEmptyPlotPos(MapData mapData)
     {
         List<Vector2> emptyPlotDataList = new();

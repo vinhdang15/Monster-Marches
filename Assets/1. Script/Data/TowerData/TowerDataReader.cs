@@ -3,7 +3,7 @@ using UnityEngine;
 public class TowerDataReader : MonoBehaviour
 {
     public static TowerDataReader    Instance { get; private set; }
-    public TowerDataListSO              towerDataListSO;
+    public TowerDataListSO           towerDataListSO;
 
     private void Awake()
     {
@@ -22,10 +22,10 @@ public class TowerDataReader : MonoBehaviour
     private void LoadData()
     {
         towerDataListSO.towerDataList = JSONManager.towerDataList;
-        LoadTowerInit();
+        LoadTowerInitGold();
     }
 
-    private void LoadTowerInit()
+    private void LoadTowerInitGold()
     {
         string archerTowerString =  TowerType.ArcherTower.ToString();
         string mageTowerString   =  TowerType.MageTower.ToString();

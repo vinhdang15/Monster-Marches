@@ -55,4 +55,18 @@ public class TowerDataListSO : ScriptableObject
         return tower.SpawnObject;
     }
 
+    public int GetTowerMaxLevel(string towerType)
+    {
+        int max = 0;
+        foreach(TowerData tower in towerDataList)
+        {   
+            
+            if(tower.towerType == towerType && tower.level > max)
+            {
+                max = tower.level;
+            }
+        }
+        return max;
+    }
+
 }

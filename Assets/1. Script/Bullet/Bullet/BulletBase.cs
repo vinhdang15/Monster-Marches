@@ -229,16 +229,16 @@ public class BulletBase : MonoBehaviour
     {
         switch(BulletID)
         {
-            case string t when t == BulletTypea.Arrow_1.ToString() ||
-                                t == BulletTypea.Arrow_2.ToString():
+            case string t when t == BulletType.Arrow_1.ToString() ||
+                                t == BulletType.Arrow_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.arrowSound);
                 break;
-            case string t when t == BulletTypea.MagicBall_1.ToString() ||
-                                t == BulletTypea.MagicBall_2.ToString():
+            case string t when t == BulletType.MagicBall_1.ToString() ||
+                                t == BulletType.MagicBall_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.MagicBallWhistleSound);
                 break;
-            case string t when t == BulletTypea.Bomb_1.ToString() ||
-                                t == BulletTypea.Bomb_2.ToString():
+            case string t when t == BulletType.Bomb_1.ToString() ||
+                                t == BulletType.Bomb_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.bomWhistleSound);
                 break;
         }
@@ -248,12 +248,12 @@ public class BulletBase : MonoBehaviour
     {
         switch(BulletID)
         {
-            case string t when t == BulletTypea.MagicBall_1.ToString() ||
-                                t == BulletTypea.MagicBall_2.ToString():
+            case string t when t == BulletType.MagicBall_1.ToString() ||
+                                t == BulletType.MagicBall_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.MagicBallHitSound);
                 break;
-            case string t when t == BulletTypea.Bomb_1.ToString() ||
-                                t == BulletTypea.Bomb_2.ToString():
+            case string t when t == BulletType.Bomb_1.ToString() ||
+                                t == BulletType.Bomb_2.ToString():
                 AudioManager.Instance.PlaySound(soundEffectSO.bomExplosionSound);
                 break;
         }

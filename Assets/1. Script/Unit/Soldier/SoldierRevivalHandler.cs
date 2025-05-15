@@ -28,7 +28,6 @@ public class SoldierRevivalHandler : MonoBehaviour
         // stop RevivalCoroutine here
         
         if(soldier.isBarrackUpgrade == true) yield break;
-
         soldier.barrackTowerView.OpenGateAnimation();
         yield return new WaitForSeconds(0.8f);
 

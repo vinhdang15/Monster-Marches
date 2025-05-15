@@ -84,6 +84,14 @@ public class EnemySpawner : MonoBehaviour
                 // wait time among instantiate each enemy
                 yield return new WaitForSeconds(SetTimeBetweenEnemy(enemyWaveList[y].timeBetweenEachSpawn));
             }
+
+            // for loop to spawn enemies in one wave
+            for(int i = 0; i < enemyWaveList[y].numberEnemyInWave; i++)
+            {
+                GetUnitBase(enemyWaveList[y].enemyID, i);
+                // wait time among instantiate each enemy
+                yield return new WaitForSeconds(SetTimeBetweenEnemy(enemyWaveList[y].timeBetweenEachSpawn));
+            }
             isStartNextWave = false;
             OnFinishCurrentWave?.Invoke(enemyWaveList[y].timeWaitForNextWave);
             yield return new WaitUntil(() => isStartNextWave); 

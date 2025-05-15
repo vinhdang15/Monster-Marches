@@ -8,7 +8,7 @@ public class TowerBaseManager : MonoBehaviour
     {
         TowerViewBase buildingView          = Instantiate(towerPrefab, pos, Quaternion.identity, transform);
         TowerModel buildingModel            = TowerModel.Craete(buildingView,towerData);
-        TowerPresenter towerPresenter       = TowerPresenter.Create(buildingModel, buildingView);
+        TowerPresenter towerPresenter       = TowerPresenter.CreateTowerPresenterComponent(buildingModel, buildingView);
         return towerPresenter;
     }
 

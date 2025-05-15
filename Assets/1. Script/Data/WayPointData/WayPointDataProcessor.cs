@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WayPointDataProcessor : MonoBehaviour
 {
-    // Read data from input (WayPointEntryList) to create WayPointData
+    // Read data from input (WayPointCollector) to create WayPointData
     [SerializeField] WayPointCollector wayPointCollector;
 
     private void Awake()
@@ -19,7 +19,6 @@ public class WayPointDataProcessor : MonoBehaviour
             WayPointData data = new()
             {
                 mapID = mapWayPoint.mapID,
-                treePatchInforList = ExtractTreePatchInfoList(mapWayPoint.mapTreePatchList),
                 endPointPosList = ExtractChildPos(mapWayPoint.endPointHolder),
                 emptyPlotPosList = ExtractChildPos(mapWayPoint.emptyPlotHolder),
                 initGuardPointPosList = ExtractChildPosFromList(mapWayPoint.initGuardPointPosHolder),
@@ -40,22 +39,6 @@ public class WayPointDataProcessor : MonoBehaviour
             pos.Add(childPos);
         }
         return pos;
-    }
-
-    private List<TreePatchInfo> ExtractTreePatchInfoList(List<MapTreePatch> mapTreePatchList)
-    {
-        List<TreePatchInfo> treePatchDataList = new();
-        foreach(var treePatch in mapTreePatchList)
-        { 
-            TreePatchInfo treePatchInfo = new()
-            {
-                treePatchID = treePatch.treePatchID,
-                treePatchList = ExtractChildPos(treePatch.treePatchHolder),
-            };
-
-            treePatchDataList.Add(treePatchInfo);
-        }
-        return treePatchDataList;
     }
 
     private List<Vector2> ExtractChildPosFromList(List<Transform> holder)

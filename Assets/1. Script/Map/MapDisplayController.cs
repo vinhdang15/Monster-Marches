@@ -34,10 +34,10 @@ public class MapDisplayController : MonoBehaviour
         UpdatePolygonColliderToMatchSprite();
     }
 
-    public void LoadMapSelectionSprite()
+    public void LoadWorldMapSprite()
     {
-        Sprite mapSelectionSprite = MapSpriteManager.GetMapSprite("WorldMap");
-        spriteRenderer.sprite = mapSelectionSprite;
+        Sprite WorldMapSprite = MapSpriteManager.GetMapSprite("WorldMap");
+        spriteRenderer.sprite = WorldMapSprite;
         ShowMapImage();
         UpdatePolygonColliderToMatchSprite();
     }
@@ -51,8 +51,8 @@ public class MapDisplayController : MonoBehaviour
 {
     if (spriteRenderer.sprite != null && polygonCollider2D != null)
     {
-        polygonCollider2D.pathCount = 0;
-        polygonCollider2D.SetPath(0, spriteRenderer.sprite.vertices);
+        Destroy(polygonCollider2D);
+        polygonCollider2D = gameObject.AddComponent<PolygonCollider2D>();
     }
     else
     {

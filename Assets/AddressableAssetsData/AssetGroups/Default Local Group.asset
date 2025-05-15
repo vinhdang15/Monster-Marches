@@ -47,6 +47,60 @@ MonoBehaviour:
     m_SerializedLabels:
     - MapImage
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fa0de147fb60ea4c90f2f674d216b26
+    m_Address: Assets/3. Prefab/Unit/Enemy/Enemy_C_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52577287aa1c88b4cb16964be4f5479a
+    m_Address: Assets/3. Prefab/Soldier/Swordsman_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9335e6b38174c1548babd973e3446566
+    m_Address: Assets/3. Prefab/Soldier/Swordsman_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1351e1ffffe0c2c41b8e11648725bf25
+    m_Address: Assets/3. Prefab/Unit/Enemy/Enemy_B_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b89513d156a17b2458037182ecb70c2c
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - DecorObject
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e258849a42854d44b562ccacc0e5e73
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - DecorObject
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c58b652fbf5e3e34c94024b1fd97b6a4
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - DecorObject
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7c0ff95309a61a469313bab091ad133
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - DecorObject
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b98197946e8955f49b7a69e5ac1942dc
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - DecorObject
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41f610462ea8ce847b483ca2d0ad22a7
     m_Address: Assets/AddressableFile/JSON/BulletData.json
     m_ReadOnly: 0
@@ -67,6 +121,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0fa57a7a81c93de4d894ed999fc34e18
     m_Address: Assets/AddressableFile/JSON/MapDesignData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f21f3e9469c0c9845b00ad9d3be447a9
+    m_Address: Assets/AddressableFile/JSON/MapProgressData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
@@ -95,41 +155,35 @@ MonoBehaviour:
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f21f3e9469c0c9845b00ad9d3be447a9
-    m_Address: Assets/AddressableFile/JSON/MapProgressData.json
+  - m_GUID: c09eb67cc0773e54ebb06b95dea9016a
+    m_Address: Assets/AddressableFile/JSON/MapObjData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3fa0de147fb60ea4c90f2f674d216b26
-    m_Address: Assets/3. Prefab/Enemy/Monster_1.prefab
+  - m_GUID: 58adae11e10881f4c88aeecda42f7240
+    m_Address: Assets/3. Prefab/MapObject/StaticObj/Mountain_1.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Unit
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 52577287aa1c88b4cb16964be4f5479a
-    m_Address: Assets/3. Prefab/Soldier/Swordsman_1.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Unit
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9335e6b38174c1548babd973e3446566
-    m_Address: Assets/3. Prefab/Soldier/Swordsman_2.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Unit
+    - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6dc459d00d7de7d4d8f3cb99e85c9778
-    m_Address: Assets/3. Prefab/Enemy/Monster_2.prefab
+    m_Address: Assets/3. Prefab/Unit/Enemy/Enemy_C_2.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Unit
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c7c0ff95309a61a469313bab091ad133
-    m_Address: Assets/3. Prefab/TreePatch/TreePatch_1.prefab
+  - m_GUID: cc747bfcb7ece6242b092b058deacb25
+    m_Address: Assets/3. Prefab/Unit/Enemy/Enemy_A_1.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - TreePatch
+    - Unit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 137b13c2ed0f489408e636337276f707
+    m_Address: Assets/3. Prefab/MapObject/AnimatedObj/WindMill.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 825f42600ffa1e242bdffe0e3f4fe3f7, type: 2}

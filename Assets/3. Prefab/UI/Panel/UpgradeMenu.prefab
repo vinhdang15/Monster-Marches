@@ -747,7 +747,8 @@ MonoBehaviour:
   guardPointBtn: {fileID: 204765091150536750}
   upgradeTowerGoldText: {fileID: 2573706429260340354}
   sellTowerGoldText: {fileID: 475738228615518650}
-  UpgradeButtonColor: {fileID: 0}
+  upgradeButtonColor: {fileID: 5460019153270502300}
+  upgradeButton: {fileID: 2280066680217883748}
 --- !u!1 &5659776470514310085
 GameObject:
   m_ObjectHideFlags: 0
