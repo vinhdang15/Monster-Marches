@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 3321543026276958215}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 3ab8957c8f3c85843ac17ca475194a85, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9edc06dd41e6cc34595e480e76106e28, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -155,6 +155,8 @@ GameObject:
   - component: {fileID: 21524507911851260}
   - component: {fileID: 6791169875727751515}
   - component: {fileID: 3180689679543096051}
+  - component: {fileID: 7004401179478788046}
+  - component: {fileID: 8605348090915471698}
   m_Layer: 8
   m_Name: CannonTowerView
   m_TagString: Untagged
@@ -273,6 +275,35 @@ MonoBehaviour:
   spawnBulletLeftTrans: {fileID: 542164255102359296}
   spawnBulletRightTrans: {fileID: 542164255102359296}
   spawnBulletAngle: 0
+--- !u!114 &7004401179478788046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502725005150269322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 0}
+--- !u!114 &8605348090915471698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502725005150269322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 622a82e28fb59a1498ea43ec37102fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteLibraryAssetList:
+  - {fileID: 7108339969198208228, guid: 9be40520da00bd84688572d0f1d02cb2, type: 3}
+  - {fileID: 7108339969198208228, guid: aacd8bf2240ea9a4f83840862a7ed270, type: 3}
 --- !u!1 &7204663080290148549
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +329,7 @@ Transform:
   m_GameObject: {fileID: 7204663080290148549}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.014, y: 0.791, z: 0}
+  m_LocalPosition: {x: 0.014, y: 0.875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

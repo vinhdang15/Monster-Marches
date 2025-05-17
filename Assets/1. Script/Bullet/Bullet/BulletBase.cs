@@ -108,14 +108,13 @@ public class BulletBase : MonoBehaviour
         if((Vector2)transform.position == enemyPos)
         {
             isReachEnemyPos = true;
-            PlayAnimationWhenReachEnemyPos();
-            ApplyBulletEffect();         
+            PlayAnimationWhenReachEnemyPos();         
         }
     }
 
     protected void UpdateEnemyPos()
     {
-        if(targetEnemy.isDead || isEnemyExitTowerView == true) return;
+        if(targetEnemy.CurrentHp == 0 || isEnemyExitTowerView == true) return;
         enemyPos = targetEnemy.transform.position;
     }
 
@@ -177,13 +176,15 @@ public class BulletBase : MonoBehaviour
 
     protected void PlayAnimationWhenReachEnemyPos()
     {
-        if(hadAOEEffectType)
+        if (hadAOEEffectType)
         {
             bulletAnimation.PlayDealDamageAnimation();
+            ApplyBulletEffect();
         }
-        else if(!isEnemyExitTowerView && !targetEnemy.isDead)
+        else if (!isEnemyExitTowerView && !targetEnemy.isDead)
         {
             bulletAnimation.PlayDealDamageAnimation();
+            ApplyBulletEffect();
         }
         else
         {
@@ -194,7 +195,6 @@ public class BulletBase : MonoBehaviour
 
     protected IEnumerator FinishAnotationCoroutine()
     {
-        yield return null;
         yield return new WaitForSeconds(bulletAnimation.GetCurrentAnimationLength());
         InvokeOnFinishBulletAnimation();
     }

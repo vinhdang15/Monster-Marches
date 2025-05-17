@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3214578799351056800}
   - component: {fileID: 5244750542181624621}
   - component: {fileID: 535164387141078952}
+  - component: {fileID: 1098237497247939970}
   m_Layer: 7
   m_Name: MageTower
   m_TagString: Untagged
@@ -162,7 +163,7 @@ Animator:
   m_GameObject: {fileID: 3321543026276958215}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 9140eef84786abb4abf3c69caf55a58c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9edc06dd41e6cc34595e480e76106e28, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -173,6 +174,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1098237497247939970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321543026276958215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 0
+  m_SpriteHash: 0
 --- !u!1 &6502725005150269322
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +203,8 @@ GameObject:
   - component: {fileID: 21524507911851260}
   - component: {fileID: 3122154328434841096}
   - component: {fileID: 8807529172084586881}
+  - component: {fileID: -1731396818644319236}
+  - component: {fileID: -4147787664291076712}
   m_Layer: 8
   m_Name: MageTowerView
   m_TagString: Untagged
@@ -305,6 +324,35 @@ MonoBehaviour:
   spawnBulletLeftTrans: {fileID: 542164255102359296}
   spawnBulletRightTrans: {fileID: 5100853711359577115}
   spawnBulletAngle: 0
+--- !u!114 &-1731396818644319236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502725005150269322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 0}
+--- !u!114 &-4147787664291076712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502725005150269322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 622a82e28fb59a1498ea43ec37102fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteLibraryAssetList:
+  - {fileID: 7108339969198208228, guid: ceb2caed06f3e414da710344e6a48cee, type: 3}
+  - {fileID: 7108339969198208228, guid: c79d6cab24064b049881d678b5947f99, type: 3}
 --- !u!1 &7204663080290148549
 GameObject:
   m_ObjectHideFlags: 0

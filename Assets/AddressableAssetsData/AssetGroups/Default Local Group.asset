@@ -185,6 +185,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e8864bcd6893b84d906878d225042bb
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/Field.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - DecorObject
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 825f42600ffa1e242bdffe0e3f4fe3f7, type: 2}
   m_SchemaSet:

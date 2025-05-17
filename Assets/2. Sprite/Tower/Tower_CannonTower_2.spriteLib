@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: ShootingRight
+    m_Hash: 688961238
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: ArcherTower_0
+      m_Hash: 824471984
+      m_Sprite: {fileID: -837447364, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -902287792, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_1
+      m_Hash: 102973734
+      m_Sprite: {fileID: -1582817520, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1303731363, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_2
+      m_Hash: 522850460
+      m_Sprite: {fileID: 1311683156, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 849948017, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_3
+      m_Hash: 674045962
+      m_Sprite: {fileID: -94543837, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 272069412, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_4
+      m_Hash: 910800297
+      m_Sprite: {fileID: -790402828, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -2052458437, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_5
+      m_Hash: 21923135
+      m_Sprite: {fileID: 2136312601, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1164293295, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 6
+  - m_Name: ShootingLeft
+    m_Hash: 769190919
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: ArcherTower_6
+      m_Hash: 407360645
+      m_Sprite: {fileID: 1954025012, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -902287792, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_7
+      m_Hash: 792781843
+      m_Sprite: {fileID: -1373972236, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1303731363, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_8
+      m_Hash: 1073740162
+      m_Sprite: {fileID: -900809175, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 849948017, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_9
+      m_Hash: 150522132
+      m_Sprite: {fileID: -1905864207, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 272069412, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_10
+      m_Hash: 651196829
+      m_Sprite: {fileID: 820813103, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -2052458437, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    - m_Name: ArcherTower_11
+      m_Hash: 299321611
+      m_Sprite: {fileID: 533068620, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1164293295, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 6
+  - m_Name: IDEL
+    m_Hash: 45046604
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: ArcherTower_0
+      m_Hash: 824471984
+      m_Sprite: {fileID: -837447364, guid: 83d120567b98a944db798c134b846684, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -902287792, guid: 2720a511f86fe2442926512e3ccbc8b8, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 1
+  m_PrimaryLibraryGUID: 08733cc1ab5d074428749fb278e0e02c
+  m_ModificationHash: 638830279770892134
+  m_Version: 1

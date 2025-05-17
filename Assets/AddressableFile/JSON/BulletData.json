@@ -2,14 +2,14 @@
   {
     "bulletID": "Arrow_1",
     "damage": 25,
-    "speed": 6.0,
+    "speed": 7,
     "effectTyes": "none",
     "dealDamageDelay": 0.0
   },
   {
     "bulletID": "Arrow_2",
     "damage": 30,
-    "speed": 9.0,
+    "speed": 8,
     "effectTyes": "Fire_DoT",
     "dealDamageDelay": 0.0
   },

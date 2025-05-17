@@ -96,14 +96,17 @@ public class Enemy : UnitBase, IEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+
+        if(CurrentHp > 0) return;
+        if(isProcessDead) return;
         ProcessIfEnemyDead();
     }
 
+    // An enemy can be hit by multiple tower bullets at the same time.
+    // Sometimes, it dies from the first bullet, but the other bullets are already on their way 
     // using isProcessDead to prevent OnEnemyDeath call multi time
     private void ProcessIfEnemyDead()
     {
-        if(CurrentHp > 0) return;
-        if(isProcessDead) return;
         isProcessDead = true;
         AudioManager.Instance.PlaySound(soundEffectSO.GetRandomMonsterDie());
         base.HideHealthBar();

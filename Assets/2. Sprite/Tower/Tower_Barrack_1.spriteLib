@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: SpawnSoldier
+    m_Hash: 51029083
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Barrack_0
+      m_Hash: 629711140
+      m_Sprite: {fileID: 1447682226, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1447682226, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_1
+      m_Hash: 311398834
+      m_Sprite: {fileID: 1565718278, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1565718278, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_2
+      m_Hash: 193380360
+      m_Sprite: {fileID: 1408814842, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1408814842, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_3
+      m_Hash: 1015148702
+      m_Sprite: {fileID: 488154981, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 488154981, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_4
+      m_Hash: 585459005
+      m_Sprite: {fileID: -1130892373, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1130892373, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_5
+      m_Hash: 367154603
+      m_Sprite: {fileID: -718672714, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -718672714, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_6
+      m_Hash: 216728593
+      m_Sprite: {fileID: 1546435709, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1546435709, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_7
+      m_Hash: 1005335687
+      m_Sprite: {fileID: -1230067127, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1230067127, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_8
+      m_Hash: 726870294
+      m_Sprite: {fileID: 456622851, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 456622851, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_9
+      m_Hash: 475273600
+      m_Sprite: {fileID: -152836838, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -152836838, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_10
+      m_Hash: 287736336
+      m_Sprite: {fileID: 2040240259, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2040240259, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_11
+      m_Hash: 639742598
+      m_Sprite: {fileID: -657425600, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -657425600, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_12
+      m_Hash: 1059644220
+      m_Sprite: {fileID: -704973677, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -704973677, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_13
+      m_Hash: 137352106
+      m_Sprite: {fileID: 398422533, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 398422533, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_14
+      m_Hash: 374031881
+      m_Sprite: {fileID: 2082508150, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2082508150, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_15
+      m_Hash: 558659231
+      m_Sprite: {fileID: -903407289, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -903407289, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_16
+      m_Hash: 944056101
+      m_Sprite: {fileID: 2123538598, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2123538598, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    - m_Name: Barrack_17
+      m_Hash: 255989683
+      m_Sprite: {fileID: -840986879, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -840986879, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 18
+  - m_Name: IDLE
+    m_Hash: 716265633
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Barrack_0
+      m_Hash: 629711140
+      m_Sprite: {fileID: 1447682226, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1447682226, guid: 94dc75dd2ce090f4dbb73767a4495aa2, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 1
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 638830283159243086
+  m_Version: 1

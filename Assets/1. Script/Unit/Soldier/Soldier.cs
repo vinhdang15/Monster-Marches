@@ -272,11 +272,16 @@ public class Soldier : UnitBase
 
         if(CurrentHp == 0)
         {
-            AudioManager.Instance.PlaySound(soundEffectSO.GetRandomSoldierDie());
-            base.HideHealthBar();
-            base.isDead = true;
-            OnSoldierDeath?.Invoke(this);
+            ProcessSoldierDead();
         }
+    }
+
+    private void ProcessSoldierDead()
+    {
+        AudioManager.Instance.PlaySound(soundEffectSO.GetRandomSoldierDie());
+        base.HideHealthBar();
+        base.isDead = true;
+        OnSoldierDeath?.Invoke(this);
     }
 
     public IEnumerator RevivalCoroutine()

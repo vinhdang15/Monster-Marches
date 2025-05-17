@@ -14,7 +14,7 @@
     "mapID": 2,
     "mapName": "Forest_2",
     "goldInit": 300,
-    "lives": 7,
+    "lives": 70,
     "description": "welcome to the Forest_2.\nLet's play",
     "initMapBtnPos": {
       "x": -3.95,

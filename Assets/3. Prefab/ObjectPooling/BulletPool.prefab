@@ -47,13 +47,13 @@ MonoBehaviour:
   bulletPoolInfos:
   - bulletPrefab: {fileID: 559437072603961109, guid: 1e025b77692fdfc4b83340d8d0d96678, type: 3}
     poolSize: 20
-  - bulletPrefab: {fileID: 559437072603961109, guid: 94d2d36b0996c374d91c0d74ffc7f478, type: 3}
+  - bulletPrefab: {fileID: 559437072603961109, guid: d9ed1348a8f139f44ae3e0976c88620f, type: 3}
     poolSize: 20
   - bulletPrefab: {fileID: 8197316751108301056, guid: 258baf98c5f95604fa76a68574bfba84, type: 3}
     poolSize: 20
-  - bulletPrefab: {fileID: -1380417141116761517, guid: a17ca15fc63d1884a97a5d8f0b4cbe48, type: 3}
+  - bulletPrefab: {fileID: 8197316751108301056, guid: 4137973df5526a349a5fb1178b6a2492, type: 3}
     poolSize: 20
   - bulletPrefab: {fileID: 1859538256131655347, guid: 5d5aee667d2d56241b7f95426351f033, type: 3}
     poolSize: 20
-  - bulletPrefab: {fileID: -2552696894742912667, guid: 305f2c2b7e8e3e042aa684277c7e3500, type: 3}
+  - bulletPrefab: {fileID: 1859538256131655347, guid: 7a6cd1ea943464548aecab5b55889880, type: 3}
     poolSize: 20

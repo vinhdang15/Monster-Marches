@@ -8,7 +8,8 @@ public class TowerPresenter : MonoBehaviour
 {
     public TowerModel        towerModel;
     public TowerViewBase     towerViewBase;
-    public EmptyPlot         emptyPlot;
+    private SpriteLibraryHandler spriteLibraryHandler;
+    public EmptyPlot emptyPlot;
     public int               towerMaxLevel { set ; get ; }
     public int               CurentTowerDamage { set ; get ; }
     public string            DescriptionUpgrade { set ; get ; }
@@ -23,16 +24,27 @@ public class TowerPresenter : MonoBehaviour
         TowerPresenter towerPresenter = towerView.gameObject.AddComponent<TowerPresenter>();
         towerPresenter.TowerPresenterInit(towerModel, towerView);
         return towerPresenter;
-    } 
-    
+    }
+
     public void TowerPresenterInit(TowerModel towerModel, TowerViewBase towerView)
     {
         this.towerModel = towerModel;
-        this.towerViewBase  = towerView;
+        this.towerViewBase = towerView;
         InitTowerRange();
         AddGoldInitRefund();
         GetTowerMaxLevel();
         SetTowerPresenterData();
+        GetSpriteLibraryHandler();
+    }
+
+    private void GetSpriteLibraryHandler()
+    {
+        spriteLibraryHandler = GetComponent<SpriteLibraryHandler>();
+    }
+
+    public void UpdateTowerSprite(int level)
+    {
+        spriteLibraryHandler.UpdateSprite(level);
     }
 
     private void GetTowerMaxLevel()

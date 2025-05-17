@@ -9,6 +9,7 @@ public class BulletAnimation : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        if (animator == null) animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     public void PlayHitNullAnimation()
@@ -25,4 +26,9 @@ public class BulletAnimation : MonoBehaviour
     {
         return animator.GetCurrentAnimatorStateInfo(0).length;
     }
+
+    public string GetState()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).ToString();
+     }
 }

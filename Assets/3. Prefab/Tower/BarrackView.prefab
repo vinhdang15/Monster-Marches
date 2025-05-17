@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 5244750542181624621}
   - component: {fileID: 7863943428871770784}
   - component: {fileID: 8261101242050220044}
+  - component: {fileID: 4760113298036042222}
   m_Layer: 15
   m_Name: TowerSprite
   m_TagString: Untagged
@@ -235,6 +236,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4760113298036042222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321543026276958215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 0
+  m_SpriteHash: 881581386
 --- !u!1 &5855069946842029154
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +355,8 @@ GameObject:
   - component: {fileID: 5887333464888582801}
   - component: {fileID: 5838765240482480097}
   - component: {fileID: 7188404652450603636}
+  - component: {fileID: 1079197726762750135}
+  - component: {fileID: 8369904151275641139}
   m_Layer: 8
   m_Name: BarrackView
   m_TagString: Untagged
@@ -455,6 +474,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f0cf90c1c71d144b8b221c935ef88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1079197726762750135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502725005150269322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 7c892f66f1850e846a0b92c3c1239b78, type: 3}
+--- !u!114 &8369904151275641139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502725005150269322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 622a82e28fb59a1498ea43ec37102fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteLibraryAssetList:
+  - {fileID: 7108339969198208228, guid: 7c892f66f1850e846a0b92c3c1239b78, type: 3}
+  - {fileID: 7108339969198208228, guid: 4354fc1c4bc07574ea31fab2ca9b6e88, type: 3}
 --- !u!1 &7006244289467112705
 GameObject:
   m_ObjectHideFlags: 0

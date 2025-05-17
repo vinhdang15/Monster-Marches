@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 944608653546578891}
-  - component: {fileID: 2465193866280544995}
-  - component: {fileID: -671848291016982879}
-  - component: {fileID: -2462006922227651152}
-  - component: {fileID: -2552696894742912667}
+  - component: {fileID: -770597186814560954}
+  - component: {fileID: 1859538256131655347}
+  - component: {fileID: 1039844318670385434}
+  - component: {fileID: 1045416858481463436}
   m_Layer: 12
   m_Name: Bomb_2
   m_TagString: Untagged
@@ -35,7 +35,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2465193866280544995
+--- !u!114 &-770597186814560954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9fcdde7badd9b468e9d1802330a897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1859538256131655347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352b57a6123d817459dc116603a2739a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hadAOEEffectType: 0
+  isReachEnemyPos: 0
+  isSetUpStartPos: 0
+  startPos: {x: 0, y: 0}
+  targetEnemy: {fileID: 0}
+  bulletLastPos: {x: 0, y: 0}
+  towerPresenter: {fileID: 0}
+  soundEffectSO: {fileID: 11400000, guid: 58f3b842f8497a046a2a1acaa17e7bc7, type: 2}
+--- !u!212 &1039844318670385434
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,18 +108,18 @@ SpriteRenderer:
   m_SortingLayerID: -199388255
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 76aa61c4a9276d847a69edb632e19a34, type: 3}
+  m_Sprite: {fileID: -1330714983, guid: 8a69bcfebc9130a4794727ec008256f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &-671848291016982879
+--- !u!95 &1045416858481463436
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -97,7 +129,7 @@ Animator:
   m_GameObject: {fileID: 5405717181563337596}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 749007d88e0eaf44faba9868e25d9f39, type: 2}
+  m_Controller: {fileID: 22100000, guid: 1b1948a0ef965b44d8dbde94eb44ca5c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -108,32 +140,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-2462006922227651152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5405717181563337596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f9fcdde7badd9b468e9d1802330a897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-2552696894742912667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5405717181563337596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 352b57a6123d817459dc116603a2739a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isReachEnemyPos: 0
-  isSetUpStartPos: 0
-  startPos: {x: 0, y: 0}
-  bulletLastPos: {x: 0, y: 0}
-  soundEffectSO: {fileID: 11400000, guid: 58f3b842f8497a046a2a1acaa17e7bc7, type: 2}
