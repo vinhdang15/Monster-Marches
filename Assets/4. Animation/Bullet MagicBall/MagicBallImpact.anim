@@ -23,7 +23,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1.7785134e-11
+        value: 9.743101e-37
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -230,7 +230,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1.7785134e-11
+        value: 9.743101e-37
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -362,6 +362,13 @@ AnimationClip:
   m_Events:
   - time: 0.083333336
     functionName: DealDamageToEnemy
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.25
+    functionName: FinishBulletAnimationHandler
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

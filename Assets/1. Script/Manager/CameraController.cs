@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
         cinemachineConfiner = GetComponentInChildren<CinemachineConfiner>();
     }
 
-    public void ResetBoundingShape(MapDisplayController mapImageController)
+    public void ResetBoundingShape(SpriteDisplayController mapImageController)
     {
         polygonCollider2D = mapImageController.GetPolygonCollider2D();
         cinemachineConfiner.m_BoundingShape2D = polygonCollider2D;

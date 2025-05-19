@@ -11,8 +11,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] List<GameObject> gamePlaySceneUI;
     [SerializeField] List<GameObject> gamePlaySceneUIShowWhenInteract;
     [SerializeField] GameObject startGameMenu;
+    [SerializeField] GameObject newGameMenu;
     [SerializeField] VictoryMenu victoryMenu;
-    [SerializeField] GameObject saveGameMenu;
 
     private void Awake()
     {
@@ -51,8 +51,9 @@ public class CanvasManager : MonoBehaviour
         HideStartGameMenu();
         if(!JSONManager.HasSaveGameData())
         {
-            saveGameMenu.transform.GetChild(1).gameObject.SetActive(true);
-        }else
+            newGameMenu.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else
         {
             ShowSaveGameMenu();
         }
@@ -60,7 +61,7 @@ public class CanvasManager : MonoBehaviour
 
     private void ShowSaveGameMenu()
     {
-        foreach(Transform child in saveGameMenu.transform)
+        foreach(Transform child in newGameMenu.transform)
         {
             child.gameObject.SetActive(true);
         }
@@ -68,7 +69,7 @@ public class CanvasManager : MonoBehaviour
 
     public void HideSaveGameMenu()
     {
-        foreach(Transform child in saveGameMenu.transform)
+        foreach(Transform child in newGameMenu.transform)
         {
             child.gameObject.SetActive(false);
         }

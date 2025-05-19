@@ -176,12 +176,8 @@ public class BulletBase : MonoBehaviour
 
     protected void PlayAnimationWhenReachEnemyPos()
     {
-        if (hadAOEEffectType)
-        {
-            bulletAnimation.PlayDealDamageAnimation();
-            ApplyBulletEffect();
-        }
-        else if (!isEnemyExitTowerView && !targetEnemy.isDead)
+        bool canDealDamage = hadAOEEffectType || (!isEnemyExitTowerView && targetEnemy != null && !targetEnemy.isDead);
+        if (canDealDamage)
         {
             bulletAnimation.PlayDealDamageAnimation();
             ApplyBulletEffect();
@@ -190,26 +186,28 @@ public class BulletBase : MonoBehaviour
         {
             bulletAnimation.PlayHitNullAnimation();
         }
-        StartCoroutine(FinishAnotationCoroutine());
+        StartCoroutine(FinishAnimationCoroutine());
     }
 
-    protected IEnumerator FinishAnotationCoroutine()
+    // Need to using yield return null brefor GetCurrentAnimationLength
+    // cause animator still need one last frame to make stransition
+    protected IEnumerator FinishAnimationCoroutine()
     {
+        yield return null;
         yield return new WaitForSeconds(bulletAnimation.GetCurrentAnimationLength());
-        InvokeOnFinishBulletAnimation();
+        FinishBulletAnimationHandler();
     }
 
     protected void ApplyBulletEffect()
     {
-        if(effects.Count == 0) return;
-        if(targetEnemy.gameObject.activeSelf && targetEnemy.CurrentHp > 0)
+        if (effects.Count == 0) return;
+        if (targetEnemy.gameObject.activeSelf && targetEnemy.CurrentHp > 0)
         {
             targetEnemy.ApplyBulletEffect(effects);
         }
     }
 
-    
-    protected void InvokeOnFinishBulletAnimation()
+    private void FinishBulletAnimationHandler()
     {
         OnFinishBulletAnimation?.Invoke(this);
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class MapBtnManager : MonoBehaviour
 {
     public static MapBtnManager Instance { get; private set; }
-    
+
     [SerializeField] MapBtn mapBtnPrefeb;
     private Transform mapBtnParent;
     private List<MapPresenter> mapPresenterList = new();
@@ -20,7 +20,7 @@ public class MapBtnManager : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
-    
+
     private void Awake()
     {
         if (Instance == null)
@@ -47,7 +47,7 @@ public class MapBtnManager : MonoBehaviour
 
     private void RegisterButtonEvent()
     {
-        foreach(var loadSelectedMapBtn in loadSelectedMapBtnList)
+        foreach (var loadSelectedMapBtn in loadSelectedMapBtnList)
         {
             loadSelectedMapBtn.OnLoadMapBtnClick += HandleLoadSelectedMap;
         }
@@ -55,12 +55,12 @@ public class MapBtnManager : MonoBehaviour
 
     public void InitMapBtn()
     {
-        foreach(MapData mapFullData in MapDataReader.Instance.mapDataListSO.mapDataList)
+        foreach (MapData mapFullData in MapDataReader.Instance.mapDataListSO.mapDataList)
         {
             Vector2 initPos = mapFullData.initMapBtnPos;
-            MapBtn mapBtn = Instantiate(mapBtnPrefeb,initPos, quaternion.identity, mapBtnParent);
-            MapModel mapMode = MapModel.Create(mapBtn,mapFullData);
-            MapPresenter mapPresenter = MapPresenter.Create(mapMode,mapBtn);
+            MapBtn mapBtn = Instantiate(mapBtnPrefeb, initPos, quaternion.identity, mapBtnParent);
+            MapModel mapMode = MapModel.Create(mapBtn, mapFullData);
+            MapPresenter mapPresenter = MapPresenter.Create(mapMode, mapBtn);
 
             mapPresenter.SetDefaultTurnOnStar(mapMode.StarScore);
 
@@ -73,7 +73,7 @@ public class MapBtnManager : MonoBehaviour
 
             mapBtn.PrepareGame();
             mapBtn.UpdateMapInfo(mapMode);
-        }    
+        }
     }
 
     public void HandleOnMapBtnClick(MapPresenter mapPresenter)
@@ -91,7 +91,7 @@ public class MapBtnManager : MonoBehaviour
 
     public void HideMapBtn()
     {
-        foreach(var mapPresenter in mapPresenterList)
+        foreach (var mapPresenter in mapPresenterList)
         {
             mapPresenter.gameObject.SetActive(false);
         }
@@ -99,7 +99,7 @@ public class MapBtnManager : MonoBehaviour
 
     public void CLearAllMapBtn()
     {
-        foreach(var mapPresenter in mapPresenterList)
+        foreach (var mapPresenter in mapPresenterList)
         {
             Destroy(mapPresenter.gameObject);
         }
@@ -108,12 +108,12 @@ public class MapBtnManager : MonoBehaviour
 
     public void ShowMapBtn()
     {
-        foreach(var mapPresenter in mapPresenterList)
+        foreach (var mapPresenter in mapPresenterList)
         {
-            if(mapPresenter.mapModel.Activate)
+            if (mapPresenter.mapModel.Activate)
             {
                 mapPresenter.gameObject.SetActive(true);
-            }          
+            }
         }
     }
 
@@ -137,8 +137,8 @@ public class MapBtnManager : MonoBehaviour
 
     private void UpdateSelectedMapPresenterInfo(int starSocre)
     {
-        if(starSocre !=-0) selectedMapPresenter.ShowStarBackGround();
-        
+        if (starSocre != -0) selectedMapPresenter.ShowStarBackGround();
+
         selectedMapPresenter.LightUpMapStar(selectedMapPresenter.mapModel.StarScore, starSocre);
         selectedMapPresenter.UpdateMapModel(starSocre);
         selectedMapPresenter.UpdateMapBtnImage();
@@ -149,14 +149,26 @@ public class MapBtnManager : MonoBehaviour
         int mapID = selectedMapPresenter.mapModel.MapID;
         int nextMapPresenterMapID = mapID + 1;
 
-        foreach(MapPresenter mapPresenter in mapPresenterList)
+        foreach (MapPresenter mapPresenter in mapPresenterList)
         {
-            if(selectedMapPresenter.mapModel.StarScore == 0) return;
-            if(mapPresenter.mapModel.MapID == nextMapPresenterMapID)
+            if (selectedMapPresenter.mapModel.StarScore == 0) return;
+            if (mapPresenter.mapModel.MapID == nextMapPresenterMapID)
             {
                 mapPresenter.mapModel.Activate = true;
                 mapPresenter.gameObject.SetActive(true);
             }
         }
+    }
+
+    public bool HasActiveMapID2()
+    {
+        foreach (MapPresenter mapPresenter in mapPresenterList)
+        {
+            if (mapPresenter.mapModel.MapID == 2)
+            {
+                if (mapPresenter.mapModel.Activate == true) return true;
+            }
+        }
+            return false;
     }
 }

@@ -26,9 +26,4 @@ public class BulletAnimation : MonoBehaviour
     {
         return animator.GetCurrentAnimatorStateInfo(0).length;
     }
-
-    public string GetState()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).ToString();
-     }
 }

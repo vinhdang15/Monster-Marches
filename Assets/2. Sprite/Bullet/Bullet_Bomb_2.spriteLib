@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: IDLE
+    m_Hash: 716265633
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Bullet_20
+      m_Hash: 406555597
+      m_Sprite: {fileID: -1059311915, guid: 8a69bcfebc9130a4794727ec008256f9, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1330714983, guid: 8a69bcfebc9130a4794727ec008256f9, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 1
+  - m_Name: Impact
+    m_Hash: 61195569
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: BombExplosion_0
+      m_Hash: 162241172
+      m_Sprite: {fileID: 1752792891, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1752792891, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+    - m_Name: BombExplosion_1
+      m_Hash: 1051503106
+      m_Sprite: {fileID: 2046976136, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 2046976136, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+    - m_Name: BombExplosion_2
+      m_Hash: 665189304
+      m_Sprite: {fileID: 2088407724, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 2088407724, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+    - m_Name: BombExplosion_3
+      m_Hash: 279104302
+      m_Sprite: {fileID: 977713845, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 977713845, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+    - m_Name: BombExplosion_4
+      m_Hash: 247881357
+      m_Sprite: {fileID: 1910556663, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1910556663, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+    - m_Name: BombExplosion_5
+      m_Hash: 968977947
+      m_Sprite: {fileID: 1845284403, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1845284403, guid: 18d44f7ac0fba674eb976aff6f261ceb, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 0
+  m_PrimaryLibraryGUID: 043908348a6556d4bb4bfb704eca2afe
+  m_ModificationHash: 638830896764377982
+  m_Version: 1

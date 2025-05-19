@@ -8,7 +8,8 @@ public class DecorObjectManager : MonoBehaviour
     private EnemyManager        enemyManager;
     private GamePlayManager     gamePlayManager;
     private List<Enemy>         ActiveUnitList => enemyManager.ActiveUnitList;
-    public List<DecorObject>    decorObjectList = new();
+    private Enemy               decayEnemy;
+    public List<DecorObject> decorObjectList = new();
     public List<DecorObject>    staticObjList = new();
     public List<DecorObject>    animatedObjList = new();
     public List<DecorObject>    decayObjList = new();
@@ -94,7 +95,7 @@ public class DecorObjectManager : MonoBehaviour
     {
         while (true)
         {
-            if (ActiveUnitList.Count > 0)
+            if (HasDecayEnemy())
             {
                 DecayObjChangeSprite(3f);
                 yield return new WaitForSeconds(checkInterval / 3);
@@ -119,19 +120,33 @@ public class DecorObjectManager : MonoBehaviour
 
     private void DecayObjChangeSprite(float decayTriggerRange)
     {
-        if(ActiveUnitList.Count <= 0) return;
+        if(decayEnemy.CurrentHp == 0) return;
         foreach(var decayObj in decayObjList)
         {
-            if(GetDistance(decayObj, ActiveUnitList[0]) < decayTriggerRange && ActiveUnitList[0].isMoving)
+            if(GetDistance(decayObj, decayEnemy) < decayTriggerRange && decayEnemy.isMoving)
             {
                 decayObj.ChangeSprite();
             }
         }
     }
 
+    private bool HasDecayEnemy()
+    {
+        foreach (Enemy enemy in ActiveUnitList)
+        {
+            if (enemy.UnitID == UnitID.Enemy_A_1.ToString())
+            {
+                decayEnemy = enemy;
+                return true;
+            }
+        }
+        decayEnemy = null;
+        return false;
+    }
+
     private void DecayObjHealing()
     {
-        foreach(var decayObj in decayObjList)
+        foreach (var decayObj in decayObjList)
         {
             decayObj.StartHealing();
         }

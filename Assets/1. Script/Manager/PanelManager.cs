@@ -13,6 +13,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] VictoryMenu victoryMenu;
     [SerializeField] GameOverMenu gameOverMenu;
     [SerializeField] SelectedMapMenu mapMenu;
+    [SerializeField] InstructionMenu instructionMenu;
 
     [Header("TowerMenu")]
     [SerializeField] InitMenu initMenu;
@@ -76,6 +77,7 @@ public class PanelManager : MonoBehaviour
         victoryMenu = FindObjectOfType<VictoryMenu>();
         gameOverMenu = FindObjectOfType<GameOverMenu>();
         mapMenu = FindObjectOfType<SelectedMapMenu>();
+        instructionMenu = FindObjectOfType<InstructionMenu>();
 
         currentSttPanel = FindObjectOfType<CurrentSttPanel>();
         upgradeSttPanel = FindObjectOfType<UpgradeSttPanel>();
@@ -282,6 +284,16 @@ public class PanelManager : MonoBehaviour
     public void HideMapMenu()
     {
         mapMenu.Hide();
+    }
+
+    public void ShowInstructionMenu(bool hasActive)
+    {
+        if(!hasActive) instructionMenu.ShowInstruction();
+    }
+
+    public void InstructionNextBtnClick()
+    {
+        instructionMenu.NextButtonClick();
     }
 
     public void ShowPauseMenu()

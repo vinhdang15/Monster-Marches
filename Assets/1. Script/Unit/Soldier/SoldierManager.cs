@@ -7,17 +7,6 @@ public class SoldierManager : MonoBehaviour
     private List<GuardPoint> guardPoints = new List<GuardPoint>();
     [SerializeField] List<Soldier> activeSoldiers = new List<Soldier>();
 
-    public void ClearSoldierManager()
-    {
-        StopAllCoroutines();
-
-        foreach(Soldier soldier in activeSoldiers)
-        {
-            UnitPool.Instance.ReturnUnit(soldier);
-        }
-        activeSoldiers.Clear();
-    }
-
     private void Update()
     {
         if(activeSoldiers.Count == 0) return;
@@ -44,7 +33,6 @@ public class SoldierManager : MonoBehaviour
 
     private void HandleSoldierDie(Soldier soldier)
     {
-        //totalsoldiers.Remove(soldier);
         //Play die animation
         soldier.unitAnimation.UnitPlayDie();
         // wait to finish die animation then return to barack tower wait to respawn
@@ -70,25 +58,28 @@ public class SoldierManager : MonoBehaviour
 
     private void ReturnSoldierToPool(GuardPoint guardPoint)
     {
-        foreach(var soldier in guardPoint.soldiers)
+        foreach (var soldier in guardPoint.soldiers)
         {
             activeSoldiers.Remove(soldier);
             soldier.OnSoldierDeath -= HandleSoldierDie;
             soldier.barrackTowerView = null;
-            soldier.SoldierReturnToUnitPool();
             soldier.isBarrackUpgrade = false;
+            UnitPool.Instance.ReturToUnitPool(soldier);
         }
         guardPoint.soldiers.Clear();
     }
 
-    public void ReturnAllSoldierToPool()
+    public void ClearActiveSoldierList()
     {
-        foreach(var soldier in activeSoldiers)
+        StopAllCoroutines();
+
+        foreach (Soldier soldier in activeSoldiers)
         {
             soldier.OnSoldierDeath -= HandleSoldierDie;
             soldier.barrackTowerView = null;
-            soldier.SoldierReturnToUnitPool();
             soldier.isBarrackUpgrade = false;
+            UnitPool.Instance.ReturToUnitPool(soldier);
         }
+        activeSoldiers.Clear();
     }
 }

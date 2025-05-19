@@ -88,14 +88,15 @@ public class UnitPool : MonoBehaviour
         }
     }
 
-    public void ReturnUnit(UnitBase unit)
+    public void ReturToUnitPool(UnitBase unit)
     {
+        unit.ResetUnit();
         unit.gameObject.SetActive(false);
         if(unitPool.ContainsKey(unit.UnitID))
         {
             unitPool[unit.UnitID].Enqueue(unit);
         }
-        unit.ResetUnit();
+        
     }
 
     private UnitBase GetUnitPrefabScript(string unitID)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7769039077998572069}
   - component: {fileID: 3583598125312749599}
   m_Layer: 11
-  m_Name: GuardPoint
+  m_Name: GuardPointBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 9197319779016579917}
   - component: {fileID: 5460019153270502300}
   m_Layer: 11
-  m_Name: UpgradeTower
+  m_Name: UpgradeTowerBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 424139965896600591}
   - component: {fileID: 6491810889496491234}
   m_Layer: 11
-  m_Name: SellTower
+  m_Name: SellTowerBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

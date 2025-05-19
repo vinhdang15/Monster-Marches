@@ -6,7 +6,7 @@ public class BulletTowerManager : TowerBaseManager
 {
     [SerializeField] BulletManager          bulletManager;
     [SerializeField] List<TowerViewBase>    towerPrefabList = new List<TowerViewBase>();
-    [SerializeField] List<TowerPresenter>   bulletTOwerList;
+    [SerializeField] List<TowerPresenter>   bulletTowerList;
     private Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
 
     public void PrepareGame()
@@ -32,7 +32,7 @@ public class BulletTowerManager : TowerBaseManager
         base.AddTowerPersenterEmptyPlot(towerPresenter, emptyPlot);
         RegisterTowerEvent(towerPresenter);
 
-        bulletTOwerList.Add(towerPresenter);
+        bulletTowerList.Add(towerPresenter);
     }
 
     private void RegisterTowerEvent(TowerPresenter towerPresenter)
@@ -110,17 +110,17 @@ public class BulletTowerManager : TowerBaseManager
 
     public void CleanupSelectedTower(TowerPresenter selectedTower)
     {
-        bulletTOwerList.Remove(selectedTower);
+        bulletTowerList.Remove(selectedTower);
         Destroy(selectedTower.gameObject);
     }
 
     public void ClearBulletTowers()
     {
-        foreach(var bulletTower in bulletTOwerList)
+        foreach(var bulletTower in bulletTowerList)
         {
             Destroy(bulletTower.gameObject);
         }
-        bulletTOwerList.Clear();
+        bulletTowerList.Clear();
     }
 }
 

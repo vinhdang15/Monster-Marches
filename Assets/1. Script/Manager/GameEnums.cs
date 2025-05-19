@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameEnums : MonoBehaviour
@@ -10,9 +8,19 @@ public class GameEnums : MonoBehaviour
 public enum AddressLabel
 {
     JSON,
+    BackgroundImage,
+    InstructionImage,
     MapImage,
     Unit,
     DecorObject,
+}
+
+public enum ImageName
+{
+    BackgroundIntro,
+    BackgroundWorldMap,
+    Instruction_1,
+    Instruction_2
 }
 
 public enum InitNameObject

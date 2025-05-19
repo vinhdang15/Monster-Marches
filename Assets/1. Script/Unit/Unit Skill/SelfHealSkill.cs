@@ -28,10 +28,10 @@ public class SelfHealSkill : SkillBase
 
     public override bool CanApply(UnitBase unit)
     {
-        bool soldierCanApply = unit is Soldier soldier 
+        bool canApply = unit is Soldier soldier 
                                 && soldier.IsInGuardPos()
                                 && soldier.CurrentHp < soldier.MaxHP;
-        return soldierCanApply;
+        return canApply;
     }
 
     private void ApplyEffect(UnitBase unit)

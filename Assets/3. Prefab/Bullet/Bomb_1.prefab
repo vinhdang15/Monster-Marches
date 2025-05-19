@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: -770597186814560954}
   - component: {fileID: 1859538256131655347}
   - component: {fileID: 1039844318670385434}
+  - component: {fileID: -3318923446684823556}
+  - component: {fileID: 4223805263005058547}
   - component: {fileID: 1045416858481463436}
   m_Layer: 12
   m_Name: Bomb_1
@@ -105,8 +107,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -199388255
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1059311915, guid: 8a69bcfebc9130a4794727ec008256f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -119,6 +121,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-3318923446684823556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 043908348a6556d4bb4bfb704eca2afe, type: 3}
+--- !u!114 &4223805263005058547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 0
+  m_SpriteHash: 658212657
 --- !u!95 &1045416858481463436
 Animator:
   serializedVersion: 5
@@ -129,7 +161,7 @@ Animator:
   m_GameObject: {fileID: 5405717181563337596}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 1b1948a0ef965b44d8dbde94eb44ca5c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 499bd259bdeea5448a010c65b372619c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

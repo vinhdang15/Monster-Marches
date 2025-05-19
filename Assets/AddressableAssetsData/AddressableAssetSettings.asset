@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: b2c60dcee908ab7469e1a43cdf961120
   m_currentHash:
     serializedVersion: 2
-    Hash: 5a4d412b9041680501ea6fb8617485ab
+    Hash: b4352224c4ed7a3aae566aeca59c3eb3
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -89,6 +89,8 @@ MonoBehaviour:
     - default
     - JSON
     - MapImage
+    - BackgroundImage
+    - InstructionImage
     - Unit
     - DecorObject
   m_SchemaTemplates: []

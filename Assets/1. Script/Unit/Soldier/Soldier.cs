@@ -58,11 +58,11 @@ public class Soldier : UnitBase
         InitComponents();
     }
 
-    public void SoldierInitInfor(BarrackTowerView barrackTowerView, int index, Vector2 barrackGatePos, float revivalSpeed)
+    public void SoldierInitInfor(BarrackTowerView barrackTowerView, int index, Vector2 barrackGatePos, float revivalTime)
     {
         this.barrackTowerView = barrackTowerView;
         this.index = index;
-        this.revivalTime = revivalSpeed;
+        this.revivalTime = revivalTime;
         this.barrackGatePos = barrackGatePos;
         GetOffsetPos();
     }
@@ -73,7 +73,7 @@ public class Soldier : UnitBase
         {
             case SoldierState.MovingToGuardPos:
                 if(CurrentHp == 0) return;
-                MovingToGuardposStateToMovingToEnemy();
+                MovingToGuardPosStateToMovingToEnemy();
                 UnTargetEnemy();
                 SetSoldierDirect(guardPos);
                 MoveToStandingPos();
@@ -149,7 +149,7 @@ public class Soldier : UnitBase
         }
     }
 
-    private void MovingToGuardposStateToMovingToEnemy()
+    private void MovingToGuardPosStateToMovingToEnemy()
     {
         if(isReachGuardPos == false && enemiesInRange.Count == 0) return;
         if(CanSoldierMovingToEnemy())
@@ -291,18 +291,25 @@ public class Soldier : UnitBase
     #endregion
 
     #region RETURN TO POOL WHEN BARACK DESTROY
-    public void SoldierReturnToUnitPool()
+    // public void ReturnToUnitPool()
+    // {
+    //     ResetSoldierState();
+    //     UnitPool.Instance.ReturToUnitPool(this);
+    // }
+
+    public override void ResetUnit()
     {
+        base.ResetUnit();
         ResetSoldierState();
-        UnitPool.Instance.ReturnUnit(this);
+        currentState = SoldierState.MovingToGuardPos;
     }
 
     public void ResetSoldierState()
-    {   
+    {
         isReachGuardPos = false;
         isReachTargetEnemyFrontPos = false;
         hasTarget = false;
-        if(targetEnemy != null)
+        if (targetEnemy != null)
         {
             targetEnemy.ResetEnemyTargetState();
             targetEnemy = null;
@@ -334,11 +341,5 @@ public class Soldier : UnitBase
     public IEnumerator FadeOut(float time, Action onComplete)
     {     
         yield return ReturnToPool.FadeOut(time, onComplete);
-    }
-
-    public override void ResetUnit()
-    {
-        base.ResetUnit();
-        currentState = Soldier.SoldierState.MovingToGuardPos;
     }
 }

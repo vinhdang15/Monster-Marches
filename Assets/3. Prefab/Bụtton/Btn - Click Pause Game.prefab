@@ -54,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1846676759448531475, guid: 8c9c90ff9c4107e43af16af08dce0592, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 35
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1846676759448531475, guid: 8c9c90ff9c4107e43af16af08dce0592, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 35
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1846676759448531475, guid: 8c9c90ff9c4107e43af16af08dce0592, type: 3}
       propertyPath: m_LocalPosition.x
@@ -90,11 +90,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1846676759448531475, guid: 8c9c90ff9c4107e43af16af08dce0592, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -50
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 1846676759448531475, guid: 8c9c90ff9c4107e43af16af08dce0592, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45
+      value: -76
       objectReference: {fileID: 0}
     - target: {fileID: 1846676759448531475, guid: 8c9c90ff9c4107e43af16af08dce0592, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -137,5 +137,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45702ed550227f4e9c78cb8bde5313a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: 
   soundEffectSO: {fileID: 11400000, guid: 58f3b842f8497a046a2a1acaa17e7bc7, type: 2}

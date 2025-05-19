@@ -23,11 +23,14 @@ public class SoldierRevivalHandler : MonoBehaviour
         soldier.ReturnToBarrackGatePos();
         yield return new WaitForSeconds(revivalTime);
 
-        // if barrack tower is upgrading, this soldier will process to return to unit pool
+        // if barrack tower is upgrading, 
+        // this soldier will be process to return to unit pool
         // therefor soldier.barrackTowerView will be null
         // stop RevivalCoroutine here
         
         if(soldier.isBarrackUpgrade == true) yield break;
+        if(soldier.barrackTowerView == null) yield break;
+
         soldier.barrackTowerView.OpenGateAnimation();
         yield return new WaitForSeconds(0.8f);
 

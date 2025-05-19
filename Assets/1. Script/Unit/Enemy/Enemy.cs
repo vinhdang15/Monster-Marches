@@ -79,6 +79,7 @@ public class Enemy : UnitBase, IEnemy
         }
         else
         {
+            unitAnimation.UnitPlayIdle();
             attackCooldown -= Time.deltaTime;
         }
     }
@@ -123,11 +124,13 @@ public class Enemy : UnitBase, IEnemy
         }
     }
 
+    // Need to using yield return null brefor GetCurrentAnimationLength
+    // cause animator still need one last frame to make stransition
     public IEnumerator ReturnPoolAfterPlayAnimation()
     {
         yield return null;
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
-        UnitPool.Instance.ReturnUnit(this);
+        UnitPool.Instance.ReturToUnitPool(this);
         yield break;
     }
 
@@ -140,9 +143,9 @@ public class Enemy : UnitBase, IEnemy
     // use ResetUnit when return to pool
     public override void ResetUnit()
     {
+        base.ResetUnit();
         isProcessDead = false;
         ResetEnemyTargetState();
-        base.ResetUnit();
     }
 
     public void OnReachEndPoint()

@@ -30,22 +30,22 @@ MonoBehaviour:
     - MapImage
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2aee376ab81868e4e8a6e76f0d71e823
-    m_Address: Assets/AddressableFile/MapImage/WorldMap.png
+    m_Address: Assets/AddressableFile/Background/BackgroundWorldMap.png
     m_ReadOnly: 0
     m_SerializedLabels:
-    - MapImage
+    - BackgroundImage
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4a17182e4c35cb74998800d4c3f93e09
-    m_Address: Assets/AddressableFile/MapImage/Loading.png
+  - m_GUID: e46ff6d6911080545bd5da5030648163
+    m_Address: Assets/AddressableFile/Instructions/InstructionBG_2.png
     m_ReadOnly: 0
     m_SerializedLabels:
-    - MapImage
+    - InstructionImage
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dcb038651f5422c42a650d02c0c228c9
-    m_Address: Assets/AddressableFile/MapImage/Intro.png
+    m_Address: Assets/AddressableFile/Background/BackgroundIntro.png
     m_ReadOnly: 0
     m_SerializedLabels:
-    - MapImage
+    - BackgroundImage
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3fa0de147fb60ea4c90f2f674d216b26
     m_Address: Assets/3. Prefab/Unit/Enemy/Enemy_C_1.prefab
@@ -71,32 +71,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - Unit
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b89513d156a17b2458037182ecb70c2c
+  - m_GUID: b98197946e8955f49b7a69e5ac1942dc
     m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_2.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8e258849a42854d44b562ccacc0e5e73
-    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_3.prefab
+  - m_GUID: c58b652fbf5e3e34c94024b1fd97b6a4
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_5.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c58b652fbf5e3e34c94024b1fd97b6a4
+  - m_GUID: 8e258849a42854d44b562ccacc0e5e73
     m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_4.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7c0ff95309a61a469313bab091ad133
-    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_5.prefab
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_1.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b98197946e8955f49b7a69e5ac1942dc
-    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_1.prefab
+  - m_GUID: b89513d156a17b2458037182ecb70c2c
+    m_Address: Assets/3. Prefab/MapObject/DecayObj/TreePatch_3.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - DecorObject
@@ -121,12 +121,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0fa57a7a81c93de4d894ed999fc34e18
     m_Address: Assets/AddressableFile/JSON/MapDesignData.json
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - JSON
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f21f3e9469c0c9845b00ad9d3be447a9
-    m_Address: Assets/AddressableFile/JSON/MapProgressData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
@@ -190,6 +184,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - DecorObject
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e955b476a5ebc9c44b714e2c868b7220
+    m_Address: Assets/AddressableFile/Instructions/InstructionBG_3.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - InstructionImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f21f3e9469c0c9845b00ad9d3be447a9
+    m_Address: Assets/AddressableFile/JSON/MapProgressData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 825f42600ffa1e242bdffe0e3f4fe3f7, type: 2}

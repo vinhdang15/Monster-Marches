@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8669131875085279794}
   - component: {fileID: 4280606397613124057}
-  - component: {fileID: 128065705749367289}
+  - component: {fileID: 4390840180588161209}
   m_Layer: 0
   m_Name: TreePatch_5
   m_TagString: Untagged
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 495372022, guid: c6f300bf49a0259499862ee441999a86, type: 3}
+  m_Sprite: {fileID: -1213478365, guid: 9861c6ba7cf254e4dabc7339b77d636b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &128065705749367289
+--- !u!114 &4390840180588161209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

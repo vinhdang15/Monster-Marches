@@ -18,7 +18,7 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private UnitDataReader unitDataReader;
     [SerializeField] private SkillDataReader skillDataReader;
     [SerializeField] private EnemyWaveDataReader enemyWaveDataReader;
-    private MapDisplayController spriteController;
+    private SpriteDisplayController spriteController;
 
     [Header("FX")]
     [SerializeField] private DustFX dustFX;
@@ -57,8 +57,10 @@ public class GameInitiator : MonoBehaviour
     [Header("SelectedMap")]
     public MapData currentMapData;
     
+    private GameObject dataReaderHolder;
     private GameObject gameManagerHolder;
     private GameObject handlerHolder;
+    private GameObject poolHolder;
 
     private void Awake()
     {
@@ -67,8 +69,10 @@ public class GameInitiator : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
+            dataReaderHolder = CreateHolder("DataReaderHolder");
             gameManagerHolder = CreateHolder("GameManagerHolder");
             handlerHolder = CreateHolder("HandlerHolder");
+            poolHolder = CreateHolder("PoolHolder");
         }
         else
         {
@@ -125,9 +129,9 @@ public class GameInitiator : MonoBehaviour
     
     private IEnumerator SpriteControllerdPrepareGame()
     {
-        GameObject mapImageControllerObj = new("MapImageController");
-        mapImageControllerObj.transform.SetParent(gameObject.transform);
-        spriteController = mapImageControllerObj.AddComponent<MapDisplayController>();
+        GameObject spriteDisplayController = new("SpriteDisplayController");
+        spriteDisplayController.transform.SetParent(gameObject.transform);
+        spriteController = spriteDisplayController.AddComponent<SpriteDisplayController>();
 
         var prepareSpriteTask = spriteController.PrepareGameAsync();
         yield return new WaitUntil(() => prepareSpriteTask.IsCompleted);
@@ -135,27 +139,27 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator BindGameObject()
     {
-        sceneController = Instantiate(sceneController);
+        sceneController = Instantiate(sceneController, dataReaderHolder.transform);
 
-        mapDataReader = Instantiate(mapDataReader);
+        mapDataReader = Instantiate(mapDataReader, dataReaderHolder.transform);
 
-        mapObjDataReader = Instantiate(mapObjDataReader);
+        mapObjDataReader = Instantiate(mapObjDataReader, dataReaderHolder.transform);
 
-        wayPointDataReader = Instantiate(wayPointDataReader);
+        wayPointDataReader = Instantiate(wayPointDataReader, dataReaderHolder.transform);
 
-        towerDataReader = Instantiate(towerDataReader);
+        towerDataReader = Instantiate(towerDataReader, dataReaderHolder.transform);
 
-        bulletDataReader = Instantiate(bulletDataReader);
+        bulletDataReader = Instantiate(bulletDataReader, dataReaderHolder.transform);
         
-        bulletEffectDataReader = Instantiate(bulletEffectDataReader);
+        bulletEffectDataReader = Instantiate(bulletEffectDataReader, dataReaderHolder.transform);
 
-        unitDataReader = Instantiate(unitDataReader);
+        unitDataReader = Instantiate(unitDataReader, dataReaderHolder.transform);
 
-        skillDataReader = Instantiate(skillDataReader);
+        skillDataReader = Instantiate(skillDataReader, dataReaderHolder.transform);
 
-        enemyWaveDataReader = Instantiate(enemyWaveDataReader);
+        enemyWaveDataReader = Instantiate(enemyWaveDataReader, dataReaderHolder.transform);
 
-        mapBtnManager = Instantiate(mapBtnManager);
+        mapBtnManager = Instantiate(mapBtnManager, gameManagerHolder.transform);
 
         endPointManager = Instantiate(endPointManager, gameManagerHolder.transform);
 
@@ -182,10 +186,10 @@ public class GameInitiator : MonoBehaviour
         cautionManager = Instantiate(cautionManager, gameManagerHolder.transform);
 
         // Object Pooling
-        decorObjPool = Instantiate(decorObjPool);
-        bulletPool = Instantiate(bulletPool);
-        unitPool = Instantiate(unitPool);
-        visualEffectPool = Instantiate(visualEffectPool);
+        decorObjPool = Instantiate(decorObjPool, poolHolder.transform);
+        bulletPool = Instantiate(bulletPool, poolHolder.transform);
+        unitPool = Instantiate(unitPool, poolHolder.transform);
+        visualEffectPool = Instantiate(visualEffectPool, poolHolder.transform);
 
         panelManager = Instantiate(panelManager, gameManagerHolder.transform);
 
@@ -287,6 +291,8 @@ public class GameInitiator : MonoBehaviour
         canvasManager.ShowFPSText();
         canvasManager.ShowAllGamePlayIUList();
         fPSCounter.PrepareGame();
+
+        panelManager.ShowInstructionMenu(mapBtnManager.HasActiveMapID2());
     }
 
     // reload world map after finished a game
@@ -298,7 +304,7 @@ public class GameInitiator : MonoBehaviour
 
     public void HandleQuitCurrentMap()
     {
-        Time.timeScale = 1;
+        panelManager.HidePauseMenu();
         ClearCurrentMapObj();
         decorObjManager.ClearDecayObj();
         emptyPlotManager.ClearEmptyPlot();
@@ -306,10 +312,10 @@ public class GameInitiator : MonoBehaviour
         
         spriteController.LoadWorldMapSprite();
         CameraController.Instance.ResetBoundingShape(spriteController);
-
-        panelManager.HidePauseMenu();
-        sceneController.LoadWorldMapScene();
         mapBtnManager.ShowMapBtn();
+        sceneController.LoadWorldMapScene();
+        Time.timeScale = 1;
+        
     }
 
     public void HandleReloadCurrentMap()
@@ -349,11 +355,10 @@ public class GameInitiator : MonoBehaviour
         bulletTowerManager.ClearBulletTowers();
 
         barrackTowerManager.ClearBarrackTowers();
-        soldierManager.ClearSoldierManager();
+        soldierManager.ClearActiveSoldierList();
 
-        soldierManager.ReturnAllSoldierToPool();
         enemyManager.ResetEnemyManager();
-        
+
         enemySpawnerManager.ResetEnemySpawnerManager();
 
         cautionManager.ClearCautionBtnManager();

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: -770597186814560954}
   - component: {fileID: 1859538256131655347}
   - component: {fileID: 1039844318670385434}
+  - component: {fileID: 2468395735507006949}
+  - component: {fileID: -7861305707454474422}
   - component: {fileID: 1045416858481463436}
   m_Layer: 12
   m_Name: Bomb_2
@@ -119,6 +121,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2468395735507006949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 80a44e489797f414cabb00c7ada21b34, type: 3}
+--- !u!114 &-7861305707454474422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405717181563337596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 0
+  m_SpriteHash: 658212657
 --- !u!95 &1045416858481463436
 Animator:
   serializedVersion: 5
@@ -129,7 +161,7 @@ Animator:
   m_GameObject: {fileID: 5405717181563337596}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 1b1948a0ef965b44d8dbde94eb44ca5c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 499bd259bdeea5448a010c65b372619c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

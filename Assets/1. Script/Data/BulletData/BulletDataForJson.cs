@@ -11,14 +11,14 @@ public class BulletDataForJson : MonoBehaviour
         {
             bulletID        = BulletID.Arrow_1.ToString(),
             damage          = 25,
-            speed           = 8,
+            speed           = 7,
             effectTyes      = BulletEffectType.none.ToString(),
         },
         new BulletData
         {
             bulletID        = BulletID.Arrow_2.ToString(),
             damage          = 30,
-            speed           = 10,
+            speed           = 8,
             effectTyes      = BulletEffectType.Fire_DoT.ToString(),
         },
 
