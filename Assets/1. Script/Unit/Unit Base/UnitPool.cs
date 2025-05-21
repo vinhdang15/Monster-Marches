@@ -5,6 +5,8 @@ using UnityEngine;
 public class UnitPool : MonoBehaviour
 {
     public static UnitPool Instance { get; private set; }
+    private UnitDataReader  unitDataReader;
+    private SkillDataReader skillDataReader;
     private Dictionary<string, GameObject> prefabDic = new();
     public Dictionary<string, Queue<UnitBase>> unitPool = new();
     private int poolSize = 20;
@@ -20,6 +22,12 @@ public class UnitPool : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void PrepareGame(UnitDataReader unitDataReader, SkillDataReader skillDataReader)
+    {
+        this.unitDataReader = unitDataReader;
+        this.skillDataReader = skillDataReader;
     }
 
     public void Initialize()
@@ -48,8 +56,8 @@ public class UnitPool : MonoBehaviour
             {
                 GameObject unitObj = Instantiate(pair.Value, transform);
                 UnitBase unit = unitObj.GetComponent<UnitBase>();
-                UnitData unitData = UnitDataReader.Instance.unitDataListSO.GetUnitData(pair.Key);
-                unit.InitUnit(unitData);
+                UnitData unitData = unitDataReader.unitDataListSO.GetUnitData(pair.Key);
+                unit.InitUnit(unitData, skillDataReader);
                 unit.GetAnimation();
                 unit.gameObject.SetActive(false);
                 unitQueue.Enqueue(unit);
@@ -81,8 +89,8 @@ public class UnitPool : MonoBehaviour
         {
             UnitBase unitPrefabScript = GetUnitPrefabScript(unitID);
             UnitBase unit = Instantiate(unitPrefabScript, initPos, Quaternion.identity, transform);
-            UnitData unitData = UnitDataReader.Instance.unitDataListSO.GetUnitData(unit.UnitID);
-            unit.InitUnit(unitData);
+            UnitData unitData = unitDataReader.unitDataListSO.GetUnitData(unit.UnitID);
+            unit.InitUnit(unitData, skillDataReader);
             unit.GetAnimation();
            return unit;
         }

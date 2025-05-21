@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class BulletTowerManager : TowerBaseManager
 {
-    [SerializeField] BulletManager          bulletManager;
+    private BulletManager       bulletManager;
+    private BulletDataReader    bulletDataReader;
     [SerializeField] List<TowerViewBase>    towerPrefabList = new List<TowerViewBase>();
     [SerializeField] List<TowerPresenter>   bulletTowerList;
     private Dictionary<TowerPresenter, BulletTowerInfor> bulletTowerInfor = new Dictionary<TowerPresenter, BulletTowerInfor>();
+    
 
-    public void PrepareGame()
+    public void PrepareGame(TowerDataReader towerDataReader, BulletDataReader bulletDataReader)                     
     {
+        this.towerDataReader = towerDataReader;
+        this.bulletDataReader = bulletDataReader;
         bulletManager = FindObjectOfType<BulletManager>();
     }
     
@@ -22,11 +27,15 @@ public class BulletTowerManager : TowerBaseManager
         }
     }
 
-    public void InitTower(Vector3 pos, TowerType towerType, EmptyPlot emptyPlot)
+    public void Init(Vector3 pos, TowerType towerType, EmptyPlot emptyPlot,
+                        TowerDataReader towerDataReader, BulletDataReader bulletDataReader)
+                        
     {
-        TowerData towerData = TowerDataReader.Instance.towerDataListSO.GetTowerData(towerType.ToString(), 1);
+        TowerData towerData = towerDataReader.towerDataListSO.GetTowerData(towerType.ToString(), 1);
         TowerViewBase towerPrefab = towerPrefabList[(int)towerType];
-        TowerPresenter towerPresenter = base.InitBuildingPresenter(towerPrefab, towerData, pos);
+        TowerPresenter towerPresenter = base.InitBuildingPresenter(towerPrefab, towerData, pos,
+                                                                    towerDataReader, bulletDataReader);
+                                                            
 
         bulletTowerInfor[towerPresenter]       = new BulletTowerInfor();
         base.AddTowerPersenterEmptyPlot(towerPresenter, emptyPlot);
@@ -48,18 +57,20 @@ public class BulletTowerManager : TowerBaseManager
     }
 
     public void InitArcherTower(Vector3 pos, EmptyPlot emptyPlot)
+                                
     {
-        InitTower(pos, TowerType.ArcherTower, emptyPlot);
+        Init(pos, TowerType.ArcherTower, emptyPlot, towerDataReader, bulletDataReader);
+                                                                    
     }
 
     public void InitMageTower(Vector3 pos, EmptyPlot emptyPlot)
     {
-        InitTower(pos, TowerType.MageTower, emptyPlot);
+        Init(pos, TowerType.MageTower, emptyPlot, towerDataReader, bulletDataReader);
     }
 
     public void InitCannonTower(Vector3 pos, EmptyPlot emptyPlot)
     {
-        InitTower(pos, TowerType.CannonTower, emptyPlot);
+        Init(pos, TowerType.CannonTower, emptyPlot,towerDataReader, bulletDataReader);
     }
 
     #region PROCESS DETECT ENEMY AND SPAWN BULLET

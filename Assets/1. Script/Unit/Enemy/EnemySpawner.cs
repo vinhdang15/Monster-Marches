@@ -21,12 +21,15 @@ public class EnemySpawner : MonoBehaviour
     public event Action<float>              OnFinishCurrentWave;
     private Coroutine SpawnEnemyCoroutine;
 
-    public void PrepareGame(EnemyManager enemyManager, EnemySpawnerManager enemySpawnerManager, Vector2 cautionBtnPos, int pathID, MapData mapData, List<PathWaySegment> pathWaySegmentList)
+    public void PrepareGame(EnemyManager enemyManager, EnemySpawnerManager enemySpawnerManager,
+                            Vector2 cautionBtnPos, int pathID, MapData mapData,
+                            EnemyWaveDataReader enemyWaveDataReader,
+                            List<PathWaySegment> pathWaySegmentList)
     {
         LoadComponents(enemyManager);
         SetEnemySpawnerManager(enemySpawnerManager);
         SetCautionBtnPos(cautionBtnPos);
-        GetEnemyWaveDataList(pathID, mapData);
+        GetEnemyWaveDataList(pathID, mapData, enemyWaveDataReader);
         SetPathWaySegmentList(pathWaySegmentList);
         RegisterStartNextWaveEvent();
     }
@@ -56,10 +59,10 @@ public class EnemySpawner : MonoBehaviour
         this.pathWaySegmentList = pathWaySegmentList;
     }
 
-    private void GetEnemyWaveDataList(int pathID, MapData mapData)
+    private void GetEnemyWaveDataList(int pathID, MapData mapData, EnemyWaveDataReader enemyWaveDataReader)
     {
 
-        enemyWaveList = EnemyWaveDataReader.Instance.GetSelectedMapEnemyWaveList(pathID, mapData);
+        enemyWaveList = enemyWaveDataReader.GetSelectedMapEnemyWaveList(pathID, mapData);
     }
 
     public void RegisterStartNextWaveEvent()

@@ -14,19 +14,14 @@ public class InitMenu : UIElementBase
     private List<ButtonColor> buttonColorControllers = new List<ButtonColor>();
     [SerializeField] private List<int> towerInitGold = new List<int>();
 
-    private void Awake()
+    public void PrepareGame(TowerDataReader towerDataReader)
     {
-        LoadComponent();
+        LoadComponent(towerDataReader);
     }
 
-    public void PrepareGame()
+    private void LoadComponent(TowerDataReader towerDataReader)
     {
-        LoadComponent();
-    }
-
-    private void LoadComponent()
-    {
-        towerInitGold = TowerDataReader.Instance.towerDataListSO.TowerInitGoldList;
+        towerInitGold = towerDataReader.towerDataListSO.TowerInitGoldList;
         UpdateTowerInitGoldText();
         
         for(int i = 1; i < 5; i++)

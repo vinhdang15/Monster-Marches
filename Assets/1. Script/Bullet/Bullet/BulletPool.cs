@@ -4,6 +4,8 @@ using UnityEngine;
 public class BulletPool : MonoBehaviour
 {
     public static BulletPool Instance { get; private set; }
+    private BulletDataReader        bulletDataReader;
+    private BulletEffectDataReader  bulletEffectDataReader;
     [System.Serializable]
     public class BulletPoolInfo
     {
@@ -32,21 +34,27 @@ public class BulletPool : MonoBehaviour
         InitializeBulletPool();
     }
 
+    public void PrepareGame(BulletDataReader bulletDataReader, BulletEffectDataReader bulletEffectDataReader)
+    {
+        this.bulletDataReader       = bulletDataReader;
+        this.bulletEffectDataReader = bulletEffectDataReader;
+    }
+
     private void InitializeBulletPool()
     {
-        foreach(var bulletPoolInfo in bulletPoolInfos)
+        foreach (var bulletPoolInfo in bulletPoolInfos)
         {
             Queue<BulletBase> bulletQueue = new Queue<BulletBase>();
-            for(int i = 0; i < bulletPoolInfo.poolSize; i++)
+            for (int i = 0; i < bulletPoolInfo.poolSize; i++)
             {
                 BulletBase bullet = Instantiate(bulletPoolInfo.bulletPrefab, transform);
-                BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPoolInfo.BulletID);
-                bullet.InitBullet(bulletData);
+                BulletData bulletData = bulletDataReader.bulletDataListSO.GetBulletData(bulletPoolInfo.BulletID);
+                bullet.InitBullet(bulletData, bulletEffectDataReader);
 
                 bullet.gameObject.SetActive(false);
                 bulletQueue.Enqueue(bullet);
             }
-            bulletPools.Add(bulletPoolInfo.BulletID,bulletQueue);
+            bulletPools.Add(bulletPoolInfo.BulletID, bulletQueue);
         }
     }
 
@@ -72,8 +80,8 @@ public class BulletPool : MonoBehaviour
         {
             BulletBase bulletPrefab = GetBulletPrefab(bulletType);
             BulletBase bullet = Instantiate(bulletPrefab, initPos, Quaternion.identity, transform);
-            BulletData bulletData = BulletDataReader.Instance.bulletDataListSO.GetBulletData(bulletPrefab.BulletID);
-            bullet.InitBullet(bulletData);
+            BulletData bulletData = bulletDataReader.bulletDataListSO.GetBulletData(bulletPrefab.BulletID);
+            bullet.InitBullet(bulletData, bulletEffectDataReader);
             bullet.transform.position = initPos;
             bullet.startPos = initPos;
             bullet.isSetUpStartPos = true;

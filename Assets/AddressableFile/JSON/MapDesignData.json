@@ -6,8 +6,8 @@
     "lives": 5,
     "description": "welcome to my dev joney.\nI think I gonna make it right.",
     "initMapBtnPos": {
-      "x": -6.47,
-      "y": -3.65
+      "x": -5.94,
+      "y": -3.25
     }
   },
   {
@@ -17,8 +17,8 @@
     "lives": 7,
     "description": "welcome to the Forest_2.\nLet's play",
     "initMapBtnPos": {
-      "x": -3.95,
-      "y": -1.87
+      "x": -3.68,
+      "y": -1.62
     }
   }
 ]

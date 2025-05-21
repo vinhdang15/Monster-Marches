@@ -50,12 +50,12 @@ public abstract class UnitBase : MonoBehaviour
     }
 
     #region INIT UNIT
-    public virtual void InitUnit(UnitData unitData)
+    public virtual void InitUnit(UnitData unitData, SkillDataReader skillDataReader)
     {
         InitUnitData(unitData);
         SetupCurrentHp();
         SetDefaultSpeed();
-        InitUnitSkill(unitData);
+        InitUnitSkill(unitData, skillDataReader);
     }
     private void InitUnitData(UnitData unitData)
     {
@@ -69,13 +69,13 @@ public abstract class UnitBase : MonoBehaviour
         SkillType           = unitData.skillType;
     }
     
-    private void InitUnitSkill(UnitData unitData)
+    private void InitUnitSkill(UnitData unitData, SkillDataReader skillDataReader)
     {
         string[] skillTypes = unitData.skillType.Split(";");
         // Debug.Log($"{gameObject.name} number of {skillTypes.Length}");
         foreach(string skillType in skillTypes)
         {
-            SkillData skillData = SkillDataReader.Instance.skillDataListSO.GetSkillData(skillType);
+            SkillData skillData = skillDataReader.skillDataListSO.GetSkillData(skillType);
             if(skillData == null) continue;
             ISkill skill = SkillFactory.CreateSkill(skillData.skillType, skillData.skillValue, 
                                                         skillData.skillOccursTime, skillData.skillRange);

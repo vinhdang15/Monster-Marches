@@ -123,84 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &183721339
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 183721340}
-  - component: {fileID: 183721341}
-  m_Layer: 0
-  m_Name: GameInitiator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &183721340
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183721339}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &183721341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183721339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0019f1f24efaaf94ebe65f1857ae0acb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkForUpdateAndDownload: {fileID: 6410877943427726379, guid: 6ff2d546c27e3784198971a1ce10ed4a, type: 3}
-  mapDataReader: {fileID: 7892634020191321989, guid: 59fadfcc48d38d4498411c577b084e9e, type: 3}
-  mapObjDataReader: {fileID: 25971271131606672, guid: 5ad0bb99a763f7e4d9e1fa52787adfaa, type: 3}
-  wayPointDataReader: {fileID: 5187704677088453521, guid: 8a65f0d82031cf8419638c9933c02619, type: 3}
-  towerDataReader: {fileID: 5919611037689812246, guid: 5c51e9fa1a32c064ba28151a5cab9340, type: 3}
-  bulletDataReader: {fileID: -8763325126492671739, guid: 837f454913dcbdc4fbe21d954c11fba3, type: 3}
-  bulletEffectDataReader: {fileID: 1688266290170792413, guid: 4ea64fb4dbaf72c408333c4e0b0f2dd1, type: 3}
-  unitDataReader: {fileID: 8024145875720820022, guid: 9e6da9d84e2bd0d48b3c5100afb418f2, type: 3}
-  skillDataReader: {fileID: 7053645185576752903, guid: 690447c08269be945bd5e707e4944fe6, type: 3}
-  enemyWaveDataReader: {fileID: 221867342384875992, guid: 79f48724c94934a409d052a12f18b104, type: 3}
-  dustFX: {fileID: 6610567248834838120, guid: 5ad2673d032a7cd4a918b5ba4b276a7b, type: 3}
-  sceneController: {fileID: 7297455620247048197, guid: d9fdb62125eacc64b8c7a67259290537, type: 3}
-  mapBtnManager: {fileID: 3196960339075115150, guid: 9b07b464fb8a4af4bbbcef7481b8c584, type: 3}
-  endPointManager: {fileID: 7206342589962573541, guid: 58102412ff4f0c9489b8a9dc3fdd5d33, type: 3}
-  gamePlayManager: {fileID: 2476189185622002317, guid: d339727312976d04c9c29eff42435059, type: 3}
-  emptyPlotManager: {fileID: 6827882773492474754, guid: 6bb994a940112774bbe951688c6c533c, type: 3}
-  decorObjManager: {fileID: 8727899049830353471, guid: 36520647619b02748803c2da6c500ffd, type: 3}
-  bulletTowerManager: {fileID: 4290534878689775746, guid: 36750726c2da7954d8f9b7b3af789fdf, type: 3}
-  barrackTowerManager: {fileID: 2572811732704144327, guid: a7242759b59aca44bb882858b1e8d34e, type: 3}
-  bulletManager: {fileID: 3260903671357757072, guid: 689dbf24b75ff1b42958c330860ed17e, type: 3}
-  soldierManager: {fileID: 7058225555890191791, guid: 4bd75b57c3167d94c988a98f095f3fa3, type: 3}
-  enemyManager: {fileID: 4034063545699120182, guid: b170ba4eb53a87342a554e3eb336850b, type: 3}
-  enemySpawnerManager: {fileID: 2261135662972892038, guid: 71f8cb99f8438b246843c658682f30a4, type: 3}
-  decorObjPool: {fileID: 1780472275945384283, guid: a369a03fa0c0e5a4a90136e6d00df458, type: 3}
-  bulletPool: {fileID: 4259026402934746588, guid: f507a1a2eb5304449812c5b6a9bb4c00, type: 3}
-  unitPool: {fileID: 5098816568152292960, guid: 02376750b67a1dd43a3358eefd12371d, type: 3}
-  visualEffectPool: {fileID: 972004755641587948, guid: 6307ebe7658c20a4987d8dc0b1f3b759, type: 3}
-  panelManager: {fileID: 5232098085455180400, guid: 0d01de6351df2cc4582d7a092d68b0df, type: 3}
-  cautionManager: {fileID: 694791887957451411, guid: dd00cdafe9436874d8ce20e5513a4a7b, type: 3}
-  fPSCounter: {fileID: 6234544196098846960, guid: 7414ead0232e7b641bdafff1cdbc02fd, type: 3}
-  raycastHandler: {fileID: 1890386177643715819, guid: ed9d91c43ad27584ba9610f84c1cd54b, type: 3}
-  inputButtonHandler: {fileID: 6566239854668499126, guid: 9fae888604420f9498599d9e74860367, type: 3}
-  towerActionHandler: {fileID: 575354496877453398, guid: 03940d147f2751742b9d2d49a03d10b3, type: 3}
-  canvasManager: {fileID: 6239822878007390459, guid: 2ccc3f84964364c4785cc89cc2435db2, type: 3}
 --- !u!1 &281209058
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,11 +560,161 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2959855327902445042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955556168008604957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 104f6ab83240e5c48a0a0e20bdfcf5b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameInitManager: {fileID: 6955556168008604958}
+  gameFlowManager: {fileID: 2074900589579560438, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+--- !u!4 &3198149040460233248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955556168008604957}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3279364923527468209
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6769028041378359207, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_Name
+      value: GameFlowManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 400.88635
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 65.18182
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147531860448924928, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca0e6f10df223584eaaee1a55d9adaf3, type: 3}
+--- !u!1 &6955556168008604957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3198149040460233248}
+  - component: {fileID: 2959855327902445042}
+  - component: {fileID: 6955556168008604958}
+  m_Layer: 0
+  m_Name: StartUpAnfGameFlow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &6955556168008604958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955556168008604957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ca665cb815fbd448e051824d5d20fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkForUpdateAndDownload: {fileID: 6410877943427726379, guid: 6ff2d546c27e3784198971a1ce10ed4a, type: 3}
+  mapDataReader: {fileID: 7892634020191321989, guid: 59fadfcc48d38d4498411c577b084e9e, type: 3}
+  decorObjDataReader: {fileID: 25971271131606672, guid: 5ad0bb99a763f7e4d9e1fa52787adfaa, type: 3}
+  wayPointDataReader: {fileID: 5187704677088453521, guid: 8a65f0d82031cf8419638c9933c02619, type: 3}
+  towerDataReader: {fileID: 5919611037689812246, guid: 5c51e9fa1a32c064ba28151a5cab9340, type: 3}
+  bulletDataReader: {fileID: -8763325126492671739, guid: 837f454913dcbdc4fbe21d954c11fba3, type: 3}
+  bulletEffectDataReader: {fileID: 1688266290170792413, guid: 4ea64fb4dbaf72c408333c4e0b0f2dd1, type: 3}
+  unitDataReader: {fileID: 8024145875720820022, guid: 9e6da9d84e2bd0d48b3c5100afb418f2, type: 3}
+  skillDataReader: {fileID: 7053645185576752903, guid: 690447c08269be945bd5e707e4944fe6, type: 3}
+  enemyWaveDataReader: {fileID: 221867342384875992, guid: 79f48724c94934a409d052a12f18b104, type: 3}
+  sceneController: {fileID: 7297455620247048197, guid: d9fdb62125eacc64b8c7a67259290537, type: 3}
+  mapManager: {fileID: 3196960339075115150, guid: 9b07b464fb8a4af4bbbcef7481b8c584, type: 3}
+  endPointManager: {fileID: 7206342589962573541, guid: 58102412ff4f0c9489b8a9dc3fdd5d33, type: 3}
+  gamePlayManager: {fileID: 2476189185622002317, guid: d339727312976d04c9c29eff42435059, type: 3}
+  emptyPlotManager: {fileID: 6827882773492474754, guid: 6bb994a940112774bbe951688c6c533c, type: 3}
+  decorObjManager: {fileID: 8727899049830353471, guid: 36520647619b02748803c2da6c500ffd, type: 3}
+  bulletTowerManager: {fileID: 4290534878689775746, guid: 36750726c2da7954d8f9b7b3af789fdf, type: 3}
+  barrackTowerManager: {fileID: 2572811732704144327, guid: a7242759b59aca44bb882858b1e8d34e, type: 3}
+  bulletManager: {fileID: 3260903671357757072, guid: 689dbf24b75ff1b42958c330860ed17e, type: 3}
+  soldierManager: {fileID: 7058225555890191791, guid: 4bd75b57c3167d94c988a98f095f3fa3, type: 3}
+  enemyManager: {fileID: 4034063545699120182, guid: b170ba4eb53a87342a554e3eb336850b, type: 3}
+  enemySpawnerManager: {fileID: 2261135662972892038, guid: 71f8cb99f8438b246843c658682f30a4, type: 3}
+  cautionManager: {fileID: 694791887957451411, guid: dd00cdafe9436874d8ce20e5513a4a7b, type: 3}
+  dustFX: {fileID: 6610567248834838120, guid: 5ad2673d032a7cd4a918b5ba4b276a7b, type: 3}
+  raycastHandler: {fileID: 1890386177643715819, guid: ed9d91c43ad27584ba9610f84c1cd54b, type: 3}
+  inputButtonHandler: {fileID: 6566239854668499126, guid: 9fae888604420f9498599d9e74860367, type: 3}
+  towerActionHandler: {fileID: 575354496877453398, guid: 03940d147f2751742b9d2d49a03d10b3, type: 3}
+  gamePlayUIManager: {fileID: 5232098085455180400, guid: 0d01de6351df2cc4582d7a092d68b0df, type: 3}
+  screenUIManager: {fileID: 6239822878007390459, guid: 2ccc3f84964364c4785cc89cc2435db2, type: 3}
+  visualEffectPool: {fileID: 972004755641587948, guid: 6307ebe7658c20a4987d8dc0b1f3b759, type: 3}
+  decorObjPool: {fileID: 1780472275945384283, guid: a369a03fa0c0e5a4a90136e6d00df458, type: 3}
+  bulletPool: {fileID: 4259026402934746588, guid: f507a1a2eb5304449812c5b6a9bb4c00, type: 3}
+  unitPool: {fileID: 5098816568152292960, guid: 02376750b67a1dd43a3358eefd12371d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1240371886}
   - {fileID: 281209061}
-  - {fileID: 183721340}
+  - {fileID: 3198149040460233248}
   - {fileID: 1888326783}
+  - {fileID: 3279364923527468209}

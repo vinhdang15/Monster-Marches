@@ -5,24 +5,9 @@ using UnityEngine;
 
 public class EnemyWaveDataReader : MonoBehaviour
 {
-    public static EnemyWaveDataReader       Instance { get; private set; }
     public EnemyWaveDataSO                  enemyWaveDataSO;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            LoadData();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void LoadData()
+    public void PrepareGame()
     {
         enemyWaveDataSO.EnemyWaveDataList = JSONManager.enemyWaveDataList;
     }

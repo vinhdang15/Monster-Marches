@@ -6,42 +6,43 @@ public class GamePlayManager : MonoBehaviour
     public int gold = 200;
     public int lives = 20;
     public int currentLives;
-    [HideInInspector] public int archerTowerInitGold;
-    [HideInInspector] public int mageTowerInitGold;
-    [HideInInspector] public int barrackTowerInitGold;
-    [HideInInspector] public int cannonTowerInitGold;
-    [HideInInspector] public int towerUpgradeGold;
-    [HideInInspector] public int towerSellGold;
-    [SerializeField] EnemyManager               enemyManager;
-    [SerializeField] PanelManager               panelManager;
+    [HideInInspector] public int    archerTowerInitGold;
+    [HideInInspector] public int    mageTowerInitGold;
+    [HideInInspector] public int    barrackTowerInitGold;
+    [HideInInspector] public int    cannonTowerInitGold;
+    [HideInInspector] public int    towerUpgradeGold;
+    [HideInInspector] public int    towerSellGold;
+    private TowerDataReader         towerDataReader;
+    private EnemyManager            enemyManager;
+    private GamePlayUIManager       gamePlayUIManager;
 
-    [SerializeField] RaycastHandler             raycastHandler;
-    [SerializeField] TowerActionHandler         towerActionHandler;
+    private RaycastHandler          raycastHandler;
+    private TowerActionHandler      towerActionHandler;
 
-    [SerializeField] BulletTowerManager         bulletTowerManager;
-    [SerializeField] BarrackTowerManager        barrackTowerManager;
-    public EnemySpawnerManager                  enemySpawnerManager;
-    private Vector2                             initMenuPanelPos;
-    private EmptyPlot                           SelectedEmptyPlot;
-    private TowerPresenter                      selectedTower;
-    private TowerPresenter                      selectedBulletTower;
-    private TowerPresenter                      selectedBarackTower;
-    private DustFX dustFX;
-    public event Action OnGoldChangeForUI;
-    public event Action<int> OnLiveChangeForUI;
-    public event Action<float> OnFinishedMatch;
+    private BulletTowerManager      bulletTowerManager;
+    private BarrackTowerManager     barrackTowerManager;
+    public EnemySpawnerManager      enemySpawnerManager;
+    private Vector2                 initMenuPanelPos;
+    private EmptyPlot               SelectedEmptyPlot;
+    private TowerPresenter          selectedTower;
+    private TowerPresenter          selectedBulletTower;
+    private TowerPresenter          selectedBarackTower;
+    private DustFX                  dustFX;
+    public event Action             OnGoldChangeForUI;
+    public event Action<int>        OnLiveChangeForUI;
+    public event Action<float>      OnFinishedMatch;
     
     
 
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    public void PrepareGame(PanelManager PM, EnemyManager EM, RaycastHandler RH,
-                            TowerActionHandler TAH, EnemySpawnerManager ESM,
-                            BulletTowerManager BulletTM, BarrackTowerManager BarrackTM,
-                            DustFX DFX)
+    public void PrepareGame(TowerDataReader tDR, GamePlayUIManager gPUIE, EnemyManager eM, RaycastHandler rH,
+                            TowerActionHandler tAH, EnemySpawnerManager eSM,
+                            BulletTowerManager bulletTM, BarrackTowerManager barrackTM,
+                            DustFX dFX)
     {
-        LoadComponents(PM,EM,RH,TAH,ESM,BulletTM,BarrackTM,DFX);
+        LoadComponents(tDR, gPUIE,eM,rH,tAH,eSM,bulletTM,barrackTM,dFX);
         RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
@@ -62,19 +63,20 @@ public class GamePlayManager : MonoBehaviour
         UnregisterCautionClickEvent();
     }
 
-    private void LoadComponents(PanelManager PM, EnemyManager EM, RaycastHandler RH,
-                                TowerActionHandler TAH, EnemySpawnerManager ESM,
-                                BulletTowerManager BulletTM, BarrackTowerManager BarrackTM,
-                                DustFX DFX)
+    private void LoadComponents(TowerDataReader tDR, GamePlayUIManager gPUIE, EnemyManager eM, RaycastHandler rH,
+                                TowerActionHandler tAH, EnemySpawnerManager eSM,
+                                BulletTowerManager bulletTM, BarrackTowerManager barrackTM,
+                                DustFX dFX)
     {
-        panelManager        = PM;
-        enemyManager        = EM;
-        raycastHandler      = RH;
-        towerActionHandler  = TAH;
-        enemySpawnerManager = ESM;
-        bulletTowerManager  = BulletTM;
-        barrackTowerManager = BarrackTM;
-        dustFX              = DFX;
+        towerDataReader     = tDR; 
+        gamePlayUIManager   = gPUIE;
+        enemyManager        = eM;
+        raycastHandler      = rH;
+        towerActionHandler  = tAH;
+        enemySpawnerManager = eSM;
+        bulletTowerManager  = bulletTM;
+        barrackTowerManager = barrackTM;
+        dustFX              = dFX;
     }
 
     private void GetCurentMapInitGold(MapData mapData)
@@ -89,10 +91,10 @@ public class GamePlayManager : MonoBehaviour
 
     private void GetTowerInitGold()
     {
-        archerTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.ArcherTower.ToString());
-        mageTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.MageTower.ToString());
-        barrackTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.Barrack.ToString());
-        cannonTowerInitGold = TowerDataReader.Instance.towerDataListSO.GetGoldInit(TowerType.CannonTower.ToString());
+        archerTowerInitGold     = towerDataReader.towerDataListSO.GetGoldInit(TowerType.ArcherTower.ToString());
+        mageTowerInitGold       = towerDataReader.towerDataListSO.GetGoldInit(TowerType.MageTower.ToString());
+        barrackTowerInitGold    = towerDataReader.towerDataListSO.GetGoldInit(TowerType.Barrack.ToString());
+        cannonTowerInitGold     = towerDataReader.towerDataListSO.GetGoldInit(TowerType.CannonTower.ToString());
     }
 
     #region REGISTER EMPTYPLOT CLICK EVENT, TOWER BUTTON CLICK EVENT, SELECTED TOWER EVENT
@@ -198,7 +200,7 @@ public class GamePlayManager : MonoBehaviour
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         SelectedEmptyPlot.DisableCollider();
         SelectedEmptyPlot.PlayBuildingFX(() => PlayDustFX(SelectedEmptyPlot.transform.position), () => InitTower(towerType));
-        panelManager.HandleRaycastHitNull();
+        gamePlayUIManager.HandleRaycastHitNull();
     }
 
     private void PlayDustFX(Vector2 pos)
@@ -267,7 +269,7 @@ public class GamePlayManager : MonoBehaviour
 
         // Hide range detection and upgrade panel
         HandleRaycatHitNull();
-        panelManager.HandleRaycastHitNull();
+        gamePlayUIManager.HandleRaycastHitNull();
     }
 
     private void UpgradeSelectedTower()
@@ -301,7 +303,7 @@ public class GamePlayManager : MonoBehaviour
         selectedTower.emptyPlot.EnableCollider();
         RemoveTowerInTowerList(selectedTower);
         OnGoldChangeForUI?.Invoke();
-        panelManager.HandleRaycastHitNull();
+        gamePlayUIManager.HandleRaycastHitNull();
     }
 
     private void RemoveTowerInTowerList(TowerPresenter selectedTower)

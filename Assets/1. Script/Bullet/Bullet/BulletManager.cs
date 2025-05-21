@@ -7,10 +7,20 @@ public class BulletManager : MonoBehaviour
 {
     [SerializeField] List<BulletBase> activeBullets = new List<BulletBase>();
 
+    public void ClearBulletManager()
+    {
+        foreach (var bullet in activeBullets)
+        {
+            bullet.StopAllCoroutines();
+            BulletPool.Instance.ReturnBullet(bullet);
+        }
+        activeBullets.Clear();
+    }
+
     private void Update()
     {
-        if(activeBullets.Count == 0) return;
-        foreach(var bullet in activeBullets)
+        if (activeBullets.Count == 0) return;
+        foreach (var bullet in activeBullets)
         {
             bullet.MoveToTarget();
         }

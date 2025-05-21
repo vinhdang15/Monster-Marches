@@ -7,7 +7,7 @@ public class VictoryMenu : MonoBehaviour
 {
     [SerializeField] RectTransform shieldRect;
     [SerializeField] RectTransform victoryRibbonRect;
-    [SerializeField] EndGameStarController starController;
+    [SerializeField] StarMovementController starMovementController;
     [SerializeField] RectTransform reloadBtnRect;
     [SerializeField] RectTransform restartBtnRect;
     private RectTransform rectTransform;
@@ -15,11 +15,13 @@ public class VictoryMenu : MonoBehaviour
     private Vector2 reloadBtnPos = new Vector2(0, -230);
     private Vector2 reStartBtnEndPos = new Vector2(0, -470);
     private float duration = 0.5f;
+    private int starScore;
+    public int StarScore() =>  starScore;
 
     public void PrepareGame()
     {
         LoadComponents();
-        starController.PrepareGame();
+        starMovementController.PrepareGame();
         ResetState();
     }
 
@@ -36,24 +38,36 @@ public class VictoryMenu : MonoBehaviour
         victoryRibbonRect.localScale = new Vector2(0.8f, 0.8f);
         victoryRibbonRect.anchoredPosition = new Vector2(0, 1000);
 
-        starController.SetAnchorPos(new Vector2(0, 1000));
-        starController.StarControllerResetState();
+        starMovementController.SetAnchorPos(new Vector2(0, 1000));
+        starMovementController.StarControllerResetState();
 
         reloadBtnRect.anchoredPosition = new Vector2(0, 770);
         restartBtnRect.anchoredPosition = new Vector2(0, 530);
     }
 
-    private void StopTimeScale()
+    public void SetStarScore(float lifePercentage)
     {
-        Time.timeScale = 0;
+        if (lifePercentage < 60)
+        {
+            starScore = 1;
+        }
+        else if (lifePercentage < 95)
+        {
+            starScore = 2;
+        }
+        else
+        {
+            starScore = 3;
+        }
+
+        starMovementController.GetStarScore(StarScore());
     }
 
     public void StartVictoryMenu()
     {
         gameObject.SetActive(true);
-        // Invoke(nameof(StopTimeScale), 3f);
         Sequence seqState1 = DOTween.Sequence();
-        seqState1.AppendInterval(1f).SetUpdate(true);
+        seqState1.AppendInterval(3f).SetUpdate(true);
         seqState1.Append(shieldRect.DOAnchorPos(Vector2.zero, duration).SetEase(Ease.OutBack, 1f));
         seqState1.AppendInterval(duration / 2).SetUpdate(true);
 
@@ -66,8 +80,8 @@ public class VictoryMenu : MonoBehaviour
 
         seqState1.OnComplete(() =>
         {
-            starController.SetAnchorPos(Vector2.zero);
-            starController.ActiveStars(0.3f);
+            starMovementController.SetAnchorPos(Vector2.zero);
+            starMovementController.ActiveStars(0.3f);
             Sequence seqState2 = DOTween.Sequence();
             seqState2.AppendInterval(0.3f).SetUpdate(true);
             seqState2.OnComplete(() =>
@@ -93,11 +107,6 @@ public class VictoryMenu : MonoBehaviour
         seq.OnComplete(() => PauseGame());
     }
 
-    public void SetStarScore(float lifePercentage)
-    {
-        starController.SetStarScore(lifePercentage);
-    }
-    
     private void PauseGame()
     {
         Time.timeScale = 0;

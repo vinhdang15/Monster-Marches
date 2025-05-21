@@ -21,7 +21,7 @@ public class MenuBase : MonoBehaviour
     public virtual void Show( Action action = null)
     {
         gameObject.SetActive(true);
-        rectTransform.anchoredPosition = new Vector2(0f, 1000f);
+        rectTransform.anchoredPosition = new Vector2(0f, 1500f);
         Sequence seqState1 = DOTween.Sequence();
         seqState1.Append(rectTransform.DOAnchorPos(new Vector2(0f, 50f), timeDelay, false).SetEase(Ease.OutBack, 0.5f).SetUpdate(true));
         seqState1.OnComplete(() =>

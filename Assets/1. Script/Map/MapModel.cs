@@ -16,9 +16,9 @@ public class MapModel : MonoBehaviour
     public List<Vector2>    EndPointPos { get ; set ; }
     public MapData mapData;
 
-    public static MapModel Create(MapBtn mapBtn, MapData mapData)
+    public static MapModel Create(MapViewBtn mapViewBtn, MapData mapData)
     {
-        MapModel mapMode = mapBtn.gameObject.AddComponent<MapModel>();
+        MapModel mapMode = mapViewBtn.gameObject.AddComponent<MapModel>();
         mapMode.InitBuildingMap(mapData);
         return mapMode;
     }

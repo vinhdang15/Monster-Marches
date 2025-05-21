@@ -8,19 +8,6 @@ public class MapDataReader : MonoBehaviour
     public static MapDataReader         Instance { get; private set; }
     public MapDataListSO                mapDataListSO;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public void PrepareGame()
     {
         InitFullMapData();

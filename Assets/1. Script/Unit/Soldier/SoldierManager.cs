@@ -16,7 +16,9 @@ public class SoldierManager : MonoBehaviour
         }
     }
 
-    public void BarrackSpawnSoldier(BarrackTowerView barrackTowerView, string unitID, Vector2 initPos, GuardPoint guardPoint, Vector2 barrackGatePos, float revivalSpeed)
+    public void BarrackSpawnSoldier(BarrackTowerView barrackTowerView, string unitID,
+                                    Vector2 initPos,GuardPoint guardPoint,
+                                    Vector2 barrackGatePos, float revivalSpeed)
     {
         guardPoint.OnBarrackDestroy += HandleOnBarrackDestroy;
 
@@ -69,7 +71,7 @@ public class SoldierManager : MonoBehaviour
         guardPoint.soldiers.Clear();
     }
 
-    public void ClearActiveSoldierList()
+    public void ClearSoldierManager()
     {
         StopAllCoroutines();
 

@@ -5,26 +5,26 @@ using DG.Tweening;
 
 public class MapPresenter : MonoBehaviour
 {
-    public MapBtn mapBtn;
+    public MapViewBtn mapView;
     public MapModel mapModel;
     public event Action<MapPresenter> OnMapBtnClickHanlder;
 
-    public static MapPresenter Create(MapModel mapMode, MapBtn mapBtn)
+    public static MapPresenter Create(MapModel mapMode, MapViewBtn mapViewBtn)
     {
-        MapPresenter mapPresenter = mapBtn.gameObject.AddComponent<MapPresenter>();
-        mapPresenter.MapPresenterInit(mapMode, mapBtn);
+        MapPresenter mapPresenter = mapViewBtn.gameObject.AddComponent<MapPresenter>();
+        mapPresenter.MapPresenterInit(mapMode, mapViewBtn);
         return mapPresenter;
     }
 
-    private void MapPresenterInit(MapModel mapMode, MapBtn mapBtn)
+    private void MapPresenterInit(MapModel mapMode, MapViewBtn mapViewBtn)
     {
         this.mapModel = mapMode;
-        this.mapBtn = mapBtn;
+        this.mapView = mapViewBtn;
     }
 
     public void RegisterMapBtnEventClick()
     {
-        mapBtn.OnMapBtnClick += HandleMapBtnClick;
+        mapView.OnMapBtnClick += HandleMapBtnClick;
     } 
 
     private void HandleMapBtnClick(Button button)
@@ -43,21 +43,21 @@ public class MapPresenter : MonoBehaviour
     public void UpdateMapBtnImage()
     {
         Sequence sequence = DOTween.Sequence();
-        mapBtn.UpdateMapBtnImage(mapModel);
+        mapView.UpdateMapBtnImage(mapModel);
     }
 
     public void ShowStarBackGround()
     {
-        mapBtn.ShowStarBackGround();
+        mapView.ShowStarBackGround();
     }
 
     public void LightUpMapStar(int currentStarScore, int starScore)
     {
-        StartCoroutine(mapBtn.TurnOnMapStar(currentStarScore, starScore));
+        StartCoroutine(mapView.TurnOnMapStar(currentStarScore, starScore));
     }
 
     public void SetDefaultTurnOnStar(int currentStarScore)
     {
-        mapBtn.SetDefaultTurnOnStar(currentStarScore);
+        mapView.SetDefaultTurnOnStar(currentStarScore);
     }
 }

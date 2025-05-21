@@ -8,19 +8,6 @@ public class SceneController : MonoBehaviour
     public static SceneController Instance;
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class InstructionMenu : MenuBase
 {
-    public static InstructionMenu Instance;
     [SerializeField] Image InstructionImage;
     [SerializeField] TextMeshProUGUI nextText;
     [SerializeField] List<GameObject> InstructionTextList = new();

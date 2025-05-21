@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class TowerBaseManager : MonoBehaviour
 {
+    protected TowerDataReader towerDataReader;
+
     #region INIT BUILDING
-    protected TowerPresenter InitBuildingPresenter(TowerViewBase towerPrefab, TowerData towerData, Vector3 pos)
+    protected TowerPresenter InitBuildingPresenter(TowerViewBase towerPrefab, TowerData towerData, Vector3 pos,
+                                                    TowerDataReader towerDataReader, BulletDataReader bulletDataReader = null,
+                                                    UnitDataReader unitDataReader = null)
     {
-        TowerViewBase buildingView          = Instantiate(towerPrefab, pos, Quaternion.identity, transform);
-        TowerModel buildingModel            = TowerModel.Craete(buildingView,towerData);
-        TowerPresenter towerPresenter       = TowerPresenter.CreateTowerPresenterComponent(buildingModel, buildingView);
+        TowerViewBase buildingView = Instantiate(towerPrefab, pos, Quaternion.identity, transform);
+        TowerModel buildingModel = TowerModel.Craete(buildingView, towerData);
+        TowerPresenter towerPresenter = TowerPresenter.CreateTowerPresenterComponent(buildingModel, buildingView,
+                                                                                            towerDataReader, bulletDataReader,
+                                                                                            unitDataReader);
         return towerPresenter;
     }
 
@@ -30,7 +36,7 @@ public class TowerBaseManager : MonoBehaviour
         towerPresenter.UpdateTowerSprite(nextLevel);
         
         // upgrade tower model
-        TowerData towerData = TowerDataReader.Instance.towerDataListSO.GetTowerData(towerType, nextLevel);
+        TowerData towerData = towerDataReader.towerDataListSO.GetTowerData(towerType, nextLevel);
         towerPresenter.towerModel.UpgradeTowerModel(towerData);
         
         // upgrade range, range upgrade

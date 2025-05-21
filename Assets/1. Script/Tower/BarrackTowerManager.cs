@@ -8,17 +8,22 @@ public class BarrackTowerManager : TowerBaseManager
     [SerializeField] SoldierManager                     soldierManager;
     [SerializeField] List<TowerPresenter> barackTowerList = new();
     private List<Vector2> initGuardPointPosList = new();
+    private UnitDataReader unitDataReader;
+    private WayPointDataReader wayPointDataReader;
     
     public Dictionary<TowerPresenter, BarackTowerInfor> barrackTowerInfor = new Dictionary<TowerPresenter, BarackTowerInfor>();
 
-    public void PrepareGame()
+    public void PrepareGame(TowerDataReader towerDataReader, UnitDataReader unitDataReader, WayPointDataReader wayPointDataReader)                       
     {
+        this.towerDataReader = towerDataReader;
+        this.unitDataReader = unitDataReader;
+        this.wayPointDataReader = wayPointDataReader;
         LoadComponents();
     }
 
     public void InitializeGuardPointPosList(MapData mapData)
     {
-        initGuardPointPosList = WayPointDataReader.Instance.GetInitGuardPointPosList(mapData);
+        initGuardPointPosList = wayPointDataReader.GetInitGuardPointPosList(mapData);
     }
 
 
@@ -27,10 +32,14 @@ public class BarrackTowerManager : TowerBaseManager
         soldierManager = FindObjectOfType<SoldierManager>();
     }
     
-    private void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot)
+    private void Init(Vector3 pos, TowerType barrackType, EmptyPlot emptyPlot,
+                        TowerDataReader towerDataReader, UnitDataReader unitDataReader)
+                       
     {
-        TowerData towerData = TowerDataReader.Instance.towerDataListSO.GetTowerData(barrackType.ToString(), 1);
-        TowerPresenter barrackPresenter = base.InitBuildingPresenter(barrackPerfab, towerData, pos);
+        TowerData towerData = towerDataReader.towerDataListSO.GetTowerData(barrackType.ToString(), 1);
+        TowerPresenter barrackPresenter = base.InitBuildingPresenter(barrackPerfab, towerData, pos,
+                                                                    towerDataReader, null,
+                                                                    unitDataReader);
 
         base.AddTowerPersenterEmptyPlot(barrackPresenter, emptyPlot);
 
@@ -43,7 +52,7 @@ public class BarrackTowerManager : TowerBaseManager
 
     public void InitBarack(Vector3 pos, EmptyPlot emptyPlot)
     {
-        Init(pos, TowerType.Barrack, emptyPlot);
+        Init(pos, TowerType.Barrack, emptyPlot, towerDataReader, unitDataReader);                                             
     }
 
     // Assign barrack guardPoint reference to barrackTowerInfor

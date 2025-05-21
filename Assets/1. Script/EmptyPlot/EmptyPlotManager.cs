@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class EmptyPlotManager : MonoBehaviour
 {
-    [SerializeField] EmptyPlot emptyPlotPrefab;
-    public List<EmptyPlot> emptyPlotList = new List<EmptyPlot>();
+    [SerializeField] EmptyPlot  emptyPlotPrefab;
+    public List<EmptyPlot>      emptyPlotList = new List<EmptyPlot>();
+    private WayPointDataReader  wayPointDataReader;
+
+    public void PrepareGame(WayPointDataReader wayPointDataReader)
+    {
+        this.wayPointDataReader = wayPointDataReader;
+    }
 
     public void InitializeEmptyPlot(MapData mapData)
     {
@@ -14,7 +20,7 @@ public class EmptyPlotManager : MonoBehaviour
 
     private void InitEmptyPlot(MapData mapData)
     {
-        List<Vector2> posList = WayPointDataReader.Instance.GetSelectedMapEmptyPlotPos(mapData);
+        List<Vector2> posList = wayPointDataReader.GetSelectedMapEmptyPlotPos(mapData);
         foreach(var emptyPlotData in posList)
         {
             Vector2 pos = new Vector2(emptyPlotData.x,emptyPlotData.y);
@@ -40,6 +46,4 @@ public class EmptyPlotManager : MonoBehaviour
             emptyPlot.EnableCollider();
         }
     }
-
-    
 }

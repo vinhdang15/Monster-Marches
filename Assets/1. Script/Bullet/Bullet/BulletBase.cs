@@ -32,10 +32,10 @@ public class BulletBase : MonoBehaviour
     }
 
     #region INIT BULLET
-    public void InitBullet(BulletData bulletData)
+    public void InitBullet(BulletData bulletData, BulletEffectDataReader bulletEffectDataReader)
     {
         InitBulletData(bulletData);
-        InitBulletEffect(bulletData);
+        InitBulletEffect(bulletData, bulletEffectDataReader);
         InitBulletAnimation();
     }
 
@@ -49,12 +49,12 @@ public class BulletBase : MonoBehaviour
         DealDamageDelay         = bulletData.dealDamageDelay;
     }
 
-    private void InitBulletEffect(BulletData bulletData)
+    private void InitBulletEffect(BulletData bulletData, BulletEffectDataReader bulletEffectDataReader)
     {
         string[] effectTypes = bulletData.effectTyes.Split(";");
         foreach(string effecType in effectTypes)
         {
-            BulletEffectData effectData = BulletEffectDataReader.Instance.bulletEffectDataSO.GetBulletEffectData(effecType);
+            BulletEffectData effectData = bulletEffectDataReader.bulletEffectDataSO.GetBulletEffectData(effecType);
             if(effectData == null) continue;
             IEffect effect = EffectFactory.CreateEffect(effectData.effectType, effectData.effectValue, effectData.effectDuration, 
                                                         effectData.effectOccursTime, effectData.effectRange);

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemySpawnerManager : MonoBehaviour
 {
+    private EnemyWaveDataReader enemyWaveDataReader;
+    private WayPointDataReader wayPointDataReader;
     private EnemyManager enemyManager;
     // pathway infor
     public List<EnemySpawner> enemySpawnerList = new();
@@ -36,9 +38,13 @@ public class EnemySpawnerManager : MonoBehaviour
     // Trigger to call the first wave when BtnCautionSlider click
     private bool isBeginFristWave = false;
 
-    public void PrepareGame(EnemyManager enemyManager)
+    public void PrepareGame(EnemyManager enemyManager,
+                            WayPointDataReader wayPointDataReader,
+                            EnemyWaveDataReader enemyWaveDataReader)
     {
         this.enemyManager = enemyManager;
+        this.wayPointDataReader = wayPointDataReader;
+        this.enemyWaveDataReader = enemyWaveDataReader;
     }
 
     public void GetInfor(MapData mapData)
@@ -50,11 +56,11 @@ public class EnemySpawnerManager : MonoBehaviour
         GetTotalEnemies(mapData);
     }
     
-    public void ResetEnemySpawnerManager()
+    public void ClearEnemySpawnerManager()
     {
         // StopAllCoroutines();
         mainPathWayInfoList.Clear();
-        ResetEnemySpawner();
+        CLearEnemySpawnerList();
         isBeginFristWave = false;
         CurrentWaveIndex = 0;
         timeWaitForNextWave = 0;
@@ -68,15 +74,13 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void GetMainPathWayInfoList(MapData mapData)
     {
-        mainPathWayInfoList.AddRange(WayPointDataReader.Instance.GetMainPathWayInfoList(mapData));
+        mainPathWayInfoList.AddRange(wayPointDataReader.GetMainPathWayInfoList(mapData));
     }
 
     #region SPAWN ENEMYSPAWNER
     private void InitEnemySpawner(MapData mapData)
     {
-        ResetEnemySpawner();
-
-        foreach(MainPathWayInfo mainPathWayInfo in mainPathWayInfoList)
+        foreach (MainPathWayInfo mainPathWayInfo in mainPathWayInfoList)
         {
             Vector2 cautionPos = mainPathWayInfo.cautionBtnPos;
             int pathID = mainPathWayInfo.pathWayID;
@@ -85,14 +89,14 @@ public class EnemySpawnerManager : MonoBehaviour
             GameObject enemySpawnerObj = new("EnemySpawner");
             enemySpawnerObj.transform.SetParent(transform);
             enemySpawnerObj.transform.position = Vector2.zero;
-            
+
             EnemySpawner enemySpawner = enemySpawnerObj.AddComponent<EnemySpawner>();
-            enemySpawner.PrepareGame(enemyManager, this, cautionPos,pathID, mapData, pathWaySegmentList);
+            enemySpawner.PrepareGame(enemyManager, this, cautionPos, pathID, mapData, enemyWaveDataReader, pathWaySegmentList);
             enemySpawnerList.Add(enemySpawner);
         }
     }
 
-    private void ResetEnemySpawner()
+    private void CLearEnemySpawnerList()
     {
         foreach(var enemySpawner in enemySpawnerList)
         {
@@ -249,6 +253,6 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void GetTotalEnemies(MapData mapData)
     {
-        totalEnemies = EnemyWaveDataReader.Instance.GetTotalSelectedMapEnemies(mapData);
+        totalEnemies = enemyWaveDataReader.GetTotalSelectedMapEnemies(mapData);
     }
 }

@@ -1,22 +1,11 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FPSCounter : MonoBehaviour
 {
     public TextMeshProUGUI fpsText; // Tham chiếu đến Text UI
     private float deltaTime = 0.0f;
     private bool hasPrepareGame = false;
-
-    // private void Awake()
-    // {
-    //     fpsText = GameObject.Find("FPS_Text").GetComponent<TextMeshProUGUI>();
-    // }
-
-    // private void Start()
-    // {
-    //     Application.targetFrameRate = 60;
-    // }
 
     public void PrepareGame()
     {
@@ -27,7 +16,7 @@ public class FPSCounter : MonoBehaviour
 
     private void LoadComponents()
     {
-        fpsText = GameObject.Find("FPS_Text").GetComponent<TextMeshProUGUI>();
+        fpsText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void SetTargetFrameRate()

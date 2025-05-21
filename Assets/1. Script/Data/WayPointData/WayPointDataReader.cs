@@ -7,21 +7,7 @@ public class WayPointDataReader : MonoBehaviour
     public static WayPointDataReader    Instance { get; private set; }
     public WayPointDataListSO           wayPointDataListSO;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            LoadData();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void LoadData()
+    public void PrepareGame()
     {
         wayPointDataListSO.wayPointDatas = JSONManager.wayPointDataList;
     }

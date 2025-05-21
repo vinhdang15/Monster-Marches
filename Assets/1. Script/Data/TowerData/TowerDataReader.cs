@@ -2,24 +2,9 @@ using UnityEngine;
 
 public class TowerDataReader : MonoBehaviour
 {
-    public static TowerDataReader    Instance { get; private set; }
-    public TowerDataListSO           towerDataListSO;
+    public          TowerDataListSO    towerDataListSO;
 
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            LoadData();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void LoadData()
+    public void PrepareGame()
     {
         towerDataListSO.towerDataList = JSONManager.towerDataList;
         LoadTowerInitGold();
