@@ -23,7 +23,7 @@ public class CautionFill : MonoBehaviour
         if (fillTween != null && fillTween.IsActive()) fillTween.Kill();
 
         scaleTween = null;
-        fillTween = null;  
+        fillTween = null;
     }
 
     public void SetFillCompleteState()

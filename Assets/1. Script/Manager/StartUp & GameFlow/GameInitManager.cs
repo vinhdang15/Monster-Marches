@@ -38,7 +38,7 @@ public class GameInitManager : MonoBehaviour
     [Header("FX")]
     [SerializeField] private DustFX dustFX;
 
-    [Header("")]
+    [Header("Handler")]
     [SerializeField] private RaycastHandler raycastHandler;
     [SerializeField] private InputButtonHandler inputButtonHandler;
     [SerializeField] private TowerActionHandler towerActionHandler;

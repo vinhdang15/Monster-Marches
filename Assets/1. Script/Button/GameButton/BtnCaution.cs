@@ -10,6 +10,12 @@ public class BtnCaution : BtnBase
     public bool isFirstWave = false;
     private EnemySpawnerManager   enemySpawnerManager;
 
+    private void OnDisable()
+    {
+        enemySpawnerManager.OnAddGoldWhenCautionClick -= HandleShowGoldAddWhenCautionClick;
+        enemySpawnerManager.OnUpdateTimeWaitForNextWave -= HandleOnUpdateTimeWaitForNextWave;
+    }
+
     protected override void Start()
     {
         base.Start();

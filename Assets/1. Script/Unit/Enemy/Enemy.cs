@@ -130,7 +130,7 @@ public class Enemy : UnitBase, IEnemy
     {
         yield return null;
         yield return new WaitForSeconds(unitAnimation.GetCurrentAnimationLength());
-        UnitPool.Instance.ReturToUnitPool(this);
+        UnitPool.Instance.ReturnToUnitPool(this);
         yield break;
     }
 

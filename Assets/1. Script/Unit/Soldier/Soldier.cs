@@ -291,11 +291,11 @@ public class Soldier : UnitBase
     #endregion
 
     #region RETURN TO POOL WHEN BARACK DESTROY
-    // public void ReturnToUnitPool()
-    // {
-    //     ResetSoldierState();
-    //     UnitPool.Instance.ReturToUnitPool(this);
-    // }
+    public void ReturnToUnitPool()
+    {
+        ResetSoldierState();
+        UnitPool.Instance.ReturnToUnitPool(this);
+    }
 
     public override void ResetUnit()
     {

@@ -62,11 +62,12 @@ public class SoldierManager : MonoBehaviour
     {
         foreach (var soldier in guardPoint.soldiers)
         {
+            soldier.StopAllCoroutines();
             activeSoldiers.Remove(soldier);
             soldier.OnSoldierDeath -= HandleSoldierDie;
             soldier.barrackTowerView = null;
             soldier.isBarrackUpgrade = false;
-            UnitPool.Instance.ReturToUnitPool(soldier);
+            soldier.ReturnToUnitPool();
         }
         guardPoint.soldiers.Clear();
     }
@@ -80,7 +81,7 @@ public class SoldierManager : MonoBehaviour
             soldier.OnSoldierDeath -= HandleSoldierDie;
             soldier.barrackTowerView = null;
             soldier.isBarrackUpgrade = false;
-            UnitPool.Instance.ReturToUnitPool(soldier);
+            UnitPool.Instance.ReturnToUnitPool(soldier);
         }
         activeSoldiers.Clear();
     }

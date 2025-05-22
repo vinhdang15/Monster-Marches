@@ -96,7 +96,7 @@ public class UnitPool : MonoBehaviour
         }
     }
 
-    public void ReturToUnitPool(UnitBase unit)
+    public void ReturnToUnitPool(UnitBase unit)
     {
         unit.ResetUnit();
         unit.gameObject.SetActive(false);

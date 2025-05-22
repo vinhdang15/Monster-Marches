@@ -58,7 +58,7 @@ public class EnemySpawnerManager : MonoBehaviour
     
     public void ClearEnemySpawnerManager()
     {
-        // StopAllCoroutines();
+        StopAllCoroutines();
         mainPathWayInfoList.Clear();
         CLearEnemySpawnerList();
         isBeginFristWave = false;
@@ -179,7 +179,7 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void HideAllCautionFill()
     {
-        foreach(var enemySpawner in enemySpawnerList)
+        foreach (var enemySpawner in enemySpawnerList)
         {
             enemySpawner.cautionBtn.HideCautionFill();
         }

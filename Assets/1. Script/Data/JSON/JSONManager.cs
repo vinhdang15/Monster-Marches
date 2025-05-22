@@ -36,7 +36,7 @@ public class JSONManager
     public static async Task PrepareGameAsync()
     {
         mapDesignDataList       = await LoadMapDesignDataFromJsonSever();
-        mapProgressDataList     = await LoadMapProgressDataFromJsonSever();
+        mapProgressDataList     = await LoadMapProgressData();
         decorObjDataList        = await LoadDecorObjDataFromJsonSever();
         wayPointDataList        = await LoadWaypointDataFromJsonSever();
         towerDataList           = await LoadTowerDataFromJsonSever();
@@ -70,13 +70,8 @@ public class JSONManager
         File.WriteAllText(mapProgressDataJsonPath, json);
         Debug.Log("Create completed MapProgressData JSON file");
     }
-
-    private static async Task LoadNewMapProgressDataFromJsonServer()
-    {
-        mapProgressDataList = await LoadMapProgressDataFromJsonSever();
-    }
     
-    private static async Task<List<MapProgressData>> LoadMapProgressDataFromJsonSever()
+    private static async Task<List<MapProgressData>> LoadMapProgressData()
     {
         if(File.Exists(mapProgressDataJsonPath))
         {
@@ -86,7 +81,7 @@ public class JSONManager
         }
         else
         {
-            mapProgressDataList = await LoadMapProgressDataFromAddress();
+            mapProgressDataList = await LoadMapProgressDataFromSever();
         }
         return mapProgressDataList;
     }
@@ -102,7 +97,7 @@ public class JSONManager
     }
 
     // Load data from Addressable sever
-    private static async Task<List<MapProgressData>> LoadMapProgressDataFromAddress()
+    private static async Task<List<MapProgressData>> LoadMapProgressDataFromSever()
     {
         List<MapProgressData> dataList = await JSONListLoader<MapProgressData>.LoadJSONListAsync();                                  
         return dataList;
@@ -112,17 +107,24 @@ public class JSONManager
     {
         DeleteCurrentMapProgressSaveData();
         
-        var reloadInitMapProgressData = LoadNewMapProgressDataFromJsonServer();
+        var reloadInitMapProgressData = SetNewMapProgressDataListFromJsonServer();
         yield return new WaitUntil(() => reloadInitMapProgressData.IsCompleted);
     }
 
     private static void DeleteCurrentMapProgressSaveData()
     {
-        if(File.Exists(mapProgressDataJsonPath))
+        if (File.Exists(mapProgressDataJsonPath))
         {
             File.Delete(mapProgressDataJsonPath);
+            hasSaveGameData = false;
             Debug.Log("Delete MapProgressData");
         }
+    }
+
+    private static async Task SetNewMapProgressDataListFromJsonServer()
+    {
+        mapProgressDataList = await LoadMapProgressData();
+        hasSaveGameData = true;
     }
 
     #endregion 

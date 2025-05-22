@@ -137,56 +137,62 @@ MonoBehaviour:
     m_SerializedLabels:
     - InstructionImage
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 41f610462ea8ce847b483ca2d0ad22a7
+  - m_GUID: f21f3e9469c0c9845b00ad9d3be447a9
+    m_Address: Assets/AddressableFile/JSON/MapProgressData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73e01e03795ef1a429e5410e82980662
     m_Address: Assets/AddressableFile/JSON/BulletData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8c98274a46870f94cb3d5d2b34eb0e61
-    m_Address: Assets/AddressableFile/JSON/BulletEffectData.json
+  - m_GUID: 4e4a4d132015cc848899f7256c672a38
+    m_Address: Assets/AddressableFile/JSON/DecorObjData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a6f91106c5472d542bf1aa642cc28ad9
-    m_Address: Assets/AddressableFile/JSON/EnemyWaveData.json
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - JSON
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0fa57a7a81c93de4d894ed999fc34e18
+  - m_GUID: d5c8c3755e27b7248bac1fd4d50a8c79
     m_Address: Assets/AddressableFile/JSON/MapDesignData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a16fb644d04e068408de05af250ad410
-    m_Address: Assets/AddressableFile/JSON/SkillData.json
+  - m_GUID: d898bdd10d9ae3e4881f72c8ed923d4b
+    m_Address: Assets/AddressableFile/JSON/BulletEffectData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d9b4d9f0674146c469130be2207f07df
+  - m_GUID: 215915ae1a90bc4469ab07ff9415fb5c
     m_Address: Assets/AddressableFile/JSON/TowerData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a65c5bcffcbbece44a79f56adc0457b7
+  - m_GUID: f03c32677154800479bb04b0fb0611eb
+    m_Address: Assets/AddressableFile/JSON/EnemyWaveData.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7ee52dd724617e41ad46939e51609ce
     m_Address: Assets/AddressableFile/JSON/UnitData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 85cac0f985c97c94ea21798b1a0facc9
+  - m_GUID: 9ba35f77ef6a2ee46bd2f842fffe9706
     m_Address: Assets/AddressableFile/JSON/WayPointData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fac8df60a4e2ff546bdf9f1500604e9c
-    m_Address: Assets/AddressableFile/JSON/DecorObjData.json
+  - m_GUID: 7143cdc650958a341b40379f8b74ed4c
+    m_Address: Assets/AddressableFile/JSON/SkillData.json
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON

@@ -655,8 +655,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3198149040460233248}
-  - component: {fileID: 2959855327902445042}
   - component: {fileID: 6955556168008604958}
+  - component: {fileID: 2959855327902445042}
   m_Layer: 0
   m_Name: StartUpAnfGameFlow
   m_TagString: Untagged
