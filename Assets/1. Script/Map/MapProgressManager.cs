@@ -21,6 +21,6 @@ public static class MapProgressManager
 
         // Save progress save-data
         JSONManager.SaveMapProgressDataToJson(mapProgressDataList);
-        Debug.Log("Save progress save-data");
+        Debug.Log("Update Gameprogressdata");
     }
 }

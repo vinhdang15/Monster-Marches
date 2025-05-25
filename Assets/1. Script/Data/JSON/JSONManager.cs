@@ -7,19 +7,19 @@ using System.Collections;
 
 public class JSONManager
 {
-    // Application.persistentDataPath
-    private static string path = "E:/Funix_Course/Project-2D/Guardians Of The Wells/Assets/AddressableFile/JSON";
+    private static string assetPath = "E:/Funix_Course/Project-2D/Monster Marches/Assets/AddressableFile/JSON";
+    private static string persistentDataPath = Application.persistentDataPath;
     private static bool hasSaveGameData = false;
-    private static string mapProgressDataJsonPath = Path.Combine(path, "MapProgressData.json");
-    private static string mapDesignDataJsonPath = Path.Combine(path, "MapDesignData.json");
-    private static string decorObjDataJsonPath = Path.Combine(path, "DecorObjData.json");
-    private static string waypointDataJsonPath = Path.Combine(path, "WayPointData.json");
-    private static string towerDataJsonPath = Path.Combine(path, "TowerData.json");
-    private static string bulletDataJsonPath = Path.Combine(path, "BulletData.json");
-    private static string unitDataJsonPath = Path.Combine(path, "UnitData.json");
-    private static string SkillDataJsonPath = Path.Combine(path, "SkillData.json");
-    private static string bulletEffectDataJsonPath = Path.Combine(path, "BulletEffectData.json");
-    private static string enemyWaveDataJsonPath = Path.Combine(path, "EnemyWaveData.json");
+    private static string mapProgressDataJsonPath = Path.Combine(persistentDataPath, "MapProgressData.json");
+    private static string mapDesignDataJsonPath = Path.Combine(assetPath, "MapDesignData.json");
+    private static string decorObjDataJsonPath = Path.Combine(assetPath, "DecorObjData.json");
+    private static string waypointDataJsonPath = Path.Combine(assetPath, "WayPointData.json");
+    private static string towerDataJsonPath = Path.Combine(assetPath, "TowerData.json");
+    private static string bulletDataJsonPath = Path.Combine(assetPath, "BulletData.json");
+    private static string unitDataJsonPath = Path.Combine(assetPath, "UnitData.json");
+    private static string SkillDataJsonPath = Path.Combine(assetPath, "SkillData.json");
+    private static string bulletEffectDataJsonPath = Path.Combine(assetPath, "BulletEffectData.json");
+    private static string enemyWaveDataJsonPath = Path.Combine(assetPath, "EnemyWaveData.json");
 
     public static List<MapDesignData> mapDesignDataList = new();
     public static List<MapProgressData> mapProgressDataList = new();

@@ -27,18 +27,18 @@ public class TowerBaseManager : MonoBehaviour
     #endregion
 
     #region UPGRADE BUILDING
-    public void UpgradeTower(TowerPresenter towerPresenter)
+    public virtual void UpgradeTower(TowerPresenter towerPresenter)
     {
         string towerType = towerPresenter.towerModel.TowerType;
         int nextLevel = towerPresenter.towerModel.Level + 1;
 
         //Update tower sprite
         towerPresenter.UpdateTowerSprite(nextLevel);
-        
+
         // upgrade tower model
         TowerData towerData = towerDataReader.towerDataListSO.GetTowerData(towerType, nextLevel);
         towerPresenter.towerModel.UpgradeTowerModel(towerData);
-        
+
         // upgrade range, range upgrade
         UpdateRangeDetection(towerPresenter);
         UpdateRangeDetectionUpgrade(towerPresenter);

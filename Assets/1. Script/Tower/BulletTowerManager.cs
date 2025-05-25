@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletTowerManager : TowerBaseManager
@@ -27,17 +28,20 @@ public class BulletTowerManager : TowerBaseManager
         }
     }
 
+    #region INIT BUILDING
     public void Init(Vector3 pos, TowerType towerType, EmptyPlot emptyPlot,
                         TowerDataReader towerDataReader, BulletDataReader bulletDataReader)
-                        
+
     {
         TowerData towerData = towerDataReader.towerDataListSO.GetTowerData(towerType.ToString(), 1);
         TowerViewBase towerPrefab = towerPrefabList[(int)towerType];
         TowerPresenter towerPresenter = base.InitBuildingPresenter(towerPrefab, towerData, pos,
                                                                     towerDataReader, bulletDataReader);
-                                                            
 
-        bulletTowerInfor[towerPresenter]       = new BulletTowerInfor();
+        towerPresenter.getTargetEnemyHandler.LoadComponents(towerPresenter, bulletDataReader);
+        towerPresenter.getTargetEnemyHandler.CheckBulletEffectInfo();
+
+        bulletTowerInfor[towerPresenter] = new BulletTowerInfor();
         base.AddTowerPersenterEmptyPlot(towerPresenter, emptyPlot);
         RegisterTowerEvent(towerPresenter);
 
@@ -72,13 +76,22 @@ public class BulletTowerManager : TowerBaseManager
     {
         Init(pos, TowerType.CannonTower, emptyPlot,towerDataReader, bulletDataReader);
     }
+    #endregion
+
+    #region UPGRADE
+    public override void UpgradeTower(TowerPresenter towerPresenter)
+    {
+        base.UpgradeTower(towerPresenter);
+        towerPresenter.getTargetEnemyHandler.CheckBulletEffectInfo();
+    }
+    #endregion
 
     #region PROCESS DETECT ENEMY AND SPAWN BULLET
     private void HanldeEnemyEnter(Enemy enemy, TowerPresenter towerPresenter)
     {
         bulletTowerInfor[towerPresenter].enemies.Add(enemy);
 
-        if(bulletTowerInfor[towerPresenter].enemies.Count == 1)
+        if (bulletTowerInfor[towerPresenter].enemies.Count == 1)
         {
             bulletTowerInfor[towerPresenter].spawnBulletCoroutine = StartCoroutine(SpawnBulletCoroutine(towerPresenter));
         }
@@ -100,19 +113,34 @@ public class BulletTowerManager : TowerBaseManager
         List<Enemy> towerPresentEnemiesList = bulletTowerInfor[towerPresenter].enemies;
         TowerModel towerModel = towerPresenter.towerModel;
         BulletTowerView bulletTowerView = towerPresenter.towerViewBase as BulletTowerView;
+        SelectTargetEnemyHandler getTargetEnemyHandler = towerPresenter.getTargetEnemyHandler;
 
-        while(towerPresentEnemiesList.Count > 0)
+        while (towerPresentEnemiesList.Count > 0)
         {
+            // bulletTowerView.FireBulletAnimation(towerPresentEnemiesList[0].transform);
+            // yield return new WaitForSeconds(towerModel.FireAnimDelay);
+
+            // string bulletType = towerModel.SpawnObject;
+            // Vector2 spawnPos = bulletTowerView.GetSpawnBulletPos();
+            // float spawnBulletDirection = bulletTowerView.GetSpawnBulletDirection();
+
+            // if (towerPresentEnemiesList.Count > 0 && !towerPresentEnemiesList[0].isDead)
+            // {
+            //     bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0], towerPresenter);
+            // }
+            // yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate);
+
             bulletTowerView.FireBulletAnimation(towerPresentEnemiesList[0].transform);
-            yield return new WaitForSeconds(towerModel.FireAnimDelay );
+            yield return new WaitForSeconds(towerModel.FireAnimDelay);
 
             string bulletType = towerModel.SpawnObject;
             Vector2 spawnPos = bulletTowerView.GetSpawnBulletPos();
             float spawnBulletDirection = bulletTowerView.GetSpawnBulletDirection();
 
-            if(towerPresentEnemiesList.Count > 0 && !towerPresentEnemiesList[0].isDead)
+            Enemy enemy = getTargetEnemyHandler.GetTargetEnemy(towerPresentEnemiesList);
+            if (enemy != null)
             {
-                bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, towerPresentEnemiesList[0], towerPresenter);
+                bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, enemy, towerPresenter);
             }
             yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate);
         }

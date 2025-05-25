@@ -127,6 +127,7 @@ public class GameInitManager : MonoBehaviour
         enemySpawnerManager     = Instantiate(enemySpawnerManager, managerHolder);
         cautionManager          = Instantiate(cautionManager, managerHolder);
         dustFX                  = Instantiate(dustFX, managerHolder);
+        sceneController         = Instantiate(sceneController, managerHolder);
 
         // Handler init
         raycastHandler          = Instantiate(raycastHandler, handlerHolder);

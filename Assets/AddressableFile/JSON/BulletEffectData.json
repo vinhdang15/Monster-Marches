@@ -2,7 +2,7 @@
   {
     "effectType": "Slow",
     "effectValue": 50,
-    "effectDuration": 1.0,
+    "effectDuration": 3.0,
     "effectOccursTime": 0,
     "effectRange": 0.0
   },

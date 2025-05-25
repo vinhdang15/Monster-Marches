@@ -238,14 +238,9 @@ public class GameFlowManager : MonoBehaviour
 
     private IEnumerator ResetMapProgressDataCoroutine()
     {
-        Debug.Log("1: Begin");
         yield return StartCoroutine(JSONManager.ResetMapProgressData());
-        Debug.Log("2: Reset MapProgressData");
         mapManager.CLearAllMapBtn();
-        Debug.Log("3: CLear MAP BTN");
         mapDataReader.ResetFullMapData();
-        Debug.Log("4: MapDataReader_ CLear MAP DATA LIST SO + INIT FULL MAP DATA");
         HandleLoadWorldMapScene();
-        Debug.Log("5: Show world map + mapManager_ INIT MAP BTN");
     }
 }

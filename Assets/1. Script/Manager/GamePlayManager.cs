@@ -260,13 +260,6 @@ public class GamePlayManager : MonoBehaviour
     private void HandleUpgradeSelectedTower()
     {
         UpgradeSelectedTower();
-
-        // check if there is barrack tower upgrade, then replace new soldier
-        if(selectedTower.towerModel.TowerType == "Barrack")
-        {
-            SelectedBarrackUpgradeSoldier();
-        }
-
         // Hide range detection and upgrade panel
         HandleRaycatHitNull();
         gamePlayUIManager.HandleRaycastHitNull();
@@ -277,15 +270,29 @@ public class GamePlayManager : MonoBehaviour
         if(gold < selectedTower.GoldUpgrade) return;
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
 
+        // check if there is barrack tower upgrade, then replace new soldier
+        if(selectedTower.towerModel.TowerType == TowerType.Barrack.ToString())
+        {
+            SelectedBarrackUpgradeSoldier();
+        }
+
         // process gold
         int goldUpdrade = selectedTower.GoldUpgrade;
         gold -= goldUpdrade;
+        selectedTower.GoldRefund += goldUpdrade;
         OnGoldChangeForUI?.Invoke();
 
         PlayDustFX(selectedTower.transform.position);
-        TowerBaseManager towerBaseManager = bulletTowerManager;
-        towerBaseManager.UpgradeTower(selectedTower);
-        selectedTower.GoldRefund += goldUpdrade;
+
+
+        if (selectedTower.towerModel.TowerType == TowerType.Barrack.ToString())
+        {
+            barrackTowerManager.UpgradeTower(selectedTower);
+        }
+        else
+        {
+            bulletTowerManager.UpgradeTower(selectedTower);
+        }
     }
 
     private void SelectedBarrackUpgradeSoldier()

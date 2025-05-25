@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -8,6 +9,7 @@ public class TowerPresenter : MonoBehaviour
 {
     public TowerModel               towerModel;
     public TowerViewBase            towerViewBase;
+    public SelectTargetEnemyHandler    getTargetEnemyHandler;
     private SpriteLibraryHandler    spriteLibraryHandler;
     public EmptyPlot                emptyPlot;
     public int               TowerMaxLevel { set ; get ; }
@@ -45,11 +47,18 @@ public class TowerPresenter : MonoBehaviour
         AddGoldInitRefund();
         SetTowerPresenterData();
         GetSpriteLibraryHandler();
+        GetGetTargetEnemyHandler();
     }
 
     private void GetSpriteLibraryHandler()
     {
         spriteLibraryHandler = GetComponent<SpriteLibraryHandler>();
+    }
+
+    private void GetGetTargetEnemyHandler()
+    {
+        getTargetEnemyHandler = gameObject.AddComponent<SelectTargetEnemyHandler>();
+        
     }
 
     public void UpdateTowerSprite(int level)
@@ -67,7 +76,7 @@ public class TowerPresenter : MonoBehaviour
         return towerModel.Level == TowerMaxLevel;
     }
 
-    public void InitTowerRange()
+    private void InitTowerRange()
     {
         towerViewBase.SetRangeRaycat(towerModel.RangeRaycast);
         towerViewBase.SetRangeDetect(towerModel.RangeDetect);

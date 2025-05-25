@@ -50,9 +50,10 @@ public class BarrackTowerManager : TowerBaseManager
         barackTowerList.Add(barrackPresenter);
     }
 
+    #region INIT BUILDING
     public void InitBarack(Vector3 pos, EmptyPlot emptyPlot)
     {
-        Init(pos, TowerType.Barrack, emptyPlot, towerDataReader, unitDataReader);                                             
+        Init(pos, TowerType.Barrack, emptyPlot, towerDataReader, unitDataReader);
     }
 
     // Assign barrack guardPoint reference to barrackTowerInfor
@@ -65,6 +66,12 @@ public class BarrackTowerManager : TowerBaseManager
     public void SetNewGuardPointPos(TowerPresenter barrackPresenter, Vector2 pos)
     {
         barrackTowerInfor[barrackPresenter].barrackGuardPoint.SetNewGuardPointPos(pos);
+    }
+    #endregion
+
+    public override void UpgradeTower(TowerPresenter towerPresenter)
+    {
+        base.UpgradeTower(towerPresenter);
     }
 
     #region SPAWN SOLDIER
@@ -103,19 +110,21 @@ public class BarrackTowerManager : TowerBaseManager
     }
     #endregion
 
+    #region SET GUARD POINT
     private Vector2 GetNearestPoint(Transform barrackTowerView, List<Vector2> pos)
     {
         Vector2 nearestPoint = new();
-        float shortestDistance = float.MaxValue;;
-        foreach(Vector2 childPos in pos)
+        float shortestDistance = float.MaxValue; ;
+        foreach (Vector2 childPos in pos)
         {
             float distance = Vector2.Distance(barrackTowerView.position, childPos);
-            if(distance > shortestDistance) continue;
+            if (distance > shortestDistance) continue;
             shortestDistance = distance;
             nearestPoint = childPos;
         }
         return nearestPoint;
     }
+    #endregion
 
     public void CleanupSelectedTower(TowerPresenter selectedTower)
     {

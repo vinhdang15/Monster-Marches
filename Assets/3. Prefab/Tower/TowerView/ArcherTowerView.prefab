@@ -230,11 +230,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3090162326235010171}
+  - component: {fileID: 6961057743232986293}
   - component: {fileID: 5693245808658361739}
   - component: {fileID: 5887333464888582801}
   - component: {fileID: 1736716737440447400}
   - component: {fileID: -1555842511247295752}
-  - component: {fileID: 6961057743232986293}
   - component: {fileID: 6804226824137321941}
   m_Layer: 8
   m_Name: ArcherTowerView
@@ -263,6 +263,20 @@ Transform:
   - {fileID: 2458036946698627629}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6961057743232986293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502725005150269322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 08733cc1ab5d074428749fb278e0e02c, type: 3}
 --- !u!58 &5693245808658361739
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -355,20 +369,6 @@ MonoBehaviour:
   spawnBulletLeftTrans: {fileID: 1446383577929842638}
   spawnBulletRightTrans: {fileID: 2458036946698627629}
   spawnBulletAngle: 45
---- !u!114 &6961057743232986293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6502725005150269322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 08733cc1ab5d074428749fb278e0e02c, type: 3}
 --- !u!114 &6804226824137321941
 MonoBehaviour:
   m_ObjectHideFlags: 0
