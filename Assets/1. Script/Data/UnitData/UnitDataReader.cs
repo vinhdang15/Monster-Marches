@@ -6,6 +6,6 @@ public class UnitDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        unitDataListSO.unitDataList = JSONManager.unitDataList;
+        unitDataListSO.unitDataList = JSONDataLoader.unitDataList;
     }
 }

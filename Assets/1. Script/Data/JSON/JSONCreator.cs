@@ -44,7 +44,7 @@ public class JSONCreator : MonoBehaviour
     public void CreateMapDesignDataJson()
     {
         List<MapDesignData> mapDesignDatas = mapDesignDataForJson.GetMapDesignDataForJson();
-        JSONManager.SaveMapDesignDataToJson(mapDesignDatas);
+        JSONDataExporter.ExportMapDesignData(mapDesignDatas);
     }
 
     public void CreateMapProgressDataJson()
@@ -58,55 +58,55 @@ public class JSONCreator : MonoBehaviour
                 starsPoint = 0,
             }
         };
-        JSONManager.SaveMapProgressDataToJson(mapProgressDatas);
+        JSONDataExporter.ExportMapProgressData(mapProgressDatas);
     }
 
     // mapObjCollector
-    public void CreateMapObjDataJson()
+    public void CreateDecorObjDataJson()
     {
         List<DecorObjData> decorObjDatas = decorObjDataProc.ExtractMapObjData();
-        JSONManager.SaveMapObjDataToJson(decorObjDatas);
+        JSONDataExporter.ExportDecorObjData(decorObjDatas);
     }
 
     public void CreateWayPointDataJson()
     {
         List<WayPointData> wayPointDatas = wayPointDataProc.ExtractWayPointData();
-        JSONManager.SaveWayPointDataToJson(wayPointDatas);
+        JSONDataExporter.ExportWayPointData(wayPointDatas);
     }
 
     public void CreateTowerDataJson()
     {
         List<TowerData> towerDatas = towerDataForJson.GetTowerDataForJson();
-        JSONManager.SaveTowerDataToJson(towerDatas);
+        JSONDataExporter.ExportTowerData(towerDatas);
     }
     
     public void CreateBulletDataJson()
     {
         List<BulletData> bulletDatas = bulletDataForJson.GetBulletDataForJson();
-        JSONManager.SaveBulletDataToJson(bulletDatas);
+        JSONDataExporter.ExportBulletData(bulletDatas);
     }
 
     public void CreateBulletEffectDataJson()
     {
         List<BulletEffectData> bulletEffectDatas = bulletEffectDataForJson.GetBulletEffectDatas();
-        JSONManager.SaveBulletEffectDataToJson(bulletEffectDatas);
+        JSONDataExporter.ExportBulletEffectData(bulletEffectDatas);
     }
 
     public void CreateUnitDataJson()
     {
         List<UnitData> unitDatas = unitDataForJon.GetUnitDataForJson();
-        JSONManager.SaveUnitDataToJson(unitDatas);
+        JSONDataExporter.ExportUnitData(unitDatas);
     }
 
     public void CreateSkillDataJson()
     {
         List<SkillData> skillDatas = skillDataForJson.GetSkillDataForJson();
-        JSONManager.SaveSkillDataToJson(skillDatas);
+        JSONDataExporter.ExportSkillData(skillDatas);
     }
 
     public void CreateEnemyWaveDataInfoJson()
     {
         List<EnemyWaveData> EnemyWaveDatas = enemyWaveDataInfo.GetEnemyWaveDataList();
-        JSONManager.SaveEnemyWayDataToJson(EnemyWaveDatas);
+        JSONDataExporter.ExportEnemyWayData(EnemyWaveDatas);
     }
 }

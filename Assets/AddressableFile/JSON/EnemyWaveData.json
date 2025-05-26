@@ -17,7 +17,7 @@
           {
             "waveNumber": 2,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
+            "primaryEnemyCount": 5,
             "secondaryEnemyID": "none",
             "secondaryEnemyCount": 0,
             "timeBetweenEachSpawn": 1.2,
@@ -26,7 +26,7 @@
           {
             "waveNumber": 3,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
+            "primaryEnemyCount": 6,
             "secondaryEnemyID": "Enemy_B_1",
             "secondaryEnemyCount": 2,
             "timeBetweenEachSpawn": 1.2,
@@ -44,9 +44,9 @@
           {
             "waveNumber": 5,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 2,
+            "primaryEnemyCount": 7,
             "secondaryEnemyID": "Enemy_A_1",
-            "secondaryEnemyCount": 1,
+            "secondaryEnemyCount": 2,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           }

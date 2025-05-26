@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class MapProgressManager
 {
-    private static List<MapProgressData> mapProgressDataList => JSONManager.mapProgressDataList;
+    private static List<MapProgressData> mapProgressDataList => JSONDataLoader.mapProgressDataList;
 
     public static void UpdateProgress(int mapID, int newStarPoint)
     {
@@ -20,7 +20,7 @@ public static class MapProgressManager
         if(progress.starsPoint < newStarPoint) progress.starsPoint = newStarPoint;
 
         // Save progress save-data
-        JSONManager.SaveMapProgressDataToJson(mapProgressDataList);
+        JSONDataLoader.SaveMapProgressData(mapProgressDataList);
         Debug.Log("Update Gameprogressdata");
     }
 }

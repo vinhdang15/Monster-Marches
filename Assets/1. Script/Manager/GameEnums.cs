@@ -15,12 +15,19 @@ public enum AddressLabel
     DecorObject,
 }
 
+public enum Data
+{
+    MapProgressData
+}
+
 public enum ImageName
 {
     BackgroundIntro,
     BackgroundWorldMap,
     Instruction_1,
-    Instruction_2
+    Instruction_3,
+    Instruction_4,
+    Instruction_5
 }
 
 public enum InitNameObject

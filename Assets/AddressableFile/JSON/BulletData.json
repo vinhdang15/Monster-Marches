@@ -1,15 +1,15 @@
 [
   {
     "bulletID": "Arrow_1",
-    "damage": 25,
-    "speed": 7.0,
+    "damage": 30,
+    "speed": 8.0,
     "effectTyes": "none",
     "dealDamageDelay": 0.0
   },
   {
     "bulletID": "Arrow_2",
     "damage": 30,
-    "speed": 8.0,
+    "speed": 9.0,
     "effectTyes": "Fire_DoT",
     "dealDamageDelay": 0.0
   },
@@ -30,14 +30,14 @@
   {
     "bulletID": "Bomb_1",
     "damage": 30,
-    "speed": 6.0,
+    "speed": 4.0,
     "effectTyes": "Bomb_1_AoE20",
     "dealDamageDelay": 0.0
   },
   {
     "bulletID": "Bomb_2",
     "damage": 50,
-    "speed": 6.0,
+    "speed": 4.0,
     "effectTyes": "Bomb_2_AoE30",
     "dealDamageDelay": 0.0
   }

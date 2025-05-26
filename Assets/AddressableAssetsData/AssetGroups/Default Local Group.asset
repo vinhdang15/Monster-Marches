@@ -35,8 +35,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - BackgroundImage
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e46ff6d6911080545bd5da5030648163
-    m_Address: Assets/AddressableFile/Instructions/InstructionBG_2.png
+  - m_GUID: 4740371c79ac96248a45293d41f85407
+    m_Address: Assets/AddressableFile/Instructions/Instruction_5.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - InstructionImage
@@ -131,8 +131,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - DecorObject
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e955b476a5ebc9c44b714e2c868b7220
-    m_Address: Assets/AddressableFile/Instructions/InstructionBG_3.png
+  - m_GUID: a565ba8befc8ccd4b8f5f25cde3fe8a6
+    m_Address: Assets/AddressableFile/Instructions/Instruction_4.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - InstructionImage
@@ -196,6 +196,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - JSON
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e46ff6d6911080545bd5da5030648163
+    m_Address: Assets/AddressableFile/Instructions/Instruction_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - InstructionImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e955b476a5ebc9c44b714e2c868b7220
+    m_Address: Assets/AddressableFile/Instructions/Instruction_3.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - InstructionImage
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 825f42600ffa1e242bdffe0e3f4fe3f7, type: 2}

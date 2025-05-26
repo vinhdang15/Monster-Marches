@@ -9,7 +9,7 @@ public class EnemyWaveDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        enemyWaveDataSO.EnemyWaveDataList = JSONManager.enemyWaveDataList;
+        enemyWaveDataSO.EnemyWaveDataList = JSONDataLoader.enemyWaveDataList;
     }
 
     public EnemyWaveData GetSelectedMapEnemyWaveData(MapData mapData)

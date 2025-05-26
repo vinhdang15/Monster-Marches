@@ -6,6 +6,6 @@ public class BulletDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        bulletDataListSO.bulletDataList = JSONManager.bulletDataList;
+        bulletDataListSO.bulletDataList = JSONDataLoader.bulletDataList;
     }
 }

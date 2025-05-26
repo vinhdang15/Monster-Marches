@@ -15,8 +15,8 @@ public class MapDataReader : MonoBehaviour
 
     private void InitFullMapData()
     {
-        List<MapDesignData> designList  = JSONManager.mapDesignDataList;
-        List<MapProgressData> progressList = JSONManager.mapProgressDataList;
+        List<MapDesignData> designList  = JSONDataLoader.mapDesignDataList;
+        List<MapProgressData> progressList = JSONDataLoader.mapProgressDataList;
         List<MapProgressData> fullProgressList = new();
         foreach(var design in designList)
         {
@@ -40,8 +40,8 @@ public class MapDataReader : MonoBehaviour
             };
             mapDataListSO.mapDataList.Add(mapData);
         }
-        JSONManager.SaveMapProgressDataToJson(fullProgressList);
-        JSONManager.mapProgressDataList = fullProgressList;
+        JSONDataLoader.SaveMapProgressData(fullProgressList);
+        JSONDataLoader.mapProgressDataList = fullProgressList;
     }
     
     private MapProgressData InitMapProgressData(int DesignMapID)

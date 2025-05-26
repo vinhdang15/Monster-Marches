@@ -8,6 +8,6 @@ public class SkillDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        skillDataListSO.skillDataList = JSONManager.skillDataList;
+        skillDataListSO.skillDataList = JSONDataLoader.skillDataList;
     }
 }

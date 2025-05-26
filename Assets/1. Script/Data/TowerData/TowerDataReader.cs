@@ -6,7 +6,7 @@ public class TowerDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        towerDataListSO.towerDataList = JSONManager.towerDataList;
+        towerDataListSO.towerDataList = JSONDataLoader.towerDataList;
         LoadTowerInitGold();
     }
 

@@ -3,10 +3,5 @@
     "mapID": 1,
     "activate": true,
     "starsPoint": 0
-  },
-  {
-    "mapID": 2,
-    "activate": false,
-    "starsPoint": 0
   }
 ]

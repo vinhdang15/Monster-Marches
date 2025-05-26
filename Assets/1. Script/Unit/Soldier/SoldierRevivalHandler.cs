@@ -40,6 +40,4 @@ public class SoldierRevivalHandler : MonoBehaviour
         gameObject.SetActive(true);
         yield break;
     }
-
-
 }

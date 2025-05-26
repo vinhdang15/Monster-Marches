@@ -29,7 +29,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         {
                             waveNumber              = 2,
                             primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
-                            primaryEnemyCount       = 4,
+                            primaryEnemyCount       = 5,
                             secondaryEnemyID        = UnitID.none.ToString(),
                             secondaryEnemyCount     = 0,
                             timeBetweenEachSpawn    = 1.2f,
@@ -39,7 +39,7 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         {
                             waveNumber              = 3,
                             primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
-                            primaryEnemyCount       = 4,
+                            primaryEnemyCount       = 6,
                             secondaryEnemyID        = UnitID.Enemy_B_1.ToString(),
                             secondaryEnemyCount     = 2,
                             timeBetweenEachSpawn    = 1.2f,
@@ -59,9 +59,9 @@ public class EnemyWaveDataInfo : MonoBehaviour
                         {
                             waveNumber              = 5,
                             primaryEnemyID          = UnitID.Enemy_C_1.ToString(),
-                            primaryEnemyCount       = 2,
+                            primaryEnemyCount       = 7,
                             secondaryEnemyID        = UnitID.Enemy_A_1.ToString(),
-                            secondaryEnemyCount     = 1,
+                            secondaryEnemyCount     = 2,
                             timeBetweenEachSpawn    = 1.2f,
                             timeWaitForNextWave     = 5f,
                         },

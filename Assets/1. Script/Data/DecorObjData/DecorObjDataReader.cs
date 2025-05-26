@@ -8,7 +8,7 @@ public class DecorObjDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        decorObjDataListSO.decorObjDatas = JSONManager.decorObjDataList;
+        decorObjDataListSO.decorObjDatas = JSONDataLoader.decorObjDataList;
     }
 
     public List<DecorObjectInfo> GetDecorObjectInfoList(MapData mapData)

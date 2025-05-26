@@ -5,6 +5,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Newtonsoft.Json;
 using System.IO;
+using UnityEngine.Networking;
 
 public static class JSONListLoader<T>
 {
@@ -84,6 +85,7 @@ public static class JSONListLoader<T>
     // }
     #endregion
 
+    #region FOR USING Addressables + GITHUB PAGE SEVER
     private static readonly JsonSerializerSettings settings = new()
     {
         NullValueHandling = NullValueHandling.Ignore,
@@ -112,4 +114,26 @@ public static class JSONListLoader<T>
         Addressables.Release(handle);
         return dataList;
     }
+    #endregion
+
+        #region USING PlayerPrefs + streamingAssetsPath
+    public static async Task<List<T>> LoadTextFileAsync(string fullPath)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(fullPath);
+        var operation = www.SendWebRequest();
+
+        while (!operation.isDone)
+            await Task.Yield();
+
+#if UNITY_WEBGL
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError($"Failed to load file from: {fullPath} - {www.error}");
+            return null;
+        }
+#endif
+        string json = www.downloadHandler.text;
+        return JsonConvert.DeserializeObject<List<T>>(json);
+    }
+    #endregion
 }

@@ -5816,6 +5816,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1606637682936047117}
     m_Modifications:
+    - target: {fileID: 407889982944675824, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052866910791027596, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527224644029431746, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055719380046402107, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888781919816735490, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798151484212602394, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071859540152632092, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 5298548217366847000, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5899,6 +5927,14 @@ PrefabInstance:
     - target: {fileID: 7035888285740899946, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
       propertyPath: m_Name
       value: InstructionMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7458240655761741247, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8290960895430634944, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -36,7 +36,7 @@ public class ScreenUIManager : MonoBehaviour
     public void ShowSaveGameMenuHandler()
     {
         HideStartGameMenu();
-        if (!JSONManager.HasSaveGameData())
+        if (!JSONDataLoader.HasSaveGameData())
         {
             newGameMenu.transform.GetChild(1).gameObject.SetActive(true);
         }

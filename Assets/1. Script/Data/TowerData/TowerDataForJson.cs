@@ -18,7 +18,7 @@ public class TowerDataForJson : MonoBehaviour
             rangeDetect     = 2.5f,
             rangeRaycast    = 0.7f,
             goldRequired    = 50,
-            descriptions    = "<color=#FFD900><size=130%>Archer Tower:</size></color>\n  Shoots at a high speed. Allowing for rapid attacks",
+            descriptions    = "<color=#FFD900><size=130%>Archer Tower:</size></color>\n  Shoots at a high speed. Allowing for rapid attacks.",
         },
 
         new TowerData
@@ -31,7 +31,7 @@ public class TowerDataForJson : MonoBehaviour
             rangeDetect     = 3f,
             rangeRaycast    = 0.7f,
             goldRequired    = 70,
-            descriptions    = "<color=#FFD900><size=130%>Archer Tower:</size></color>\n  The arrow applies a damage-over-time effect. Slowly reducing the enemy's health"
+            descriptions    = "<color=#FFD900><size=130%>Archer Tower:</size></color>\n  Arrows apply a damage-over-time effect, steadily reducing the enemy's health."
         },
 
         // MageTower
@@ -58,7 +58,7 @@ public class TowerDataForJson : MonoBehaviour
             rangeDetect     = 2.8f,
             rangeRaycast    = 0.7f,
             goldRequired    = 100,
-            descriptions    = "<color=#FFD900><size=130%>Mage tower:</size></color>\n  The Magic Ball deal damages to enemy over time and also slows their movement.",
+            descriptions    = "<color=#FFD900><size=130%>Mage tower:</size></color>\n  The Magic Ball deals damage over time and slows the enemy's movement.",
         },
 
         // CannonTower
@@ -85,7 +85,7 @@ public class TowerDataForJson : MonoBehaviour
             rangeDetect     = 2.5f,
             rangeRaycast    = 0.7f,
             goldRequired    = 120,
-            descriptions    = "<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Increases the damage attack. Making it more effective against enemies.",
+            descriptions    = "<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Bombs deal greater damage, making them more effective against groups of enemies.",
         },
 
         // Barrack
@@ -112,7 +112,7 @@ public class TowerDataForJson : MonoBehaviour
             rangeDetect     = 2.5f,
             rangeRaycast    = 0.7f,
             goldRequired    = 100,
-            descriptions    = "<color=#FFD900><size=130%>Barrack:</size></color>\n   Summons three knights who heal themselves and allies. But only when they are not engaged in combat.",
+            descriptions    = "<color=#FFD900><size=130%>Barrack:</size></color>\n   Summons three knights who heal themselves and allies when not engaged in combat.",
         }
     };
 

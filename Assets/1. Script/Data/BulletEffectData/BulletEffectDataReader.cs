@@ -8,6 +8,6 @@ public class BulletEffectDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        bulletEffectDataSO.bulletEffectDataList = JSONManager.bulletEffectDataList;
+        bulletEffectDataSO.bulletEffectDataList = JSONDataLoader.bulletEffectDataList;
     }
 }

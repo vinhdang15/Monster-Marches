@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameFlowManager : MonoBehaviour
@@ -233,12 +234,12 @@ public class GameFlowManager : MonoBehaviour
     public void HandleSetNewGameBtnClick()
     {
         screenUIManager.ShowWorldMapSceneUIList();
-        StartCoroutine(ResetMapProgressDataCoroutine());
+        ResetMapProgressDataCoroutine();
     }
 
-    private IEnumerator ResetMapProgressDataCoroutine()
+    private async void ResetMapProgressDataCoroutine()
     {
-        yield return StartCoroutine(JSONManager.ResetMapProgressData());
+        await JSONDataLoader.ResetMapProgressData();
         mapManager.CLearAllMapBtn();
         mapDataReader.ResetFullMapData();
         HandleLoadWorldMapScene();

@@ -84,7 +84,7 @@ public class GameInitManager : MonoBehaviour
 
     public IEnumerator PrepareJsonData()
     {
-        var task = JSONManager.PrepareGameAsync();
+        var task = JSONDataLoader.PrepareGameAsync();
         yield return new WaitUntil(() => task.IsCompleted);
     }
 

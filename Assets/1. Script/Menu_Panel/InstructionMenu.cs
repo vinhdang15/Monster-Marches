@@ -9,11 +9,11 @@ public class InstructionMenu : MenuBase
     [SerializeField] TextMeshProUGUI nextText;
     [SerializeField] List<GameObject> InstructionTextList = new();
     [SerializeField] GameObject skipButton;
-    private int nextButtonClickCount = 0;
+    private int nextButtonClickCount = 1;
 
     public void ShowInstruction()
     {
-        nextText.text = "NEXT";
+        nextText.text = "NEXT!";
         skipButton.SetActive(true);
         ShowInstructionPage1();
         Show();
@@ -22,7 +22,6 @@ public class InstructionMenu : MenuBase
     // Button event
     public void HideInstruction()
     {
-        nextText.text = "NEXT";
         nextButtonClickCount = 0;
         gameObject.SetActive(false);
     }
@@ -31,13 +30,25 @@ public class InstructionMenu : MenuBase
     public void NextButtonClick()
     {
         nextButtonClickCount++;
-        if (nextButtonClickCount == 1)
+        if (nextButtonClickCount == 2)
         {
             ShowInstructionPage2();
+        }
+        else if (nextButtonClickCount == 3)
+        {
+            ShowInstructionPage3();
+        }
+        else if (nextButtonClickCount == 4)
+        {
+            ShowInstructionPage4();
+        }
+        else if (nextButtonClickCount == 5)
+        {
+            ShowInstructionPage5();
             skipButton.SetActive(false);
             nextText.text = "GOT IT!";
         }
-        else if (nextButtonClickCount == 2)
+        else if (nextButtonClickCount == 6)
         {
             HideInstruction();
         }
@@ -46,19 +57,44 @@ public class InstructionMenu : MenuBase
     private void ShowInstructionPage1()
     {
         GetImageCover(ImageName.Instruction_1.ToString());
-        InstructionTextList[0].SetActive(true);
+        SetActiveTextPage(1);
         InstructionTextList[1].SetActive(false);
     }
 
     private void ShowInstructionPage2()
     {
-        GetImageCover(ImageName.Instruction_2.ToString());
-        InstructionTextList[0].SetActive(false);
-        InstructionTextList[1].SetActive(true);
+        SetActiveTextPage(2);
+    }
+
+    private void ShowInstructionPage3()
+    {
+        GetImageCover(ImageName.Instruction_3.ToString());
+        SetActiveTextPage(3);
+    }
+
+    private void ShowInstructionPage4()
+    {
+        GetImageCover(ImageName.Instruction_4.ToString());
+        SetActiveTextPage(4);
+    }
+
+    private void ShowInstructionPage5()
+    {
+        GetImageCover(ImageName.Instruction_5.ToString());
+        SetActiveTextPage(5);
     }
 
     private void GetImageCover(string image)
     {
         InstructionImage.sprite = SpriteManager.GetMapSprite(image);
+    }
+
+    private void SetActiveTextPage(int pageNumber)
+    {
+        for (int i = 0; i < InstructionTextList.Count; i++)
+        {
+            if (i + 1 == pageNumber) InstructionTextList[i].SetActive(true);
+            else InstructionTextList[i].SetActive(false);
+        }
     }
 }

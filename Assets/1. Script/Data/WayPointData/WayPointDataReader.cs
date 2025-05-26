@@ -9,7 +9,7 @@ public class WayPointDataReader : MonoBehaviour
 
     public void PrepareGame()
     {
-        wayPointDataListSO.wayPointDatas = JSONManager.wayPointDataList;
+        wayPointDataListSO.wayPointDatas = JSONDataLoader.wayPointDataList;
     }
 
     public List<Vector2> GetSelectedMapEmptyPlotPos(MapData mapData)

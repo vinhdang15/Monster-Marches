@@ -10,15 +10,15 @@ public class BulletDataForJson : MonoBehaviour
         new BulletData
         {
             bulletID        = BulletID.Arrow_1.ToString(),
-            damage          = 25,
-            speed           = 7,
+            damage          = 30,
+            speed           = 8,
             effectTyes      = BulletEffectType.none.ToString(),
         },
         new BulletData
         {
             bulletID        = BulletID.Arrow_2.ToString(),
             damage          = 30,
-            speed           = 8,
+            speed           = 9,
             effectTyes      = BulletEffectType.Fire_DoT.ToString(),
         },
 
@@ -43,14 +43,14 @@ public class BulletDataForJson : MonoBehaviour
         {
             bulletID        = BulletID.Bomb_1.ToString(),
             damage          = 30,
-            speed           = 6,
+            speed           = 4,
             effectTyes      = BulletEffectType.Bomb_1_AoE20.ToString(),
         },
         new BulletData
         {
             bulletID        = BulletID.Bomb_2.ToString(),
             damage          = 50,
-            speed           = 6,
+            speed           = 4,
             effectTyes      = BulletEffectType.Bomb_2_AoE30.ToString(),
         },
     };
