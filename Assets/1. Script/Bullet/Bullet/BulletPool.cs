@@ -92,8 +92,8 @@ public class BulletPool : MonoBehaviour
     // Return bullet to pool
     public void ReturnBullet(BulletBase bullet)
     {
-        bullet.ResetBullet();
         bullet.gameObject.SetActive(false);
+        bullet.ResetBullet();
         if(bulletPools.ContainsKey(bullet.BulletID))
         {
             bulletPools[bullet.BulletID].Enqueue(bullet);

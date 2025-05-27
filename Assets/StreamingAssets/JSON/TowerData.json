@@ -3,7 +3,7 @@
     "towerType": "ArcherTower",
     "level": 1,
     "SpawnObject": "Arrow_1",
-    "spawnRate": 1.0,
+    "spawnRate": 0.8,
     "fireAnimDelay": 0.25,
     "rangeDetect": 2.5,
     "rangeRaycast": 0.7,
@@ -14,11 +14,11 @@
     "towerType": "ArcherTower",
     "level": 2,
     "SpawnObject": "Arrow_2",
-    "spawnRate": 1.0,
+    "spawnRate": 0.8,
     "fireAnimDelay": 0.25,
     "rangeDetect": 3.0,
     "rangeRaycast": 0.7,
-    "goldRequired": 70,
+    "goldRequired": 75,
     "descriptions": "<color=#FFD900><size=130%>Archer Tower:</size></color>\n  Arrows apply a damage-over-time effect, steadily reducing the enemy's health."
   },
   {
@@ -40,7 +40,7 @@
     "fireAnimDelay": 0.4,
     "rangeDetect": 2.8,
     "rangeRaycast": 0.7,
-    "goldRequired": 100,
+    "goldRequired": 110,
     "descriptions": "<color=#FFD900><size=130%>Mage tower:</size></color>\n  The Magic Ball deals damage over time and slows the enemy's movement."
   },
   {
@@ -51,7 +51,7 @@
     "fireAnimDelay": 0.5,
     "rangeDetect": 2.0,
     "rangeRaycast": 0.7,
-    "goldRequired": 80,
+    "goldRequired": 100,
     "descriptions": "<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Bombs explode on impact. Dealing damage to all enemies in the area."
   },
   {
@@ -62,14 +62,14 @@
     "fireAnimDelay": 0.5,
     "rangeDetect": 2.5,
     "rangeRaycast": 0.7,
-    "goldRequired": 120,
+    "goldRequired": 150,
     "descriptions": "<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Bombs deal greater damage, making them more effective against groups of enemies."
   },
   {
     "towerType": "Barrack",
     "level": 1,
     "SpawnObject": "Soldier_1",
-    "spawnRate": 5.0,
+    "spawnRate": 7.0,
     "fireAnimDelay": 0.0,
     "rangeDetect": 2.0,
     "rangeRaycast": 0.7,
@@ -80,11 +80,11 @@
     "towerType": "Barrack",
     "level": 2,
     "SpawnObject": "Soldier_2",
-    "spawnRate": 0.3,
+    "spawnRate": 7.0,
     "fireAnimDelay": 5.0,
     "rangeDetect": 2.5,
     "rangeRaycast": 0.7,
-    "goldRequired": 100,
+    "goldRequired": 110,
     "descriptions": "<color=#FFD900><size=130%>Barrack:</size></color>\n   Summons three knights who heal themselves and allies when not engaged in combat."
   }
 ]

@@ -13,7 +13,7 @@ public class TowerDataForJson : MonoBehaviour
             towerType       = TowerType.ArcherTower.ToString(),
             level           = 1,
             SpawnObject     = BulletID.Arrow_1.ToString(),
-            spawnRate       = 1f,
+            spawnRate       = 0.8f,
             fireAnimDelay   = 0.25f,
             rangeDetect     = 2.5f,
             rangeRaycast    = 0.7f,
@@ -26,11 +26,11 @@ public class TowerDataForJson : MonoBehaviour
             towerType       = TowerType.ArcherTower.ToString(),
             level           = 2,
             SpawnObject     = BulletID.Arrow_2.ToString(),
-            spawnRate       = 1f,
+            spawnRate       = 0.8f,
             fireAnimDelay   = 0.25f,
             rangeDetect     = 3f,
             rangeRaycast    = 0.7f,
-            goldRequired    = 70,
+            goldRequired    = 75,
             descriptions    = "<color=#FFD900><size=130%>Archer Tower:</size></color>\n  Arrows apply a damage-over-time effect, steadily reducing the enemy's health."
         },
 
@@ -57,7 +57,7 @@ public class TowerDataForJson : MonoBehaviour
             fireAnimDelay   = 0.4f,
             rangeDetect     = 2.8f,
             rangeRaycast    = 0.7f,
-            goldRequired    = 100,
+            goldRequired    = 110,
             descriptions    = "<color=#FFD900><size=130%>Mage tower:</size></color>\n  The Magic Ball deals damage over time and slows the enemy's movement.",
         },
 
@@ -71,7 +71,7 @@ public class TowerDataForJson : MonoBehaviour
             fireAnimDelay   = 0.5f,
             rangeDetect     = 2f,
             rangeRaycast    = 0.7f,
-            goldRequired    = 80,
+            goldRequired    = 100,
             descriptions    = "<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Bombs explode on impact. Dealing damage to all enemies in the area.",
         },
 
@@ -84,7 +84,7 @@ public class TowerDataForJson : MonoBehaviour
             fireAnimDelay   = 0.5f,
             rangeDetect     = 2.5f,
             rangeRaycast    = 0.7f,
-            goldRequired    = 120,
+            goldRequired    = 150,
             descriptions    = "<color=#FFD900><size=130%>Cannon Tower:</size></color>\n  Bombs deal greater damage, making them more effective against groups of enemies.",
         },
 
@@ -94,7 +94,7 @@ public class TowerDataForJson : MonoBehaviour
             towerType       = TowerType.Barrack.ToString(),
             level           = 1,
             SpawnObject     = UnitID.Soldier_1.ToString(),
-            spawnRate       = 5f,
+            spawnRate       = 7f,
             fireAnimDelay   = 0f,
             rangeDetect     = 2f,
             rangeRaycast    = 0.7f,
@@ -107,11 +107,11 @@ public class TowerDataForJson : MonoBehaviour
             towerType       = TowerType.Barrack.ToString(),
             level           = 2,
             SpawnObject     = UnitID.Soldier_2.ToString(),
-            spawnRate       = 0.3f,
+            spawnRate       = 7f,
             fireAnimDelay   = 5f,
             rangeDetect     = 2.5f,
             rangeRaycast    = 0.7f,
-            goldRequired    = 100,
+            goldRequired    = 110,
             descriptions    = "<color=#FFD900><size=130%>Barrack:</size></color>\n   Summons three knights who heal themselves and allies when not engaged in combat.",
         }
     };

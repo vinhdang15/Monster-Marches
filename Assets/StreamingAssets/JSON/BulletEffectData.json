@@ -21,15 +21,15 @@
     "effectRange": 0.0
   },
   {
-    "effectType": "Bomb_1_AoE20",
-    "effectValue": 20,
+    "effectType": "Bomb_1_AoE",
+    "effectValue": 50,
     "effectDuration": 0.0,
     "effectOccursTime": 0,
     "effectRange": 1.25
   },
   {
-    "effectType": "Bomb_2_AoE30",
-    "effectValue": 30,
+    "effectType": "Bomb_2_AoE",
+    "effectValue": 90,
     "effectDuration": 0.0,
     "effectOccursTime": 0,
     "effectRange": 1.25

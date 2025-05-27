@@ -39,8 +39,7 @@ public class ParabolBullet : BulletBase
         if((Vector2)transform.position == enemyPos)
         {
             isReachEnemyPos = true;
-            PlayAnimationWhenReachEnemyPos();
-            ApplyBulletEffect();
+            base.PlayAnimationWhenReachEnemyPos();
         }
     }
 

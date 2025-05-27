@@ -180,7 +180,7 @@ public class BulletBase : MonoBehaviour
         if (canDealDamage)
         {
             bulletAnimation.PlayDealDamageAnimation();
-            ApplyBulletEffect();
+            ApplyBulletEffectToUnit();
         }
         else
         {
@@ -198,7 +198,7 @@ public class BulletBase : MonoBehaviour
         FinishBulletAnimationHandler();
     }
 
-    protected void ApplyBulletEffect()
+    protected void ApplyBulletEffectToUnit()
     {
         if (effects.Count == 0) return;
         if (targetEnemy.gameObject.activeSelf && targetEnemy.CurrentHp > 0)
@@ -219,6 +219,7 @@ public class BulletBase : MonoBehaviour
         isSetUpStartPos = false;
         isEnemyExitTowerView = false;
         targetEnemy = null;
+        bulletAnimation.ResetSpriteAlpha();
     }
     #endregion
 

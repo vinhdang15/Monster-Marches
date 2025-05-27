@@ -39,8 +39,8 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Bomb1_AoE20 effect
         new BulletEffectData
         {
-            effectType          = BulletEffectType.Bomb_1_AoE20.ToString(),
-            effectValue         = 20,
+            effectType          = BulletEffectType.Bomb_1_AoE.ToString(),
+            effectValue         = 50,
             effectDuration      = 0,
             effectOccursTime    = 0,
             effectRange         = 1.25f,
@@ -49,8 +49,8 @@ public class BulletEffectDataForJson : MonoBehaviour
         // Bomb2_AoE30 effect
         new BulletEffectData
         {
-            effectType          = BulletEffectType.Bomb_2_AoE30.ToString(),
-            effectValue         = 30,
+            effectType          = BulletEffectType.Bomb_2_AoE.ToString(),
+            effectValue         = 90,
             effectDuration      = 0,
             effectOccursTime    = 0,
             effectRange         = 1.25f,

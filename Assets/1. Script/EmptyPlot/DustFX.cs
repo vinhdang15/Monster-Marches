@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DustFX : MonoBehaviour
 {
+    public bool IsRunning { get; private set; }
     [SerializeField] private List<Sprite> sprites = new();
     private SpriteRenderer spriteRenderer;
     private float frameRate = 0.05f;
@@ -11,24 +12,17 @@ public class DustFX : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-    public void PlayBuildingFX(Vector2 vector2)
+    
+    public IEnumerator Play(Vector2 pos)
     {
-        SetPos(vector2);
-        StartCoroutine(PlayBuildingFXCoroutine());
-    }
+        transform.position = pos;
+        IsRunning = true;
 
-    private void SetPos(Vector2 vector2)
-    {
-        transform.position = vector2;
-    }
-
-    private IEnumerator PlayBuildingFXCoroutine()
-    {
-        for(int i = 1; i < sprites.Count; i++)
+        for (int i = 1; i < sprites.Count; i++)
         {
             spriteRenderer.sprite = sprites[i];
             yield return new WaitForSeconds(frameRate);
         }
+        IsRunning = false;
     }
 }

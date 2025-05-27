@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TowerDataList", menuName = "Data Config/TowerDataList", order = 1)]
 public class TowerDataListSO : ScriptableObject
 {
-    public List<TowerData> towerDataList = new List<TowerData>();
+    public List<TowerData> towerDataList = new();
 
-    public List<int> TowerInitGoldList = new List<int>();
+    public List<int> towerInitGoldList = new();
 
     public TowerData GetTowerData(string towerType, int level)
     {
@@ -16,8 +16,7 @@ public class TowerDataListSO : ScriptableObject
 
     public int GetGoldInit(string towerType)
     {
-        TowerData tower = towerDataList.Find(data => data.towerType == towerType && data.level == 1);
-        return tower.goldRequired;
+        return GetGoldRequired(towerType, 1);
     }
 
     public int GetGoldRequired(string towerType, int level)

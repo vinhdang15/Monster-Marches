@@ -3047,7 +3047,7 @@ GameObject:
   m_Component:
   - component: {fileID: 209908983}
   m_Layer: 0
-  m_Name: 2_1_CautionPos
+  m_Name: 2_2_CautionPos
   m_TagString: CautionBtn
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3482,7 +3482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 267950071}
   m_Layer: 0
-  m_Name: 2_2 CautionPos
+  m_Name: 2_1 CautionPos
   m_TagString: CautionBtn
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5060,7 +5060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 419627708}
   m_Layer: 0
-  m_Name: 2_1_PathWayHolder
+  m_Name: 2_2_PathWayHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15436,7 +15436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1299210158}
   m_Layer: 0
-  m_Name: 2_2_PathWayHolder
+  m_Name: 2_1_PathWayHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20051,7 +20051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1639135767
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20362,8 +20362,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 419627708}
   - {fileID: 1299210158}
+  - {fileID: 419627708}
   m_Father: {fileID: 1375438651105863203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1660442974
@@ -28205,7 +28205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4226392207514358864}
   m_Layer: 0
-  m_Name: 2_2_Path 3
+  m_Name: 2_1_Path 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28739,7 +28739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6997389038948520858}
   m_Layer: 0
-  m_Name: 2_2_Path 2
+  m_Name: 2_1_Path 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28882,7 +28882,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2153571389053924273}
   m_Layer: 0
-  m_Name: 2_2_Path 1
+  m_Name: 2_1_Path 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29656,7 +29656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7852530815300356055}
   m_Layer: 0
-  m_Name: 2_1_Path 2
+  m_Name: 2_2_Path 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31420,7 +31420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 572616792719751458}
   m_Layer: 0
-  m_Name: 2_1_Path 3
+  m_Name: 2_2_Path 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32661,7 +32661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3737650447998286706}
   m_Layer: 0
-  m_Name: 2_1_Path 1
+  m_Name: 2_2_Path 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32878,17 +32878,17 @@ MonoBehaviour:
     emptyPlotHolder: {fileID: 9083843390194088007}
     mainPathWayList:
     - pathWayID: 1
-      cautionBtnPosHolder: {fileID: 209908983}
-      pathWaySegmentHolderList:
-      - {fileID: 3737650447998286706}
-      - {fileID: 7852530815300356055}
-      - {fileID: 572616792719751458}
-    - pathWayID: 2
       cautionBtnPosHolder: {fileID: 267950071}
       pathWaySegmentHolderList:
       - {fileID: 2153571389053924273}
       - {fileID: 6997389038948520858}
       - {fileID: 4226392207514358864}
+    - pathWayID: 2
+      cautionBtnPosHolder: {fileID: 209908983}
+      pathWaySegmentHolderList:
+      - {fileID: 3737650447998286706}
+      - {fileID: 7852530815300356055}
+      - {fileID: 572616792719751458}
     initGuardPointPosHolder:
     - {fileID: 7852530815300356055}
     - {fileID: 6997389038948520858}

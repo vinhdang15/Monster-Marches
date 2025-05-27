@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GamePlayManager : MonoBehaviour
@@ -23,7 +24,7 @@ public class GamePlayManager : MonoBehaviour
     private BarrackTowerManager     barrackTowerManager;
     public EnemySpawnerManager      enemySpawnerManager;
     private Vector2                 initMenuPanelPos;
-    private EmptyPlot               SelectedEmptyPlot;
+    private EmptyPlot               selectedEmptyPlot;
     private TowerPresenter          selectedTower;
     private TowerPresenter          selectedBulletTower;
     private TowerPresenter          selectedBarackTower;
@@ -197,20 +198,23 @@ public class GamePlayManager : MonoBehaviour
     // Init tower
     private void HandleInitTower(TowerType  towerType)
     {
+        raycastHandler.blockRaycast = true;
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
-        SelectedEmptyPlot.DisableCollider();
-        SelectedEmptyPlot.PlayBuildingFX(() => PlayDustFX(SelectedEmptyPlot.transform.position), () => InitTower(towerType));
+        selectedEmptyPlot.DisableCollider();
+        Vector2 emptyPlotPos = selectedEmptyPlot.transform.position;
+
+        selectedEmptyPlot.PlayBuildingFX(() => PlayDustFX(emptyPlotPos), () => InitTower(towerType));
         gamePlayUIManager.HandleRaycastHitNull();
     }
 
     private void PlayDustFX(Vector2 pos)
     {
-        dustFX.PlayBuildingFX(pos);
+        StartCoroutine(dustFX.Play(pos));
     }
 
-    private void InitTower(TowerType  towerType)
+    private void InitTower(TowerType towerType)
     {
-        switch(towerType)
+        switch (towerType)
         {
             case TowerType.ArcherTower:
                 InitArcherTower();
@@ -225,26 +229,27 @@ public class GamePlayManager : MonoBehaviour
                 InitCannonTower();
                 break;
         }
+        raycastHandler.blockRaycast = false;
     }
 
     private void InitArcherTower()
     {
-        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initMenuPanelPos, SelectedEmptyPlot));
+        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initMenuPanelPos, selectedEmptyPlot));
     }
 
     private void InitMageTower()
     {
-        OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initMenuPanelPos, SelectedEmptyPlot));
+        OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initMenuPanelPos, selectedEmptyPlot));
     }
 
     private void InitBarrackTower()
     {
-        OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initMenuPanelPos, SelectedEmptyPlot));
+        OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initMenuPanelPos, selectedEmptyPlot));
     }
 
     private void InitCannonTower()
     {
-        OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initMenuPanelPos, SelectedEmptyPlot));
+        OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initMenuPanelPos, selectedEmptyPlot));
     }
     #endregion
 
@@ -315,7 +320,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void RemoveTowerInTowerList(TowerPresenter selectedTower)
     {
-        if(selectedTower.towerModel.TowerType == "Barrack")
+        if(selectedTower.towerModel.TowerType == TowerType.Barrack.ToString())
         {
             barrackTowerManager.CleanupSelectedTower(selectedTower);
         }
@@ -332,7 +337,7 @@ public class GamePlayManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(soundEffectSO.clickSound);
         HideCurrentTowerRangeDetect();
-        SelectedEmptyPlot = emptyPlot;
+        selectedEmptyPlot = emptyPlot;
         initMenuPanelPos = emptyPlot.GetPos();
     }
 

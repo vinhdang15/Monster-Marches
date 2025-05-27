@@ -11,17 +11,17 @@
             "primaryEnemyCount": 4,
             "secondaryEnemyID": "none",
             "secondaryEnemyCount": 0,
-            "timeBetweenEachSpawn": 1.0,
+            "timeBetweenEachSpawn": 1.7,
             "timeWaitForNextWave": 10.0
           },
           {
             "waveNumber": 2,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 5,
+            "primaryEnemyCount": 6,
             "secondaryEnemyID": "none",
             "secondaryEnemyCount": 0,
-            "timeBetweenEachSpawn": 1.2,
-            "timeWaitForNextWave": 5.0
+            "timeBetweenEachSpawn": 1.5,
+            "timeWaitForNextWave": 7.0
           },
           {
             "waveNumber": 3,
@@ -30,14 +30,14 @@
             "secondaryEnemyID": "Enemy_B_1",
             "secondaryEnemyCount": 2,
             "timeBetweenEachSpawn": 1.2,
-            "timeWaitForNextWave": 7.0
+            "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 4,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 0,
+            "primaryEnemyCount": 6,
             "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 2,
+            "secondaryEnemyCount": 4,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
@@ -47,6 +47,24 @@
             "primaryEnemyCount": 7,
             "secondaryEnemyID": "Enemy_A_1",
             "secondaryEnemyCount": 2,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 10.0
+          },
+          {
+            "waveNumber": 6,
+            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyCount": 10,
+            "secondaryEnemyID": "Enemy_A_1",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 0.9,
+            "timeWaitForNextWave": 5.0
+          },
+          {
+            "waveNumber": 7,
+            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyCount": 10,
+            "secondaryEnemyID": "Enemy_A_1",
+            "secondaryEnemyCount": 4,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           }
@@ -64,46 +82,73 @@
             "waveNumber": 1,
             "primaryEnemyID": "Enemy_C_1",
             "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
-            "timeBetweenEachSpawn": 1.2,
-            "timeWaitForNextWave": 5.0
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 1.7,
+            "timeWaitForNextWave": 7.0
           },
           {
             "waveNumber": 2,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
-            "timeBetweenEachSpawn": 1.2,
-            "timeWaitForNextWave": 5.0
+            "primaryEnemyCount": 7,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 1.4,
+            "timeWaitForNextWave": 7.0
           },
           {
             "waveNumber": 3,
-            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyID": "Enemy_B_1",
             "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
-            "timeBetweenEachSpawn": 1.2,
+            "secondaryEnemyID": "Enemy_C_1",
+            "secondaryEnemyCount": 4,
+            "timeBetweenEachSpawn": 1.4,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 4,
             "primaryEnemyID": "Enemy_C_1",
             "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
-            "timeBetweenEachSpawn": 1.2,
-            "timeWaitForNextWave": 5.0
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 1.8,
+            "timeWaitForNextWave": 10.0
           },
           {
             "waveNumber": 5,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
+            "primaryEnemyCount": 7,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 7.0
+          },
+          {
+            "waveNumber": 6,
+            "primaryEnemyID": "none",
+            "primaryEnemyCount": 0,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 7.0
+          },
+          {
+            "waveNumber": 7,
+            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyCount": 7,
+            "secondaryEnemyID": "Enemy_A_1",
             "secondaryEnemyCount": 1,
             "timeBetweenEachSpawn": 1.2,
-            "timeWaitForNextWave": 5.0
+            "timeWaitForNextWave": 7.0
+          },
+          {
+            "waveNumber": 5,
+            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyCount": 7,
+            "secondaryEnemyID": "Enemy_A_1",
+            "secondaryEnemyCount": 3,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 7.0
           }
         ]
       },
@@ -112,46 +157,73 @@
         "EnemyWaveList": [
           {
             "waveNumber": 1,
-            "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
+            "primaryEnemyID": "none",
+            "primaryEnemyCount": 0,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 2,
-            "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
+            "primaryEnemyID": "none",
+            "primaryEnemyCount": 0,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 3,
-            "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
+            "primaryEnemyID": "none",
+            "primaryEnemyCount": 0,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           },
           {
             "waveNumber": 4,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
+            "primaryEnemyCount": 3,
             "secondaryEnemyID": "Enemy_B_1",
-            "secondaryEnemyCount": 1,
-            "timeBetweenEachSpawn": 1.2,
-            "timeWaitForNextWave": 5.0
+            "secondaryEnemyCount": 2,
+            "timeBetweenEachSpawn": 1.4,
+            "timeWaitForNextWave": 10.0
           },
           {
             "waveNumber": 5,
             "primaryEnemyID": "Enemy_C_1",
-            "primaryEnemyCount": 4,
-            "secondaryEnemyID": "Enemy_B_1",
+            "primaryEnemyCount": 7,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 7.0
+          },
+          {
+            "waveNumber": 6,
+            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyCount": 7,
+            "secondaryEnemyID": "Enemy_A_1",
             "secondaryEnemyCount": 1,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 7.0
+          },
+          {
+            "waveNumber": 7,
+            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyCount": 7,
+            "secondaryEnemyID": "none",
+            "secondaryEnemyCount": 0,
+            "timeBetweenEachSpawn": 1.2,
+            "timeWaitForNextWave": 7.0
+          },
+          {
+            "waveNumber": 8,
+            "primaryEnemyID": "Enemy_C_1",
+            "primaryEnemyCount": 5,
+            "secondaryEnemyID": "Enemy_A_1",
+            "secondaryEnemyCount": 2,
             "timeBetweenEachSpawn": 1.2,
             "timeWaitForNextWave": 5.0
           }

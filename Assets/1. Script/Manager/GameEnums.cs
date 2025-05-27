@@ -59,8 +59,8 @@ public enum BulletEffectType
     Fire_DoT,
     Slow,
     Magic_DoT,
-    Bomb_1_AoE20,
-    Bomb_2_AoE30,
+    Bomb_1_AoE,
+    Bomb_2_AoE,
 }
 
 public enum Unitype

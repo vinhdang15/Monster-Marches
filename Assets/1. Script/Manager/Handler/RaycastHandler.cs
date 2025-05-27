@@ -15,6 +15,7 @@ public class RaycastHandler : MonoBehaviour
     public event Action<TowerPresenter> OnSelectedBulletTower;
     public event Action<TowerPresenter> OnSelectedBarrackTower;
     public event Action<Vector2> OnSelectedNewGuardPointPos;
+    public bool blockRaycast = false;
 
     public void PrepareGame()
     {
@@ -66,26 +67,29 @@ public class RaycastHandler : MonoBehaviour
 
     private void IgnoreBarrackRangeDetect()
     {
+        if (blockRaycast) return;
+        Debug.Log("check raycast");
         GetWorldPos();
-
+        
         int layerMask = LayerMask.GetMask("EmptyPlot", "BulletTowerRaycast", "BarrackTowerRaycast");
         hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, layerMask);
-        if(hit.collider == null)
+        
+        if (hit.collider == null)
         {
             OnRaycastHitNull?.Invoke();
             return;
         }
-        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("EmptyPlot"))
+        else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EmptyPlot"))
         {
             EmptyPlot emptyPlot = hit.collider.gameObject.GetComponent<EmptyPlot>();
             OnSelectedEmptyPlot?.Invoke(emptyPlot);
         }
-        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("BulletTowerRaycast"))
+        else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("BulletTowerRaycast"))
         {
             TowerPresenter selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
             OnSelectedBulletTower?.Invoke(selectedTower);
         }
-        else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("BarrackTowerRaycast"))
+        else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("BarrackTowerRaycast"))
         {
             TowerPresenter selectedTower = hit.collider.transform.parent.GetComponent<TowerPresenter>();
             OnSelectedBarrackTower?.Invoke(selectedTower);
