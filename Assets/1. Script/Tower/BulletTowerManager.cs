@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletTowerManager : TowerBaseManager
@@ -130,15 +128,20 @@ public class BulletTowerManager : TowerBaseManager
             // }
             // yield return new WaitForSeconds(towerPresenter.towerModel.SpawnRate);
 
-            bulletTowerView.FireBulletAnimation(towerPresentEnemiesList[0].transform);
+            Enemy enemy = getTargetEnemyHandler.GetTargetEnemy(towerPresentEnemiesList);
+            if (enemy == null)
+            {
+                yield return null;
+                continue;
+            }
+            
+            bulletTowerView.FireBulletAnimation(enemy.transform);
             yield return new WaitForSeconds(towerModel.FireAnimDelay);
 
             string bulletType = towerModel.SpawnObject;
             Vector2 spawnPos = bulletTowerView.GetSpawnBulletPos();
             float spawnBulletDirection = bulletTowerView.GetSpawnBulletDirection();
-
-            Enemy enemy = getTargetEnemyHandler.GetTargetEnemy(towerPresentEnemiesList);
-            if (enemy != null)
+            if (enemy != null && enemy.CurrentHp > 0)
             {
                 bulletManager.SpawnBullet(bulletType, spawnPos, spawnBulletDirection, enemy, towerPresenter);
             }

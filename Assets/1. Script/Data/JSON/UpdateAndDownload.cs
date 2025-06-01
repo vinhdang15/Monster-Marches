@@ -13,28 +13,55 @@ public class UpdateAndDownload : MonoBehaviour
     public void CheckForUpdateAndDownload(Action action)
     {
         onFinishedCallback = action;
-        Addressables.InitializeAsync().Completed += OnAddressableInittialized;
+        Addressables.InitializeAsync().Completed += OnAddressableInitialized;
     }
-    public void OnAddressableInittialized(AsyncOperationHandle<IResourceLocator> locator)
+    // private void OnAddressableInitialized(AsyncOperationHandle<IResourceLocator> locator)
+    // {
+    //     if (locator.Status == AsyncOperationStatus.Succeeded)
+    //     {
+    //         StartCoroutine(CheckForUpdateAndDownloadCoroutine());
+    //     }
+    // }
+
+    // private IEnumerator CheckForUpdateAndDownloadCoroutine()
+    // {
+    //     while(Caching.ready == false) yield return null;
+    //     var check = Addressables.CheckForCatalogUpdates();
+    //     check.Completed += CheckUpdateCompleted;
+    // }
+
+    // private void CheckUpdateCompleted(AsyncOperationHandle<List<string>> handle)
+    // {
+    //     if(handle.Result.Count > 0)
+    //     {
+    //        Addressables.UpdateCatalogs(true, handle.Result).Completed += (updateResult) =>
+    //         {
+    //             onFinishedCallback?.Invoke();
+    //         };
+    //     }
+    //     else
+    //     {
+    //         onFinishedCallback?.Invoke();
+    //     }
+    // }
+    
+    private void OnAddressableInitialized(AsyncOperationHandle<IResourceLocator> handle)
     {
-        if(locator.Status == AsyncOperationStatus.Succeeded)
+        if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-            StartCoroutine(CheckForUpdateAndDownloadCoroutine());
+            Addressables.CheckForCatalogUpdates().Completed += OnCatalogUpdateChecked;
+        }
+        else
+        {
+            onFinishedCallback?.Invoke();
         }
     }
 
-    private IEnumerator CheckForUpdateAndDownloadCoroutine()
+    private void OnCatalogUpdateChecked(AsyncOperationHandle<List<string>> handle)
     {
-        while(Caching.ready == false) yield return null;
-        var check = Addressables.CheckForCatalogUpdates();
-        check.Completed += CheckUpdateCompleted;
-    }
-
-    private void CheckUpdateCompleted(AsyncOperationHandle<List<string>> handle)
-    {
-        if(handle.Result.Count > 0)
+        if (handle.Status == AsyncOperationStatus.Succeeded && handle.Result.Count > 0)
         {
-           Addressables.UpdateCatalogs(true, handle.Result).Completed += (updateResult) =>
+            Addressables.UpdateCatalogs(handle.Result).Completed += (updateHandle) =>
             {
                 onFinishedCallback?.Invoke();
             };

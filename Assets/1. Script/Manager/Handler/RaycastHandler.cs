@@ -68,7 +68,6 @@ public class RaycastHandler : MonoBehaviour
     private void IgnoreBarrackRangeDetect()
     {
         if (blockRaycast) return;
-        Debug.Log("check raycast");
         GetWorldPos();
         
         int layerMask = LayerMask.GetMask("EmptyPlot", "BulletTowerRaycast", "BarrackTowerRaycast");

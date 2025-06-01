@@ -30,30 +30,40 @@ public class JSONDataLoader
 
     public static async Task PrepareGameAsync()
     {
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            mapDesignDataList       = await LoadMapDesignData();
-            decorObjDataList        = await LoadDecorObjData();
-            wayPointDataList        = await LoadWaypointData();
-            towerDataList           = await LoadTowerData();
-            bulletDataList          = await LoadBulletData();
-            bulletEffectDataList    = await LoadBulletEffectData();
-            unitDataList            = await LoadUnitData();
-            skillDataList           = await LoadSkillData();
-            enemyWaveDataList       = await LoadEnemyWaveData();
-        }
-        else
-        {
-            mapDesignDataList       = await LoadMapDesignDataFromSever();
-            decorObjDataList        = await LoadDecorObjDataFromSever();
-            wayPointDataList        = await LoadWaypointDataFromSever();
-            towerDataList           = await LoadTowerDataFromSever();
-            bulletDataList          = await LoadBulletDataFromSever();
-            bulletEffectDataList    = await LoadBulletEffectDataFromSever();
-            unitDataList            = await LoadUnitDataFromSever();
-            skillDataList           = await LoadSkillDataFromSever();
-            enemyWaveDataList       = await LoadEnemyWaveDataFromSever();
-        }
+        // if (Application.platform == RuntimePlatform.WebGLPlayer)
+        // {
+        //     mapDesignDataList       = await LoadMapDesignData();
+        //     decorObjDataList        = await LoadDecorObjData();
+        //     wayPointDataList        = await LoadWaypointData();
+        //     towerDataList           = await LoadTowerData();
+        //     bulletDataList          = await LoadBulletData();
+        //     bulletEffectDataList    = await LoadBulletEffectData();
+        //     unitDataList            = await LoadUnitData();
+        //     skillDataList           = await LoadSkillData();
+        //     enemyWaveDataList       = await LoadEnemyWaveData();
+        // }
+        // else
+        // {
+        //     mapDesignDataList       = await LoadMapDesignDataFromSever();
+        //     decorObjDataList        = await LoadDecorObjDataFromSever();
+        //     wayPointDataList        = await LoadWaypointDataFromSever();
+        //     towerDataList           = await LoadTowerDataFromSever();
+        //     bulletDataList          = await LoadBulletDataFromSever();
+        //     bulletEffectDataList    = await LoadBulletEffectDataFromSever();
+        //     unitDataList            = await LoadUnitDataFromSever();
+        //     skillDataList           = await LoadSkillDataFromSever();
+        //     enemyWaveDataList       = await LoadEnemyWaveDataFromSever();
+        // }
+
+        mapDesignDataList       = await LoadMapDesignDataFromSever();
+        decorObjDataList        = await LoadDecorObjDataFromSever();
+        wayPointDataList        = await LoadWaypointDataFromSever();
+        towerDataList           = await LoadTowerDataFromSever();
+        bulletDataList          = await LoadBulletDataFromSever();
+        bulletEffectDataList    = await LoadBulletEffectDataFromSever();
+        unitDataList            = await LoadUnitDataFromSever();
+        skillDataList           = await LoadSkillDataFromSever();
+        enemyWaveDataList       = await LoadEnemyWaveDataFromSever();
 
         mapProgressDataList         = await LoadMapProgressDataAsync();
         

@@ -4,32 +4,32 @@ using UnityEngine.UI;
 
 public class GamePlayUIManager : MonoBehaviour
 {
-    public static GamePlayUIManager Instance;
-    [SerializeField] RaycastHandler raycastHandler;
-    [SerializeField] TowerActionHandler towerActionHandler;
-    [SerializeField] GamePlayManager gamePlayManager;
-    private MapManager mapManager;
+    public static GamePlayUIManager         Instance;
+    [SerializeField] RaycastHandler         raycastHandler;
+    [SerializeField] TowerActionHandler     towerActionHandler;
+    [SerializeField] GamePlayManager        gamePlayManager;
+    private MapManager                      mapManager;
 
     [Header("GameMenu")]
-    [SerializeField] PauseMenu pauseMenu;
-    [SerializeField] VictoryMenu victoryMenu;
-    [SerializeField] GameOverMenu gameOverMenu;
-    [SerializeField] SelectedMapMenu mapMenu;
-    [SerializeField] InstructionMenu instructionMenu;
+    [SerializeField] PauseMenu              pauseMenu;
+    [SerializeField] VictoryMenu            victoryMenu;
+    [SerializeField] GameOverMenu           gameOverMenu;
+    [SerializeField] SelectedMapMenu        mapMenu;
+    [SerializeField] InstructionMenu        instructionMenu;
 
     [Header("TowerMenu")]
-    [SerializeField] InitMenu initMenu;
-    [SerializeField] UpgradeMenu upgradeMenu;
-    [SerializeField] CheckSymbol checkSymbol;
+    [SerializeField] InitMenu               initMenu;
+    [SerializeField] UpgradeMenu            upgradeMenu;
+    [SerializeField] CheckSymbol            checkSymbol;
 
     [Header("TowerStatus")]
-    [SerializeField] CurrentTowerSttPanel currentTowerSttPanel;
-    [SerializeField] UpgradeTowerSttPanel upgradeTowerSttPanel;
+    [SerializeField] CurrentTowerSttPanel   currentTowerSttPanel;
+    [SerializeField] UpgradeTowerSttPanel   upgradeTowerSttPanel;
 
     [Header("GameStatus")]
-    [SerializeField] GameSttPanel gameSttPanel;
+    [SerializeField] GameSttPanel           gameSttPanel;
 
-    private TowerPresenter selectedTower;
+    private TowerPresenter                  selectedTower;
 
     private void Awake()
     {
@@ -71,25 +71,25 @@ public class GamePlayUIManager : MonoBehaviour
                                 BulletDataReader bulletDataReader,
                                 UnitDataReader unitDataReader)
     {
-        raycastHandler = FindObjectOfType<RaycastHandler>();
-        towerActionHandler = FindObjectOfType<TowerActionHandler>();
-        gamePlayManager = FindObjectOfType<GamePlayManager>();
-        mapManager = FindAnyObjectByType<MapManager>();
+        raycastHandler          = FindObjectOfType<RaycastHandler>();
+        towerActionHandler      = FindObjectOfType<TowerActionHandler>();
+        gamePlayManager         = FindObjectOfType<GamePlayManager>();
+        mapManager              = FindAnyObjectByType<MapManager>();
 
-        initMenu = FindObjectOfType<InitMenu>();
+        initMenu                = FindObjectOfType<InitMenu>();
 
-        upgradeMenu = FindObjectOfType<UpgradeMenu>();
-        checkSymbol = FindObjectOfType<CheckSymbol>();
+        upgradeMenu             = FindObjectOfType<UpgradeMenu>();
+        checkSymbol             = FindObjectOfType<CheckSymbol>();
 
-        pauseMenu = FindObjectOfType<PauseMenu>();
-        victoryMenu = FindObjectOfType<VictoryMenu>();
-        gameOverMenu = FindObjectOfType<GameOverMenu>();
-        mapMenu = FindObjectOfType<SelectedMapMenu>();
-        instructionMenu = FindObjectOfType<InstructionMenu>();
+        pauseMenu               = FindObjectOfType<PauseMenu>();
+        victoryMenu             = FindObjectOfType<VictoryMenu>();
+        gameOverMenu            = FindObjectOfType<GameOverMenu>();
+        mapMenu                 = FindObjectOfType<SelectedMapMenu>();
+        instructionMenu         = FindObjectOfType<InstructionMenu>();
 
-        currentTowerSttPanel = FindObjectOfType<CurrentTowerSttPanel>();
-        upgradeTowerSttPanel = FindObjectOfType<UpgradeTowerSttPanel>();
-        gameSttPanel = FindObjectOfType<GameSttPanel>();
+        currentTowerSttPanel    = FindObjectOfType<CurrentTowerSttPanel>();
+        upgradeTowerSttPanel    = FindObjectOfType<UpgradeTowerSttPanel>();
+        gameSttPanel            = FindObjectOfType<GameSttPanel>();
 
         initMenu.PrepareGame(towerDataReader);
         upgradeTowerSttPanel.PrepareGame(towerDataReader, bulletDataReader, unitDataReader);
@@ -98,43 +98,43 @@ public class GamePlayUIManager : MonoBehaviour
     #region REGISTER EVENT
     private void RegisterInputControllerEvent()
     {
-        raycastHandler.OnRaycastHitNull += HandleRaycastHitNull;
-        raycastHandler.OnSelectedEmptyPlot += HandleOnSelectedEmptyPlot;
-        raycastHandler.OnSelectedBulletTower += HandleOnSelectedBulletTower;
-        raycastHandler.OnSelectedBarrackTower += HandleOnSelectedBarrackTower;
+        raycastHandler.OnRaycastHitNull         += HandleRaycastHitNull;
+        raycastHandler.OnSelectedEmptyPlot      += HandleOnSelectedEmptyPlot;
+        raycastHandler.OnSelectedBulletTower    += HandleOnSelectedBulletTower;
+        raycastHandler.OnSelectedBarrackTower   += HandleOnSelectedBarrackTower;
 
-        towerActionHandler.OnFirstButtonClick += HandleShowCheckSymbol;
-        towerActionHandler.OnTryToInitTower += HandleOnTryToInitTower;
+        towerActionHandler.OnFirstButtonClick   += HandleShowCheckSymbol;
+        towerActionHandler.OnTryToInitTower     += HandleOnTryToInitTower;
         towerActionHandler.OnGuardPointBtnClick += HandleGuardPointBtnClick;
-        towerActionHandler.OnTryToUpgradeTower += HandleOnTryToUpgradeTower;
+        towerActionHandler.OnTryToUpgradeTower  += HandleOnTryToUpgradeTower;
     }
 
     private void UnregisterInputControllerEvent()
     {
-        raycastHandler.OnRaycastHitNull -= HandleRaycastHitNull;
-        raycastHandler.OnSelectedEmptyPlot -= HandleOnSelectedEmptyPlot;
-        raycastHandler.OnSelectedBulletTower -= HandleOnSelectedBulletTower;
-        raycastHandler.OnSelectedBarrackTower -= HandleOnSelectedBarrackTower;
+        raycastHandler.OnRaycastHitNull         -= HandleRaycastHitNull;
+        raycastHandler.OnSelectedEmptyPlot      -= HandleOnSelectedEmptyPlot;
+        raycastHandler.OnSelectedBulletTower    -= HandleOnSelectedBulletTower;
+        raycastHandler.OnSelectedBarrackTower   -= HandleOnSelectedBarrackTower;
 
-        towerActionHandler.OnFirstButtonClick -= HandleShowCheckSymbol;
-        towerActionHandler.OnTryToInitTower -= HandleOnTryToInitTower;
+        towerActionHandler.OnFirstButtonClick   -= HandleShowCheckSymbol;
+        towerActionHandler.OnTryToInitTower     -= HandleOnTryToInitTower;
         towerActionHandler.OnGuardPointBtnClick -= HandleGuardPointBtnClick;
-        towerActionHandler.OnTryToUpgradeTower -= HandleOnTryToUpgradeTower;
+        towerActionHandler.OnTryToUpgradeTower  -= HandleOnTryToUpgradeTower;
     }
 
     private void RegisterGamePlayManagerEvent()
     {
-        gamePlayManager.OnGoldChangeForUI += HandleGoldChange;
-        gamePlayManager.OnLiveChangeForUI += HandleLiveChange;
-        gamePlayManager.OnFinishedMatch += HandleFinishedMatch;
+        gamePlayManager.OnGoldChangeForUI       += HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI       += HandleLiveChange;
+        gamePlayManager.OnFinishedMatch         += HandleFinishedMatch;
         gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave += HandleUpdateCurrentWave;
     }
 
     private void UnregisterGamePlayManagerEvent()
     {
-        gamePlayManager.OnGoldChangeForUI -= HandleGoldChange;
-        gamePlayManager.OnLiveChangeForUI -= HandleLiveChange;
-        gamePlayManager.OnFinishedMatch -= HandleFinishedMatch;
+        gamePlayManager.OnGoldChangeForUI       -= HandleGoldChange;
+        gamePlayManager.OnLiveChangeForUI       -= HandleLiveChange;
+        gamePlayManager.OnFinishedMatch         -= HandleFinishedMatch;
         gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave -= HandleUpdateCurrentWave;
     }
     #endregion

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GamePlayManager : MonoBehaviour
@@ -7,12 +8,7 @@ public class GamePlayManager : MonoBehaviour
     public int gold = 200;
     public int lives = 20;
     public int currentLives;
-    [HideInInspector] public int    archerTowerInitGold;
-    [HideInInspector] public int    mageTowerInitGold;
-    [HideInInspector] public int    barrackTowerInitGold;
-    [HideInInspector] public int    cannonTowerInitGold;
-    [HideInInspector] public int    towerUpgradeGold;
-    [HideInInspector] public int    towerSellGold;
+    private Dictionary<TowerType, int> towerGoldInit = new();
     private TowerDataReader         towerDataReader;
     private EnemyManager            enemyManager;
     private GamePlayUIManager       gamePlayUIManager;
@@ -32,8 +28,6 @@ public class GamePlayManager : MonoBehaviour
     public event Action             OnGoldChangeForUI;
     public event Action<int>        OnLiveChangeForUI;
     public event Action<float>      OnFinishedMatch;
-    
-    
 
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
@@ -43,15 +37,15 @@ public class GamePlayManager : MonoBehaviour
                             BulletTowerManager bulletTM, BarrackTowerManager barrackTM,
                             DustFX dFX)
     {
-        LoadComponents(tDR, gPUIE,eM,rH,tAH,eSM,bulletTM,barrackTM,dFX);
+        LoadComponents(tDR, gPUIE, eM, rH, tAH, eSM, bulletTM, barrackTM, dFX);
         RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
+        GetTowerInitGold();
     }
 
-    public void GetInfor(MapData mapData)
+    public void GetMapInfor(MapData mapData)
     {
-        GetTowerInitGold();
         GetCurentMapInitGold(mapData);
         GetCurrentMapLive(mapData);
         currentLives = lives;
@@ -92,10 +86,14 @@ public class GamePlayManager : MonoBehaviour
 
     private void GetTowerInitGold()
     {
-        archerTowerInitGold     = towerDataReader.towerDataListSO.GetGoldInit(TowerType.ArcherTower.ToString());
-        mageTowerInitGold       = towerDataReader.towerDataListSO.GetGoldInit(TowerType.MageTower.ToString());
-        barrackTowerInitGold    = towerDataReader.towerDataListSO.GetGoldInit(TowerType.Barrack.ToString());
-        cannonTowerInitGold     = towerDataReader.towerDataListSO.GetGoldInit(TowerType.CannonTower.ToString());
+        int archerTowerInitGold = towerDataReader.towerDataListSO.GetGoldInit(TowerType.ArcherTower.ToString());
+        int mageTowerInitGold = towerDataReader.towerDataListSO.GetGoldInit(TowerType.MageTower.ToString());
+        int barrackTowerInitGold = towerDataReader.towerDataListSO.GetGoldInit(TowerType.Barrack.ToString());
+        int cannonTowerInitGold = towerDataReader.towerDataListSO.GetGoldInit(TowerType.CannonTower.ToString());
+        towerGoldInit.Add(TowerType.ArcherTower, archerTowerInitGold);
+        towerGoldInit.Add(TowerType.MageTower, mageTowerInitGold);
+        towerGoldInit.Add(TowerType.Barrack, barrackTowerInitGold);
+        towerGoldInit.Add(TowerType.CannonTower, cannonTowerInitGold);
     }
 
     #region REGISTER EMPTYPLOT CLICK EVENT, TOWER BUTTON CLICK EVENT, SELECTED TOWER EVENT
@@ -186,18 +184,13 @@ public class GamePlayManager : MonoBehaviour
         OnGoldChangeForUI?.Invoke();
     }
 
-    #region INIT TOWER
-    private void OnInitTower(int goldRequired, Action action)
-    {
-        if(gold < goldRequired) return;
-        action?.Invoke();
-        gold -= goldRequired;
-        OnGoldChangeForUI?.Invoke();
-    }
-    
+    #region INIT TOWER   
     // Init tower
     private void HandleInitTower(TowerType  towerType)
     {
+        if (!towerGoldInit.ContainsKey(towerType)) return;
+        if (towerGoldInit[towerType] > gold) return;
+
         raycastHandler.blockRaycast = true;
         AudioManager.Instance.PlaySound(soundEffectSO.BuildSound);
         selectedEmptyPlot.DisableCollider();
@@ -234,22 +227,29 @@ public class GamePlayManager : MonoBehaviour
 
     private void InitArcherTower()
     {
-        OnInitTower(archerTowerInitGold, () => bulletTowerManager.InitArcherTower(initMenuPanelPos, selectedEmptyPlot));
+        OnInitTower(towerGoldInit[TowerType.ArcherTower], () => bulletTowerManager.InitArcherTower(initMenuPanelPos, selectedEmptyPlot));
     }
 
     private void InitMageTower()
     {
-        OnInitTower(mageTowerInitGold, () => bulletTowerManager.InitMageTower(initMenuPanelPos, selectedEmptyPlot));
+        OnInitTower(towerGoldInit[TowerType.MageTower], () => bulletTowerManager.InitMageTower(initMenuPanelPos, selectedEmptyPlot));
     }
 
     private void InitBarrackTower()
     {
-        OnInitTower(barrackTowerInitGold, () => barrackTowerManager.InitBarack(initMenuPanelPos, selectedEmptyPlot));
+        OnInitTower(towerGoldInit[TowerType.Barrack], () => barrackTowerManager.InitBarack(initMenuPanelPos, selectedEmptyPlot));
     }
 
     private void InitCannonTower()
     {
-        OnInitTower(cannonTowerInitGold, () => bulletTowerManager.InitCannonTower(initMenuPanelPos, selectedEmptyPlot));
+        OnInitTower(towerGoldInit[TowerType.CannonTower], () => bulletTowerManager.InitCannonTower(initMenuPanelPos, selectedEmptyPlot));
+    }
+
+    private void OnInitTower(int goldRequired, Action action)
+    {
+        action?.Invoke();
+        gold -= goldRequired;
+        OnGoldChangeForUI?.Invoke();
     }
     #endregion
 

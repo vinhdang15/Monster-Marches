@@ -658,7 +658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6559088346158293472
 RectTransform:
   m_ObjectHideFlags: 0
@@ -930,7 +930,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -5494,6 +5494,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn - Click Pause Game
       objectReference: {fileID: 0}
+    - target: {fileID: 606569391948501129, guid: cbdaebe0fe61dc94eb6c3d34ad46d36c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4785963933435500849, guid: cbdaebe0fe61dc94eb6c3d34ad46d36c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5600,6 +5604,10 @@ PrefabInstance:
     - target: {fileID: 2036224235358266398, guid: 7414ead0232e7b641bdafff1cdbc02fd, type: 3}
       propertyPath: m_Name
       value: FPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036224235358266398, guid: 7414ead0232e7b641bdafff1cdbc02fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988823796867537852, guid: 7414ead0232e7b641bdafff1cdbc02fd, type: 3}
       propertyPath: m_Pivot.x
@@ -5856,6 +5864,15 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4807095929956311145, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_text
+      value: Press the Call Wave button to call the next wave early and earn bonus
+        gold.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909202437086315987, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5071859540152632092, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -50
@@ -5940,9 +5957,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5419358492162682046, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7035888285740899946, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
       propertyPath: m_Name
       value: InstructionMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7035888285740899946, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7458240655761741247, guid: c93f6ccc921db4446b5292f819adbd29, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -5994,6 +6019,10 @@ PrefabInstance:
     - target: {fileID: 4596346410396370891, guid: 30ce070307a47fb449431209162f9943, type: 3}
       propertyPath: m_Name
       value: GameSttPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596346410396370891, guid: 30ce070307a47fb449431209162f9943, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5409134405800650544, guid: 30ce070307a47fb449431209162f9943, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6403,7 +6432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6478756400899872620, guid: 1c57b01d80fdd9649822f754f886f976, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 450
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6478756400899872620, guid: 1c57b01d80fdd9649822f754f886f976, type: 3}
       propertyPath: m_LocalPosition.x

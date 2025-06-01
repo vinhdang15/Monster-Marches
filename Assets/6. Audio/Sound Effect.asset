@@ -31,5 +31,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5c5becb6a0b61da47a437f0ef757b018, type: 3}
   - {fileID: 8300000, guid: cfbf3a23034fd67439da0fc965a90062, type: 3}
   monsterDie:
-  - {fileID: 8300000, guid: 6cedc32126ed55548a3dcde0fdf720b6, type: 3}
+  - {fileID: 8300000, guid: 61c096fa79ad401418705891a06589cd, type: 3}
   endPointSound: {fileID: 8300000, guid: a94511438bbc92849b75a2ef68d90d7b, type: 3}

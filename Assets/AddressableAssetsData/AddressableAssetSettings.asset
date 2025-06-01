@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: b2c60dcee908ab7469e1a43cdf961120
   m_currentHash:
     serializedVersion: 2
-    Hash: 0bf5ee36225454dec11665c179012931
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -64,9 +64,9 @@ MonoBehaviour:
       - m_Id: 0f9b427e112151d4d85df10a2d6fcf73
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 466731909e1a0b74ca1f5fdfc95d359f
-        m_Value: ServerData/StandaloneWindows64
+        m_Value: ServerData/WebGL
       - m_Id: 9cc6f13ff6149a4428a5e612f86484a5
-        m_Value: https://vinhdang15.github.io/Monster-Marches-Data/StandaloneWindows64
+        m_Value: https://vinhdang15.github.io/Monster-Marches-Data/WebGL
     m_ProfileEntryNames:
     - m_Id: b6c21d4339d953b49a0c98574528fc82
       m_Name: BuildTarget

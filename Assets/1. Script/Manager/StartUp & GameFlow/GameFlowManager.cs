@@ -143,7 +143,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void SetupGameStt()
     {
-        gamePlayManager.GetInfor(currentMapData);
+        gamePlayManager.GetMapInfor(currentMapData);
         gamePlayUIManager.GetInfor();
     }
 
@@ -185,7 +185,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void ClearAllGameManager()
     {
-        decorObjManager.ClearDecayObj();
+        decorObjManager.ClearDecorObj();
         emptyPlotManager.ClearEmptyPlot();
 
         bulletTowerManager.ClearBulletTowers();

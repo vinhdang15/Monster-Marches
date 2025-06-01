@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class DecorObjectManager : MonoBehaviour
 {
-    private DecorObjDataReader decorObjDataReader;
-    private EnemyManager enemyManager;
+    private DecorObjDataReader  decorObjDataReader;
+    private EnemyManager        enemyManager;
     private GamePlayManager     gamePlayManager;
     private List<Enemy>         ActiveUnitList => enemyManager.ActiveUnitList;
     private Enemy               decayEnemy;
-    public List<DecorObject> decorObjectList = new();
+    public List<DecorObject>    decorObjectList = new();
     public List<DecorObject>    staticObjList = new();
     public List<DecorObject>    animatedObjList = new();
     public List<DecorObject>    decayObjList = new();
@@ -75,7 +75,7 @@ public class DecorObjectManager : MonoBehaviour
         }
     }
 
-    #region DECOR OBJECT
+    #region DECAY OBJECT
     private void StartDecayObjCoroutine()
     {
         if(decayObjCoroutine != null)
@@ -85,28 +85,19 @@ public class DecorObjectManager : MonoBehaviour
         decayObjCoroutine = StartCoroutine(UpdateDecayObjsprite());
     }
 
-    private void StartAnimatedObjCoroutine()
-    {
-        if(animatedObjCoroutine != null)
-        {
-            StopCoroutine(animatedObjCoroutine);
-        }
-        animatedObjCoroutine = StartCoroutine(UpdateAnimatedObj());
-    }
-
     private IEnumerator UpdateDecayObjsprite()
     {
         while (true)
         {
             if (HasDecayEnemy())
             {
+                DecayObjChangeSprite(2f);
+                yield return new WaitForSeconds(checkInterval / 3);
+
                 DecayObjChangeSprite(3f);
                 yield return new WaitForSeconds(checkInterval / 3);
 
                 DecayObjChangeSprite(4f);
-                yield return new WaitForSeconds(checkInterval / 3);
-
-                DecayObjChangeSprite(5f);
                 yield return new WaitForSeconds(checkInterval / 3);
             }
             else if (gamePlayManager.currentLives != 0)
@@ -123,7 +114,7 @@ public class DecorObjectManager : MonoBehaviour
 
     private void DecayObjChangeSprite(float decayTriggerRange)
     {
-        if(decayEnemy.CurrentHp == 0) return;
+        if(decayEnemy == null) return;
         foreach(var decayObj in decayObjList)
         {
             if(GetDistance(decayObj, decayEnemy) < decayTriggerRange && decayEnemy.isMoving)
@@ -131,20 +122,6 @@ public class DecorObjectManager : MonoBehaviour
                 decayObj.ChangeSprite();
             }
         }
-    }
-
-    private bool HasDecayEnemy()
-    {
-        foreach (Enemy enemy in ActiveUnitList)
-        {
-            if (enemy.UnitID == UnitID.Enemy_A_1.ToString())
-            {
-                decayEnemy = enemy;
-                return true;
-            }
-        }
-        decayEnemy = null;
-        return false;
     }
 
     private void DecayObjHealing()
@@ -162,41 +139,92 @@ public class DecorObjectManager : MonoBehaviour
             d.SetDefaultSprite();
         }
     }
+    #endregion
 
-    public void ClearDecayObj()
+    #region ANIMATED OBJECT
+    private void StartAnimatedObjCoroutine()
     {
-        foreach(var obj in decorObjectList)
+        if(animatedObjCoroutine != null)
         {
-            if(obj.isDecayObj)
+            StopCoroutine(animatedObjCoroutine);
+        }
+        animatedObjCoroutine = StartCoroutine(UpdateAnimatedObjSprite());
+    }
+
+    private IEnumerator UpdateAnimatedObjSprite()
+    {
+        while (true)
+        {
+            if (!HasDecayEnemy())
             {
-               obj.SetDefaultSprite();
+                LoopAllAnimatedObjects();
+                yield return new WaitForSeconds(0.1f);
+            }
+            if (HasDecayEnemy())
+            {
+                LoopAnimatedObjectsOutsideRange(4f);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
+
+    private void LoopAllAnimatedObjects()
+    {
+        foreach (var obj in animatedObjList)
+        {
+            obj.LoopChangeSprite();
+        }
+    }
+    private void LoopAnimatedObjectsOutsideRange(float decayTriggerRange)
+    {
+        foreach (var obj in animatedObjList)
+        {
+            if (ShouldAnimate(obj, decayTriggerRange))
+            {
+                obj.LoopChangeSprite();
+            }
+        }
+
+    }
+
+    private bool ShouldAnimate(DecorObject obj, float range)
+    {
+        return  decayEnemy != null &&
+                decayEnemy.isMoving &&
+                GetDistance(obj, decayEnemy) > range &&
+                obj.transform.position.x < decayEnemy.transform.position.x;
+    }
+    #endregion
+
+    private bool HasDecayEnemy()
+    {
+        foreach (Enemy enemy in ActiveUnitList)
+        {
+            if (enemy.UnitID == UnitID.Enemy_A_1.ToString())
+            {
+                decayEnemy = enemy;
+                return true;
+            }
+        }
+        decayEnemy = null;
+        return false;
+    }
+
+    public void ClearDecorObj()
+    {
+        foreach (var obj in decorObjectList)
+        {
+            if (obj.isDecayObj)
+            {
+                obj.SetDefaultSprite();
             }
             DecorObjectPool.Instance.ReturnDecayObj(obj);
         }
     }
-    #endregion
-
-    #region ANIMATED OBJECT
-    private IEnumerator UpdateAnimatedObj()
-    {
-        while(true)
-        {
-            foreach(var obj in decorObjectList)
-            {
-                if(obj.isAnimatedObj)
-                {
-                    obj.LoopChangeSprite();
-                }
-            }
-                yield return new WaitForSeconds(0.1f);
-        }
-        
-    }
-    #endregion
 
     private float GetDistance(DecorObject decayObj, Enemy enemy)
     {
-        if(enemy == null) return 10f;
+        if (enemy == null) return 10f;
         return Vector2.Distance(decayObj.transform.position, enemy.transform.position);
     }
 }
