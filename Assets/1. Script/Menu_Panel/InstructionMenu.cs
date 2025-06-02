@@ -22,7 +22,7 @@ public class InstructionMenu : MenuBase
     // Button event
     public void HideInstruction()
     {
-        nextButtonClickCount = 0;
+        nextButtonClickCount = 1;
         gameObject.SetActive(false);
     }
 

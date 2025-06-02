@@ -16785,7 +16785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1342089817}
   m_Layer: 0
-  m_Name: WindMill
+  m_Name: 1_WindMill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18409,7 +18409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1455325721}
   m_Layer: 0
-  m_Name: Field
+  m_Name: 1_Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20499,7 +20499,7 @@ Transform:
   m_GameObject: {fileID: 1625440067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.66, y: -3.14, z: 0}
+  m_LocalPosition: {x: -2.66, y: 0.02, z: 0}
   m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21419,7 +21419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1675566470
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28638,7 +28638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1513401716146613107
 GameObject:
   m_ObjectHideFlags: 0

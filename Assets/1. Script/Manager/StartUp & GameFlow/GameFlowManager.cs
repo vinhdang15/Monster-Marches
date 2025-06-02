@@ -181,6 +181,7 @@ public class GameFlowManager : MonoBehaviour
 
         sceneController.LoadWorldMapScene();
         Time.timeScale = 1;
+        mapManager.UpdateMapPresenterInfo();
     }
 
     private void ClearAllGameManager()

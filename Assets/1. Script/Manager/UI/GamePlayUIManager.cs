@@ -278,6 +278,7 @@ public class GamePlayUIManager : MonoBehaviour
     {
         victoryMenu.SetStarScore(lifePercentage);
         victoryMenu.StartVictoryMenu();
+        mapManager.UpdateMapDataJson();
         mapManager.SetCurrentMapStarPoint(victoryMenu.StarScore());
     }
 

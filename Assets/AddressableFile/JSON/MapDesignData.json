@@ -18,7 +18,7 @@
     "description": "Two paths wind through the forest, but all lead to ruin if you fail. Intercept the dark creatures before they taint the crops and skies.\n\nA devastating monster will arrive late - be ready",
     "initMapBtnPos": {
       "x": -2.66,
-      "y": -3.14
+      "y": 0.02
     }
   }
 ]

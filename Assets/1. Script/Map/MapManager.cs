@@ -112,22 +112,25 @@ public class MapManager : MonoBehaviour
         this.currentMapStarPoint = starPoint;
     }
 
-    public void UpdateMapPresenterInfo()
+    public void UpdateMapDataJson()
     {
         // Update progress save-data
         MapProgressManager.UpdateProgress(selectedMapPresenter.mapModel.MapID, currentMapStarPoint);
-
-        // Update mapBtn UI
-        UpdateSelectedMapPresenterInfo(currentMapStarPoint);
-        UpdateNextMapPresenterInfo();
 
         // Update progress runtime-data
         mapDataReader.ResetFullMapData();
     }
 
+    public void UpdateMapPresenterInfo()
+    {
+        // Update mapBtn UI
+        UpdateSelectedMapPresenterInfo(currentMapStarPoint);
+        UpdateNextMapPresenterInfo();
+    }
+
     private void UpdateSelectedMapPresenterInfo(int starSocre)
     {
-        if (starSocre != -0) selectedMapPresenter.ShowStarBackGround();
+        if (starSocre != 0) selectedMapPresenter.ShowStarBackGround();
 
         selectedMapPresenter.LightUpMapStar(selectedMapPresenter.mapModel.StarScore, starSocre);
         selectedMapPresenter.UpdateMapModel(starSocre);

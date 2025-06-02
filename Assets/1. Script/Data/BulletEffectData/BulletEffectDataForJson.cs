@@ -11,7 +11,7 @@ public class BulletEffectDataForJson : MonoBehaviour
         {
             effectType          = BulletEffectType.Slow.ToString(),
             effectValue         = 50,
-            effectDuration      = 1,
+            effectDuration      = 2,
             effectOccursTime    = 0,
             effectRange         = 0,
         },
