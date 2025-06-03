@@ -10,13 +10,26 @@ As a defender of the land, you must lead the resistance: build towers, command b
 
 Can you stop the withering tide before nature falls completely?
 
-![Gameplay Screenshot](https://github.com/vinhdang15/Monster-Marches/raw/main/Screenshots/demo1.png)
-
 ## 🎮 Play the Game
 👉 [Play on Itch.io](https://vinhdang.itch.io/monstermarches)
 
 ## 🎥 Demo Video
-📺 [Watch on YouTube](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+📺 [Watch on YouTube](https://youtu.be/F_NlWcMJ2zI)
+
+## 📋 Devlog – Adding a New Remote Map (Map 3)
+📺 [Watch on YouTube](https://youtu.be/rejVyvOZs_8)
+
+Added a new map (Map 3) to the remote game data system, making it available in the game on Itch.io.
+Game logic: After a player finishes a map, the next one will be unlocked.
+(Currently, the game has 2 maps.)
+
+1. Start by copying the background sprite for Map 3 from the asset folder into the project, and mark it as Addressable.
+2. Open the scene used for data creation and generate the JSON file for Map 3.
+3. Replace the old JSON files with the new ones (these files were already marked as Addressables).
+4. Rebuild the Addressable bundles and upload them to the server (GitHub Pages).
+5. Before building, make sure you're using the correct build target (e.g., WebGL for Itch.io).
+6. Wait for GitHub Pages to finish updating (usually takes 1–2 minutes).
+7. Refresh the game on Itch.io to test if the new map displays and works correctly.
 
 ## 📖 How to Play
 
