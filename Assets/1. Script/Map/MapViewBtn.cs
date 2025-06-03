@@ -30,21 +30,6 @@ public class MapViewBtn : BtnBase
         image = transform.gameObject.GetComponent<Image>();
     }
 
-    public void UpdateMapInfo(MapModel mapModel)
-    {
-        CheckActiveMapBtn(mapModel);
-        UpdateMapBtnImage(mapModel);
-    }
-
-    private void CheckActiveMapBtn(MapModel mapModel)
-    {
-        if(mapModel.Activate)
-        {
-            transform.gameObject.SetActive(true);
-        }
-        else transform.gameObject.SetActive(false);
-    }
-
     public void UpdateMapBtnImage(MapModel mapModel)
     {
         if(mapModel.StarScore == 0) image.sprite = spriteList[0];

@@ -62,8 +62,8 @@ public class MapManager : MonoBehaviour
             mapPresenterList.Add(mapPresenter);
 
             mapViewBtn.PrepareGame();
-            mapViewBtn.UpdateMapInfo(mapMode);
         }
+        UpdateNextMapPresenterInfo();
     }
 
     public void HandleOnMapBtnClick(MapPresenter mapPresenter)
@@ -139,16 +139,31 @@ public class MapManager : MonoBehaviour
 
     private void UpdateNextMapPresenterInfo()
     {
-        int mapID = selectedMapPresenter.mapModel.MapID;
-        int nextMapPresenterMapID = mapID + 1;
+        // int mapID = selectedMapPresenter.mapModel.MapID;
+        // int nextMapPresenterMapID = mapID + 1;
 
-        foreach (MapPresenter mapPresenter in mapPresenterList)
+        // foreach (MapPresenter mapPresenter in mapPresenterList)
+        // {
+        //     if (selectedMapPresenter.mapModel.StarScore == 0) return;
+        //     if (mapPresenter.mapModel.MapID == nextMapPresenterMapID)
+        //     {
+        //         mapPresenter.mapModel.Activate = true;
+        //         mapPresenter.gameObject.SetActive(true);
+        //     }
+        // }
+
+        for (int i = 0; i < mapPresenterList.Count; i++)
         {
-            if (selectedMapPresenter.mapModel.StarScore == 0) return;
-            if (mapPresenter.mapModel.MapID == nextMapPresenterMapID)
+            if (i == 0) continue;
+            else if (mapPresenterList[i - 1].mapModel.StarScore > 0)
             {
-                mapPresenter.mapModel.Activate = true;
-                mapPresenter.gameObject.SetActive(true);
+                mapPresenterList[i].mapModel.Activate = true;
+                mapPresenterList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                mapPresenterList[i].mapModel.Activate = false;
+                mapPresenterList[i].gameObject.SetActive(false);
             }
         }
     }

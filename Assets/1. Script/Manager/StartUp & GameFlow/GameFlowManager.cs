@@ -91,7 +91,7 @@ public class GameFlowManager : MonoBehaviour
         screenUIManager.HideWorldMapSceneUI();
         screenUIManager.ShowStartGameMenu();
         spriteDisplayController.LoadIntroSprite();
-        mapManager.HideMapBtn();
+        mapManager.CLearAllMapBtn();
     }
 
     // Button Event
