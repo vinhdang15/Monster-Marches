@@ -161,7 +161,7 @@ public class GameInitManager : MonoBehaviour
         enemyWaveDataReader.PrepareGame();
 
         // Game manager prepare game
-        gamePlayManager.PrepareGame(towerDataReader, gamePlayUIManager, enemyManager,
+        gamePlayManager.PrepareGame(towerDataReader, gamePlayUIManager, mapManager, enemyManager,
                                     raycastHandler, towerActionHandler,
                                     enemySpawnerManager, bulletTowerManager,
                                     barrackTowerManager, dustFX);

@@ -8,7 +8,6 @@ public class GamePlayUIManager : MonoBehaviour
     [SerializeField] RaycastHandler         raycastHandler;
     [SerializeField] TowerActionHandler     towerActionHandler;
     [SerializeField] GamePlayManager        gamePlayManager;
-    private MapManager                      mapManager;
 
     [Header("GameMenu")]
     [SerializeField] PauseMenu              pauseMenu;
@@ -74,7 +73,6 @@ public class GamePlayUIManager : MonoBehaviour
         raycastHandler          = FindObjectOfType<RaycastHandler>();
         towerActionHandler      = FindObjectOfType<TowerActionHandler>();
         gamePlayManager         = FindObjectOfType<GamePlayManager>();
-        mapManager              = FindAnyObjectByType<MapManager>();
 
         initMenu                = FindObjectOfType<InitMenu>();
 
@@ -126,7 +124,6 @@ public class GamePlayUIManager : MonoBehaviour
     {
         gamePlayManager.OnGoldChangeForUI       += HandleGoldChange;
         gamePlayManager.OnLiveChangeForUI       += HandleLiveChange;
-        gamePlayManager.OnFinishedMatch         += HandleFinishedMatch;
         gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave += HandleUpdateCurrentWave;
     }
 
@@ -134,7 +131,6 @@ public class GamePlayUIManager : MonoBehaviour
     {
         gamePlayManager.OnGoldChangeForUI       -= HandleGoldChange;
         gamePlayManager.OnLiveChangeForUI       -= HandleLiveChange;
-        gamePlayManager.OnFinishedMatch         -= HandleFinishedMatch;
         gamePlayManager.enemySpawnerManager.OnUpdateCurrentWave -= HandleUpdateCurrentWave;
     }
     #endregion
@@ -274,12 +270,10 @@ public class GamePlayUIManager : MonoBehaviour
         gameOverMenu.Show(gameOverMenu.PauseGame);
     }
 
-    private void HandleFinishedMatch(float lifePercentage)
+    public void HandleFinishedMatch(int lifePercentage)
     {
         victoryMenu.SetStarScore(lifePercentage);
-        victoryMenu.StartVictoryMenu();
-        mapManager.UpdateMapDataJson();
-        mapManager.SetCurrentMapStarPoint(victoryMenu.StarScore());
+        victoryMenu.StartVictoryMenu();        
     }
 
     private int GetCurrentGold()

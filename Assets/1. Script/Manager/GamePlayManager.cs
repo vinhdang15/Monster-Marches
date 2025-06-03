@@ -12,6 +12,7 @@ public class GamePlayManager : MonoBehaviour
     private TowerDataReader         towerDataReader;
     private EnemyManager            enemyManager;
     private GamePlayUIManager       gamePlayUIManager;
+    private MapManager              mapManager;
 
     private RaycastHandler          raycastHandler;
     private TowerActionHandler      towerActionHandler;
@@ -27,17 +28,16 @@ public class GamePlayManager : MonoBehaviour
     private DustFX                  dustFX;
     public event Action             OnGoldChangeForUI;
     public event Action<int>        OnLiveChangeForUI;
-    public event Action<float>      OnFinishedMatch;
-
+ 
     [Header("Audio")]
     [SerializeField] SoundEffectSO soundEffectSO;
 
-    public void PrepareGame(TowerDataReader tDR, GamePlayUIManager gPUIE, EnemyManager eM, RaycastHandler rH,
+    public void PrepareGame(TowerDataReader tDR, GamePlayUIManager gPUIE, MapManager mM, EnemyManager eM, RaycastHandler rH,
                             TowerActionHandler tAH, EnemySpawnerManager eSM,
                             BulletTowerManager bulletTM, BarrackTowerManager barrackTM,
                             DustFX dFX)
     {
-        LoadComponents(tDR, gPUIE, eM, rH, tAH, eSM, bulletTM, barrackTM, dFX);
+        LoadComponents(tDR, gPUIE, mM, eM, rH, tAH, eSM, bulletTM, barrackTM, dFX);
         RegisterEnemyEvent();
         RegisterButtonEvent();
         RegisterCautionClickEvent();
@@ -58,13 +58,14 @@ public class GamePlayManager : MonoBehaviour
         UnregisterCautionClickEvent();
     }
 
-    private void LoadComponents(TowerDataReader tDR, GamePlayUIManager gPUIE, EnemyManager eM, RaycastHandler rH,
+    private void LoadComponents(TowerDataReader tDR, GamePlayUIManager gPUIE, MapManager mM, EnemyManager eM, RaycastHandler rH,
                                 TowerActionHandler tAH, EnemySpawnerManager eSM,
                                 BulletTowerManager bulletTM, BarrackTowerManager barrackTM,
                                 DustFX dFX)
     {
         towerDataReader     = tDR; 
         gamePlayUIManager   = gPUIE;
+        mapManager          = mM;
         enemyManager        = eM;
         raycastHandler      = rH;
         towerActionHandler  = tAH;
@@ -139,7 +140,9 @@ public class GamePlayManager : MonoBehaviour
         enemyManager.OnEnemyDeath -= HandleEnemyDeath;
         enemyManager.OnEnemyReachEndPoint -= HandleEnemyReachEndPoint;
     }
+    #endregion
 
+    #region HANDLE GAME EVENT
     private void HandleEnemyDeath(UnitBase enemy)
     {
         gold += enemy.Gold;
@@ -160,10 +163,23 @@ public class GamePlayManager : MonoBehaviour
     {
         if(enemySpawnerManager.totalEnemies == enemyManager.totalEnemiesDie && currentLives != 0)
         {
-            float lifePercentage = (float)currentLives / lives * 100;
             // Debug.Log(spawnEnemyManager.totalEnemies + "    " + enemyManager.totalEnemiesDie);
-            OnFinishedMatch?.Invoke(lifePercentage);
+            int starSocre = SetMapStarSocre();
+            gamePlayUIManager.HandleFinishedMatch(starSocre);
+
+            mapManager.SetCurrentMapStarPoint(starSocre);
+            mapManager.UpdateMapDataJson();
         }
+    }
+
+    private int SetMapStarSocre()
+    {
+        float lifePercentage = (float)currentLives / lives * 100;
+        int starScore;
+        if (lifePercentage < 60) starScore = 1;
+        else if (lifePercentage < 95) starScore = 2;
+        else starScore = 3;
+        return starScore;
     }
     #endregion
 

@@ -30,31 +30,6 @@ public class JSONDataLoader
 
     public static async Task PrepareGameAsync()
     {
-        // if (Application.platform == RuntimePlatform.WebGLPlayer)
-        // {
-        //     mapDesignDataList       = await LoadMapDesignData();
-        //     decorObjDataList        = await LoadDecorObjData();
-        //     wayPointDataList        = await LoadWaypointData();
-        //     towerDataList           = await LoadTowerData();
-        //     bulletDataList          = await LoadBulletData();
-        //     bulletEffectDataList    = await LoadBulletEffectData();
-        //     unitDataList            = await LoadUnitData();
-        //     skillDataList           = await LoadSkillData();
-        //     enemyWaveDataList       = await LoadEnemyWaveData();
-        // }
-        // else
-        // {
-        //     mapDesignDataList       = await LoadMapDesignDataFromSever();
-        //     decorObjDataList        = await LoadDecorObjDataFromSever();
-        //     wayPointDataList        = await LoadWaypointDataFromSever();
-        //     towerDataList           = await LoadTowerDataFromSever();
-        //     bulletDataList          = await LoadBulletDataFromSever();
-        //     bulletEffectDataList    = await LoadBulletEffectDataFromSever();
-        //     unitDataList            = await LoadUnitDataFromSever();
-        //     skillDataList           = await LoadSkillDataFromSever();
-        //     enemyWaveDataList       = await LoadEnemyWaveDataFromSever();
-        // }
-
         mapDesignDataList       = await LoadMapDesignDataFromSever();
         decorObjDataList        = await LoadDecorObjDataFromSever();
         wayPointDataList        = await LoadWaypointDataFromSever();
@@ -91,11 +66,12 @@ public class JSONDataLoader
         {
             PlayerPrefs.SetString("MapProgressData", json);
             PlayerPrefs.Save();
+            // Debug.Log("Save completed MapProgressData JSON file in PlayerPrefs");
         }
         else
         {
             File.WriteAllText(mapProgressDataSavePath, json);
-            Debug.Log("Create completed MapProgressData JSON file");
+            // Debug.Log("Save completed MapProgressData JSON file in persistentDataPath");
         }
     }
 
@@ -170,7 +146,7 @@ public class JSONDataLoader
             if (PlayerPrefs.HasKey("MapProgressData"))
             {
                 PlayerPrefs.DeleteKey("MapProgressData");
-                Debug.Log("Delete MapProgressData PlayerPrefs");
+                // Debug.Log("Delete MapProgressData PlayerPrefs");
             }
         }
         else
@@ -179,7 +155,7 @@ public class JSONDataLoader
             {
                 File.Delete(mapProgressDataSavePath);
                 hasSaveGameReporter = false;
-                Debug.Log("Delete MapProgressData JSON");
+                // Debug.Log("Delete MapProgressData persistentDataPath");
             }
         }
         

@@ -45,21 +45,9 @@ public class VictoryMenu : MonoBehaviour
         restartBtnRect.anchoredPosition = new Vector2(0, 530);
     }
 
-    public void SetStarScore(float lifePercentage)
+    public void SetStarScore(int starScore)
     {
-        if (lifePercentage < 60)
-        {
-            starScore = 1;
-        }
-        else if (lifePercentage < 95)
-        {
-            starScore = 2;
-        }
-        else
-        {
-            starScore = 3;
-        }
-
+        this.starScore = starScore;
         starMovementController.GetStarScore(StarScore());
     }
 
